@@ -40,7 +40,7 @@ namespace FerrumAddin
             {
                 if (tab.Name == tabName)
                 {
-                    foreach (AW.RibbonPanel panel in tab.Panels)
+                    foreach (AW.RibbonPanel panel in tab.Panels) 
                     {
                         if (panel.Source.Title == panelName)
                         {
