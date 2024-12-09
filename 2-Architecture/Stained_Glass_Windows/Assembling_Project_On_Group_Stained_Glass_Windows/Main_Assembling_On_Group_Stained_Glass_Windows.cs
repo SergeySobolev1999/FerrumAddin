@@ -1,0 +1,33 @@
+﻿using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
+{
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class Main_Assembling_On_Group_Stained_Glass_Windows : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            try
+            {
+                Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Initialize(commandData);
+                WPF_Main_Assembling_On_Group_Stained_Glass_Windows wPF_On_Group_Stained_Glass_Windows = new WPF_Main_Assembling_On_Group_Stained_Glass_Windows();
+                wPF_On_Group_Stained_Glass_Windows.ShowDialog();
+                return Result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+            return Result.Succeeded;
+        }
+    }
+}
