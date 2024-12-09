@@ -35,7 +35,7 @@ namespace FerrumAddin.FM
         public ObservableCollection<MenuItem> FilteredRevitFamilies { get; private set; } = new ObservableCollection<MenuItem>();
         public ObservableCollection<CategoryFilter> MenuCategoryFilters { get; set; } = new ObservableCollection<CategoryFilter>();
         public ObservableCollection<CategoryFilter> FamilyCategoryFilters { get; set; } = new ObservableCollection<CategoryFilter>();
-        private static readonly string SettingsFilePath = Path.Combine(App.downloadDir, "CategoryFiltersSettings");
+        private static readonly string SettingsFilePath = Path.Combine(App.downloadDir, "CategoryFiltersSettings");   
 
 
         private string _menuSearchText;

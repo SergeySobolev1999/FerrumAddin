@@ -261,8 +261,8 @@ namespace FerrumAddin
             panelAR.Visible = false;
 
             PushButtonData Main_The_Floor_Is_Numeric = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric.Main_The_Floor_Is_Numeric");
-            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.logo_icon_248043);
-            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.logo_icon_248043);
+            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.icon32);
+            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.icon32);
             panelAR.AddItem(Main_The_Floor_Is_Numeric);
 
             PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереименование", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
