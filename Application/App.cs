@@ -73,7 +73,7 @@ namespace FerrumAddin
         public static string downloadDir;
         private static readonly string[] fileUrls =
         {
-        "https://github.com/SergeySobolev1999/ZHELEZNO_PLUGIN/raw/refs/heads/main/FerrumAddin.dll"
+        "https://github.com/SergeySobolev1999/FerrumAddin/raw/refs/heads/master/DLL/FerrumAddin.dll"
         };
         private static async Task CheckForUpdates()
         {
