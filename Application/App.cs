@@ -48,6 +48,7 @@ namespace FerrumAddin
                               + tabName + "%" + panelName + "%" + itemName,
                               true) as AW.RibbonItem;
                         }
+                        //фпывп
                     }
                 }
             }
