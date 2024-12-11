@@ -1,0 +1,539 @@
+﻿<Window x:Class="RevitAPI_Basic_Course.Creating_Specifications.WPF_Creating_Specifications"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:RevitAPI_Basic_Course.Creating_Specifications"
+        WindowStartupLocation="CenterScreen"
+            mc:Ignorable="d" 
+        Topmost="True"
+            ResizeMode="NoResize"
+            MinHeight="600" MinWidth="600"
+            MaxHeight="600" MaxWidth="600"
+            d:DesignHeight="600" 
+            d:DesignWidth="600"
+        WindowStyle="None">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
+    <Grid >
+        <DockPanel Margin="0,00,0,00">
+            <StackPanel Orientation="Horizontal" 
+                        WindowChrome.IsHitTestVisibleInChrome="True" 
+                        DockPanel.Dock="Right"  
+                        Height="30" 
+                        FlowDirection="RightToLeft" 
+                        VerticalAlignment="Top"
+                        Background="Gray" 
+                        HorizontalAlignment="Right"  >
+                <Button Name="closeWPF" 
+                        Height="30" 
+                        Width="100" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Top" 
+                        Margin="0,0,0,0" 
+                        Content="Закрыть"   
+                         FontFamily="ISOCPEUR"
+                        Click="close_Click"   
+                        FontSize="15"
+                        RenderTransformOrigin="-7.767,0.712" 
+                        Background="Gray" 
+                        BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+                    DockPanel.Dock="Top" 
+                    Height="30" 
+                    VerticalAlignment="Top" 
+                    Margin="0,0,0,0" MouseDown="Label_MouseDown">
+                <Image Margin="0,0,470,0" Source="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/Лого-2.png" Stretch="Fill"/>
+            </Border>
+
+        </DockPanel>
+        <ComboBox 
+            Name ="shedule_Elements"
+            Margin="10,482,0,0"
+            Width="420" 
+            FontFamily="ISOCPEUR"
+            ToolTip="Выбор типоразмера листа"
+            Height="20"
+            HorizontalAlignment="Left"
+            FontSize="12"
+            VerticalAlignment="Top"  >
+        </ComboBox>
+        <ComboBox 
+         Name ="shedule_Elements_Next"
+         Margin="10,555,0,0"
+         Width="420" 
+         FontFamily="ISOCPEUR"
+            ToolTip="Выбор типоразмера листа"
+         Height="20"
+         HorizontalAlignment="Left"
+         FontSize="12"
+         VerticalAlignment="Top" >
+        </ComboBox>
+        <Line
+            X1="350" Y1="90"
+            X2="600" Y2="90"
+            Stroke="Gray"
+            StrokeThickness="1" 
+            Margin="0,0,0,0" />
+        <Line
+            X1="350" Y1="120"
+            X2="600" Y2="120"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="475" Y1="90"
+            X2="475" Y2="120"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="250" Y1="60"
+            X2="250" Y2="430"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="350" Y1="60"
+            X2="350" Y2="430"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <ScrollViewer 
+                x:Name="scrollViewer2"
+                VerticalScrollBarVisibility="Visible" 
+                HorizontalScrollBarVisibility="Visible"
+                FontSize="15"
+                FontFamily="ISOCPEUR" 
+                Margin="350,120,0,135"
+                ToolTip="Список спецификаий для обработки"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Height="280"
+            PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                Width="250" />
+            <Line
+            X1="350" Y1="400"
+            X2="600" Y2="400"
+            Stroke="Gray"
+            StrokeThickness="1" />
+
+        <ScrollViewer 
+            x:Name="scrollViewer1"
+            VerticalScrollBarVisibility="Visible" 
+            HorizontalScrollBarVisibility="Visible"
+            VerticalAlignment="Top"
+            Height="340"
+            CanContentScroll="True"
+            PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+            ToolTip="Список спецификаий из модели"
+            Width="249"
+            FontSize="15"
+            FontFamily="ISOCPEUR" 
+            Margin="0,90,350,0"/>
+        <Line
+            X1="0" Y1="60"
+            X2="600" Y2="60"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="0" Y1="430"
+            X2="600" Y2="430"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="0" Y1="460"
+            X2="500" Y2="460"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="0" Y1="580"
+            X2="600" Y2="580"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="500" Y1="430"
+            X2="500" Y2="580"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+           X1="0" Y1="507"
+           X2="500" Y2="507"
+           Stroke="Gray"
+           StrokeThickness="1" />
+        <Line
+       X1="10" Y1="532"
+       X2="490" Y2="532"
+       Stroke="Gray"
+       StrokeThickness="1" />
+        <Line
+            X1="440" Y1="465"
+            X2="440" Y2="503"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+       X1="440" Y1="537"
+       X2="440" Y2="575"
+       Stroke="Gray"
+       StrokeThickness="1" />
+        <Line
+            X1="510" Y1="505"
+            X2="590" Y2="505"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="360" Y1="435"
+            X2="360" Y2="455"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="130" Y1="435"
+            X2="130" Y2="435"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="340" Y1="598"
+            X2="340" Y2="582"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <Line
+            X1="550" Y1="598"
+            X2="550" Y2="582"
+            Stroke="Gray"
+            StrokeThickness="1" />
+        <TextBlock HorizontalAlignment="Center" 
+            FontSize="15" 
+            Text="СОЗДАНИЕ СПЕЦИФИКАЦИЙ" 
+            Margin="0,35,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Начать с:" 
+            Margin="10,435,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Имя листов:" 
+            Margin="140,435,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Девят-ка:" 
+            Margin="370,435,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <Button 
+            FontSize="15" 
+            Name="Create"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            Content="Создать" 
+            Margin="500,430,0,0" 
+            ToolTip="Запуск создания листов и разбиения спецификаций"
+            VerticalAlignment="Top" 
+             Height="75"
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747" Click="Create_Click" />
+        <Button  FontSize="15" 
+            Name="Close"   
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            Content="Закрыть" 
+            Margin="500,505,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+                 ToolTip="Закрыть плагин"
+                 Height="75"
+            Foreground="#FF474747" Click="Close_Click_1"/>
+        <TextBlock FontSize="15" 
+            Text="Размер:" 
+            Margin="447,462,100,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+             Text="Размер:" 
+             Margin="447,535,100,0" 
+             VerticalAlignment="Top" 
+             FontFamily="ISOCPEUR" 
+             Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Типоразмер листа: " 
+            Margin="10,462,260,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+             Text="Типоразмер листа переопределения: " 
+             Margin="10,535,260,0" 
+             VerticalAlignment="Top" 
+             FontFamily="ISOCPEUR" 
+             Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Переопределение типоразмера листа начиная со второго" 
+            Margin="100,510,140,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Разработчик: Соболев С.А." 
+            Margin="10,580,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Версия: 1.1" 
+            Margin="250,580,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="Офис цифровой трансформации" 
+            Margin="350,580,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBlock FontSize="15" 
+            Text="2024г." 
+            Margin="555,580,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBox        
+            Name ="inputTextBoxFilterSheets"
+            BorderBrush="{x:Null}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Background="#FFF0F0F0"
+            Text="" 
+             ToolTip="Поиск спецификаций из проекта"
+            FontFamily="ISOCPEUR"
+            FontSize="15"
+            Width="249"
+            Height="30"
+            Margin="0,60,0,0" 
+            TextChanged="inputTextBoxFilterSheetsValue" />
+        <Button FontSize="20"
+            Content="→" 
+            HorizontalAlignment="Left" 
+            Margin="250,60,0,0" 
+            Height="185"
+            Width="100"
+                 ToolTip="Внесение выбранных спецификаций в список для обработки"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            VerticalAlignment="Top" 
+            Click="Button_Click_1"/>
+        <Button FontSize="20"
+            Content="←" 
+            HorizontalAlignment="Left" 
+            Margin="250,245,0,0" 
+            Height="185"
+                ToolTip="Вывод выбранных спецификаций из списка для обработки"
+            Width="100"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            VerticalAlignment="Top" 
+            Click="Button_Click_2"/>
+        <Button 
+            Content="Вверх ↑" 
+            HorizontalAlignment="Left" 
+            Margin="350,90,0,0" 
+            FontFamily="ISOCPEUR" 
+            Height="30"
+            Width="125"
+            ToolTip="Поднять спецификацию вверх"
+            VerticalAlignment="Top"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            FontSize="15"
+            Click="scrollViewer2elementup"/>
+        <Button 
+            Content="Вниз ↓" 
+            HorizontalAlignment="Left" 
+            Margin="475,90,0,0" 
+            VerticalAlignment="Top"
+             Height="30"
+            ToolTip="Опустить спецификацию вниз"
+            Width="125"
+            FontFamily="ISOCPEUR" 
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            FontSize="15" 
+            Click="scrollViewer2elementdown" />
+        <TextBlock        
+            Name ="outputTextBoxFilter2Sheets"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            FontWeight ="Medium"
+            Text="Всего: 0" 
+            FontSize="15"
+            Width="70"
+            ToolTip="Количество спецификаций для обработки"
+            Height="20"
+            Background="{x:Null}"
+            Margin="360,405,0,0" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747"/>
+        <TextBox        
+            Name ="inputNumberSheetsFirst"
+            BorderBrush="{x:Null}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Background="#FFF0F0F0"
+            Text="" 
+            ToolTip="Поле для ввода начального номера листа"
+            FontSize="15"
+            FontFamily="ISOCPEUR" 
+            Width="50"
+            Height="20"
+            Margin="75,435,0,0" 
+            PreviewTextInput="inputNumberSheetsFirstValue" />
+        <TextBox        
+            Name ="inputNameSheets"
+            BorderBrush="{x:Null}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Background="#FFF0F0F0"
+            Text="" 
+            FontFamily="ISOCPEUR" 
+            FontSize="15"
+            ToolTip="Поле для ввода имени будущего листа"
+            Width="130"
+            Height="20"
+            Margin="220,435,0,0" />
+        <CheckBox 
+            Name ="chekFormat9"
+            Content="" 
+            HorizontalAlignment="Left" 
+            Margin="440,438,0,0" 
+             ToolTip="Использовать девятиграфку"
+            VerticalAlignment="Top"/>
+        <CheckBox 
+           Name ="chekFormatLayersOne"
+           Content="" 
+           HorizontalAlignment="Left" 
+            ToolTip="Заменить типоразмеры листов после первого"
+           
+           Margin="80,513,0,0" 
+           VerticalAlignment="Top" />
+        <TextBox        
+            Name ="sizeSegments"
+            BorderBrush="{x:Null}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Background="#FFF0F0F0"
+             ToolTip="Указать размер сегмента"
+            Text="" 
+            FontFamily="ISOCPEUR" 
+            FontSize="15"
+            Width="45"
+            Height="20"
+            Margin="447,482,0,0" 
+            PreviewTextInput="sizeSegmentsValue" />
+        <TextBox        
+            Name ="sizeSegments_Next"
+            BorderBrush="{x:Null}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Background="#FFF0F0F0"
+            Text="" 
+                ToolTip="Указать размер сегмента"
+            FontFamily="ISOCPEUR" 
+            FontSize="15"
+            Width="45"
+            Height="20"
+            Margin="447,555,0,0" 
+            PreviewTextInput="sizeSegmentsValue" />
+        <Button 
+            FontSize="15" 
+            Name="serialize_Data_Download"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            Content="Загрузить" 
+            Margin="460,405,70,0" 
+                ToolTip="Загрузка данных для полей ниже"
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747" Click="Serialize_Download_Data_Click"  />
+        <Button 
+            FontSize="15" 
+            Name="serialize_Data_Discharge"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
+            Content="Сохранить" 
+            Margin="530,405,00,0" 
+            ToolTip="Сохранение данных для полей ниже"
+            VerticalAlignment="Top" 
+            FontFamily="ISOCPEUR" 
+            Foreground="#FF474747" Click="Serialize_Data_Discharge_Click" />
+        <ComboBox 
+            Name ="shedule_Set"
+            Margin="350,60,0,0"
+            Width="160" 
+            FontFamily="ISOCPEUR"
+            Height="30"
+            HorizontalAlignment="Left"
+            FontSize="15"
+            ToolTip="Список используемых наборов листов для печати"
+            VerticalAlignment="Top" 
+            SelectionChanged="shedule_Set_SelectionChanged_1">
+        </ComboBox>
+        <Button 
+            FontSize="15" 
+            Name="shedule_Set_Сonfirmation"
+            Height="30"
+            Width="30"
+            Margin="480,60,30,0"
+             ToolTip="Сохранение набора с определенным именем"
+            FontFamily="ISOCPEUR"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            BorderBrush="{x:Null}"
+            Click="Shedule_Set_Сonfirmation">
+            <Button.Background>
+                <ImageBrush ImageSource="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/renamed.png"/>
+            </Button.Background>
+        </Button>
+        <Button 
+            FontSize="15" 
+            Name="shedule_Set_Save"
+            Height="30"
+            Width="30"
+            Margin="540,60,30,0"  
+             ToolTip="Загрузка сохраненных наборов"
+            FontFamily="ISOCPEUR"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            BorderBrush="{x:Null}"
+            Click="Shedule_Set_Download">
+            <Button.Background>
+                <ImageBrush ImageSource="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/save.png"/>
+            </Button.Background>
+        </Button>
+        <Button 
+            FontSize="15" 
+            Name="shedule_Set_Delete"
+            Height="30"
+            Width="30"
+            Margin="570,60,0,0"  
+            FontFamily="ISOCPEUR"
+             ToolTip="Удаление набора из списка"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            BorderBrush="{x:Null}"
+            Click="Shedule_Delete">
+            <Button.Background>
+                <ImageBrush ImageSource="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/delete.png"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Window>
