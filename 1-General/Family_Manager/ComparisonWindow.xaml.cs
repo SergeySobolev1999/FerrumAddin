@@ -35,8 +35,8 @@ namespace FerrumAddin.FM
         public ObservableCollection<MenuItem> FilteredRevitFamilies { get; private set; } = new ObservableCollection<MenuItem>();
         public ObservableCollection<CategoryFilter> MenuCategoryFilters { get; set; } = new ObservableCollection<CategoryFilter>();
         public ObservableCollection<CategoryFilter> FamilyCategoryFilters { get; set; } = new ObservableCollection<CategoryFilter>();
-        private static readonly string SettingsFilePath = Path.Combine(App.downloadDir, "CategoryFiltersSettings");   
 
+        private static readonly string SettingsFilePath = Path.Combine(App.downloadDir, "CategoryFiltersSettings.json");   
 
         private string _menuSearchText;
         public string MenuSearchText
@@ -132,9 +132,12 @@ namespace FerrumAddin.FM
 
         private void LoadRevitFamilies()
         {
+            //          List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
+            //.WhereElementIsNotElementType().ToElements()
+            //.Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
             List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
-  .WhereElementIsNotElementType().ToElements()
-  .Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
+                    .WhereElementIsNotElementType().ToElements()
+                    .Where(e => e.Category != null).ToList();
 
             // Создаем список для хранения данных
             List<(Category category, string familyName, string typeName)> elementData = new List<(Category, string, string)>();
@@ -156,7 +159,7 @@ namespace FerrumAddin.FM
                     elementData.Add((category, familyName, typeName));
                 }
             }
-
+            List<(Category, string, string)> sdgssdd = elementData;
             // Сортируем список по категории, имени семейства и типу
             var sortedData = elementData
             .GroupBy(data => data.typeName) // Группируем по имени типа

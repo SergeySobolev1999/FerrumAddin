@@ -201,7 +201,7 @@ namespace FerrumAddin
             if (frmTabPath == null)
             {
                 frmTabPath = new XElement("TabPath");
-                frmTabPath.SetAttributeValue("Path", a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\TabItems.xml");
+                frmTabPath.SetAttributeValue("Path", a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\TabItems");
                 root.Add(frmTabPath);
             }
             TabPath = frmTabPath.Attribute("Path").Value;
@@ -220,12 +220,12 @@ namespace FerrumAddin
             ri.Width = 110;
             ComboBox cb = (items[1] as ComboBox);
             cb.AddItems(new List<ComboBoxMemberData>() { new ComboBoxMemberData("Common", "Общие"),
-                                                                             new ComboBoxMemberData("Views", "Виды"),
-                                                                             new ComboBoxMemberData("General", "Общее"),
-                                                                             new ComboBoxMemberData("AR", "АР"),
-                                                                             new ComboBoxMemberData("KR", "КР"),
-                                                                             new ComboBoxMemberData("MEP", "MEP"),
-                                                                             new ComboBoxMemberData("Control", "Управление")});
+                                                         new ComboBoxMemberData("Views", "Виды"),
+                                                         new ComboBoxMemberData("General", "Общее"),
+                                                         new ComboBoxMemberData("AR", "АР"),
+                                                         new ComboBoxMemberData("KR", "КР"),
+                                                         new ComboBoxMemberData("MEP", "MEP"),
+                                                         new ComboBoxMemberData("Control", "Управление")});
 
             cb.CurrentChanged += Cb_CurrentChanged;
 
@@ -271,8 +271,8 @@ namespace FerrumAddin
             panelAR.Visible = false;
 
             PushButtonData Main_The_Floor_Is_Numeric = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric.Main_The_Floor_Is_Numeric"); 
-            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.FamilyManager);
-            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.FamilyManager);
+            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.logo_icon_248043);
+            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.logo_icon_248043);
             panelAR.AddItem(Main_The_Floor_Is_Numeric);
 
             PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереименование", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
