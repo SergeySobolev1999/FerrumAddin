@@ -33,7 +33,7 @@ namespace FerrumAddin
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Process process = Process.GetCurrentProcess();
-            var updaterProcess = Process.Start(new ProcessStartInfo(App.downloadDir + "\\ZHELEZNO_PLUGIN\\Updater.exe", process.Id.ToString()));
+            var updaterProcess = Process.Start(new ProcessStartInfo(App.downloadDir + "\\Updater", process.Id.ToString()));
             Process.GetProcessesByName("Revit").FirstOrDefault().Kill();
             this.Close();
         }
