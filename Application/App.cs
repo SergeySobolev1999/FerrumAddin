@@ -27,6 +27,8 @@ using Autodesk.Revit.ApplicationServices;
 using Transform = Autodesk.Revit.DB.Transform;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 #endregion
 
 namespace FerrumAddin
@@ -74,7 +76,8 @@ namespace FerrumAddin
         public static string downloadDir;
         private static readonly string[] fileUrls =
         {
-        "https://github.com/SergeySobolev1999/FerrumAddin/raw/refs/heads/master/DLL/FerrumAddin.dll"
+            
+        "https://raw.githubusercontent.com/SergeySobolev1999/FerrumAddin/master/DLL/FerrumAddin.dll"
         };
         private static async Task CheckForUpdates()
         {
@@ -198,7 +201,7 @@ namespace FerrumAddin
             if (frmTabPath == null)
             {
                 frmTabPath = new XElement("TabPath");
-                frmTabPath.SetAttributeValue("Path", a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\TabItems");
+                frmTabPath.SetAttributeValue("Path", a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\TabItems.xml");
                 root.Add(frmTabPath);
             }
             TabPath = frmTabPath.Attribute("Path").Value;
@@ -268,8 +271,8 @@ namespace FerrumAddin
             panelAR.Visible = false;
 
             PushButtonData Main_The_Floor_Is_Numeric = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric.Main_The_Floor_Is_Numeric"); 
-            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.icon32);
-            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.icon32);
+            Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.FamilyManager);
+            Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.FamilyManager);
             panelAR.AddItem(Main_The_Floor_Is_Numeric);
 
             PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереименование", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");

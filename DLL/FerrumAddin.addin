@@ -3,7 +3,7 @@
 	<AddIn Type="Command">
 		<Text>Command FerrumAddin</Text>
 		<Description>Some description for FerrumAddin</Description>
-		<Assembly>FerrumAddin.dll</Assembly>
+		<Assembly>ZHELEZNO_PLUGIN\FerrumAddin.dll</Assembly>
 		<FullClassName>FerrumAddin.Command</FullClassName>
 		<ClientId>749e572c-8b05-44df-9adc-59d972ed1c16</ClientId>
 		<VendorId>com.typepad.thebuildingcoder</VendorId>
@@ -11,7 +11,7 @@
 	</AddIn>
 	<AddIn Type="Application">
 		<Name>Application FerrumAddin</Name>
-		<Assembly>FerrumAddin.dll</Assembly>
+		<Assembly>ZHELEZNO_PLUGIN\FerrumAddin.dll</Assembly>
 		<FullClassName>FerrumAddin.App</FullClassName>
 		<ClientId>49d80149-e8c8-4c08-9916-b9c10e80d6bd</ClientId>
 		<VendorId>com.typepad.thebuildingcoder</VendorId>

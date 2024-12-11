@@ -132,51 +132,10 @@ namespace FerrumAddin.FM
 
         private void LoadRevitFamilies()
         {
-            //List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
-            //.WhereElementIsNotElementType().ToElements()
-            //.Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
-            //List<Element> collector_Collection = (List<Element>)new FilteredElementCollector(doc).ToElements()
-            //.Where(e => e.get_Parameter(BuiltInParameter.OST).AsValueString() != null).ToList();
-            //int z = 0;
-            //List<Element> collector = new List<Element>();
-            //List<Element> collector = new List<Element>();
-            FilteredElementCollector collector_Doc = new FilteredElementCollector(doc);
-            //ICollection<Element> allElements = collector_Doc.WherePasses(new ElementIsElementTypeFilter(true)).ToElements();
+            List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
+  .WhereElementIsNotElementType().ToElements()
+  .Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
 
-            ICollection<Element> collector = collector_Doc.OfCategory(BuiltInCategory.OST_Walls)
-                                                    .WhereElementIsElementType()
-                                                    .ToElements();
-            //foreach (Element elem in allElements)
-            //{
-            //    if(elem.Category != null)
-            //    {
-            //        if(elem.Category.Name.ToString() == "Стены"
-            //    || elem.Category.Name.ToString() == "Окна"
-            //    || elem.Category.Name.ToString() == "Двери"
-            //    || elem.Category.Name.ToString() == "Витражи")
-            //        {
-            //            collector.Add(elem);
-            //        }
-            //    }
-
-            //}
-
-            //FilteredElementCollector collector_Doc = new FilteredElementCollector(doc);
-            //List<Element> collector = new List<Element>();
-            //List<Element> collector_Collection = (List<Element>)new FilteredElementCollector(doc)
-            //.WhereElementIsNotElementType().ToElements()
-            //.Where(e => e.Category != null).ToList();
-            //foreach (Element element in collector_Collection)
-            //{
-            //    if (element.Category.Name.ToString() == "Стены"
-            //    || element.Category.Name.ToString() == "Окна"
-            //    || element.Category.Name.ToString() == "Двери"
-            //    || element.Category.Name.ToString() == "Витражи")
-            //    {
-            //        collector.Add(element);
-            //    }
-            //}
-            int a = collector.Count;
             // Создаем список для хранения данных
             List<(Category category, string familyName, string typeName)> elementData = new List<(Category, string, string)>();
 
