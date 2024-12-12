@@ -80,6 +80,7 @@ namespace FerrumAddin.FM
         {
             try
             {
+                JsonDelete jsonDelete = new JsonDelete();
                 InitializeComponent();
             DataContext = this;
             doc = commandData.Application.ActiveUIDocument.Document;
@@ -134,7 +135,7 @@ namespace FerrumAddin.FM
         {
             //          List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
             //.WhereElementIsNotElementType().ToElements()
-            //.Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
+            //.Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();dsg
             List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
                     .WhereElementIsNotElementType().ToElements()
                     .Where(e => e.Category != null).ToList();
@@ -248,7 +249,7 @@ namespace FerrumAddin.FM
                 if (settings != null)
                 {
                     MenuCategoryFilters.Clear();
-                    foreach (var filter in settings.MenuCategoryFilters)
+                    foreach (var filter in settings.MenuCategoryFilters) 
                     {
                         MenuCategoryFilters.Add(filter);
                     }
@@ -474,4 +475,21 @@ namespace FerrumAddin.FM
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+    public class JsonDelete
+    {
+        public JsonDelete()
+        {
+            string path = null;
+            if (File.Exists(Path.Combine(App.downloadDir, "CategoryFiltersSettings.json")))
+            {
+                path = (Path.Combine(App.downloadDir, "CategoryFiltersSettings.json"));
+            }
+            // Проверяем существование файла и удаляем его
+            if (path != null)
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
 }

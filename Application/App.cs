@@ -142,6 +142,7 @@ namespace FerrumAddin
         public RibbonPanel panelGeneral;
         public Result OnStartup(UIControlledApplication a)
         {
+            JsonDelete jsonDelete = new JsonDelete(a);
             application = a;
             Type type = a.GetType();
 
@@ -852,6 +853,21 @@ namespace FerrumAddin
             return false;
         }
     }
-
+    public class JsonDelete
+    {
+        public JsonDelete(UIControlledApplication a)
+        {
+            string path = null;
+            if(File.Exists(a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\CategoryFiltersSettings.json" ) )
+            {
+                path = a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\CategoryFiltersSettings.json";
+            }
+            // Проверяем существование файла и удаляем его
+            if (path != null)
+            {
+                File.Delete(path);
+            }
+        }
+    }
 
 }
