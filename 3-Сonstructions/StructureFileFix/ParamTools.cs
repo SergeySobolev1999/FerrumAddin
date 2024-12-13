@@ -14,7 +14,8 @@ namespace masshtab
             {
                 if (deffile == null)
                 {
-                    throw new Exception("Не подключен файл общих параметров");
+                    new S_Mistake_String("Не подключен файл общих параметров").ShowDialog();
+                    //throw new Exception("Не подключен файл общих параметров");
                 }
                 foreach (DefinitionGroup defgr in deffile.Groups)
                 {
@@ -48,7 +49,8 @@ namespace masshtab
                 }
                 catch (Exception)
                 {
-                    throw new Exception("Не удалось создать группу " + groupName + " в файле общих параметров " + defFile.Filename);
+                    new S_Mistake_String("Не удалось создать группу \" + groupName + \" в файле общих параметров \" + defFile.Filename").ShowDialog();
+                    //throw new Exception("Не удалось создать группу " + groupName + " в файле общих параметров " + defFile.Filename);
                 }
             }
             else
@@ -65,7 +67,8 @@ namespace masshtab
             ExternalDefinition exDef = defs.Create(defOptions) as ExternalDefinition;
             if (exDef == null)
             {
-                throw new Exception("Не удалось создать общий параметр " + myparam.Name);
+                new S_Mistake_String("Не удалось создать общий параметр \" + myparam.Name").ShowDialog();
+                //throw new Exception("Не удалось создать общий параметр " + myparam.Name);
             }
             return exDef;
         }

@@ -42,44 +42,52 @@ namespace masshtab
 
         public bool RemoveOrAddFromRebarCategory(Document doc, Element elem, bool addOrDeleteCat)
         {
-
-            Autodesk.Revit.ApplicationServices.Application app = doc.Application;
-
-            ElementBinding elemBind = this.GetBindingByParamName(Name, doc);
-
-            //получаю список категорий
-            CategorySet newCatSet = app.Create.NewCategorySet();
-            int rebarcatid = (int)(new ElementId(BuiltInCategory.OST_Rebar).Value);
-            foreach (Category cat in elemBind.Categories)
+            try
             {
-                int catId = (int)(cat.Id.Value);
-                if (catId != rebarcatid)
+                    Autodesk.Revit.ApplicationServices.Application app = doc.Application;
+
+                ElementBinding elemBind = this.GetBindingByParamName(Name, doc);
+
+                //получаю список категорий
+                CategorySet newCatSet = app.Create.NewCategorySet();
+                int rebarcatid = (int)(new ElementId(BuiltInCategory.OST_Rebar).Value);
+                foreach (Category cat in elemBind.Categories)
                 {
+                    int catId = (int)(cat.Id.Value);
+                    if (catId != rebarcatid)
+                    {
+                        newCatSet.Insert(cat);
+                    }
+                }
+
+                if (addOrDeleteCat)
+                {
+                    Category cat = elem.Category;
                     newCatSet.Insert(cat);
                 }
-            }
 
-            if (addOrDeleteCat)
-            {
-                Category cat = elem.Category;
-                newCatSet.Insert(cat);
-            }
-
-            TypeBinding newBind = app.Create.NewTypeBinding(newCatSet);
-            if (doc.ParameterBindings.Insert(def, newBind, paramGroup))
-            {
-                return true;
-            }
-            else
-            {
-                if (doc.ParameterBindings.ReInsert(def, newBind, paramGroup))
+                TypeBinding newBind = app.Create.NewTypeBinding(newCatSet);
+                if (doc.ParameterBindings.Insert(def, newBind, paramGroup))
                 {
                     return true;
                 }
                 else
                 {
-                    return false;
+                    if (doc.ParameterBindings.ReInsert(def, newBind, paramGroup))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+                return false;
             }
         }
 
@@ -143,6 +151,7 @@ namespace masshtab
                 ElementBinding elemBind = (ElementBinding)iter.Current;
                 return elemBind;
             }
+            //new S_Mistake_String("не найден параметр " + paramName).ShowDialog();
             throw new Exception("не найден параметр " + paramName);
         }
     }

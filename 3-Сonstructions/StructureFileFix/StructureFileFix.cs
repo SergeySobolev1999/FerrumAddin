@@ -36,7 +36,8 @@ namespace masshtab
 
             if (rebarTypes.Count == 0)
             {
-                new iWindow("В данной модели отсутствуют типы арматурных стержней!").ShowDialog();
+                    new S_Mistake_String("Ошибка. В данной модели отсутствуют типы арматурных стержней!").ShowDialog();
+                    //new iWindow("В данной модели отсутствуют типы арматурных стержней!").ShowDialog();
                 return Result.Failed;
             }
 
@@ -71,8 +72,9 @@ namespace masshtab
             }
             catch
             {
-                new iWindow("Не найден файл общих параметров!").ShowDialog();
-                string commandText = @"https://docs.google.com/document/d/1jajthNsi7Og4Uir7st2rqkeHWUoaNgLOpSToB1odFQc/edit#bookmark=id.6rptroc6lrv7";
+                    //new iWindow("Не найден файл общих параметров!").ShowDialog();
+                    new S_Mistake_String("Ошибка. Не найден файл общих параметров!").ShowDialog();
+                    string commandText = @"https://docs.google.com/document/d/1jajthNsi7Og4Uir7st2rqkeHWUoaNgLOpSToB1odFQc/edit#bookmark=id.6rptroc6lrv7";
                 var proc = new System.Diagnostics.Process();
                 proc.StartInfo.FileName = commandText;
                 proc.StartInfo.UseShellExecute = true;
@@ -83,7 +85,8 @@ namespace masshtab
 
             if (deffile == null)
             {
-                new iWindow("Некорректный файл общих параметров!").ShowDialog();
+                    new S_Mistake_String("Ошибка. Некорректный файл общих параметров!").ShowDialog();
+                    //new iWindow("Некорректный файл общих параметров!").ShowDialog();
                 new Logger(dateTime, className, "Некорректный файл общих параметров.");
                 return Result.Cancelled;
             }
@@ -181,8 +184,8 @@ namespace masshtab
             }
             //string endTime = DateTime.Now.ToLongTimeString();
             //string msg = "Выполнено! Время старта: " + startTime + ", окончания: " + endTime;
-
-            new iWindow("Успешно! Файл станет быстрее.").ShowDialog();
+            new S_Mistake_String("Успешно! Файл станет быстрее.").ShowDialog();
+                //new iWindow("Успешно! Файл станет быстрее.").ShowDialog();
             //Debug.WriteLine(msg);
 
             new Logger(dateTime, className, "Завершение работы.");
