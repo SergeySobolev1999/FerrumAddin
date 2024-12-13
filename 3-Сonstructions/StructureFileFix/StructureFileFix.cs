@@ -24,7 +24,7 @@ namespace masshtab
             UIApplication uiApp = RevitApi.UiApplication; Autodesk.Revit.ApplicationServices.Application rvtApp = uiApp.Application;
             // создание log - файла
             new Logger(dateTime, className, "Старт работы;");
-
+                 
             new Logger(dateTime, className, "Сбор элементов;");
             //получаем все типы арматуры
             List<RebarBarType> rebarTypes = new FilteredElementCollector(doc)
