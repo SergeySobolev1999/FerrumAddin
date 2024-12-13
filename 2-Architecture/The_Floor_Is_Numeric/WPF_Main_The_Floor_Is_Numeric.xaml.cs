@@ -67,7 +67,9 @@ namespace WPFApplication.The_Floor_Is_Numeric
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Data_The_Floor_Is_Numeric.work_Set_Collection.SelectedItems.Count > 0)
+            try
+            {
+                if (Data_The_Floor_Is_Numeric.work_Set_Collection.SelectedItems.Count > 0)
             {
                 System.Windows.Controls.ListView listView1 = new System.Windows.Controls.ListView();
                 for (int i = 0; i < Data_The_Floor_Is_Numeric.work_Set_Collection.Items.Count; i++)
@@ -104,11 +106,19 @@ namespace WPFApplication.The_Floor_Is_Numeric
                 Scrol_Viewer1_The_Floor_Is_Numericw();
                 Scrol_Viewer2_The_Floor_Is_Numericw();
             }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (Data_The_Floor_Is_Numeric.work_Set_Igonre_Collection.SelectedItems.Count > 0)
+            try
+            {
+                if (Data_The_Floor_Is_Numeric.work_Set_Igonre_Collection.SelectedItems.Count > 0)
             {
                 System.Windows.Controls.ListView listView1 = new System.Windows.Controls.ListView();
                 for (int i = 0; i < Data_The_Floor_Is_Numeric.work_Set_Igonre_Collection.Items.Count; i++)
@@ -134,10 +144,18 @@ namespace WPFApplication.The_Floor_Is_Numeric
                 Scrol_Viewer1_The_Floor_Is_Numericw();
                 Scrol_Viewer2_The_Floor_Is_Numericw();
             }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
         }
        public bool Parameter_True()
         {
-            bool chek = true;
+            try
+            {
+                bool chek = true;
             string not_Valid_Position = "";
             List<Category> categoriesWithParameter = new List<Category>();
 
@@ -270,6 +288,14 @@ namespace WPFApplication.The_Floor_Is_Numeric
                 s_Mistake_String.ShowDialog();
             }
             return chek;
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+                return true;
+            }
         }
+
     }
 }

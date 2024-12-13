@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
+using SSDK;
 
 namespace masshtab
 {
@@ -14,26 +15,34 @@ namespace masshtab
 
         public Param(Parameter param, Document doc)
         {
-            
-            def = param.Definition;
-            Name = def.Name;
-
-            InternalDefinition intDef = def as InternalDefinition;
-            if (intDef != null) paramGroup = intDef.GetGroupTypeId();
-
-            guid = param.GUID;
-
-
-            ElementBinding elemBind = this.GetBindingByParamName(Name, doc);
-
-            foreach (Category cat in elemBind.Categories)
+            try
             {
-                categories.Add(cat);
+                def = param.Definition;
+                Name = def.Name;
+
+                InternalDefinition intDef = def as InternalDefinition;
+                if (intDef != null) paramGroup = intDef.GetGroupTypeId();
+
+                guid = param.GUID;
+
+
+                ElementBinding elemBind = this.GetBindingByParamName(Name, doc);
+
+                foreach (Category cat in elemBind.Categories)
+                {
+                    categories.Add(cat);
+                }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
 
         public bool RemoveOrAddFromRebarCategory(Document doc, Element elem, bool addOrDeleteCat)
         {
+
             Autodesk.Revit.ApplicationServices.Application app = doc.Application;
 
             ElementBinding elemBind = this.GetBindingByParamName(Name, doc);
@@ -76,44 +85,53 @@ namespace masshtab
 
         public void AddToProjectParameters(Document doc, Element elem)
         {
-            Autodesk.Revit.ApplicationServices.Application app = doc.Application;
-            //string oldSharedParamsFile = app.SharedParametersFilename;
-
-            
-
-
-            ExternalDefinition exDef = null;
-            string sharedFile = app.SharedParametersFilename;
-            DefinitionFile sharedParamFile = app.OpenSharedParameterFile();
-            foreach (DefinitionGroup defgroup in sharedParamFile.Groups)
+            try
             {
-                foreach (Definition def in defgroup.Definitions)
+                Autodesk.Revit.ApplicationServices.Application app = doc.Application;
+                //string oldSharedParamsFile = app.SharedParametersFilename;
+
+
+
+
+                ExternalDefinition exDef = null;
+                string sharedFile = app.SharedParametersFilename;
+                DefinitionFile sharedParamFile = app.OpenSharedParameterFile();
+                foreach (DefinitionGroup defgroup in sharedParamFile.Groups)
                 {
-                    if (def.Name == Name)
+                    foreach (Definition def in defgroup.Definitions)
                     {
-                        exDef = def as ExternalDefinition;
+                        if (def.Name == Name)
+                        {
+                            exDef = def as ExternalDefinition;
+                        }
                     }
                 }
+                if (exDef == null) throw new Exception("В файле общих параметров не найден общий параметр " + Name);
+
+
+                CategorySet catSet = app.Create.NewCategorySet();
+                catSet.Insert(elem.Category);
+                TypeBinding newBind = app.Create.NewTypeBinding(catSet);
+
+                doc.ParameterBindings.Insert(exDef, newBind, paramGroup);
+
+                //app.SharedParametersFilename = oldSharedParamsFile;
+
+                Parameter testParam = elem.LookupParameter(Name);
+                if (testParam == null) throw new Exception("Не удалось добавить обший параметр " + Name);
             }
-            if (exDef == null) throw new Exception("В файле общих параметров не найден общий параметр " + Name);
-
-
-            CategorySet catSet = app.Create.NewCategorySet();
-            catSet.Insert(elem.Category);
-            TypeBinding newBind = app.Create.NewTypeBinding(catSet);
-
-            doc.ParameterBindings.Insert(exDef, newBind, paramGroup);
-
-            //app.SharedParametersFilename = oldSharedParamsFile;
-
-            Parameter testParam = elem.LookupParameter(Name);
-            if (testParam == null) throw new Exception("Не удалось добавить обший параметр " + Name);
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
         }
 
 
 
         private ElementBinding GetBindingByParamName(String paramName, Document doc)
         {
+
             Autodesk.Revit.ApplicationServices.Application app = doc.Application;
             DefinitionBindingMapIterator iter = doc.ParameterBindings.ForwardIterator();
             while (iter.MoveNext())

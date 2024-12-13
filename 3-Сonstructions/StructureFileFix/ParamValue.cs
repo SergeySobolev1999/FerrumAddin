@@ -1,5 +1,6 @@
 ﻿using System;
 using Autodesk.Revit.DB;
+using SSDK;
 
 
 namespace masshtab
@@ -18,40 +19,49 @@ namespace masshtab
 
         public ParamValue(Parameter revitParam)
         {
-            if (!revitParam.HasValue)
+            try
             {
-                IsNull = true;
-                return;
+                if (!revitParam.HasValue)
+                {
+                    IsNull = true;
+                    return;
+                }
+                storageType = revitParam.StorageType;
+                switch (storageType)
+                {
+                    case StorageType.None:
+                        break;
+                    case StorageType.Integer:
+                        IntegerValue = revitParam.AsInteger();
+                        IsValid = true;
+                        break;
+                    case StorageType.Double:
+                        DoubleValue = revitParam.AsDouble();
+                        IsValid = true;
+                        break;
+                    case StorageType.String:
+                        StringValue = revitParam.AsString();
+                        IsValid = true;
+                        break;
+                    case StorageType.ElementId:
+                        ElementIdValue = revitParam.AsElementId().IntegerValue;
+                        IsValid = true;
+                        break;
+                    default:
+                        IsValid = false;
+                        break;
+                }
             }
-            storageType = revitParam.StorageType;
-            switch (storageType)
+            catch (Exception ex)
             {
-                case StorageType.None:
-                    break;
-                case StorageType.Integer:
-                    IntegerValue = revitParam.AsInteger();
-                    IsValid = true;
-                    break;
-                case StorageType.Double:
-                    DoubleValue = revitParam.AsDouble();
-                    IsValid = true;
-                    break;
-                case StorageType.String:
-                    StringValue = revitParam.AsString();
-                    IsValid = true;
-                    break;
-                case StorageType.ElementId:
-                    ElementIdValue = revitParam.AsElementId().IntegerValue;
-                    IsValid = true;
-                    break;
-                default:
-                    IsValid = false;
-                    break;
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
 
         public override string ToString()
         {
+
             switch (storageType)
             {
                 case StorageType.None:
@@ -71,30 +81,38 @@ namespace masshtab
 
         public void SetValue(Parameter revitParam)
         {
-            if (revitParam.IsReadOnly) return;
-            switch (revitParam.StorageType)
+            try
             {
-                case StorageType.None:
-                    return;
-                case StorageType.Integer:
-                    revitParam.Set(IntegerValue);
-                    return;
+                if (revitParam.IsReadOnly) return;
+                switch (revitParam.StorageType)
+                {
+                    case StorageType.None:
+                        return;
+                    case StorageType.Integer:
+                        revitParam.Set(IntegerValue);
+                        return;
 
-                case StorageType.Double:
-                    revitParam.Set(DoubleValue);
-                    return;
+                    case StorageType.Double:
+                        revitParam.Set(DoubleValue);
+                        return;
 
-                case StorageType.String:
-                    revitParam.Set(StringValue);
-                    return;
+                    case StorageType.String:
+                        revitParam.Set(StringValue);
+                        return;
 
-                case StorageType.ElementId:
-                    ElementId id = new ElementId(ElementIdValue);
-                    revitParam.Set(id);
-                    return;
+                    case StorageType.ElementId:
+                        ElementId id = new ElementId(ElementIdValue);
+                        revitParam.Set(id);
+                        return;
 
-                default:
-                    throw new Exception("Invalid value for StorageType");
+                    default:
+                        throw new Exception("Invalid value for StorageType");
+                }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
 

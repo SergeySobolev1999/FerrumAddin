@@ -2,6 +2,8 @@
 using Autodesk.Revit.DB;
 using System;
 using System.IO;
+using SSDK;
+using System.Security.Cryptography;
 
 namespace masshtab
 {
@@ -27,7 +29,12 @@ namespace masshtab
             {
                 File.AppendAllText(logFilePath, "\n" + time + " " + txt);
             }
-            catch (Exception) { }
+            //catch (Exception ex) { }
+            catch (Exception ex) 
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
             return Result.Succeeded;
         }

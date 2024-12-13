@@ -13,6 +13,7 @@ using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using System.Windows.Controls;
 using WPFApplication.Mark_On_Group_Stained_Glass_Windows;
+using SSDK;
 
 namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
 {
@@ -107,7 +108,8 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
     }
@@ -180,7 +182,8 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
     }

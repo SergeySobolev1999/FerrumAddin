@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Autodesk.Revit.UI;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using SSDK;
 
 namespace WPFApplication.The_Floor_Is_Numeric
 {
@@ -94,12 +95,15 @@ namespace WPFApplication.The_Floor_Is_Numeric
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
         public void Work_Set_Download_The_Floor_Is_Numeric()
         {
-            var worksetTable = new FilteredWorksetCollector(Revit_Document_The_Floor_Is_Numeric.Document).OfKind(WorksetKind.UserWorkset).ToList();
+            try
+            {
+                var worksetTable = new FilteredWorksetCollector(Revit_Document_The_Floor_Is_Numeric.Document).OfKind(WorksetKind.UserWorkset).ToList();
             ListView all_Elements = new ListView();
             foreach (Workset workset in worksetTable)
             {
@@ -108,6 +112,12 @@ namespace WPFApplication.The_Floor_Is_Numeric
             if (all_Elements.Items.Count > 0)
             {
                 Data_The_Floor_Is_Numeric.work_Set_Collection = all_Elements;
+            }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
        

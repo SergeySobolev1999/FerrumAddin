@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,9 @@ namespace masshtab
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            string className = "Закрепление и наборы"; DateTime dateTime = DateTime.Now;
+            try
+            {
+                string className = "Закрепление и наборы"; DateTime dateTime = DateTime.Now;
             if (RevitApi.UiApplication == null) { RevitApi.Initialize(commandData); }
             //создание log-файла
             new Logger(dateTime, className, "Старт работы;");
@@ -82,10 +85,13 @@ namespace masshtab
                 {
                     if (isActiveView_vrs == false)
                     {
-                        string info1txt = "Ошибка! Текущий открытый вид не является ведомостью расхода стали.\n" +
+                            //S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка.  Текущий открытый вид не является ведомостью расхода стали.\n" +
+                            //"Если все же является - щелкните мышью на любую из ячеек таблицы.\n" +
+                            //"В имени спецификации должно содержаться ВРС либо Ведомость расхода стали");
+                            new S_Mistake_String("Ошибка.  Текущий открытый вид не является ведомостью расхода стали.\n" +
                             "Если все же является - щелкните мышью на любую из ячеек таблицы.\n" +
-                            "В имени спецификации должно содержаться ВРС либо Ведомость расхода стали";
-                        new iWindow(info1txt).ShowDialog();
+                            "В имени спецификации должно содержаться ВРС либо Ведомость расхода стали").ShowDialog();
+                            //new iWindow(info1txt).ShowDialog();
                         new Logger(dateTime, className, "Текущий вид не является ВРС.");
                         return Result.Cancelled;
                     }
@@ -192,7 +198,12 @@ namespace masshtab
 
 
             }
-
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
 
             return Result.Succeeded;
         }

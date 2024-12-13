@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SSDK;
 
 namespace masshtab
 {
@@ -15,7 +16,9 @@ namespace masshtab
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            string className = "Ускорить файл КЖ"; DateTime dateTime = DateTime.Now;
+            try
+            {
+                string className = "Ускорить файл КЖ"; DateTime dateTime = DateTime.Now;
             if (RevitApi.UiApplication == null) { RevitApi.Initialize(commandData); }
             UIDocument uidoc = RevitApi.UiDocument; Document doc = RevitApi.Document;
             UIApplication uiApp = RevitApi.UiApplication; Autodesk.Revit.ApplicationServices.Application rvtApp = uiApp.Application;
@@ -183,7 +186,14 @@ namespace masshtab
             //Debug.WriteLine(msg);
 
             new Logger(dateTime, className, "Завершение работы.");
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
             return Result.Succeeded;
+           
         }
     }
 }

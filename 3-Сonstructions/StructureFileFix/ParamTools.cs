@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.Revit.DB;
+using SSDK;
 
 namespace masshtab
 {
@@ -9,25 +10,34 @@ namespace masshtab
     {
         public static bool CheckParameterExistsInFile(DefinitionFile deffile, Guid paramGuid)
         {
-            if (deffile == null)
+            try
             {
-                throw new Exception("Не подключен файл общих параметров");
-            }
-            foreach (DefinitionGroup defgr in deffile.Groups)
-            {
-                foreach (ExternalDefinition exdf in defgr.Definitions)
+                if (deffile == null)
                 {
-                    if (paramGuid.Equals(exdf.GUID))
+                    throw new Exception("Не подключен файл общих параметров");
+                }
+                foreach (DefinitionGroup defgr in deffile.Groups)
+                {
+                    foreach (ExternalDefinition exdf in defgr.Definitions)
                     {
-                        return true;
+                        if (paramGuid.Equals(exdf.GUID))
+                        {
+                            return true;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
             return false;
         }
 
         public static ExternalDefinition AddParameterToDefFile(DefinitionFile defFile, string groupName, Param myparam)
         {
+
             DefinitionGroup tempGroup = null;
             List<DefinitionGroup> groups = defFile.Groups.Where(i => i.Name == groupName).ToList();
             if (groups.Count == 0)

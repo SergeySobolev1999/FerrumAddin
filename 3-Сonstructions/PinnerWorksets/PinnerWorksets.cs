@@ -1,9 +1,11 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace masshtab
 {
@@ -12,6 +14,7 @@ namespace masshtab
     {
         private void WorksetCheck(in List<Workset> worksets0, in RevitLinkInstance link, out bool wsExists)
         {
+
             wsExists = false;
             WorksetId lwid = link.WorksetId; //получаем id набора связи
             string lname = link.Name;
@@ -28,6 +31,7 @@ namespace masshtab
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+
             string className = "Закрепление и наборы"; DateTime dateTime = DateTime.Now;
             if (RevitApi.UiApplication == null) { RevitApi.Initialize(commandData); }
             //создание log-файла
@@ -113,7 +117,12 @@ namespace masshtab
                     {
                         grid.Pinned = true; new Logger(dateTime, className, "   ось " + eid + ": закреплена;");
                     }
-                    catch (Exception ex) { new Logger(dateTime, className, "   ось " + eid + ": Ошибка: " + ex.Message); continue; }
+                    catch (Exception ex) 
+                    { 
+                        //new Logger(dateTime, className, "   ось " + eid + ": Ошибка: " + ex.Message); continue;
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + new Logger(dateTime, className, "   ось " + eid + ": Ошибка: " + ex.Message)); 
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
 
                 new Logger(dateTime, className, "Закреплятор - уровни:");
@@ -124,7 +133,12 @@ namespace masshtab
                     {
                         level.Pinned = true; new Logger(dateTime, className, "   уровень " + eid + ": закреплен;");
                     }
-                    catch (Exception ex) { new Logger(dateTime, className, "   уровень " + eid + ": Ошибка: " + ex.Message); continue; }
+                    catch (Exception ex) 
+                    { 
+                        //new Logger(dateTime, className, "   уровень " + eid + ": Ошибка: " + ex.Message); continue;
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + new Logger(dateTime, className, "   уровень " + eid + ": Ошибка: " + ex.Message));
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
 
                 new Logger(dateTime, className, "Закреплятор - связи:");
@@ -135,7 +149,12 @@ namespace masshtab
                     {
                         link.Pinned = true; new Logger(dateTime, className, "   связь " + eid + ": закреплена;");
                     }
-                    catch (Exception ex) { new Logger(dateTime, className, "   связь " + eid + ": Ошибка: " + ex.Message); continue; }
+                    catch (Exception ex) 
+                    { 
+                        //new Logger(dateTime, className, "   связь " + eid + ": Ошибка: " + ex.Message); continue;
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + new Logger(dateTime, className, "   связь " + eid + ": Ошибка: " + ex.Message));
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
 
                 if (dws)
@@ -150,7 +169,13 @@ namespace masshtab
                                 Workset ws = Workset.Create(doc, name); //создаем наборы для связей
                                 new Logger(dateTime, className, "   Создаем набор " + name + ";");
                             }
-                            catch (Exception ex) { failed1.Add(name); failscount1++; new Logger(dateTime, className, "      Ошибка: " + ex.Message); continue; }
+                            catch (Exception ex) 
+                            {
+                                //failed1.Add(name); failscount1++; new Logger(dateTime, className, "      Ошибка: " + ex.Message); continue;
+                                failed1.Add(name); failscount1++;
+                                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + new Logger(dateTime, className, "      Ошибка: " + ex.Message));
+                                s_Mistake_String.ShowDialog();
+                            }
                         }
                     }
 
@@ -187,7 +212,13 @@ namespace masshtab
                                         param.Set(workset.Id.IntegerValue); //назначаем РН
                                         new Logger(dateTime, className, "      Назначаем набор " + lname + ";");
                                     }
-                                    catch (Exception ex) { failed1.Add(link.Id.ToString()); failscount1++; new Logger(dateTime, className, "      Ошибка: " + ex.Message); continue; }
+                                    catch (Exception ex) 
+                                    { 
+                                        //failed1.Add(link.Id.ToString()); failscount1++; new Logger(dateTime, className, "      Ошибка: " + ex.Message); continue;
+                                        failed1.Add(link.Id.ToString()); failscount1++;
+                                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + new Logger(dateTime, className, "      Ошибка: " + ex.Message));
+                                        s_Mistake_String.ShowDialog();
+                                    }
                                     break;
                                 }
                             }
