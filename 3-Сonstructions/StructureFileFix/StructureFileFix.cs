@@ -25,7 +25,7 @@ namespace masshtab
             // создание log - файла
             new Logger(dateTime, className, "Старт работы;");
                  
-            new Logger(dateTime, className, "Сбор элементов;");
+            new Logger(dateTime, className, "Сбор элементов;"); 
             //получаем все типы арматуры
             List<RebarBarType> rebarTypes = new FilteredElementCollector(doc)
                 .WhereElementIsElementType()
