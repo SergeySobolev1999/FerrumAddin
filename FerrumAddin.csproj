@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdWindows">
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\AdWindows.dll</HintPath>
+      <HintPath>..\..\..\..\Учеба\IT\Splugin\С#\Попытка 6\Splugin\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CommunityToolkit.Mvvm, Version=8.2.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
@@ -54,11 +54,11 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI">
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
+      <HintPath>..\..\..\..\Учеба\IT\Splugin\С#\Попытка 6\Splugin\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+      <HintPath>..\..\..\..\Учеба\IT\Splugin\С#\Попытка 6\Splugin\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -170,7 +170,7 @@
     <Compile Include="3-Сonstructions\StructureFileFix\Rebar.cs" />
     <Compile Include="3-Сonstructions\StructureFileFix\StructureFileFix.cs" />
     <Compile Include="Application\App.cs" />
-    <Compile Include="CommandMepName.cs" />
+    <Compile Include="4-МЕР\CommandMepName\CommandMepName.cs" />
     <Compile Include="1-General\Config\ConfiguratorShow.cs" />
     <Compile Include="1-General\Family_Manager\ComparisonWindow.xaml.cs">
       <DependentUpon>ComparisonWindow.xaml</DependentUpon>
@@ -180,15 +180,15 @@
     <Compile Include="1-General\Family_Manager\FamilyManager.xaml.cs">
       <DependentUpon>FamilyManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="2-Architecture\LintelCreator\AlphanumComparatorFastString.cs" />
-    <Compile Include="2-Architecture\LintelCreator\CommandLintelCreator.cs" />
-    <Compile Include="2-Architecture\LintelCreator\DimensionParameters.cs" />
-    <Compile Include="2-Architecture\LintelCreator\LintelCreatorForm.xaml.cs">
+    <Compile Include="3-Сonstructions\LintelCreator\AlphanumComparatorFastString.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\CommandLintelCreator.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\DimensionParameters.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\LintelCreatorForm.xaml.cs">
       <DependentUpon>LintelCreatorForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="2-Architecture\LintelCreator\LintelCreatorSettings.cs" />
-    <Compile Include="2-Architecture\LintelCreator\SymboolParameters.cs" />
-    <Compile Include="2-Architecture\LintelCreator\WndowsAndDoorsSelectionFilter.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\LintelCreatorSettings.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\SymboolParameters.cs" />
+    <Compile Include="3-Сonstructions\LintelCreator\WndowsAndDoorsSelectionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1-General\Config\Configurator.xaml.cs">
       <DependentUpon>Configurator.xaml</DependentUpon>
@@ -233,7 +233,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="2-Architecture\LintelCreator\LintelCreatorForm.xaml">
+    <Page Include="3-Сonstructions\LintelCreator\LintelCreatorForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -302,6 +302,71 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="4-МЕР\NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Architecture_The_Floor_Is_Numeric.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General_Comparison_Window.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General_Family_Manager.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MEP_Command_Mep_Name.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Сonstructions_Command_Lintel_Creator.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Сonstructions_Steel_Spec_Collapse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Сonstructions_Structure_File_Fix.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\All_Ferrum_Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General_Pinner_Worksets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ferrum_Comparison_Window.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ferrum_Family_Manager.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\All_Vopros.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

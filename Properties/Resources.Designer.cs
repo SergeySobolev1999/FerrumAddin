@@ -63,6 +63,46 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap All_Ferrum_Logo {
+            get {
+                object obj = ResourceManager.GetObject("All_Ferrum_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap All_Vopros {
+            get {
+                object obj = ResourceManager.GetObject("All_Vopros", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows {
+            get {
+                object obj = ResourceManager.GetObject("Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Architecture_The_Floor_Is_Numeric {
+            get {
+                object obj = ResourceManager.GetObject("Architecture_The_Floor_Is_Numeric", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FamilyManager {
             get {
                 object obj = ResourceManager.GetObject("FamilyManager", resourceCulture);
@@ -76,6 +116,36 @@ namespace FerrumAddin.Properties {
         internal static System.Drawing.Bitmap ferrum {
             get {
                 object obj = ResourceManager.GetObject("ferrum", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ferrum_Comparison_Window {
+            get {
+                object obj = ResourceManager.GetObject("Ferrum_Comparison_Window", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ferrum_Family_Manager {
+            get {
+                object obj = ResourceManager.GetObject("Ferrum_Family_Manager", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap General_Pinner_Worksets {
+            get {
+                object obj = ResourceManager.GetObject("General_Pinner_Worksets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +186,36 @@ namespace FerrumAddin.Properties {
         internal static System.Drawing.Bitmap Железно_верт_синий {
             get {
                 object obj = ResourceManager.GetObject("Железно_верт_синий", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Сonstructions_Command_Lintel_Creator {
+            get {
+                object obj = ResourceManager.GetObject("Сonstructions_Command_Lintel_Creator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Сonstructions_Steel_Spec_Collapse {
+            get {
+                object obj = ResourceManager.GetObject("Сonstructions_Steel_Spec_Collapse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Сonstructions_Structure_File_Fix {
+            get {
+                object obj = ResourceManager.GetObject("Сonstructions_Structure_File_Fix", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
