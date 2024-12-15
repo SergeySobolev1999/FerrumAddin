@@ -8,11 +8,11 @@
              mc:Ignorable="d" 
             Topmost="True"
             ResizeMode="NoResize"
-            MinHeight="300" MinWidth="300"
-            MaxHeight="300" MaxWidth="300"
-            d:DesignHeight="300" 
+            MinHeight="400" MinWidth="300"
+            MaxHeight="400" MaxWidth="300"
+            d:DesignHeight="400" 
             d:DesignWidth="300"
-    WindowStyle="None">
+    WindowStyle="None" Foreground="#FFA3A0A0">
     <WindowChrome.WindowChrome>
         <WindowChrome/>
     </WindowChrome.WindowChrome>
@@ -44,11 +44,51 @@
                  Height="30" 
                  VerticalAlignment="Top" 
                  Margin="0,0,0,0" MouseDown="Label_MouseDown">
-                <Image Margin="0,0,470,0" Source="/WPFApplication;component/SharedParameterManager/Image_Creating_Specifications/Лого-2.png" Stretch="Fill"/>
+                <Image 
+                  Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png"
+                  Width="150"
+                  HorizontalAlignment="Left"/>
+            </Border>
+            <Border Background="Gray" 
+                  DockPanel.Dock="Top" 
+                  Height="30" 
+                  VerticalAlignment="Top" 
+                  Margin="30,-30,0,0" MouseDown="Label_MouseDown">
+                <TextBlock 
+                  TextWrapping="Wrap" 
+                  Text="ЗАПИСЬ ЭТАЖА"
+                  FontSize="20"
+                  FontFamily="Bahnschrift SemiBold SemiCondensed"
+                  Height="20" Foreground="#FF323232" FontWeight="Bold"/>
             </Border>
         </DockPanel>
+        <Border Background="Gray" 
+              DockPanel.Dock="Top" 
+              Height="35"
+              VerticalAlignment="Bottom" 
+              Margin="0,0,0,0" MouseDown="Label_MouseDown">
+            <TextBlock 
+             TextWrapping="Wrap" 
+             Text="..."
+                Margin="0,10"
+             Name ="Version"
+             FontSize="15"
+             FontFamily="ISOCPEUR"
+             Height="25" Foreground="#FF323232"/>
+        </Border>
+        <Button 
+            FontSize="15" 
+            Content="Запуск"
+            Margin="0,0,14,5"
+            Width="70"
+            ToolTip="Загрузка сохраненных наборов"
+            FontFamily="ISOCPEUR"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            BorderBrush="{x:Null}"
+            Click="Start_The_Floor_Is_Numeric"/>
         <TabControl
-            Margin="0,30,0,0">
+            Margin="0,30,0,35">
             <TabItem 
                 Header="Основные"
                 Width="90"
@@ -56,7 +96,8 @@
                 FontSize="15">
                 <Grid 
                 Background="#FFE5E5E5"
-                Height="243">
+                    Margin="0,0,0,0"
+                    >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="23*"/>
                         <ColumnDefinition Width="19*"/>
@@ -69,7 +110,7 @@
                 Foreground="#FF474747"/>
                     <Line
                 X1="150" Y1="0"
-                X2="150" Y2="250"
+                X2="150" Y2="320"
                 Stroke="Gray"
                 StrokeThickness="1"  />
                     <Line
@@ -134,8 +175,7 @@
                 FontSize="15">
                 <Grid 
                 Background="#FFE5E5E5"
-                Margin="0,0,0,0"
-                Height="240">
+                Margin="0,0,0,0">
                   
                     <Line
                     X1="121" Y1="0"
@@ -169,7 +209,7 @@
                     HorizontalScrollBarVisibility="Visible"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Height="200"
+                    Height="265"
                     CanContentScroll="True"
                     ToolTip="Список спецификаий из модели"
                     Width="120"
@@ -188,7 +228,7 @@
                     HorizontalScrollBarVisibility="Visible"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Height="200"
+                    Height="265"
                     CanContentScroll="True"
                     ToolTip="Список спецификаий из модели"
                     Width="120"
@@ -200,14 +240,14 @@
                     HorizontalAlignment="Left" 
                     Margin="121,0,0,0" 
                     Width="54"
-                    Height="120"
+                    Height="155"
                     VerticalAlignment="Top" Click="Button_Click"/>
                     <Button 
                     Content="←"
                     HorizontalAlignment="Left" 
-                    Margin="121,120,0,0" 
+                    Margin="121,155,0,0" 
                     Width="54"
-                    Height="120"
+                    Height="150"
                     VerticalAlignment="Top" Click="Button_Click_1"/>
                 </Grid>
             </TabItem>
@@ -219,26 +259,14 @@
                 <Grid 
                 Background="#FFE5E5E5"
                 Margin="0,0,0,0"
-                Width="300"
-                Height="240">
-                    <Button 
-                FontSize="15" 
-                Content="Запуск"
-                Margin="0,0,14,10"
-                Width="90"
-                ToolTip="Загрузка сохраненных наборов"
-                FontFamily="ISOCPEUR"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                BorderBrush="{x:Null}"
-                  Click="Start_The_Floor_Is_Numeric"/>
+                Width="300">
                 </Grid>
 
             </TabItem>
         </TabControl>
 
         <Image 
-            Margin="0,0,270,270"  
+            Margin="0,0,270,370"  
             Source="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/Лого-2.png" 
             Stretch="Fill"/>
     </Grid>

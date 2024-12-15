@@ -431,7 +431,12 @@ namespace FerrumAddin.FM
             this.Close();
         }
 
-       
+        private void close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
     }
 
     public class CategoryFilterSettings

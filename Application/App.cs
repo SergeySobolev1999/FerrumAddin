@@ -136,9 +136,16 @@ namespace FerrumAddin
         public static UIControlledApplication application;
         public static UIApplication uiapp;
         public static string name;
+        //Панели МЕР
         public RibbonPanel panelMEP;
-        public RibbonPanel panelAR;
-        public RibbonPanel panelKR;
+        //Панели АР
+        public RibbonPanel panelAR_Level;
+        public RibbonPanel panelAR_Stained_Glass_Window;
+        //Панели КР
+        public RibbonPanel panelKR_Before;
+        public RibbonPanel panelKR_BPC;
+        public RibbonPanel panelKR_Accelerator_QJ;
+        //Панели общие
         public RibbonPanel panelGeneral;
         public Result OnStartup(UIControlledApplication a)
         {
@@ -213,13 +220,17 @@ namespace FerrumAddin
             a.CreateRibbonTab(tabName);
             RibbonPanel panelFerrum = a.CreateRibbonPanel(tabName, "Железно");
             PushButtonData conf = new PushButtonData("frmConfig", "Настройки", Assembly.GetExecutingAssembly().Location, "FerrumAddin.ConfiguratorShow");
-            conf.Image = Convert(Properties.Resources.All_Ferrum_Logo);
-            conf.LargeImage = Convert(Properties.Resources.All_Ferrum_Logo);
+            
+            conf.Image = Convert(Properties.Resources.All_Settings);
+            conf.LargeImage = Convert(Properties.Resources.All_Settings);
             ComboBoxData comboBoxData = new ComboBoxData("ChangeRazd");
+            
             List<RibbonItem> items = panelFerrum.AddStackedItems(conf, comboBoxData).ToList();
+            
             AW.RibbonItem ri = GetButton(tabName, "Железно", comboBoxData.Name);
-            ri.Width = 110;
+            ri.Width = 70;
             ComboBox cb = (items[1] as ComboBox);
+           
             cb.AddItems(new List<ComboBoxMemberData>() { new ComboBoxMemberData("Common", "Общие"),
                                                          new ComboBoxMemberData("Views", "Виды"),
                                                          new ComboBoxMemberData("General", "Общее"),
@@ -229,6 +240,7 @@ namespace FerrumAddin
                                                          new ComboBoxMemberData("Control", "Управление")});
 
             cb.CurrentChanged += Cb_CurrentChanged;
+            
 
 
             PushButtonData FamilyManager = new PushButtonData("frmManager", "Менеджер\nсемейств", Assembly.GetExecutingAssembly().Location, "FerrumAddin.FamilyManagerShow"); 
@@ -236,7 +248,7 @@ namespace FerrumAddin
             FamilyManager.LargeImage = Convert(Properties.Resources.Ferrum_Family_Manager);
             panelFerrum.AddItem(FamilyManager);
 
-            PushButtonData Comparison = new PushButtonData("frmComparison", "Сопоставление\nсемейств", Assembly.GetExecutingAssembly().Location, "FerrumAddin.FM.ComparisonWindowShow");
+            PushButtonData Comparison = new PushButtonData("frmComparison", "Сопостав.\nсемейств", Assembly.GetExecutingAssembly().Location, "FerrumAddin.FM.ComparisonWindowShow");
             Comparison.Image = Convert(Properties.Resources.Ferrum_Comparison_Window);
             Comparison.LargeImage = Convert(Properties.Resources.Ferrum_Comparison_Window);          
             panelFerrum.AddItem(Comparison);
@@ -246,7 +258,7 @@ namespace FerrumAddin
             panelGeneral = a.CreateRibbonPanel(tabName, "Общее");
             panelGeneral.Visible = false;
 
-            PushButtonData PinnerWorksets = new PushButtonData("PinnerWorksets", "Закрепление\nи наборы", Assembly.GetExecutingAssembly().Location, "masshtab.PinnerWorksets");
+            PushButtonData PinnerWorksets = new PushButtonData("PinnerWorksets", "Закрепле.\nи наборы", Assembly.GetExecutingAssembly().Location, "masshtab.PinnerWorksets");
             PinnerWorksets.Image = Convert(Properties.Resources.General_Pinner_Worksets);
             PinnerWorksets.LargeImage = Convert(Properties.Resources.General_Pinner_Worksets);
             panelGeneral.AddItem(PinnerWorksets);
@@ -257,7 +269,7 @@ namespace FerrumAddin
             panelMEP = a.CreateRibbonPanel(tabName, "ВИС");
             panelMEP.Visible = false;
 
-            PushButtonData MEPName = new PushButtonData("mepName", "Наименование труб|воздуховодов", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandMepName");
+            PushButtonData MEPName = new PushButtonData("mepName", "Наим.\nтруб|возд.", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandMepName");
             MEPName.Image = Convert(Properties.Resources.All_Vopros);
             MEPName.LargeImage = Convert(Properties.Resources.All_Vopros);
             panelMEP.AddItem(MEPName);
@@ -268,47 +280,56 @@ namespace FerrumAddin
             //panelMEP.AddItem(MEPName);
 
             //Панель АР
-            panelAR = a.CreateRibbonPanel(tabName, "АР");
-            panelAR.Visible = false;
+            panelAR_Level = a.CreateRibbonPanel(tabName, "Уровни");
+            panelAR_Level.Visible = false;
 
             PushButtonData Main_The_Floor_Is_Numeric = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric.Main_The_Floor_Is_Numeric"); 
             Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
             Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
-            panelAR.AddItem(Main_The_Floor_Is_Numeric);
+            panelAR_Level.AddItem(Main_The_Floor_Is_Numeric);
 
-            PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереименование", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
+            panelAR_Stained_Glass_Window = a.CreateRibbonPanel(tabName, "Витражи");
+            panelAR_Stained_Glass_Window.Visible = false;
+
+            PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
             Main_Parameter_On_Group_Stained_Glass_Windows.Image = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             Main_Parameter_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
-            panelAR.AddItem(Main_Parameter_On_Group_Stained_Glass_Windows);
+            panelAR_Stained_Glass_Window.AddItem(Main_Parameter_On_Group_Stained_Glass_Windows);
 
-            PushButtonData Main_Mark_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Mark_On_Group_Stained_Glass_Windows", "Витражи\nмаркировки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_On_Group_Stained_Glass_Windows.Main_Mark_On_Group_Stained_Glass_Windows");
+            PushButtonData Main_Mark_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Mark_On_Group_Stained_Glass_Windows", "Витражи\nмаркиров.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_On_Group_Stained_Glass_Windows.Main_Mark_On_Group_Stained_Glass_Windows");
             Main_Mark_On_Group_Stained_Glass_Windows.Image = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             Main_Mark_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
-            panelAR.AddItem(Main_Mark_On_Group_Stained_Glass_Windows);
+            panelAR_Stained_Glass_Window.AddItem(Main_Mark_On_Group_Stained_Glass_Windows);
 
             PushButtonData Main_Assembling_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Assembling_On_Group_Stained_Glass_Windows", "Витражи\nсборки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows.Main_Assembling_On_Group_Stained_Glass_Windows");
             Main_Assembling_On_Group_Stained_Glass_Windows.Image = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             Main_Assembling_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
-            panelAR.AddItem(Main_Assembling_On_Group_Stained_Glass_Windows);
+            panelAR_Stained_Glass_Window.AddItem(Main_Assembling_On_Group_Stained_Glass_Windows);
 
             //Панель КР
-            panelKR = a.CreateRibbonPanel(tabName, "КР");
-            panelKR.Visible = false;
+            panelKR_Before = a.CreateRibbonPanel(tabName, "Перемычки");
+            panelKR_Before.Visible = false;
 
-            PushButtonData LintelCreator = new PushButtonData("LintelCreator", "Создание перемычек", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandLintelCreator");
+            PushButtonData LintelCreator = new PushButtonData("LintelCreator", "Создание\nперемычек", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandLintelCreator");
             LintelCreator.Image = Convert(Properties.Resources.Сonstructions_Command_Lintel_Creator);
             LintelCreator.LargeImage = Convert(Properties.Resources.Сonstructions_Command_Lintel_Creator);
-            panelKR.AddItem(LintelCreator);
+            panelKR_Before.AddItem(LintelCreator);
+
+            panelKR_BPC = a.CreateRibbonPanel(tabName, "Сталь");
+            panelKR_BPC.Visible = false;
 
             PushButtonData SteelSpecCollapse = new PushButtonData("SteelSpecCollapse", "ВРС", Assembly.GetExecutingAssembly().Location, "masshtab.SteelSpecCollapse");
             SteelSpecCollapse.Image = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
             SteelSpecCollapse.LargeImage = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
-            panelKR.AddItem(SteelSpecCollapse);
+            panelKR_BPC.AddItem(SteelSpecCollapse);
 
-            PushButtonData StructureFileFix = new PushButtonData("StructureFileFix", "Ускоритель КЖ", Assembly.GetExecutingAssembly().Location, "masshtab.StructureFileFix"); 
+            panelKR_Accelerator_QJ = a.CreateRibbonPanel(tabName, "ЖБ");
+            panelKR_Accelerator_QJ.Visible = false;
+
+            PushButtonData StructureFileFix = new PushButtonData("StructureFileFix", "Ускорит.\nКЖ", Assembly.GetExecutingAssembly().Location, "masshtab.StructureFileFix"); 
             StructureFileFix.Image = Convert(Properties.Resources.Сonstructions_Structure_File_Fix);
             StructureFileFix.LargeImage = Convert(Properties.Resources.Сonstructions_Structure_File_Fix);
-            panelKR.AddItem(StructureFileFix);
+            panelKR_Accelerator_QJ.AddItem(StructureFileFix);
 
             FamilyManagerWindow dock = new FamilyManagerWindow();
             dockableWindow = dock;
@@ -431,32 +452,47 @@ namespace FerrumAddin
                 case "Общее":
                     panelGeneral.Visible = true;
                     panelMEP.Visible = false;
-                    panelAR.Visible = false;
-                    panelKR.Visible = false;
+                    panelAR_Level.Visible = false;
+                    panelAR_Stained_Glass_Window.Visible = false;
+                    panelKR_Before.Visible = false;
+                    panelKR_BPC.Visible = false;
+                    panelKR_Accelerator_QJ.Visible = false;
                     break;
                 case "MEP":
                     panelGeneral.Visible = false;
                     panelMEP.Visible = true;
-                    panelAR.Visible = false;
-                    panelKR.Visible = false;
+                    panelAR_Level.Visible = false;
+                    panelAR_Stained_Glass_Window.Visible = false;
+                    panelKR_Before.Visible = false;
+                    panelKR_BPC.Visible = false;
+                    panelKR_Accelerator_QJ.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
                     panelMEP.Visible = false;
-                    panelAR.Visible = true;
-                    panelKR.Visible = false;
+                    panelAR_Level.Visible = true;
+                    panelAR_Stained_Glass_Window.Visible = true;
+                    panelKR_Before.Visible = false;
+                    panelKR_BPC.Visible = false;
+                    panelKR_Accelerator_QJ.Visible = false;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
-                    panelKR.Visible = true;
+                    panelKR_Before.Visible = true;
+                    panelKR_BPC.Visible = true;
+                    panelKR_Accelerator_QJ.Visible = true;
                     panelMEP.Visible = false;
-                    panelAR.Visible = false;
+                    panelAR_Level.Visible = false;
+                    panelAR_Stained_Glass_Window.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
                     panelMEP.Visible=false;
-                    panelAR.Visible = false;
-                    panelKR.Visible = false;
+                    panelAR_Level.Visible = false;
+                    panelAR_Stained_Glass_Window.Visible = false;
+                    panelKR_Before.Visible = false;
+                    panelKR_BPC.Visible = false;
+                    panelKR_Accelerator_QJ.Visible = false;
                     break;
             }
         }

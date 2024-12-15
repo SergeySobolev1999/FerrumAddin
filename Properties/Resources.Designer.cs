@@ -73,6 +73,36 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap All_Ferrum_Logo_16 {
+            get {
+                object obj = ResourceManager.GetObject("All_Ferrum_Logo_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ALL_Ferrum_Zhelezno {
+            get {
+                object obj = ResourceManager.GetObject("ALL_Ferrum_Zhelezno", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap All_Settings {
+            get {
+                object obj = ResourceManager.GetObject("All_Settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap All_Vopros {
             get {
                 object obj = ResourceManager.GetObject("All_Vopros", resourceCulture);

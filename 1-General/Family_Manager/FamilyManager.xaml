@@ -11,14 +11,16 @@
         <ResourceDictionary>
             <local:BooleanToBrushConverter x:Key="BooleanToBrushConverter" x:Name="BooleanToBrushConverter"/>
             <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" x:Name="BooleanToVisibilityConverter"/>
-            <BitmapImage x:Key="name" UriSource="/FerrumAddin;component/Resources/Железно-верт-синий.png"/>
+            <BitmapImage x:Key="name"  UriSource="/FerrumAddin;component/Resources/ALL_Ferrum_Zhelezno.png"/>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid Background="White">
+    <Grid Background="White" 
+          Margin="0,0,0,00">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <!-- Search TextBox and Options Button -->
@@ -26,7 +28,9 @@
             <!-- Category Filter ComboBox -->
             <RowDefinition/>
             <!-- TabControl -->
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <!-- Bottom DockPanel -->
+            <RowDefinition Height="20"/>
             <!-- Bottom DockPanel -->
         </Grid.RowDefinitions>
         <TextBox Name="SearchTextBox"
@@ -72,10 +76,12 @@
         </Popup>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10,1,10,1">
             <ToggleButton x:Name="CategoryFilterButton"
-                  Content="Фильтр по категориям ▽"
+                  Content="▽ Фильтр по категориям"
                   Background="{x:Null}"
                   BorderBrush="Gray"
-                  HorizontalContentAlignment="Center"
+                ClipToBounds="True"
+                  Padding="0,0,0,0"
+                  HorizontalContentAlignment="Left"
                   VerticalContentAlignment="Center" />
             <Popup PlacementTarget="{Binding ElementName=CategoryFilterButton}"
            IsOpen="{Binding IsChecked, ElementName=CategoryFilterButton}"
@@ -170,10 +176,27 @@
                 </DataTemplate>
             </TabControl.ContentTemplate>
 
-        </TabControl>
-        <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
-            <Image Source="{StaticResource name}" Margin="5,5,5,5"/>
-            <Button Content="Загрузить" Margin="10,10,10,10" Click="LoadFamilies"/>
-        </DockPanel>
+        </TabControl >
+<DockPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,5,0,0" Background="Gray">
+    <Image Source="{StaticResource name}"  Margin="10,5,5,0"/>
+    <Button Content="Загрузить"  Margin="5,5,5,0" Click="LoadFamilies"/>
+   
+</DockPanel>
+<DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,0" Background="Gray" >
+    <TextBlock 
+       TextWrapping="Wrap" 
+       Text="..."
+       Name ="Version"
+       Margin="0,0,0,0"
+       HorizontalAlignment="Left"
+       VerticalAlignment="Bottom"
+       FontSize="15"
+       FontFamily="ISOCPEUR"
+       Height="20" 
+       Foreground="#FF323232"/>
+
+</DockPanel>
+
     </Grid>
+    
 </Page>

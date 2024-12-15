@@ -5,165 +5,230 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FerrumAddin.FM"
         mc:Ignorable="d"
+        WindowStyle="None" Foreground="#FFA3A0A0"
         Title="ComparisonWindow" WindowState="Maximized" Height="800" Closing="Window_Closing" WindowStartupLocation="CenterOwner" MinHeight="200" MinWidth="200">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="144*" />
-            <ColumnDefinition Width="148*" />
-            <ColumnDefinition Width="136*" />
-            <ColumnDefinition Width="99*" />
-            <ColumnDefinition Width="9*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-
-        <!-- First Column: Menu Items -->
-        <Grid Grid.Row="0" Grid.Column="0" Margin="5,5,5,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Label Content="Менеджер" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="MenuItemSearchBox"
-                     Text="{Binding MenuSearchText, UpdateSourceTrigger=PropertyChanged}"
-                     Margin="0,0,0,5" Padding="5"
-                     ToolTip="Search by Name..." Height="30" Grid.Row="1"/>
-            <ToggleButton x:Name="MenuCategoryFilterButton" Content="Фильтр по категории ▽" Margin="0,0,0,5" Grid.Row="2" />
-            <Popup PlacementTarget="{Binding ElementName=MenuCategoryFilterButton}"
-                   IsOpen="{Binding IsChecked, ElementName=MenuCategoryFilterButton}"
-                   StaysOpen="False" Width="{Binding ActualWidth, ElementName=MenuCategoryFilterButton}">
-                <Border BorderBrush="Gray" Background="White">
-                    <ScrollViewer MaxHeight="400" BorderBrush="Black">
-                        <ItemsControl ItemsSource="{Binding MenuCategoryFilters}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <CheckBox x:Name="MenuCat" Content="{Binding CategoryName}" IsChecked="{Binding IsChecked}" Margin="5" Unchecked="CheckBox_Checked" Checked="CheckBox_Checked"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </Border>
-            </Popup>
-            <Border x:Name="HeightHelperPanel" BorderBrush="Black" Grid.Row="3">
-                <ListBox x:Name="MenuItemsList" ItemsSource="{Binding FilteredMenuItems}"  Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel}" Margin="1,1,1,1" MouseDoubleClick="MenuItemsList_MouseDoubleClick_1">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel Orientation="Horizontal">
-                                <Image Source="{Binding ImagePath}" Width="30" Height="30" Margin="0,0,5,0" />
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" />
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+        <DockPanel Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" 
+         WindowChrome.IsHitTestVisibleInChrome="True" 
+         DockPanel.Dock="Right"  
+         Height="30" 
+         FlowDirection="RightToLeft" 
+         VerticalAlignment="Top"
+         Background="Gray" 
+         HorizontalAlignment="Right"  >
+                <Button Name="closeWPF" 
+         Height="30" 
+         Width="100" 
+         HorizontalAlignment="Right" 
+         VerticalAlignment="Top" 
+         Content="Закрыть"   
+          FontFamily="ISOCPEUR"
+         Click="close_Click"   
+         FontSize="15"
+         RenderTransformOrigin="-7.767,0.712" 
+         Background="Gray" 
+         BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+         DockPanel.Dock="Top" 
+         Height="30" 
+         VerticalAlignment="Top" 
+         Margin="0,0,0,0" MouseDown="Label_MouseDown">
+                <Image 
+          Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png"
+          Width="150"
+          HorizontalAlignment="Left"/>
             </Border>
-        </Grid>
+            <Border Background="Gray" 
+          DockPanel.Dock="Top" 
+          Height="30" 
+          VerticalAlignment="Top" 
+          Margin="30,-30,0,0" MouseDown="Label_MouseDown">
+                <TextBlock 
+          TextWrapping="Wrap" 
+          Text="CОПОСТАВЛЕНИЕ СЕМЕЙСТВ"
+          FontSize="20"
+          FontFamily="Bahnschrift SemiBold SemiCondensed"
+          Height="20" Foreground="#FF323232" FontWeight="Bold"/>
+            </Border>
+        </DockPanel>
+        <Border Background="Gray" 
+      DockPanel.Dock="Top" 
+      VerticalAlignment="Bottom" 
+      Margin="0,0,0,0" MouseDown="Label_MouseDown">
+            <TextBlock 
+     TextWrapping="Wrap" 
+     Text="..."
+        Margin="0,10"
+     Name ="Version"
+     FontSize="15"
+     FontFamily="ISOCPEUR"
+     Height="25" Foreground="#FF323232"/>
+        </Border>
+        <Grid>
 
-        <!-- Second Column: Revit Families -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="5,5,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="144*" />
+                <ColumnDefinition Width="148*" />
+                <ColumnDefinition Width="136*" />
+                <ColumnDefinition Width="99*" />
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Content="Текущий проект" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="FamilySearchBox"
-                     Text="{Binding FamilySearchText, UpdateSourceTrigger=PropertyChanged}"
-                     Margin="0,0,0,5" Padding="5"
-                     ToolTip="Search by Name..." Height="30" Grid.Row="1"/>
-            <ToggleButton x:Name="FamilyCategoryFilterButton" Content="Фильтр по категории ▽" Margin="0,0,0,5" Grid.Row="2" />
-            <Popup PlacementTarget="{Binding ElementName=FamilyCategoryFilterButton}"
-                   IsOpen="{Binding IsChecked, ElementName=FamilyCategoryFilterButton}"
-                   StaysOpen="False" Width="{Binding ActualWidth, ElementName=FamilyCategoryFilterButton}">
-                <Border BorderBrush="Gray" Background="White">
-                    <ScrollViewer MaxHeight="400" BorderBrush="Black">
-                        <ItemsControl ItemsSource="{Binding FamilyCategoryFilters}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
 
-                                    <CheckBox x:Name="RevitCat" Content="{Binding CategoryName}" IsChecked="{Binding IsChecked}" Margin="5" Unchecked="CheckBox_Checked" Checked="CheckBox_Checked"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-
+            <!-- First Column: Menu Items -->
+            <Grid Grid.Row="0" Grid.Column="0" Margin="5,35,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Менеджер" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center" />
+                <TextBox x:Name="MenuItemSearchBox"
+                         Text="{Binding MenuSearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,5" Padding="5"
+                         ToolTip="Search by Name..." Height="30" Grid.Row="1"/>
+                <ToggleButton x:Name="MenuCategoryFilterButton" Content="Фильтр по категории ▽" Margin="0,0,0,5" Grid.Row="2" />
+                <Popup PlacementTarget="{Binding ElementName=MenuCategoryFilterButton}"
+                       IsOpen="{Binding IsChecked, ElementName=MenuCategoryFilterButton}"
+                       StaysOpen="False" Width="{Binding ActualWidth, ElementName=MenuCategoryFilterButton}">
+                    <Border BorderBrush="Gray" Background="White">
+                        <ScrollViewer MaxHeight="400" BorderBrush="Black">
+                            <ItemsControl ItemsSource="{Binding MenuCategoryFilters}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="MenuCat" Content="{Binding CategoryName}" IsChecked="{Binding IsChecked}" Margin="5" Unchecked="CheckBox_Checked" Checked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </Popup>
+                <Border x:Name="HeightHelperPanel" BorderBrush="Black" Grid.Row="3">
+                    <ListBox x:Name="MenuItemsList" ItemsSource="{Binding FilteredMenuItems}"  Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel}" Margin="1,1,1,1" MouseDoubleClick="MenuItemsList_MouseDoubleClick_1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
+                                    <Image Source="{Binding ImagePath}" Width="30" Height="30" Margin="0,0,5,0" />
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Border>
-            </Popup>
-            <Border x:Name="HeightHelperPanel2" BorderBrush="Black" Grid.Row="3">
-                <ListBox x:Name="FamiliesList" ItemsSource="{Binding FilteredRevitFamilies}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel2}" Margin="1,1,1,1" MouseDoubleClick="FamiliesList_MouseDoubleClick">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel Orientation="Horizontal">
-                                <StackPanel>
+            </Grid>
+
+            <!-- Second Column: Revit Families -->
+            <Grid Grid.Row="0" Grid.Column="1" Margin="5,35,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Текущий проект" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center"/>
+                <TextBox x:Name="FamilySearchBox"
+                         Text="{Binding FamilySearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,5" Padding="5"
+                         ToolTip="Search by Name..." Height="30" Grid.Row="1"/>
+                <ToggleButton x:Name="FamilyCategoryFilterButton" Content="Фильтр по категории ▽" Margin="0,0,0,5" Grid.Row="2" />
+                <Popup PlacementTarget="{Binding ElementName=FamilyCategoryFilterButton}"
+                       IsOpen="{Binding IsChecked, ElementName=FamilyCategoryFilterButton}"
+                       StaysOpen="False" Width="{Binding ActualWidth, ElementName=FamilyCategoryFilterButton}">
+                    <Border BorderBrush="Gray" Background="White">
+                        <ScrollViewer MaxHeight="400" BorderBrush="Black">
+                            <ItemsControl ItemsSource="{Binding FamilyCategoryFilters}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <CheckBox x:Name="RevitCat" Content="{Binding CategoryName}" IsChecked="{Binding IsChecked}" Margin="5" Unchecked="CheckBox_Checked" Checked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                    </Border>
+                </Popup>
+                <Border x:Name="HeightHelperPanel2" BorderBrush="Black" Grid.Row="3">
+                    <ListBox x:Name="FamiliesList" ItemsSource="{Binding FilteredRevitFamilies}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel2}" Margin="1,1,1,1" MouseDoubleClick="FamiliesList_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding FamilyName}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" />
+                                    </StackPanel>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+            </Grid>
+
+            <!-- Third Column: Selected Families -->
+            <Grid Grid.Row="0" Grid.Column="2" Margin="5,35,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Семейство Revit" Margin="0,0,0,0" Grid.Row="0" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center" Foreground="Black"/>
+                <Border x:Name="HeightHelperPanel3" BorderBrush="Black" Grid.Row="1">
+                    <ListBox x:Name="SelectedFamiliesList" ItemsSource="{Binding SelectedFamilies}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel3}" Margin="1,1,1,1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding FamilyName}"/>
                                         <TextBlock Text=" - "/>
                                         <TextBlock Text="{Binding Name}" />
                                     </StackPanel>
-                                    <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" />
-                                </StackPanel>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
-        </Grid>
+                                    <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" Margin="5,0,0,0" />
+                                    <Button Content="Удалить" Click="RemoveSelectedFamily_Click" Margin="10,0,0,0" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+            </Grid>
 
-        <!-- Third Column: Selected Families -->
-        <Grid Grid.Row="0" Grid.Column="2" Margin="5,5,5,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Семейство Revit" FontWeight="Bold" Margin="0,0,0,5" Grid.Row="0" FontSize="16"/>
-            <Border x:Name="HeightHelperPanel3" BorderBrush="Black" Grid.Row="1">
-                <ListBox x:Name="SelectedFamiliesList" ItemsSource="{Binding SelectedFamilies}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel3}" Margin="1,1,1,1">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding FamilyName}"/>
-                                    <TextBlock Text=" - "/>
+            <!-- Fourth Column: Selected Menu Items -->
+            <Grid Grid.Row="0" Grid.Column="3" Margin="5,35,5,5" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Заменить на" Grid.Row="0" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center" Foreground="Black"/>
+                <Border x:Name="HeightHelperPanel4" BorderBrush="Black" Grid.Row="2">
+                    <ListBox x:Name="SelectedMenuItemsList" ItemsSource="{Binding SelectedMenuItems}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel4}" Margin="1,1,1,1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
+                                    <Image Source="{Binding ImagePath}" Width="30" Height="30" Margin="0,0,5,0" />
                                     <TextBlock Text="{Binding Name}" />
-                                </StackPanel>
-                                <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" Margin="5,0,0,0" />
-                                <Button Content="Удалить" Click="RemoveSelectedFamily_Click" Margin="10,0,0,0" />
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
+                                    <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" Margin="5,0,0,0" />
+                                    <Button Content="Удалить" Click="RemoveSelectedMenuItem_Click" Margin="10,0,0,0" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+            </Grid>
+            <Button Content="Выполнить" Grid.Column="3"  Grid.Row="1" Margin="5,5,5,5" Click="Button_Click" Grid.ColumnSpan="2"/>
         </Grid>
-
-        <!-- Fourth Column: Selected Menu Items -->
-        <Grid Grid.Row="0" Grid.Column="3" Margin="5,5,5,5" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="Заменить на" FontWeight="Bold" Grid.Row="0" FontSize="16"/>
-            <Border x:Name="HeightHelperPanel4" BorderBrush="Black" Grid.Row="2">
-                <ListBox x:Name="SelectedMenuItemsList" ItemsSource="{Binding SelectedMenuItems}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel4}" Margin="1,1,1,1">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel Orientation="Horizontal">
-                                <Image Source="{Binding ImagePath}" Width="30" Height="30" Margin="0,0,5,0" />
-                                <TextBlock Text="{Binding Name}" />
-                                <TextBlock Text="{Binding Category}" FontStyle="Italic" FontSize="10" Margin="5,0,0,0" />
-                                <Button Content="Удалить" Click="RemoveSelectedMenuItem_Click" Margin="10,0,0,0" />
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Border>
-        </Grid>
-        <Button Content="Выполнить" Grid.Column="3" Grid.Row="1" Margin="5,5,5,5" Click="Button_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

@@ -28,6 +28,7 @@ namespace WPFApplication.The_Floor_Is_Numeric
         {
             Revit_Document_The_Floor_Is_Numeric.Initialize(commandData);
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
             record_The_Floor_Is_Numeric.Work_Set_Download_The_Floor_Is_Numeric();
             Scrol_Viewer1_The_Floor_Is_Numericw();
         }
@@ -297,5 +298,9 @@ namespace WPFApplication.The_Floor_Is_Numeric
             }
         }
 
+        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

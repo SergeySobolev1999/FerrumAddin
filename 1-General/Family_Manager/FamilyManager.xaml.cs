@@ -1,6 +1,7 @@
 ﻿using Autodesk.Internal.InfoCenter;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -119,6 +120,7 @@ namespace FerrumAddin
         public FamilyManagerWindow()
         {
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
             mvm = new MainViewModel();
             Tabs.ItemsSource = mvm.TabItems;
             this.DataContext = this;

@@ -24,6 +24,7 @@ namespace SSDK
         {
             
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
             string_Mistake_Position(name);
         }
 

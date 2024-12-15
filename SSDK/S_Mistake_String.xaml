@@ -7,7 +7,7 @@
          WindowStartupLocation="CenterScreen"
              Topmost="True" 
              mc:Ignorable="d" 
-             MinHeight="200" MinWidth="200"
+             MinHeight="200" MinWidth="250"
             MaxHeight="400" MaxWidth="400"
              d:DesignHeight="200" d:DesignWidth="200"
          WindowStyle="None">
@@ -42,15 +42,33 @@
                  DockPanel.Dock="Top" 
                  Height="30" 
                  VerticalAlignment="Top" 
-                 Margin="0,0,0,0" MouseDown="Label_MouseDown"/>
-
+                 Margin="0,0" MouseDown="Label_MouseDown">
+                <Image 
+                 Source="/FerrumAddin;component/Resources/ALL_Ferrum_Zhelezno.png"
+                 Width="150"
+                 HorizontalAlignment="Left"/>
+            </Border>
+            
         </DockPanel>
+        <Border Background="Gray" 
+                 DockPanel.Dock="Top" 
+                 Height="35"
+                 VerticalAlignment="Bottom" 
+                 Margin="0,0,0,0" MouseDown="Label_MouseDown">
+            <TextBlock 
+                TextWrapping="Wrap" 
+                Text="..."
+                Name ="Version"
+                FontSize="15"
+                FontFamily="ISOCPEUR"
+                Height="25" Foreground="#FF323232"/>
+        </Border>
         <TextBox 
             Name ="inputTextBox"
             BorderBrush="{x:Null}"
             Text="..." 
             TextWrapping="Wrap"
-            Margin="0,30,0,30"
+            Margin="0,30,0,35"
             FontFamily="ISOCPEUR"
             
             FontSize="15"/>
