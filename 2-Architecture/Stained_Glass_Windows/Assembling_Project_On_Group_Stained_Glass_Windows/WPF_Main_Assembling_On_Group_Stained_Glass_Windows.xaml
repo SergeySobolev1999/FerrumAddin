@@ -57,6 +57,7 @@ WindowStyle="None">
             <Border Background="Gray" 
                    DockPanel.Dock="Top" 
                    Height="30" 
+                    Width="181"
                     HorizontalAlignment="Left"
                    VerticalAlignment="Top" 
                    Margin="32,-30,0,0" MouseDown="Label_MouseDown">
@@ -72,7 +73,7 @@ WindowStyle="None">
                     DockPanel.Dock="Top" 
                     Height="30" 
                     VerticalAlignment="Top" 
-                    Margin="182,-30,0,0" MouseDown="Label_MouseDown">
+                    Margin="180,-30,0,0" MouseDown="Label_MouseDown">
                 <TextBlock 
                    TextWrapping="Wrap" 
                    Text="..."
