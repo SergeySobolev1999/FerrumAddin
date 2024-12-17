@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,7 +83,8 @@ namespace FerrumAddin.FM
             {
                 JsonDelete jsonDelete = new JsonDelete();
                 InitializeComponent();
-            DataContext = this;
+                Version.Text = SSDK_Data.plugin_Version;
+                DataContext = this;
             doc = commandData.Application.ActiveUIDocument.Document;
             LoadData();
             }

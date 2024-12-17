@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FerrumAddin"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         Title="Настройки" Height="450" Width="400" ResizeMode="NoResize">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
+    
     <Window.Resources>
         <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">
             <Setter Property="Foreground" Value="Black" />
@@ -59,19 +65,58 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Grid>
+    
     <Grid Background="White">
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="40"/>
 
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0">
+            <DockPanel Margin="0,00,0,00">
+                <StackPanel Orientation="Horizontal" 
+          WindowChrome.IsHitTestVisibleInChrome="True" 
+          DockPanel.Dock="Right"  
+          Height="30" 
+          FlowDirection="RightToLeft" 
+          VerticalAlignment="Top"
+          Background="Gray" 
+          HorizontalAlignment="Right"  >
+                    <Button Name="closeWPF" 
+          Height="30" 
+          Width="100" 
+          HorizontalAlignment="Right" 
+          VerticalAlignment="Top" 
+          Margin="0,0,0,0" 
+          Content="Закрыть"   
+           FontFamily="ISOCPEUR"
+          Click="close_Click"   
+          FontSize="15"
+          RenderTransformOrigin="-7.767,0.712" 
+          Background="Gray" 
+          BorderThickness ="0"/>
+                </StackPanel>
+                <Border Background="Gray" 
+                  DockPanel.Dock="Top" 
+                  Height="30" 
+                  VerticalAlignment="Top" 
+                  Margin="0,0" MouseDown="Label_MouseDown">
+                                <Image 
+                  Source="/FerrumAddin;component/Resources/ALL_Ferrum_Zhelezno.png"
+                  Width="150"
+                  HorizontalAlignment="Left"/>
+                </Border>
+
+            </DockPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="0,30,0,0">
+            
             <StackPanel>
             <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px"> 
                 <StackPanel Margin="10,10,10,10">
                     <WrapPanel>
                         <ToggleButton Style="{StaticResource AnimatedSwitch}" Height="24" x:Name="frmManger" IsChecked="True"/>
-                        <Image Margin="30,4,0,0" Source="/FerrumAddin;component/Resources/FamilyManager.png" Height="24" VerticalAlignment="Center"/>
+                            <Image Margin="30,4,0,0" Source="/FerrumAddin;component/Resources/General_Family_Manager.png" Height="32" VerticalAlignment="Center"/>
                         <TextBlock Margin="10,0,0,0" Text="Менеджер семейств" VerticalAlignment="Center"/>
                     </WrapPanel>
                 </StackPanel>
@@ -96,5 +141,6 @@
             </StackPanel>
         </ScrollViewer>
         <Button Content="Сохранить настройки" Grid.Row="1" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>
+    </Grid>
     </Grid>
 </Window>

@@ -549,6 +549,12 @@ namespace FerrumAddin
                 }
             }
         }
+
+        private void close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
     }
 
 }
