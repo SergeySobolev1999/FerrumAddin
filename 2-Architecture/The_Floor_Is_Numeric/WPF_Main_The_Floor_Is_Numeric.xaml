@@ -267,7 +267,7 @@
 
         <Image 
             Margin="0,0,270,370"  
-            Source="/WPFApplication;component/1-Общее/SharedParameterManager/Image_Creating_Specifications/Лого-2.png" 
+            Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png" 
             Stretch="Fill"/>
     </Grid>
 </Window>

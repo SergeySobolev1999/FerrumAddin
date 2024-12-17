@@ -186,7 +186,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Семейство Revit+" Margin="0,0,0,0" Grid.Row="0" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBlock Text="Семейство Revit" Margin="0,0,0,0" Grid.Row="0" FontSize="16" FontFamily="ISOCPEUR" VerticalAlignment="Center" Foreground="Black"/>
                 <Border x:Name="HeightHelperPanel3" BorderBrush="Black" Grid.Row="1">
                     <ListBox x:Name="SelectedFamiliesList" ItemsSource="{Binding SelectedFamilies}" Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel3}" Margin="1,1,1,1">
                         <ListBox.ItemTemplate>

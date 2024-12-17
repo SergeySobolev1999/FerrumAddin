@@ -29,7 +29,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
         public WPF_Main_Assembling_On_Group_Stained_Glass_Windows()
         {
             InitializeComponent();
-
+            Version.Text = SSDK_Data.plugin_Version;
             Filtered_Assembling_On_Group_Stained_Glass_Windows filtered_Assembling_On_Group_Stained_Glass_Windows = new Filtered_Assembling_On_Group_Stained_Glass_Windows();
             filtered_Assembling_On_Group_Stained_Glass_Windows.Assembly_Delete();
             filtered_Assembling_On_Group_Stained_Glass_Windows.Filtered_Position_Assembling_On_Group_Stained_Glass_Windows(preset_False);
