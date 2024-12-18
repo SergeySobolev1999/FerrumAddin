@@ -140,6 +140,7 @@ namespace FerrumAddin
         public RibbonPanel panelMEP;
         //Панели АР
         public RibbonPanel panelAR_Level;
+        public RibbonPanel panelAR_Window;
         public RibbonPanel panelAR_Stained_Glass_Window;
         //Панели КР
         public RibbonPanel panelKR_Before;
@@ -287,6 +288,14 @@ namespace FerrumAddin
             Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
             Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
             panelAR_Level.AddItem(Main_The_Floor_Is_Numeric);
+
+            panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
+            panelAR_Window.Visible = false;
+
+            PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.WPFApplication.Parameter_Window.Main_Parameter_Window");
+            Main_Parameter_Window.Image = Convert(Properties.Resources.Parameter_Window);
+            Main_Parameter_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
+            panelAR_Stained_Glass_Window.AddItem(Main_Parameter_Window);
 
             panelAR_Stained_Glass_Window = a.CreateRibbonPanel(tabName, "Витражи");
             panelAR_Stained_Glass_Window.Visible = false;

@@ -213,6 +213,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Parameter_Window {
+            get {
+                object obj = ResourceManager.GetObject("Parameter_Window", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Железно_верт_синий {
             get {
                 object obj = ResourceManager.GetObject("Железно_верт_синий", resourceCulture);

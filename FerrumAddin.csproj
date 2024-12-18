@@ -185,6 +185,30 @@
     <Compile Include="2-Architecture\The_Floor_Is_Numeric\WPF_Main_The_Floor_Is_Numeric.xaml.cs">
       <DependentUpon>WPF_Main_The_Floor_Is_Numeric.xaml</DependentUpon>
     </Compile>
+    <Compile Include="2-Architecture\Window\Assembling_Window\Data_Assembling_Project_On_Group_Stained_Glass_Windows.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="2-Architecture\Window\Assembling_Window\Filtered_Assembling_On_Group_Stained_Glass_Windows.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="2-Architecture\Window\Assembling_Window\Main_Assembling_On_Group_Stained_Glass_Windows.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="2-Architecture\Window\Assembling_Window\Position_Create_Assembling_On_Group_Stained_Glass_Windows.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="2-Architecture\Window\Assembling_Window\WPF_Main_Assembling_On_Group_Stained_Glass_Windows.xaml.cs">
+      <DependentUpon>WPF_Main_Assembling_On_Group_Stained_Glass_Windows.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="2-Architecture\Window\Mark_Window\Data_Mark_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Mark_Window\Filtered_Mark_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Mark_Window\Main_Mark_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Mark_Window\Mark_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Parameter_Window\Data_Parameter_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Parameter_Window\Filtered_Parameter_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Parameter_Window\Main_Parameter_On_Group_Stained_Glass_Windows.cs" />
+    <Compile Include="2-Architecture\Window\Parameter_Window\Sort_Stained_Glass_Windows.cs" />
     <Compile Include="3-Сonstructions\common\iWindow.xaml.cs">
       <DependentUpon>iWindow.xaml</DependentUpon>
     </Compile>
@@ -269,6 +293,11 @@
     <Page Include="1-General\Config\Configurator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="2-Architecture\Window\Assembling_Window\WPF_Main_Assembling_On_Group_Stained_Glass_Windows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="3-Сonstructions\LintelCreator\LintelCreatorForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -419,6 +448,9 @@
     <Resource Include="Resources\ALL_Ferrum_Zhelezno.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Parameter_Window.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
