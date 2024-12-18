@@ -292,7 +292,7 @@ namespace FerrumAddin
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
             panelAR_Window.Visible = false;
 
-            PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.WPFApplication.Parameter_Window.Main_Parameter_Window");
+            PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_Window.Main_Parameter_Window");
             Main_Parameter_Window.Image = Convert(Properties.Resources.Parameter_Window);
             Main_Parameter_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
             panelAR_Window.AddItem(Main_Parameter_Window);
