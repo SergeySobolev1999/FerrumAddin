@@ -23,7 +23,7 @@ namespace WPFApplication.Parameter_Window
                 Data_Parameter_Window.number_Elements = 0;
                 Data_Parameter_Window.filtered_Group.Clear();
                 Data_Parameter_Window.list_Group.Clear();
-                Filtered_Mark_Window filtered_Mark_On_Group_Stained_Glass_Windows = new Filtered_Mark_Window();
+                Filtered_Mark_Window filtered_Mark_On_Group_Stained_Glass_Windows = new Filtered_Mark_Window(); 
                 Collecting_Group_Stained_Glass_Windows collecting_Parameters_On_Group_Stained_Glass_Windows = new Collecting_Group_Stained_Glass_Windows();
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + Data_Parameter_Window.number_Elements.ToString());
                 s_Mistake_String.ShowDialog();

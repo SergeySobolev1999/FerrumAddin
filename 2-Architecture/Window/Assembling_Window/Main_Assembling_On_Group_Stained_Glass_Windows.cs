@@ -19,6 +19,7 @@ namespace WPFApplication.Assembling_Window
         {
             try
             {
+                //sdg
                 Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Initialize(commandData);
                 WPF_Main_Assembling_On_Group_Stained_Glass_Windows wPF_On_Group_Stained_Glass_Windows = new WPF_Main_Assembling_On_Group_Stained_Glass_Windows();
                 wPF_On_Group_Stained_Glass_Windows.ShowDialog();

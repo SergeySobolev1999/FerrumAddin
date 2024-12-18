@@ -276,7 +276,7 @@ namespace FerrumAddin
             panelMEP.AddItem(MEPName);
 
             //PushButtonData MEPName = new PushButtonData("mepName", "Наименование труб|воздуховодов", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandMepName");
-            //MEPName.Image = Convert(Properties.Resources.logo_icon_248043);
+            //MEPName.Image = Convert(Properties.Resources.logo_icon_248043);sdg
             //MEPName.LargeImage = Convert(Properties.Resources.logo_icon_248043);
             //panelMEP.AddItem(MEPName);
 
