@@ -295,7 +295,7 @@ namespace FerrumAddin
             PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.WPFApplication.Parameter_Window.Main_Parameter_Window");
             Main_Parameter_Window.Image = Convert(Properties.Resources.Parameter_Window);
             Main_Parameter_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
-            panelAR_Stained_Glass_Window.AddItem(Main_Parameter_Window);
+            panelAR_Window.AddItem(Main_Parameter_Window);
 
             panelAR_Stained_Glass_Window = a.CreateRibbonPanel(tabName, "Витражи");
             panelAR_Stained_Glass_Window.Visible = false;
@@ -463,6 +463,7 @@ namespace FerrumAddin
                     panelMEP.Visible = false;
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
+                    panelAR_Window.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -472,6 +473,7 @@ namespace FerrumAddin
                     panelMEP.Visible = true;
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
+                    panelAR_Window.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -481,6 +483,7 @@ namespace FerrumAddin
                     panelMEP.Visible = false;
                     panelAR_Level.Visible = true;
                     panelAR_Stained_Glass_Window.Visible = true;
+                    panelAR_Window.Visible = true;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -493,12 +496,14 @@ namespace FerrumAddin
                     panelMEP.Visible = false;
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
+                    panelAR_Window.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
                     panelMEP.Visible=false;
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
+                    panelAR_Window.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
