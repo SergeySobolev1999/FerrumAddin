@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace WPFApplication.Assembling_Window
+namespace WPFApplication.Assembling_Door
 {
     public class Data_Assembling_Window
     {

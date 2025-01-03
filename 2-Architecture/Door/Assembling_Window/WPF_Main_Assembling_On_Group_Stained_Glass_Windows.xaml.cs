@@ -21,12 +21,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFApplication.Assembling_Window
+namespace WPFApplication.Assembling_Door
 {
-    public partial class WPF_Main_Assembling_Window : Window
+    public partial class WPF_Main_Assembling_Door : Window
     {
         bool preset_False = false;
-        public WPF_Main_Assembling_Window()
+        public WPF_Main_Assembling_Door()
         {
             InitializeComponent();
             Version.Text = SSDK_Data.plugin_Version;
@@ -171,7 +171,7 @@ namespace WPFApplication.Assembling_Window
                     {
                         Element element_Type = Revit_Document_Assembling_Window.Document.GetElement(element.GetTypeId());
                         double parameter_Value = element_Type.get_Parameter(Data_Assembling_Window.guid_Group).AsDouble() * 304.8;
-                        if (209<= parameter_Value && parameter_Value < 210.999)
+                        if (206.999<= parameter_Value && parameter_Value < 209)
                         {
                             element_Type.Name = position_Iteration.ToString();
                             position_Iteration++;

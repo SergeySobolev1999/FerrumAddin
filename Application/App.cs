@@ -141,6 +141,7 @@ namespace FerrumAddin
         //Панели АР
         public RibbonPanel panelAR_Level;
         public RibbonPanel panelAR_Window;
+        public RibbonPanel panelAR_Door;
         public RibbonPanel panelAR_Stained_Glass_Window;
         //Панели КР
         public RibbonPanel panelKR_Before;
@@ -292,20 +293,48 @@ namespace FerrumAddin
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
             panelAR_Window.Visible = false;
 
-            PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_Window.Main_Parameter_Window");
+            PushButtonData Main_Parameter_Window = new PushButtonData("Main_Parameter_Window", "Окна\nназвания", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_Window.Main_Parameter_Window");
             Main_Parameter_Window.Image = Convert(Properties.Resources.Parameter_Window);
             Main_Parameter_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
             panelAR_Window.AddItem(Main_Parameter_Window);
 
+            PushButtonData Main_Mark_Window = new PushButtonData("Main_Mark_Window", "Окна\nмарки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_Window.Main_Mark_Window");
+            Main_Mark_Window.Image = Convert(Properties.Resources.Parameter_Window);
+            Main_Mark_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
+            panelAR_Window.AddItem(Main_Mark_Window);
+
+            PushButtonData Main_Assembling_Window = new PushButtonData("Main_Assembling_Window", "Окна\nсборки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Assembling_Window.Main_Assembling_Window");
+            Main_Assembling_Window.Image = Convert(Properties.Resources.Parameter_Window);
+            Main_Assembling_Window.LargeImage = Convert(Properties.Resources.Parameter_Window);
+            panelAR_Window.AddItem(Main_Assembling_Window);
+
+            panelAR_Door = a.CreateRibbonPanel(tabName, "Двери");
+            panelAR_Door.Visible = false;
+
+            PushButtonData Main_Parameter_Door = new PushButtonData("Main_Parameter_Window", "Двери\nназвания", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_Door.Main_Parameter_Window");
+            Main_Parameter_Door.Image = Convert(Properties.Resources.Architecture_Door);
+            Main_Parameter_Door.LargeImage = Convert(Properties.Resources.Architecture_Door);
+            panelAR_Door.AddItem(Main_Parameter_Door);
+
+            PushButtonData Main_Mark_Door = new PushButtonData("Main_Mark_Window", "Двери\nмарки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_Door.Main_Mark_Window");
+            Main_Mark_Door.Image = Convert(Properties.Resources.Architecture_Door);
+            Main_Mark_Door.LargeImage = Convert(Properties.Resources.Architecture_Door);
+            panelAR_Door.AddItem(Main_Mark_Door);
+
+            PushButtonData Main_Assembling_Door = new PushButtonData("Main_Assembling_Window", "Двери\nсборки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Assembling_Door.Main_Assembling_Window");
+            Main_Assembling_Door.Image = Convert(Properties.Resources.Architecture_Door);
+            Main_Assembling_Door.LargeImage = Convert(Properties.Resources.Architecture_Door);
+            panelAR_Door.AddItem(Main_Assembling_Door);
+
             panelAR_Stained_Glass_Window = a.CreateRibbonPanel(tabName, "Витражи");
             panelAR_Stained_Glass_Window.Visible = false;
 
-            PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nпереимен.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
+            PushButtonData Main_Parameter_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Parameter_On_Group_Stained_Glass_Windows", "Витражи\nназвания", Assembly.GetExecutingAssembly().Location, "WPFApplication.Parameter_On_Group_Stained_Glass_Windows.Main_Parameter_On_Group_Stained_Glass_Windows");
             Main_Parameter_On_Group_Stained_Glass_Windows.Image = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             Main_Parameter_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             panelAR_Stained_Glass_Window.AddItem(Main_Parameter_On_Group_Stained_Glass_Windows);
 
-            PushButtonData Main_Mark_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Mark_On_Group_Stained_Glass_Windows", "Витражи\nмаркиров.", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_On_Group_Stained_Glass_Windows.Main_Mark_On_Group_Stained_Glass_Windows");
+            PushButtonData Main_Mark_On_Group_Stained_Glass_Windows = new PushButtonData("Main_Mark_On_Group_Stained_Glass_Windows", "Витражи\nмарки", Assembly.GetExecutingAssembly().Location, "WPFApplication.Mark_On_Group_Stained_Glass_Windows.Main_Mark_On_Group_Stained_Glass_Windows");
             Main_Mark_On_Group_Stained_Glass_Windows.Image = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             Main_Mark_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             panelAR_Stained_Glass_Window.AddItem(Main_Mark_On_Group_Stained_Glass_Windows);
@@ -346,7 +375,7 @@ namespace FerrumAddin
             DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
             try
             {
-                a.RegisterDockablePane(id, "Менеджер семейств Железно",
+                a.RegisterDockablePane(id, "Менеджер семейств",
                         dockableWindow as IDockablePaneProvider);
                 if ((admins.Count != 0 && admins.Contains(name)) || AlwaysLoad == true)
                 {
@@ -464,6 +493,7 @@ namespace FerrumAddin
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
                     panelAR_Window.Visible = false;
+                    panelAR_Door.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -474,6 +504,7 @@ namespace FerrumAddin
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
                     panelAR_Window.Visible = false;
+                    panelAR_Door.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -484,6 +515,7 @@ namespace FerrumAddin
                     panelAR_Level.Visible = true;
                     panelAR_Stained_Glass_Window.Visible = true;
                     panelAR_Window.Visible = true;
+                    panelAR_Door.Visible = true;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
@@ -497,6 +529,7 @@ namespace FerrumAddin
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
                     panelAR_Window.Visible = false;
+                    panelAR_Door.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -504,6 +537,7 @@ namespace FerrumAddin
                     panelAR_Level.Visible = false;
                     panelAR_Stained_Glass_Window.Visible = false;
                     panelAR_Window.Visible = false;
+                    panelAR_Door.Visible = false;
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using WPFApplication.Mark_Window;
 using WPFApplication.The_Floor_Is_Numeric;
 
-namespace WPFApplication.Parameter_Window
+namespace WPFApplication.Parameter_Door
 {
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]

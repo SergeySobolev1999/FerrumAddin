@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 
-namespace WPFApplication.Assembling_Window
+namespace WPFApplication.Assembling_Door
 {
     public class Position_Create_Assembling_On_Group_Stained_Glass_Windows
     {
@@ -85,7 +85,7 @@ namespace WPFApplication.Assembling_Window
                     foreach (Element element in collection_Assembly)
                     {
                         Element element_Type = Revit_Document_Assembling_Window.Document.GetElement(element.GetTypeId());
-                        element_Type.get_Parameter(Data_Assembling_Window.guid_Group).Set(209.00 / 304.8);
+                        element_Type.get_Parameter(Data_Assembling_Window.guid_Group).Set(207.00 / 304.8);
                     }
                     trans.Commit();
                 }
@@ -102,7 +102,7 @@ namespace WPFApplication.Assembling_Window
     {
         public Element CreateAssembly(Document doc, ICollection<ElementId> elementIds, string assemblyName)
         {
-            ElementId category_ID = new ElementId(-2000014);
+            ElementId category_ID = new ElementId(-2000023);
             ElementId assembly_Instance_Id = new ElementId(0);
             AssemblyInstance assembly = AssemblyInstance.Create(doc, elementIds, category_ID);
             assembly_Instance_Id = assembly.Id;

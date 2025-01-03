@@ -11,7 +11,7 @@ using WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows;
 
 
 
-namespace WPFApplication.Assembling_Window
+namespace WPFApplication.Assembling_Door
 {
     public class Filtered_Assembling_Window
     {
@@ -26,7 +26,7 @@ namespace WPFApplication.Assembling_Window
                     List<Element> all_Elements_Group_Collection = new List<Element>();
                     List<Element> all_Elements_Group_Collection_Shortened = new List<Element>();
                     List<Element> all_Elements_Group_Collection_Last = new List<Element>();
-                    ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType().ToElements();
+                    ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElements();
                     foreach (Element element in all_Elements)
                     {
                         if (Revit_Document_Assembling_Window.Document.GetElement(element.GetTypeId()) != null)

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WPFApplication.Assembling_Window
+namespace WPFApplication.Assembling_Door
 {
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
@@ -21,7 +21,7 @@ namespace WPFApplication.Assembling_Window
             {
                 //sdg
                 Revit_Document_Assembling_Window.Initialize(commandData);
-                WPF_Main_Assembling_Window wPF_Main_Assembling_Window = new WPF_Main_Assembling_Window();
+                WPF_Main_Assembling_Door wPF_Main_Assembling_Window = new WPF_Main_Assembling_Door();
                 wPF_Main_Assembling_Window.ShowDialog();
                 return Result.Succeeded;
             }

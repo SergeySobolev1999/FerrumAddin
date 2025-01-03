@@ -14,84 +14,158 @@ using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
+using System.Windows.Controls;
+using WPFApplication.Parameter_Window;
 
 namespace WPFApplication.Mark_Window
 {
-    public class Collecting_Group_Stained_Glass_Windows
+    public class Collecting_Window
     {
-        public Collecting_Group_Stained_Glass_Windows()
+        public Collecting_Window()
         {
             try
             {
-                using (Transaction newT1 = new Transaction(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
+                using (Transaction newT1 = new Transaction(Revit_Document_Mark_Window.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
-                    if (Data_Mark_On_Group_Stained_Glass_Windows.filtered_Group.Count > 0)
+                    if (Data_Mark_Window.filtered_Group.Count > 0)
                     {
-                        foreach (Group element_Group in Data_Mark_On_Group_Stained_Glass_Windows.filtered_Group)
+                        foreach (Element element_Window in Data_Mark_Window.filtered_Group)
                         {
-                            string description_Value = "";
-                            string model_Value = "";
-                            string model_Designation = "";
-                            string height_Value = "0";
-                            string wight_Value = "0";
-                            string full_Name = "";
-                            double cod = 0;
-                            Guid guid_designation = new Guid("9c98831b-9450-412d-b072-7d69b39f4029");
-                            Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
-                            Guid guid_ADSK_NAME = new Guid("e6e0f5cd-3e26-485b-9342-23882b20eb43");
-                            ICollection<ElementId> collection_ElementId_All_Grop_In_Model = element_Group.GetMemberIds();
-                            List<Element> collection_Element_All_Grop_In_Model = new List<Element>();
-                            foreach (ElementId elementId in collection_ElementId_All_Grop_In_Model)
+                            Parameter_Name parameter_Name = new Parameter_Name();
+                            if (element_Window != null && element_Window.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_23166_О_Новое")
                             {
-                                collection_Element_All_Grop_In_Model.Add(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(elementId));
+                                //Высота
+                                string height = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Высота", "-");
+                                //Ширина
+                                string wight = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Ширина", "БТС_Тип_Изделия_Переопределить");
+                                //АТС_Тип_Изделия
+                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Тип_Изделия", "БТС_Тип_Изделия_Переопределить");
+                                //АТС_Материал_Профильных_Элементов
+                                string material_Of_Profile_Elements = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Материал_Профильных_Элементов", "БТС_Материал_Профильных_Элементов_Переопределить");
+                                //АТС_Тип_Конструкции
+                                string type_Of_Construction = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Тип_Конструкции", "БТС_Тип_Конструкции_Переопределить");
+                                //АТС_Формула_Стеклопакета
+                                string double_Glazed_Window_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
+                                //АТС_Спобос_Открывания
+                                string opening_Method = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Способ_Открывания", "БТС_Способ_Открывания_Переопределить");
+                                //АТС_Покрытие_Окна_Спереди
+                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                //АТС_Покрытие_Окна_Сзади
+                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                //АТС_Огнестойкость
+                                string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                //АТС_Утепленность
+                                string insulation = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                //АТС_Функциональная_Особенность
+                                string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                //АТС_Расположение_Внутреннее_Наружное
+                                string the_Location_Is_Internal = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Расположение_Внутреннее_Наружное", "-");
+                                //АТС_Дополнительные_Сведенья
+                                string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Дополнительные_Сведенья", "-");
+                                //АТП_Обозначение
+                                Glass_Window glass_Window = new Glass_Window(
+                                    element_Window,
+                                    height,
+                                    wight,
+                                    product_Type,
+                                    material_Of_Profile_Elements,
+                                    type_Of_Construction,
+                                    double_Glazed_Window_Formula,
+                                    opening_Method,
+                                    window_Covering_In_Front,
+                                    window_Covering_In_Back,
+                                    fire_Resistance,
+                                    insulation,
+                                    functional_Feature,
+                                    the_Location_Is_Internal,
+                                    additional_Information);
+                                Data_Mark_Window.list_Group.Add(glass_Window);
                             }
-                            foreach (Element element_Id_In_Goup in collection_Element_All_Grop_In_Model)
+                            if (element_Window != null && element_Window.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_О_Новое")
                             {
-                                if (element_Id_In_Goup.Category != null)
-                                {
-                                    if (element_Id_In_Goup.Category.Name.ToString() == "Стены")
-                                    {
-                                        Element element_Type = Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element_Id_In_Goup.GetTypeId());
-                                        double wight_Position = 0;
-                                        if (element_Type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsValueString() != null)
-                                        {
-                                            description_Value = element_Type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsValueString();
-                                            description_Value = " " + description_Value.Replace("Теплый контур", "(утепл.)");
-                                        }
-                                        if (element_Type.get_Parameter(BuiltInParameter.ALL_MODEL_MODEL).AsValueString() != null)
-                                        {
-                                            model_Value = " " + element_Type.get_Parameter(BuiltInParameter.ALL_MODEL_MODEL).AsValueString();
-
-                                        }
-                                        if (double.Parse(element_Id_In_Goup.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString()) > 0)
-                                        {
-                                            wight_Position = double.Parse(element_Id_In_Goup.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString());
-                                            wight_Value = (double.Parse(wight_Value) + wight_Position).ToString();
-                                        }
-                                        if (double.Parse(element_Id_In_Goup.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsValueString()) > 0)
-                                        {
-                                            height_Value = " " + (element_Id_In_Goup.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsValueString().ToString());
-                                        }
-                                        model_Designation = " " + element_Type.get_Parameter(guid_designation).AsValueString();
-                                        cod = element_Type.get_Parameter(guid_COD).AsDouble();
-                                        full_Name = model_Value + model_Designation + height_Value + "х" + wight_Value + description_Value;
-                                    }
-                                }
+                                //АТС_Тип_Изделия
+                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Вип_Изделия", "БТС_Вип_Изделия_Переопределить");
+                                //Высота
+                                string height = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Высота", "-");
+                                //Ширина
+                                string wight = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Ширина", "-");
+                                //АТС_Класс_Сопротивления_Теплопередаче
+                                string heat_Transfer_Resistance_Class = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Класс_Сопротивления_Теплопередаче", "БТС_Класс_Сопротивления_Теплопередаче_Переопределить");
+                                //АТС_Формула_Стеклопакета
+                                string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
+                                //АТС_Огнестойкость
+                                string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                //АТС_Покрытие_Окна_Спереди
+                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                //АТС_Покрытие_Окна_Сзади
+                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                //АТС_Утепленность
+                                string insulation = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                //АТС_Функциональная_Особенность
+                                string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                //АТС_Расположение_Внутреннее_Наружное
+                                string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Расположение_Внутреннее_Наружное", "-");
+                                //АТС_Дополнительные_Сведенья
+                                string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Дополнительные_Сведенья", "-");
+                                Glass_Window glass_Window = new Glass_Window(
+                                    height,
+                                    element_Window,
+                                    wight,
+                                    product_Type,
+                                    heat_Transfer_Resistance_Class,
+                                    the_Double_Glazed_Unit_Formula,
+                                    fire_Resistance,
+                                    window_Covering_In_Front,
+                                    window_Covering_In_Back,
+                                    insulation,
+                                    functional_Feature,
+                                    location_Indoor_Outdoor,
+                                    additional_Information);
+                                Data_Mark_Window.list_Group.Add(glass_Window);
                             }
-                            Element element_Type_Cod = Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element_Group.GetTypeId());
 
-                            Parameter parameter_Value = element_Type_Cod.get_Parameter(guid_COD);
-                            parameter_Value.Set(cod);
-
-                            Parameter parameter_Value_Designation = element_Type_Cod.get_Parameter(guid_designation);
-                            parameter_Value_Designation.Set(model_Designation);
-
-                            Parameter parameter_Value_Name = element_Type_Cod.get_Parameter(guid_ADSK_NAME);
-                            parameter_Value_Name.Set(full_Name);
-
-                            Glass_Window glass_Window = new Glass_Window(description_Value, model_Value, model_Designation, height_Value, wight_Value, element_Group, full_Name);
-                            Data_Mark_On_Group_Stained_Glass_Windows.list_Group.Add(glass_Window);
+                            if (element_Window != null && element_Window.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30734_2020_О")
+                            {
+                                //Высота
+                                string height = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Высота", "-");
+                                //Ширина
+                                string wight = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Ширина", "БТС_Тип_Изделия_Переопределить");
+                                //АТС_Материал_Рамочных_Элементов
+                                string the_Material_Of_The_Frame_Elements = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Материал_Рамочных_Элементов", "БТС_Материал_Рамочных_Элементов_Переопределить");
+                                //АТС_Формула_Стеклопакета
+                                string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
+                                //АТС_Покрытие_Окна_Спереди
+                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                //АТС_Покрытие_Окна_Сзади
+                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                //АТС_Огнестойкость
+                                string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                //АТС_Утепленность
+                                string insulation = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                //АТС_Функциональная_Особенность
+                                string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                //АТС_Расположение_Внутреннее_Наружное
+                                string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Расположение_Внутреннее_Наружное", "-");
+                                //АТС_Дополнительные_Сведенья
+                                string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Дополнительные_Сведенья", "-");
+                                //АТП_Обозначение
+                                Glass_Window glass_Window = new Glass_Window(
+                                    height,
+                                    wight,
+                                    element_Window,
+                                    the_Material_Of_The_Frame_Elements,
+                                    the_Double_Glazed_Unit_Formula,
+                                    window_Covering_In_Front,
+                                    window_Covering_In_Back,
+                                    fire_Resistance,
+                                    insulation,
+                                    functional_Feature,
+                                    location_Indoor_Outdoor,
+                                    additional_Information);
+                                Data_Mark_Window.list_Group.Add(glass_Window);
+                            }
+                            
                         }
                     }
                     newT1.Commit();
@@ -104,67 +178,152 @@ namespace WPFApplication.Mark_Window
             }
         }
     }
-    public class Sort_On_Parameter
+    public class Sort_On_Mark_Window
     {
-        public Sort_On_Parameter()
+        public Sort_On_Mark_Window()
         {
             try
             {
-                using (Transaction newT1 = new Transaction(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
+                using (TransactionGroup transactionGroup = new TransactionGroup(Revit_Document_Mark_Window.Document, "Маркировка окон "))
                 {
-                    newT1.Start();
-                    List<Glass_Window> list = Data_Mark_On_Group_Stained_Glass_Windows.list_Group.OrderBy(x => x.model_Value).ThenBy(x => double.Parse(x.height_Value)).ThenBy(x => double.Parse(x.wight_Value)).ToList();
-                    list.Reverse();
-                    int identical = 1;
-                    int position_Mark = 1;
-                    double last_Cod = 0;
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        string postscript = "";
-                        Element element_Type = Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.GetTypeId());
-                        double parameter = Math.Round(element_Type.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_Group).AsDouble()*304.8,3);
-                        if (parameter !=last_Cod&&last_Cod!=0)
-                        {
-                            identical = 1;
-                            position_Mark = 1;
-                        }
-                        if (parameter == 212.001)
-                        {
-                            postscript = "ВВ-";
-                        }
-                        if (parameter == 211.001)
-                        {
-                            postscript = "ВН-";
-                        }
-                        if (parameter == 211.002)
-                        {
-                            postscript = "ОЛ-";
-                        }
-                        Group element_Group = (Group)Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.Id);
+                    transactionGroup.Start();
+                   
+                    List<Glass_Window> list = Data_Mark_Window.list_Group.OrderBy(
+                        x => double.Parse(x.height)).ThenBy(
+                        x => double.Parse(x.wight)).ThenBy(
+                        x => x.product_Type).ThenBy(
+                        x => x.material_Of_Profile_Elements).ThenBy(
+                        x => x.type_Of_Construction).ThenBy(
+                        x => x.double_Glazed_Window_Formula).ThenBy(
+                        x => x.opening_Method).ThenBy(
+                        x => x.window_Covering_In_Front).ThenBy(
+                        x => x.window_Covering_In_Back).ThenBy(
+                        x => x.fire_Resistance).ThenBy(
+                        x => x.insulation).ThenBy(
+                        x => x.functional_Feature).ThenBy(
+                        x => x.the_Location_Is_Internal).ThenBy(
+                        x => x.additional_Information).ThenBy(
+                        x => x.heat_Transfer_Resistance_Class).ThenBy(
+                        x => x.the_Double_Glazed_Unit_Formula).ThenBy(
+                        x => x.location_Indoor_Outdoor).ThenBy(
+                        x => x.the_Material_Of_The_Frame_Elements).ThenBy(
+                        x => x.element_Window.GetTypeId().ToString()).ToList();
 
-                        GroupType groupType = element_Group.GroupType;
-                        groupType.Name = postscript  + position_Mark.ToString() + " " + list[i].full_Name.ToString();
-                        FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document);
-                        ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();
-                        foreach (Element element in all_Elements)
+                    list.Reverse();
+                    foreach (Glass_Window glass_Window in list)
+                    {
+                        using (Transaction transaction1 = new Transaction(Revit_Document_Mark_Window.Document, "Транзакция 1"))
                         {
-                            if (Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId()).Name.ToString() == groupType.Name.ToString())
+                            transaction1.Start();
+                            Parameter parameter_ADSK_Mark = glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_Mark);
+                            string mark_Prefix = "";
+                            int mark_Position = 0;
+                            if(glass_Window.element_Window.LookupParameter("ЮТС_Фрамуга").AsInteger()==1)
                             {
-                                Parameter parameter_ADSK_Mark = element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark);
-                                parameter_ADSK_Mark.Set(postscript + position_Mark.ToString());
+                                mark_Prefix = "Ф-";
+                                Data_Mark_Window.number_Elements_Transom++;
+                                mark_Position = Data_Mark_Window.number_Elements_Transom;
                             }
+                            else
+                            {
+                                mark_Prefix = "ОК-";
+                                Data_Mark_Window.number_Elements++;
+                                mark_Position = Data_Mark_Window.number_Elements;
+                            }
+                            if (parameter_ADSK_Mark != null)
+                            {
+                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + mark_Position.ToString()).Trim())
+                                {
+                                    parameter_ADSK_Mark.Set(mark_Prefix + mark_Position.ToString());
+                                }
+                                if (glass_Window.element_Window.Name.Trim() != (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()).Trim())
+                                {
+                                    glass_Window.element_Window.Name = (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString());
+                                }
+                            }
+                            if (parameter_ADSK_Mark == null&& Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                            {
+                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
+                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр 'ADSK_Марка' не найден!";
+                            }
+                            transaction1.Commit();
                         }
-                        position_Mark++;
-                        last_Cod = parameter;
-                        Data_Mark_On_Group_Stained_Glass_Windows.number_Elements++;
                     }
-                    newT1.Commit();
+                    transactionGroup.Assimilate();
                 }
             }
             catch (Exception ex)
             {
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
+            }
+        }
+    }
+    public class Parameter_Name
+    {
+        public string Parameter_Name_Of_Element(Element element, string name, string name_Remove)
+        {
+            try
+            {
+                string str = "";
+                if (element.LookupParameter(name_Remove) != null)
+                {
+                    if (element.LookupParameter(name_Remove).AsValueString() != "Нет")
+                    {
+                        str = " " + element.LookupParameter(name_Remove).AsValueString();
+                    }
+                    else
+                    {
+                        if (element.LookupParameter(name) != null)
+                        {
+                            string[] previev_Name = element.LookupParameter(name).AsValueString().Split(new[] { "&" }, StringSplitOptions.None);
+                            str = " " + previev_Name[previev_Name.Count() - 1];
+                        }
+                        else
+                        {
+                            if (Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                            {
+                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
+                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + "' не найден. Обратитесь в BIM координатору";
+                                return "";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (element.LookupParameter(name) != null)
+                    {
+                        string[] previev_Name = element.LookupParameter(name).AsValueString().Split(new[] { "&" }, StringSplitOptions.None);
+                        str = " " + previev_Name[previev_Name.Count() - 1];
+                    }
+                    else
+                    {
+                        if (Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                        {
+                            Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
+                            Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + " не найден. Обратитесь в BIM координатору";
+                            return "";
+                        }
+                    }
+                }
+                if (str == " *" || str == " Нет")
+                {
+                    str = "";
+                }
+                if(str == null)
+                {
+                    Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
+                    Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. При инициализации значения параметра'" + name + "' неожиданно возвращено значение null. Обратитесь в BIM координатору";
+                    return "";
+                }
+                return str;
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+                return null;
             }
         }
     }

@@ -149,7 +149,6 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                         foreach (Group_Assembly_Position group_Assembly_Position in Data_Assembling_On_Group_Stained_Glass_Windows.filtered_Group)
                         {
                             Element element_Type = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(group_Assembly_Position.group.GetTypeId());
-                            GroupType groupType = group_Assembly_Position.group.GroupType;
                             string mark_Value = group_Assembly_Position.group.get_Parameter(Data_Assembling_On_Group_Stained_Glass_Windows.guid_ADSK_Mark).AsValueString();
                             string actual = "Х";
                             if (group_Assembly_Position.assemblyInstance != null && Revit_Document_Assembling_On_Group_Stained_Glass_Windows
@@ -158,7 +157,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                                 {
                                 actual = "✓";
                                 }
-                            string type_Value = groupType.Name.ToString();
+                            string type_Value = element_Type.Name.ToString();
                             string group_ID_Value = group_Assembly_Position.group.Id.ToString();
                             string assembling_ID_Value = "Х";
                             if (group_Assembly_Position.assemblyInstance != null)
@@ -175,6 +174,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                             Data_Assembling_On_Group_Stained_Glass_Windows.DataItems.Add(dataItem_Position);
                         }
                     }
+
                     //foreach(Group group_position in all_Elements_Group_Collection)
                     //{
                     //    List<Group> all_Elements_Group_Collection_Filtered = new List<Group>();
@@ -316,9 +316,9 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
     }
     public class Group_Assembly_Position
     {
-        public Group group { get; set; } = null;
+        public Element group { get; set; } = null;
         public AssemblyInstance assemblyInstance { get; set; } = null;
-        public Group_Assembly_Position(Group group, AssemblyInstance assemblyInstance)
+        public Group_Assembly_Position(Element group, AssemblyInstance assemblyInstance)
         {
             this.group = group;
             this.assemblyInstance = assemblyInstance;

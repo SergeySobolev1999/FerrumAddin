@@ -59,9 +59,11 @@
                 TextWrapping="Wrap" 
                 Text="..."
                 Name ="Version"
+                Margin="0,0,0,5"
+                VerticalAlignment="Bottom"
                 FontSize="15"
                 FontFamily="ISOCPEUR"
-                Height="25" Foreground="#FF323232"/>
+                Height="15" Foreground="#FF323232"/>
         </Border>
         <TextBox 
             Name ="inputTextBox"

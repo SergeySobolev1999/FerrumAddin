@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using WPFApplication.Parameter_Window;
 using WPFApplication.The_Floor_Is_Numeric;
 
-namespace WPFApplication.Mark_Window
+namespace WPFApplication.Mark_Door
 {
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
@@ -33,7 +33,7 @@ namespace WPFApplication.Mark_Window
                     S_Mistake_String s_Mistake_String_Warning = new S_Mistake_String(Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn);
                     s_Mistake_String_Warning.ShowDialog();
                 }
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + (Data_Mark_Window.number_Elements+ Data_Mark_Window.number_Elements_Transom).ToString());
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + (Data_Mark_Window.number_Elements).ToString());
                 s_Mistake_String.ShowDialog();
             }
             catch (Exception ex)

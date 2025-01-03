@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WPFApplication.Mark_Window
+namespace WPFApplication.Mark_Door
 {
     public class Filtered_Mark_Window
     {
@@ -19,7 +19,7 @@ namespace WPFApplication.Mark_Window
             try
             {
                 FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Mark_Window.Document);
-                ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType().ToElements();
+                ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElements();
                 foreach (Element element in all_Elements)
                 {
                     Element element_Type = Revit_Document_Mark_Window.Document.GetElement(element.GetTypeId());
@@ -27,9 +27,9 @@ namespace WPFApplication.Mark_Window
                     {
                         
                         double parameter_Value = element_Type.get_Parameter(Data_Mark_Window.guid_COD).AsDouble() * 304.8;
-                        if (209 < parameter_Value && parameter_Value < 210.999)
+                        if (206.999 < parameter_Value && parameter_Value < 209)
                         {
-                            Data_Mark_Window.filtered_Group.Add(element_Type);
+                            Data_Mark_Window.filtered_Group.Add(element);
                         }
                     }
                 }

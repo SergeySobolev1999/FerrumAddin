@@ -113,6 +113,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Architecture_Door {
+            get {
+                object obj = ResourceManager.GetObject("Architecture_Door", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows {
             get {
                 object obj = ResourceManager.GetObject("Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows", resourceCulture);

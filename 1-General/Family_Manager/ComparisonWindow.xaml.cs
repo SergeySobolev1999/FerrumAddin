@@ -135,12 +135,12 @@ namespace FerrumAddin.FM
 
         private void LoadRevitFamilies()
         {
-            //          List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
-            //.WhereElementIsNotElementType().ToElements()
-            //.Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();dsg
             List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
-                    .WhereElementIsNotElementType().ToElements()
-                    .Where(e => e.Category != null).ToList();
+  .WhereElementIsNotElementType().ToElements()
+  .Where(e => e.Category != null && e.Category.HasMaterialQuantities).ToList();
+            //List<Element> collector = (List<Element>)new FilteredElementCollector(doc)
+            //        .WhereElementIsNotElementType().ToElements()
+            //        .Where(e => e.Category != null).ToList(); 
 
             // Создаем список для хранения данных
             List<(Category category, string familyName, string typeName)> elementData = new List<(Category, string, string)>();

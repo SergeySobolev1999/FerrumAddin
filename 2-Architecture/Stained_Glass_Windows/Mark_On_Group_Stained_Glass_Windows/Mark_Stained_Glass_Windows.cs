@@ -113,7 +113,7 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                 using (Transaction newT1 = new Transaction(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
-                    List<Glass_Window> list = Data_Mark_On_Group_Stained_Glass_Windows.list_Group.OrderBy(x => x.model_Value).ThenBy(x => double.Parse(x.height_Value)).ThenBy(x => double.Parse(x.wight_Value)).ToList();
+                    List<Glass_Window> list = Data_Mark_On_Group_Stained_Glass_Windows.list_Group.OrderBy(x => x.model_Value).ThenBy(x => double.Parse(x.height_Value)).ThenBy(x => double.Parse(x.wight_Value)).ThenBy(x => x.element.GetTypeId().ToString()).ToList();
                     list.Reverse();
                     int identical = 1;
                     int position_Mark = 1;

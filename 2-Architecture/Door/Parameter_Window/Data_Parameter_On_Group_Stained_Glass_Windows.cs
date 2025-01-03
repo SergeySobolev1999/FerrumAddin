@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace WPFApplication.Parameter_Window
+namespace WPFApplication.Parameter_Door
 {
     public class Data_Parameter_Window
     {
