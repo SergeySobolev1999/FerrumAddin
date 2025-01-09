@@ -27,7 +27,7 @@ namespace WPFApplication.Mark_Window
                     {
                         
                         double parameter_Value = element_Type.get_Parameter(Data_Mark_Window.guid_COD).AsDouble() * 304.8;
-                        if (209 < parameter_Value && parameter_Value < 210.999)
+                        if (208.999 < parameter_Value && parameter_Value < 211 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
                         {
                             Data_Mark_Window.filtered_Group.Add(element_Type);
                         }

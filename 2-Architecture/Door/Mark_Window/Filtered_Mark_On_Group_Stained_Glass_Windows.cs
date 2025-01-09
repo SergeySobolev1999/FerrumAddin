@@ -27,7 +27,7 @@ namespace WPFApplication.Mark_Door
                     {
                         
                         double parameter_Value = element_Type.get_Parameter(Data_Mark_Window.guid_COD).AsDouble() * 304.8;
-                        if (206.999 < parameter_Value && parameter_Value < 209)
+                        if (206.999 < parameter_Value && parameter_Value < 209 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
                         {
                             Data_Mark_Window.filtered_Group.Add(element);
                         }

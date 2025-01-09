@@ -39,6 +39,7 @@ namespace WPFApplication.Assembling_Door
         {
             try
             {
+                Data_Assembling_Window.filtered_Group.Clear();
                 All_Assembly_Preview_Name_Checked();
                 AllPositionElementsInModelAssemblyOrientation();
                 Data_Assembling_Window.grup_Filtered_Collection.Clear();

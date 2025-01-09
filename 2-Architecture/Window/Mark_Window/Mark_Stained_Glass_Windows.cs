@@ -16,6 +16,7 @@ using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 using System.Windows.Controls;
 using WPFApplication.Parameter_Window;
+using System.Globalization;
 
 namespace WPFApplication.Mark_Window
 {
@@ -189,8 +190,8 @@ namespace WPFApplication.Mark_Window
                     transactionGroup.Start();
                    
                     List<Glass_Window> list = Data_Mark_Window.list_Group.OrderBy(
-                        x => double.Parse(x.height)).ThenBy(
-                        x => double.Parse(x.wight)).ThenBy(
+                        x => double.Parse(x.height, CultureInfo.InvariantCulture)).ThenBy(
+                        x => double.Parse(x.wight, CultureInfo.InvariantCulture)).ThenBy(
                         x => x.product_Type).ThenBy(
                         x => x.material_Of_Profile_Elements).ThenBy(
                         x => x.type_Of_Construction).ThenBy(
@@ -207,8 +208,7 @@ namespace WPFApplication.Mark_Window
                         x => x.the_Double_Glazed_Unit_Formula).ThenBy(
                         x => x.location_Indoor_Outdoor).ThenBy(
                         x => x.the_Material_Of_The_Frame_Elements).ThenBy(
-                        x => x.element_Window.GetTypeId().ToString()).ToList();
-
+                        x => x.element_Window.Id.ToString()).ToList();
                     list.Reverse();
                     foreach (Glass_Window glass_Window in list)
                     {

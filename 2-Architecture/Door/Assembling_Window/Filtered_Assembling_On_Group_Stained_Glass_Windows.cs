@@ -35,7 +35,7 @@ namespace WPFApplication.Assembling_Door
                             if (element_Type.get_Parameter(Data_Assembling_Window.guid_COD)!=null)
                             {
                                 double parameter_Value = element_Type.get_Parameter(Data_Assembling_Window.guid_COD).AsDouble() * 304.8;
-                                if (206.999 < parameter_Value && parameter_Value < 209)
+                                if (206.999 < parameter_Value && parameter_Value < 209 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
                                 {
                                     all_Elements_Group_Collection_Last.Add(element);
                                     all_Elements_Group_Collection.Add(element);
@@ -49,10 +49,10 @@ namespace WPFApplication.Assembling_Door
                         bool iteration = false;
                         AssemblyInstance assemblyInstance = null;
                         string category = group.get_Parameter(BuiltInParameter.ELEM_CATEGORY_PARAM).AsValueString();
-                        string mark_Group = Revit_Document_Assembling_Window.Document.GetElement(group.Id).get_Parameter(Data_Assembling_Window.guid_ADSK_Mark).AsValueString();
+                        string mark_Group = Revit_Document_Assembling_Window.Document.GetElement(group.GetTypeId()).get_Parameter(Data_Assembling_Window.guid_ADSK_Mark).AsValueString();
                         if (category != null)
                             {
-                                if (category == "Окна")
+                                if (category == "Двери")
                                 {
                                     if (Revit_Document_Assembling_Window.Document.GetElement(group.AssemblyInstanceId) != null)
                                     {
@@ -78,11 +78,10 @@ namespace WPFApplication.Assembling_Door
                         foreach (Window_Assembly_Position group_Assembly_Position in Data_Assembling_Window.filtered_Group)
                         {
                             Element element_Type = Revit_Document_Assembling_Window.Document.GetElement(group_Assembly_Position.group.GetTypeId());
-
                             string mark_Value = element_Type.get_Parameter(Data_Assembling_Window.guid_ADSK_Mark).AsValueString();
                             string actual = "Х";
                             if (group_Assembly_Position.assemblyInstance != null && Revit_Document_Assembling_Window
-                                .Document.GetElement(group_Assembly_Position.group.Id).get_Parameter(Data_Assembling_Window
+                                .Document.GetElement(group_Assembly_Position.group.GetTypeId()).get_Parameter(Data_Assembling_Window
                                 .guid_ADSK_Mark).AsValueString() == group_Assembly_Position.assemblyInstance.Name.ToString())
                             {
                                 actual = "✓";
@@ -92,7 +91,7 @@ namespace WPFApplication.Assembling_Door
                             string assembling_ID_Value = "Х";
                             if (group_Assembly_Position.assemblyInstance != null)
                             {
-                                assembling_ID_Value = group_Assembly_Position.assemblyInstance.Id.ToString();
+                                assembling_ID_Value = group_Assembly_Position.assemblyInstance.GetTypeId().ToString();
                             }
                             bool update = false_Update;
                             DataItem dataItem = new DataItem(mark_Value, type_Value, actual, group_ID_Value, assembling_ID_Value, update);
@@ -140,7 +139,7 @@ namespace WPFApplication.Assembling_Door
                         if (element_Type.get_Parameter(Data_Assembling_Window.guid_COD) !=null)
                         {
                             double parameter_Value = element_Type.get_Parameter(Data_Assembling_Window.guid_COD).AsDouble() * 304.8;
-                            if (206.999 <= parameter_Value && parameter_Value < 209)
+                            if (206.999 <= parameter_Value && parameter_Value < 209 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
                             {
                                 all_Elements_Group_Collection.Add(element);
                             }

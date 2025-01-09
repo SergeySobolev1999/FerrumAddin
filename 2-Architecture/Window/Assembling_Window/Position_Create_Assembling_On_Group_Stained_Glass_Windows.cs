@@ -49,11 +49,18 @@ namespace WPFApplication.Assembling_Window
                             if (element_Group.get_Parameter(BuiltInParameter.ASSEMBLY_NAME) == null)
                             {
                                 elementIds.Add(element_Group.Id);
+                                List<ElementId> IDS = (List<ElementId>)element_Group.GetDependentElements(null);
+                                foreach(ElementId elementId in  IDS)
+                                {
+                                    Element element = Revit_Document_Assembling_Window.Document.GetElement(elementId);
+                                    Element element_Type_Depended = Revit_Document_Assembling_Window.Document.GetElement(Revit_Document_Assembling_Window.Document.GetElement(elementId).GetTypeId());
+                                    if (element.Category.Name.ToString() == "Окна"&& element_Type_Depended.Name.Contains("Полотно"))
+                                    {
+                                        elementIds.Add(elementId);
+                                    }
+                                }
                             }
-                            
-                            
-                                Data_Assembling_Window.number_Assembly_Elements++;
-                            
+                            Data_Assembling_Window.number_Assembly_Elements++;
                             CreateAssemblyExample createAssemblyExample = new CreateAssemblyExample();
                             if (elementIds == null || elementIds.Count == 0 && iteration == false)
                             {

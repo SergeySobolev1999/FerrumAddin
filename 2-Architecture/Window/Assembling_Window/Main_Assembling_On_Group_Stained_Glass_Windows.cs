@@ -19,7 +19,7 @@ namespace WPFApplication.Assembling_Window
         {
             try
             {
-                //sdg
+                Data_Assembling_Window.filtered_Group.Clear();
                 Revit_Document_Assembling_Window.Initialize(commandData);
                 WPF_Main_Assembling_Window wPF_Main_Assembling_Window = new WPF_Main_Assembling_Window();
                 wPF_Main_Assembling_Window.ShowDialog();

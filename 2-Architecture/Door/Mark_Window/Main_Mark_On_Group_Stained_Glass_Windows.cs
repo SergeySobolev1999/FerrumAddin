@@ -24,6 +24,7 @@ namespace WPFApplication.Mark_Door
                 Revit_Document_Mark_Window.Initialize(commandData);
                 Data_Mark_Window.filtered_Group.Clear();
                 Data_Mark_Window.list_Group.Clear();
+                Data_Mark_Window.number_Elements  = 0;
                 Filtered_Mark_Window filtered_Mark_Window = new Filtered_Mark_Window();
                 Collecting_Window collecting_Group_Stained_Glass_Windows = new Collecting_Window(); 
                 Sort_On_Mark_Window sort_On_Mark_Window = new Sort_On_Mark_Window();

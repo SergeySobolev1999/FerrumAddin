@@ -1,10 +1,10 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.UI;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using SSDK;
@@ -86,9 +86,7 @@ namespace WPFApplication.The_Floor_Is_Numeric
                     if (!element_true)
                     {
                         Element level_ID = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(element.LevelId);
-                        Parameter parameter_Level = level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid);
-                        Parameter parameter_Element = element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid);
-                        parameter_Element.Set(Convert.ToDouble(parameter_Level.AsValueString()));
+                        element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).Set(level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble());
                         Data_The_Floor_Is_Numeric.number_True_Element++;
                     }
                 }

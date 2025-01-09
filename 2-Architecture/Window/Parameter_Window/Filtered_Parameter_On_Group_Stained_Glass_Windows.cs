@@ -27,7 +27,7 @@ namespace WPFApplication.Parameter_Window
                     {
                         
                         double parameter_Value = element_Type.get_Parameter(Data_Parameter_Window.guid_COD).AsDouble() * 304.8;
-                        if (209 < parameter_Value && parameter_Value < 210.999)
+                        if (209 < parameter_Value && parameter_Value < 210.999 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
                         {
                             Data_Parameter_Window.filtered_Group.Add(element_Type);
                         }

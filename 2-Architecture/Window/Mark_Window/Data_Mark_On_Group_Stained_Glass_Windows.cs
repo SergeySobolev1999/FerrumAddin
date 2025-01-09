@@ -50,7 +50,7 @@ namespace WPFApplication.Mark_Window
         //АТС_Тип_Конструкции
         public string type_Of_Construction { get; set; } = "";
         //АТС_Формула_Стеклопакета
-        public string double_Glazed_Window_Formula { get; set; } = null;
+        public string double_Glazed_Window_Formula { get; set; } = "";
         //АТС_Спобос_Открывания
         public string opening_Method { get; set; } = "";
         //АТС_Покрытие_Окна_Спереди

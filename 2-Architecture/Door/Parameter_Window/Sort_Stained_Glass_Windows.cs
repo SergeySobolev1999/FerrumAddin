@@ -42,7 +42,8 @@ namespace WPFApplication.Parameter_Door
                             {
                                 Element element_Group_Ex = Revit_Document_Parameter_Window.Document.GetElement(element_Familyinstace.Id);
                                 Element element_Group = Revit_Document_Parameter_Window.Document.GetElement(element_Familyinstace.GetTypeId());
-                                if (element_Group != null && element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_23747_Д_Новое")
+                                
+                                if (element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_23747_Д_Новое")
                                 {
                                     Parameter_Name parameter_Name = new Parameter_Name();
 
@@ -63,7 +64,7 @@ namespace WPFApplication.Parameter_Door
                                     //Высота
                                     string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
                                     //Ширина
-                                    string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString(); 
+                                    string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString();
                                     //АТС_Огнестойкость
                                     string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                     //АТС_Утепленность
@@ -79,8 +80,8 @@ namespace WPFApplication.Parameter_Door
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                    string result_Name = product_Type + material_Of_Profile_Elements + type_Of_Construction + double_Glazed_Window_Formula + opening_Method + type_Of_Filling + щpening_Inside_To_Outside+ " " + height+ "х" +
-                                        wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front+ additional_Information;
+                                    string result_Name = product_Type + material_Of_Profile_Elements + type_Of_Construction + double_Glazed_Window_Formula + opening_Method + type_Of_Filling + щpening_Inside_To_Outside + " " + height + "х" +
+                                        wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -102,6 +103,7 @@ namespace WPFApplication.Parameter_Door
                                         transaction1.Commit();
                                     }
                                 }
+
                                 if (element_Group != null && element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_57327_Д_Новое")
                                 {
                                     Parameter_Name parameter_Name = new Parameter_Name();
@@ -152,7 +154,7 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name +" ("+ Data_Parameter_Window.number_Elements.ToString()+ ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
                                             }
                                         }
                                         transaction1.Commit();
@@ -201,8 +203,8 @@ namespace WPFApplication.Parameter_Door
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                    string result_Name = the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + the_Double_Glazed_Unit_Formula + opening_Left_Right + щpening_Inside_To_Outside +  door_Execution +
-                                        operational_Pperformance_Class + strength_Сlass + additional_Designation_Of_The_Execution + " " + height + "х" + wight + fire_Resistance +  insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                    string result_Name = the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + the_Double_Glazed_Unit_Formula + opening_Left_Right + щpening_Inside_To_Outside + door_Execution +
+                                        operational_Pperformance_Class + strength_Сlass + additional_Designation_Of_The_Execution + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -259,7 +261,7 @@ namespace WPFApplication.Parameter_Door
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                    string result_Name = the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + number_Of_Canvases + the_Presence_Of_Glazing + the_Double_Glazed_Unit_Formula + щpening_Inside_To_Outside + " " + height + "х" + wight +  fire_Resistance + insulation + functional_Feature  + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                    string result_Name = the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + number_Of_Canvases + the_Presence_Of_Glazing + the_Double_Glazed_Unit_Formula + щpening_Inside_To_Outside + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -281,7 +283,7 @@ namespace WPFApplication.Parameter_Door
                                         transaction1.Commit();
                                     }
                                 }
-                                if (element_Group != null && (element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_ДБ_Новое"|| element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_Д_Новое"))
+                                if (element_Group != null && (element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_ДБ_Новое" || element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_Д_Новое"))
                                 {
                                     Parameter_Name parameter_Name = new Parameter_Name();
 
