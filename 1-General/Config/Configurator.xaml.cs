@@ -566,6 +566,10 @@ namespace FerrumAddin
             {
                 Licenses_Connection.Text = "Лицензия подключена";
             }
+            else
+            {
+                Licenses_Connection.Text = "Ошибка. Ваша лицензия недоступна. Выполните переподключение";
+            }
         }
 
         private void User_Licenses(object sender, RoutedEventArgs e)

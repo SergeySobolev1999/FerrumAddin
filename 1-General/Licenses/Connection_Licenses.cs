@@ -64,6 +64,7 @@ namespace WPFApplication.Licenses
                 }
                 catch (MySqlException ex)
                 {
+                    SSDK_Data.licenses_Connection = false;
                     S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                     s_Mistake_String.ShowDialog();
                 }

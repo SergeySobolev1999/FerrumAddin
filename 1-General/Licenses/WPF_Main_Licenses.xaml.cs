@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.Compiler;
 using MySql.Data.MySqlClient;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -144,24 +145,30 @@ namespace WPFApplication.Licenses
                                     TextBox_Surname.Text = user_License.surname;
                                     TextBox_Password.Text = user_License.password;
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
+                                    SSDK_Data.licenses_Connection = true;
                                 }
                                 else
                                 {
+                                    SSDK_Data.licenses_Connection = false;
                                     status.Text = "Статус подключения: лицензия занята";
+                                    
                                 }
                             }
                             else
                             {
+                                SSDK_Data.licenses_Connection = false;
                                 status.Text = "Статус подключения: лицензия недоступна";
                             }
                         }
                         if (iterarion)
                         {
+                            SSDK_Data.licenses_Connection = true;
                             status.Text = "Статус подключения: подключено";
                             Data.licenses_Value = true;
                         }
                         if (!iterarion)
                         {
+                            SSDK_Data.licenses_Connection = false;
                             status.Text = "Статус подключения: переподключитесь к серверу лицензий";
                             Data.licenses_Value = true;
                         }
@@ -171,11 +178,13 @@ namespace WPFApplication.Licenses
                 {
                     if (ex.Number == 0) // Код ошибки для недоступного сервера
                     {
+                        SSDK_Data.licenses_Connection = false;
                         status.Text = "Статус подключения: сервер недоступен";
                         Data.licenses_Value = false;
                     }
                     else
                     {
+                        SSDK_Data.licenses_Connection = false;
                         status.Text = "Статус подключения: сервер недоступен";
                         Data.licenses_Value = false;
                     }
