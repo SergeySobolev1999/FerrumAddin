@@ -25,6 +25,11 @@ namespace WPFApplication.The_Floor_Is_Numeric
                     WPF_Main_The_Floor_Is_Numeric wpf_Main_The_Floor_Is_Numeric = new WPF_Main_The_Floor_Is_Numeric(commandData);
                     wpf_Main_The_Floor_Is_Numeric.ShowDialog();
                 }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
                 return Result.Succeeded;
             }
             catch (Exception ex)
