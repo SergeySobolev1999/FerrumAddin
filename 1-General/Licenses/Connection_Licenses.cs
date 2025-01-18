@@ -202,7 +202,7 @@ namespace WPFApplication.Licenses
         {
 
             string basic_Path = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Autodesk",
             "Revit",
             "Addins",
