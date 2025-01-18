@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApplication.Licenses;
 
 namespace WPFApplication.The_Floor_Is_Numeric
 {
@@ -18,9 +19,13 @@ namespace WPFApplication.The_Floor_Is_Numeric
         {
             try
             {
-                WPF_Main_The_Floor_Is_Numeric wpf_Main_The_Floor_Is_Numeric = new WPF_Main_The_Floor_Is_Numeric(commandData);
-            wpf_Main_The_Floor_Is_Numeric.ShowDialog();
-            return Result.Succeeded;
+                Licenses_True_ licenses_True_ = new Licenses_True_();
+                if (SSDK_Data.licenses_Connection)
+                {
+                    WPF_Main_The_Floor_Is_Numeric wpf_Main_The_Floor_Is_Numeric = new WPF_Main_The_Floor_Is_Numeric(commandData);
+                    wpf_Main_The_Floor_Is_Numeric.ShowDialog();
+                }
+                return Result.Succeeded;
             }
             catch (Exception ex)
             {

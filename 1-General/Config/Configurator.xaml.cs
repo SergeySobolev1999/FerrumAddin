@@ -24,6 +24,7 @@ using Autodesk.Revit.Creation;
 using Document = Autodesk.Revit.DB.Document;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using WPFApplication.Licenses;
+using SSDK;
 
 namespace FerrumAddin
 {
@@ -35,6 +36,7 @@ namespace FerrumAddin
         public Configurator(ExternalCommandData commandData)
         {
             InitializeComponent();
+            User_Licenses_Connection();
             CreateCheckboxesFromXml();
             LoadToggleButtonState();
             this.commandData = commandData;
@@ -556,11 +558,19 @@ namespace FerrumAddin
             Close();
         }
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+     
+        private void User_Licenses_Connection()
+        {
+            Licenses_True_ licenses_True_ = new Licenses_True_();
+            if (SSDK_Data.licenses_Connection)
+            {
+                Licenses_Connection.Text = "Лицензия подключена";
+            }
+        }
 
         private void User_Licenses(object sender, RoutedEventArgs e)
         {
             Main_Assembling_Window main_Assembling_Window = new Main_Assembling_Window();
         }
     }
-
 }

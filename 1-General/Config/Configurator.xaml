@@ -119,6 +119,7 @@
                                 <Button x:Name="License_WPF" Content="Лицензия" Click="User_Licenses"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
                             </DockPanel>
                             <TextBlock
+                                Name="Licenses_Connection"
                                 TextWrapping="Wrap" 
                                 Text="..." 
                                 Width="135"
