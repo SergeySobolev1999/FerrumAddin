@@ -70,6 +70,7 @@ namespace WPFApplication.Licenses
                                 Data.password = reader["password"].ToString();
                                 Set_User_Name set_User_Name = new Set_User_Name(Data.id_persons);
                                 iterarion = true;
+                                SSDK_Data.licenses_Connection = true;
 
                             }
                             else
@@ -79,6 +80,7 @@ namespace WPFApplication.Licenses
                                 User_license user_License = new User_license(0, "0", "0", "0");
                                 Serialize serialize = new Serialize();
                                 serialize.SerializeXML2(user_License);
+                                SSDK_Data.licenses_Connection = false;
                             }
                         }
                         if (iterarion)
@@ -89,6 +91,7 @@ namespace WPFApplication.Licenses
                             Data.user_License = new User_license(Data.id_persons, Data.name, Data.surname, Data.password);
                             Serialize serialize = new Serialize();
                             serialize.SerializeXML2(Data.user_License);
+                            SSDK_Data.licenses_Connection = true;
                         }
                     }
                 }
@@ -98,15 +101,18 @@ namespace WPFApplication.Licenses
                     {
                         status.Text = "Статус подключения: сервер недоступен";
                         Data.licenses_Value = false;
+                      
                     }
                     else
                     {
                         status.Text = "Статус подключения: сервер недоступен";
                         Data.licenses_Value = false;
+                        
                     }
                     User_license user_License = new User_license(0, "0", "0", "0");
                     Serialize serialize = new Serialize();
                     serialize.SerializeXML2(user_License);
+                    SSDK_Data.licenses_Connection = false;
                 }
             }
 
