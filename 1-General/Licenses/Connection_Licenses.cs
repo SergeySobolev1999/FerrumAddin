@@ -206,7 +206,8 @@ namespace WPFApplication.Licenses
             "Autodesk",
             "Revit",
             "Addins",
-            "2024"
+            "2024",
+            "ZHELEZNO_PLUGIN"
         );
             //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             //string[] userName_Split = userName.Split(new[] { "\\" }, StringSplitOptions.None);
