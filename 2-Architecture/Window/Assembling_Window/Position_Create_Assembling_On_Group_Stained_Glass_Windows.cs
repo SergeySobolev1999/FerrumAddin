@@ -17,6 +17,7 @@ namespace WPFApplication.Assembling_Window
             using (Transaction newT1 = new Transaction(Revit_Document_Assembling_Window.Document, "Создание видов сборок"))
             {
                 newT1.Start();
+                
                 foreach (ElementId group_ElementID in Data_Assembling_Window.grup_Filtered_Collection)
                 {
                     Element element_Group = Revit_Document_Assembling_Window.Document.GetElement(group_ElementID);
@@ -89,6 +90,7 @@ namespace WPFApplication.Assembling_Window
                 try
                 {
                     trans.Start();
+                   
                     foreach (Element element in collection_Assembly)
                     {
                         Element element_Type = Revit_Document_Assembling_Window.Document.GetElement(element.GetTypeId());
@@ -238,6 +240,23 @@ namespace WPFApplication.Assembling_Window
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

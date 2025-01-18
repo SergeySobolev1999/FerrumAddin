@@ -16,7 +16,10 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
         public static Guid guid_ADSK_Mark = new Guid("2204049c-d557-4dfc-8d70-13f19715e46d");
         public static List<Glass_Window> list_Group { get; set; } = new List<Glass_Window>();
         public static int number_Elements { get; set; } = 0;
-        
+        public static bool error_Suppressio = false;
+        public static bool iteration_Recaive_Value_In_Parameter = false;
+        public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
+
     }
     public static class Revit_Document_Mark_On_Group_Stained_Glass_Windows
     {

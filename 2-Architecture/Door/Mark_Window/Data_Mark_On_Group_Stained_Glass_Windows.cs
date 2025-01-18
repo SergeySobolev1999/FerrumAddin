@@ -12,7 +12,7 @@ using System.Windows.Media.Media3D;
 
 namespace WPFApplication.Mark_Door
 {
-    public class Data_Mark_Window
+    public class Data_Mark_Door
     {
         public static List<Element> filtered_Group { get; set; } = new List<Element>();
         public static Guid guid_Group = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
@@ -22,7 +22,8 @@ namespace WPFApplication.Mark_Door
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public static int number_Elements { get; set; } = 0;
         public static bool iteration_Recaive_Value_In_Parameter = false;
-
+        public static bool error_Suppressio = false;
+        public static int number_Elements_Transom { get; set; } = 0;
         public static string  iteration_Recaive_Value_In_Parameter_Watringn = "";
 
     }

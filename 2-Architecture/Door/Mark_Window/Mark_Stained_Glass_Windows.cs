@@ -30,10 +30,18 @@ namespace WPFApplication.Mark_Door
                 using (Transaction newT1 = new Transaction(Revit_Document_Mark_Window.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
-                    if (Data_Mark_Window.filtered_Group.Count > 0)
+                    if (Data_Mark_Door.error_Suppressio == true)
                     {
-                        foreach (Element element_Familyinstace in Data_Mark_Window.filtered_Group)
+                        // Настройка для подавления предупреждений
+                        FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                        failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                        newT1.SetFailureHandlingOptions(failureOptions);
+                    }
+                    if (Data_Mark_Door.filtered_Group.Count > 0)
+                    {
+                        foreach (Element element_Familyinstace in Data_Mark_Door.filtered_Group)
                         {
+                           
                             Element element_Group_Ex = Revit_Document_Mark_Window.Document.GetElement(element_Familyinstace.Id);
                             Element element_Doors = Revit_Document_Mark_Window.Document.GetElement(element_Familyinstace.GetTypeId());
                             Parameter_Name parameter_Name = new Parameter_Name();
@@ -88,7 +96,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                                 if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_57327_Д_Новое")
                                 {
@@ -133,7 +141,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                                 if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_31173_Д_Новое")
                                 {
@@ -193,7 +201,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                                 if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_475_Д_Новое")
                                 {
@@ -241,7 +249,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                                 if (element_Doors != null && (element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_ДБ_Новое" || element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_Д_Новое"))
                                 {
@@ -289,7 +297,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                                 if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_23747_Д_Витражная_Новое")
                                 {
@@ -341,7 +349,7 @@ namespace WPFApplication.Mark_Door
                                         window_Covering_In_Front,
                                         window_Covering_In_Back,
                                         additional_Information);
-                                    Data_Mark_Window.list_Group.Add(glass_Window);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
 
                             }
@@ -367,7 +375,7 @@ namespace WPFApplication.Mark_Door
                 {
                     transactionGroup.Start();
                    
-                    List<Glass_Window> list = Data_Mark_Window.list_Group.OrderBy(
+                    List<Glass_Window> list = Data_Mark_Door.list_Group.OrderBy(
                         x => double.Parse(x.height, CultureInfo.InvariantCulture)).ThenBy(
                         x => double.Parse(x.wight, CultureInfo.InvariantCulture)).ThenBy(
                         x => x.material_Of_Profile_Elements).ThenBy(
@@ -403,24 +411,25 @@ namespace WPFApplication.Mark_Door
                         using (Transaction transaction1 = new Transaction(Revit_Document_Mark_Window.Document, "Транзакция 1"))
                         {
                             transaction1.Start();
-                            Parameter parameter_ADSK_Mark = glass_Window.element_Doors.get_Parameter(Data_Mark_Window.guid_ADSK_Mark);
+                            Parameter parameter_ADSK_Mark = glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_Mark);
                             string mark_Prefix = "Д-";
                             if (parameter_ADSK_Mark != null)
                             {
-                                Data_Mark_Window.number_Elements++;
-                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + Data_Mark_Window.number_Elements.ToString()).Trim())
+                                
+                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + Data_Mark_Door.number_Elements.ToString()).Trim())
                                 {
-                                    parameter_ADSK_Mark.Set(mark_Prefix + Data_Mark_Window.number_Elements.ToString());
+                                    Data_Mark_Door.number_Elements++;
+                                    parameter_ADSK_Mark.Set(mark_Prefix + Data_Mark_Door.number_Elements.ToString());
                                 }
-                                if (glass_Window.element_Doors.Name.Trim() != (mark_Prefix + Data_Mark_Window.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()).Trim())
+                                if (glass_Window.element_Doors.Name.Trim() != (mark_Prefix + Data_Mark_Door.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString()).Trim())
                                 {
-                                    glass_Window.element_Doors.Name = (mark_Prefix + Data_Mark_Window.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString());
+                                    glass_Window.element_Doors.Name = (mark_Prefix + Data_Mark_Door.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString());
                                 }
                             }
-                            if (parameter_ADSK_Mark == null&& Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                            if (parameter_ADSK_Mark == null&& Data_Mark_Door.iteration_Recaive_Value_In_Parameter == false)
                             {
-                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
-                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр 'ADSK_Марка' не найден!";
+                                Data_Mark_Door.iteration_Recaive_Value_In_Parameter = true;
+                                Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр 'ADSK_Марка' не найден!";
                             }
                             transaction1.Commit();
                         }
@@ -442,6 +451,7 @@ namespace WPFApplication.Mark_Door
             try
             {
                 string str = "";
+
                 if (element.LookupParameter(name_Remove) != null)
                 {
                     if (element.LookupParameter(name_Remove).AsValueString() != "Нет")
@@ -457,10 +467,10 @@ namespace WPFApplication.Mark_Door
                         }
                         else
                         {
-                            if (Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                            if (Data_Mark_Door.iteration_Recaive_Value_In_Parameter == false)
                             {
-                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
-                                Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + "' не найден. Обратитесь в BIM координатору";
+                                Data_Mark_Door.iteration_Recaive_Value_In_Parameter = true;
+                                Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + "' не найден. Обратитесь в BIM координатору";
                                 return "";
                             }
                         }
@@ -475,10 +485,10 @@ namespace WPFApplication.Mark_Door
                     }
                     else
                     {
-                        if (Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
+                        if (Data_Mark_Door.iteration_Recaive_Value_In_Parameter == false)
                         {
-                            Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
-                            Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + " не найден. Обратитесь в BIM координатору";
+                            Data_Mark_Door.iteration_Recaive_Value_In_Parameter = true;
+                            Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + " не найден. Обратитесь в BIM координатору";
                             return "";
                         }
                     }
@@ -489,8 +499,8 @@ namespace WPFApplication.Mark_Door
                 }
                 if(str == null)
                 {
-                    Data_Mark_Window.iteration_Recaive_Value_In_Parameter = true;
-                    Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. При инициализации значения параметра'" + name + "' неожиданно возвращено значение null. Обратитесь в BIM координатору";
+                    Data_Mark_Door.iteration_Recaive_Value_In_Parameter = true;
+                    Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Mark_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. При инициализации значения параметра'" + name + "' неожиданно возвращено значение null. Обратитесь в BIM координатору";
                     return "";
                 }
                 return str;
@@ -501,6 +511,23 @@ namespace WPFApplication.Mark_Door
                 s_Mistake_String.ShowDialog();
                 return null;
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

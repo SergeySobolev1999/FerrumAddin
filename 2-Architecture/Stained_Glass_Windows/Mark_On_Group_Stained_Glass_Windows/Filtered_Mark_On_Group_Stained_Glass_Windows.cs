@@ -8,7 +8,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFApplication.The_Floor_Is_Numeric;
 
 namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
 {
@@ -26,7 +25,7 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                     bool collection_All_Grop_In_Model_True = false;
                     Element element_Type = Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId());
                     double parameter_Value = element_Type.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_Group).AsDouble() * 304.8;
-                    if (211 < parameter_Value && parameter_Value < 212.999)
+                    if (210.999 < parameter_Value && parameter_Value < 212.999)
                     {
                         collection_All_Grop_In_Model_True = true;
                     }

@@ -12,7 +12,6 @@ using System.Linq;
 using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using System.Windows.Controls;
-using WPFApplication.Mark_On_Group_Stained_Glass_Windows;
 using SSDK;
 
 namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
@@ -26,6 +25,13 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                 using (Transaction newT1 = new Transaction(Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
+                    if (Data_Parameter_On_Group_Stained_Glass_Windows.error_Suppressio == true)
+                    {
+                        // Настройка для подавления предупреждений
+                        FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                        failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                        newT1.SetFailureHandlingOptions(failureOptions);
+                    }
                     if (Data_Parameter_On_Group_Stained_Glass_Windows.filtered_Group.Count > 0)
                     {  
                         foreach (Group element_Group in Data_Parameter_On_Group_Stained_Glass_Windows.filtered_Group)
@@ -93,7 +99,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                             {
                                 if (Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId()).Name.ToString() == element_Type_Cod.Name.ToString())
                                 {
-                                    Parameter parameter_ADSK_Mark = element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark);
+                                    Parameter parameter_ADSK_Mark = element.get_Parameter(Data_Parameter_On_Group_Stained_Glass_Windows.guid_ADSK_Mark);
                                     parameter_ADSK_Mark.Set("");
                                 }
                             }
@@ -122,12 +128,18 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                 using (Transaction newT1 = new Transaction(Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
+                    if (Data_Parameter_On_Group_Stained_Glass_Windows.error_Suppressio == true)
+                    {
+                        // Настройка для подавления предупреждений
+                        FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                        failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                        newT1.SetFailureHandlingOptions(failureOptions);
+                    }
                     List<Glass_Window> list = Data_Parameter_On_Group_Stained_Glass_Windows.list_Group.OrderBy(x => x.model_Value).ThenBy(x => double.Parse(x.height_Value)).ThenBy(x => double.Parse(x.wight_Value)).ToList();
                     int identical = 1;
                     for (int i = 0; i < list.Count; i++)
                     {
-                        //Element element_Type = Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(Data_Parameter_On_Group_Stained_Glass_Windows.list_Group[i].element.GetTypeId());
-                        //Parameter parameter = element_Type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
+                        //Element element_Type = Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(Data_Parameter_On_Group_Stained_Glass_Windows.list_Group[i].element.GetTypeId());ыврыврывр
                         //Group group = Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(Revit_Document_Parameter_On_Group_Stained_Glass_Windows.UIDobument.Selection.PickObject(ObjectType.Element, "Выберите группу")) as Group;
                         Group element_Group = (Group)Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.Id);
                         GroupType groupType = element_Group.GroupType;
@@ -185,6 +197,23 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

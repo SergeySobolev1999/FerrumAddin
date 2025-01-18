@@ -39,6 +39,7 @@ namespace WPFApplication.Assembling_Window
         {
             try
             {
+
                 Data_Assembling_Window.filtered_Group.Clear();
                 All_Assembly_Preview_Name_Checked();
                 AllPositionElementsInModelAssemblyOrientation();
@@ -62,6 +63,7 @@ namespace WPFApplication.Assembling_Window
                     using (Transaction trans = new Transaction(Revit_Document_Assembling_Window.Document, "Переименование сборок"))
                     {
                         trans.Start();
+                       
                         foreach (ElementId group_ElementId in Data_Assembling_Window.grup_Filtered_Collection)
                         {
                             Element element_Group = Revit_Document_Assembling_Window.Document.GetElement(group_ElementId);
@@ -165,6 +167,7 @@ namespace WPFApplication.Assembling_Window
                 using (Transaction trans = new Transaction(Revit_Document_Assembling_Window.Document, "Начальное переименование сборок"))
                 {
                     trans.Start();
+                   
                     FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Assembling_Window.Document);
                     List<Element> all_Elements_Assembly = (List<Element>)window.OfCategory(BuiltInCategory.OST_Assemblies).WhereElementIsNotElementType().ToElements();
                     double position_Iteration = 1000;

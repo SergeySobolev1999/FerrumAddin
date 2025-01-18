@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFApplication.The_Floor_Is_Numeric;
 
 namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
 {
@@ -17,23 +16,10 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            try
-            {
-                Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Initialize(commandData);
-                Data_Parameter_On_Group_Stained_Glass_Windows.number_Elements = 0;
-                Data_Parameter_On_Group_Stained_Glass_Windows.filtered_Group.Clear();
-                Data_Parameter_On_Group_Stained_Glass_Windows.list_Group.Clear();
-                Filtered_Mark_On_Group_Stained_Glass_Windows filtered_Mark_On_Group_Stained_Glass_Windows = new Filtered_Mark_On_Group_Stained_Glass_Windows();
-                Collecting_Group_Stained_Glass_Windows collecting_Parameters_On_Group_Stained_Glass_Windows = new Collecting_Group_Stained_Glass_Windows();
-                Sort_On_Parameter sort_On_Parameter = new Sort_On_Parameter();
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + Data_Parameter_On_Group_Stained_Glass_Windows.number_Elements.ToString());
-                s_Mistake_String.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
-                s_Mistake_String.ShowDialog();
-            }
+
+            Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Initialize(commandData);
+            WPF_Main_Parameter_On_Group_Stained_Glass_Windows wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Parameter_On_Group_Stained_Glass_Windows();
+            wPF_Main_Parameter_On_Group_Stained_Glass_Windows.ShowDialog();
             return Result.Succeeded;
         }
     }

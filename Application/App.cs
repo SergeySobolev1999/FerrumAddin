@@ -50,7 +50,6 @@ namespace FerrumAddin
                               + tabName + "%" + panelName + "%" + itemName,
                               true) as AW.RibbonItem;
                         }
-                        //фпывпвыпasdgasgвыпвыпsdhsd
                     }
                 }
             }
@@ -136,6 +135,8 @@ namespace FerrumAddin
         public static UIControlledApplication application;
         public static UIApplication uiapp;
         public static string name;
+        //Панели общие
+        public RibbonPanel panelGeneral;
         //Панели МЕР
         public RibbonPanel panelMEP;
         //Панели АР
@@ -147,8 +148,7 @@ namespace FerrumAddin
         public RibbonPanel panelKR_Before;
         public RibbonPanel panelKR_BPC;
         public RibbonPanel panelKR_Accelerator_QJ;
-        //Панели общие
-        public RibbonPanel panelGeneral;
+        
         public Result OnStartup(UIControlledApplication a)
         {
             JsonDelete jsonDelete = new JsonDelete(a);

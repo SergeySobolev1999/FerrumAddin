@@ -12,7 +12,6 @@ using System.Linq;
 using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 
 namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
@@ -26,6 +25,13 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                 using (Transaction newT1 = new Transaction(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
+                    if (Data_Mark_On_Group_Stained_Glass_Windows.error_Suppressio == true)
+                    {
+                        // Настройка для подавления предупреждений
+                        FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                        failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                        newT1.SetFailureHandlingOptions(failureOptions);
+                    }
                     if (Data_Mark_On_Group_Stained_Glass_Windows.filtered_Group.Count > 0)
                     {
                         foreach (Group element_Group in Data_Mark_On_Group_Stained_Glass_Windows.filtered_Group)
@@ -113,6 +119,10 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                 using (Transaction newT1 = new Transaction(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document, "Выгрузка данных формата "))
                 {
                     newT1.Start();
+                    // Настройка для подавления предупреждений
+                    FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                    failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                    newT1.SetFailureHandlingOptions(failureOptions);
                     List<Glass_Window> list = Data_Mark_On_Group_Stained_Glass_Windows.list_Group.OrderBy(x => x.model_Value).ThenBy(x => double.Parse(x.height_Value)).ThenBy(x => double.Parse(x.wight_Value)).ThenBy(x => x.element.GetTypeId().ToString()).ToList();
                     list.Reverse();
                     int identical = 1;
@@ -166,6 +176,23 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

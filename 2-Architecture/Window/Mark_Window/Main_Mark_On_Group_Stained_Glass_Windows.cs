@@ -19,31 +19,10 @@ namespace WPFApplication.Mark_Window
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            try
-            {
-                Revit_Document_Mark_Window.Initialize(commandData);
-                Data_Mark_Window.filtered_Group.Clear();
-                Data_Mark_Window.list_Group.Clear();
-                Data_Mark_Window.number_Elements = 0;
-                Data_Mark_Window.number_Elements_Transom  = 0;
-                Filtered_Mark_Window filtered_Mark_Window = new Filtered_Mark_Window();
-                Collecting_Window collecting_Group_Stained_Glass_Windows = new Collecting_Window(); 
-                Sort_On_Mark_Window sort_On_Mark_Window = new Sort_On_Mark_Window();
-                if(Data_Mark_Window.iteration_Recaive_Value_In_Parameter==true)
-                {
-                    
-                    S_Mistake_String s_Mistake_String_Warning = new S_Mistake_String(Data_Mark_Window.iteration_Recaive_Value_In_Parameter_Watringn);
-                    s_Mistake_String_Warning.ShowDialog();
-                }
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + (Data_Mark_Window.number_Elements+ Data_Mark_Window.number_Elements_Transom).ToString());
-                s_Mistake_String.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
-                s_Mistake_String.ShowDialog();
-            }
-            return Result.Succeeded;
+        Revit_Document_Mark_Window.Initialize(commandData);
+            WPF_Main_Mark_Window wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Mark_Window();
+        wPF_Main_Parameter_On_Group_Stained_Glass_Windows.ShowDialog();
+        return Result.Succeeded;
         }
     }
 }

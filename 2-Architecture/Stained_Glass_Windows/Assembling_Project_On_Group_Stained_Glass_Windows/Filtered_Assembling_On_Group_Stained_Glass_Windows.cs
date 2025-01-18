@@ -20,6 +20,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                 using (Transaction trans = new Transaction(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, "Фильтрация"))
                 {
                     trans.Start();
+
                     Data_Assembling_On_Group_Stained_Glass_Windows.filtered_Group.Clear();
                     FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document);
                     List<Element> all_Elements_Group = (List<Element>)window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();

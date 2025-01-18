@@ -17,6 +17,10 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
             using (Transaction newT1 = new Transaction(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, "Создание видов сборок"))
             {
                 newT1.Start();
+                // Настройка для подавления предупреждений
+                FailureHandlingOptions failureOptions = newT1.GetFailureHandlingOptions();
+                failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                newT1.SetFailureHandlingOptions(failureOptions);
                 foreach (ElementId group_ElementID in Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection)
                 {
                     Group element_Group = (Group)Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(group_ElementID);
@@ -36,6 +40,10 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                     try
                     {
                         trans.Start();
+                        // Настройка для подавления предупреждений
+                        FailureHandlingOptions failureOptions = trans.GetFailureHandlingOptions();
+                        failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                        trans.SetFailureHandlingOptions(failureOptions);
                         bool iteration = false;
                         for (int i = 0; i < Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection.Count; i++)
                         {
@@ -243,6 +251,23 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

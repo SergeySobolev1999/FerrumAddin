@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace WPFApplication.Parameter_Door
 {
-    public class Data_Parameter_Window
+    public class Data_Parameter_Door
     {
         public static List<Element> filtered_Group { get; set; } = new List<Element>();
         public static Guid guid_ADSK_Desination = new Guid("9c98831b-9450-412d-b072-7d69b39f4029");
@@ -19,7 +19,7 @@ namespace WPFApplication.Parameter_Door
         public static List<Glass_Window> list_Group { get; set; } = new List<Glass_Window>();
         public static int number_Elements { get; set; } = 0;
         public static bool iteration_Recaive_Value_In_Parameter = false;
-
+        public static bool error_Suppressio = false;
         public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
     }
     public static class Revit_Document_Parameter_Window

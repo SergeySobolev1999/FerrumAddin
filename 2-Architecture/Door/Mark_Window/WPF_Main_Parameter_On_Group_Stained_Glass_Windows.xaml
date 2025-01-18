@@ -1,0 +1,115 @@
+﻿<Window x:Class="WPFApplication.Mark_Door.WPF_Main_MarkWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApplication.Mark_Door"
+                 WindowStartupLocation="CenterScreen"
+            mc:Ignorable="d" 
+            Topmost="True"
+            ResizeMode="NoResize"
+            MinHeight="200" MinWidth="300"
+            MaxHeight="200" MaxWidth="300"
+            d:DesignHeight="200" 
+            d:DesignWidth="300"
+            WindowStyle="None" Foreground="#FFA3A0A0">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <DockPanel Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" 
+            WindowChrome.IsHitTestVisibleInChrome="True" 
+            DockPanel.Dock="Right"  
+            Height="30" 
+            FlowDirection="RightToLeft" 
+            VerticalAlignment="Top"
+            Background="Gray" 
+            HorizontalAlignment="Right"  >
+            <Button Name="closeWPF" 
+            Height="30" 
+            Width="100" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top" 
+            Content="Закрыть"   
+            FontFamily="ISOCPEUR"
+            Click="close_Click"   
+            FontSize="15"
+            RenderTransformOrigin="-7.767,0.712" 
+            Background="Gray" 
+            BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+            DockPanel.Dock="Top" 
+            Height="30" 
+            Width="32"
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Margin="0,0,0,0" MouseDown="Label_MouseDown">
+            <Image 
+            Margin="0,0,0,0"  
+            HorizontalAlignment="Left"
+            Width="32"
+            Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png"  
+            Stretch="Fill"/>
+            </Border>
+            <Border Background="Gray" 
+            DockPanel.Dock="Top" 
+            Height="30" 
+             Width="181"
+             HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Margin="32,-30,0,0" MouseDown="Label_MouseDown">
+            <TextBlock 
+            TextWrapping="Wrap" 
+            Text="ОКНА МАРКИ"
+            FontSize="20"
+            FontFamily="Bahnschrift SemiBold SemiCondensed"
+            Height="20" Foreground="#FF323232" FontWeight="Bold"/>
+            </Border>
+            <Border Background="Gray" 
+            DockPanel.Dock="Top" 
+            Height="30" 
+            VerticalAlignment="Top" 
+            Margin="180,-30,0,0" 
+            MouseDown="Label_MouseDown">
+            </Border>
+        </DockPanel>
+        <CheckBox 
+        Content="Подавлять предупреждения"
+        Name ="Error_Suppressio"
+        Height="20"
+        FontFamily="ISOCPEUR"
+        FontSize="15"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Margin="20,50,0,0"/>
+        <Border Background="Gray" 
+        DockPanel.Dock="Top" 
+        Height="35"
+        VerticalAlignment="Bottom" 
+        Margin="0,0,0,0" 
+        MouseDown="Label_MouseDown">
+        <TextBlock 
+        TextWrapping="Wrap" 
+        Text="..."
+        Margin="0,10"
+        Name ="Version"
+        FontSize="15"
+        FontFamily="ISOCPEUR"
+        Height="25" Foreground="#FF323232"/>
+        </Border>
+        <Button 
+        FontSize="15" 
+        Content="Запуск"
+        Margin="0,0,14,5"
+        Width="70"
+        ToolTip="Загрузка сохраненных наборов"
+        FontFamily="ISOCPEUR"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        BorderBrush="{x:Null}"
+        Click="Start_The_Floor_Is_Numeric"/>
+
+    </Grid>
+</Window>

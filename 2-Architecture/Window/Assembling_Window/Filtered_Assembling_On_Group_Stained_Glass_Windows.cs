@@ -7,7 +7,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows;
 
 
 

@@ -112,7 +112,21 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="0,30,0,0">
             
             <StackPanel>
-            <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px"> 
+                    <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px">
+                        <StackPanel x:Name="User_licenses">
+                            <DockPanel>
+                                <Label Content="Подключение к серверу лицензий" VerticalAlignment="Center" MinWidth="160"/>
+                                <Button x:Name="License_WPF" Content="Лицензия" Click="User_Licenses"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
+                            </DockPanel>
+                            <TextBlock
+                                TextWrapping="Wrap" 
+                                Text="..." 
+                                Width="135"
+                                HorizontalAlignment="Right"/>
+
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px"> 
                 <StackPanel Margin="10,10,10,10">
                     <WrapPanel>
                         <ToggleButton Style="{StaticResource AnimatedSwitch}" Height="24" x:Name="frmManger" IsChecked="True"/>
@@ -121,23 +135,23 @@
                     </WrapPanel>
                 </StackPanel>
             </Expander>
-                <Expander Header="Настройки менеджера семейств" IsExpanded="True" Margin="10px">
-                    <StackPanel x:Name="FamilyManager">
-                        <DockPanel>
-                            <Label Content="Создать файл менеджера" VerticalAlignment="Center" MinWidth="160"/>
-                            <Button x:Name="_path" Content="Указать папку семейств" Click="Button_Click_1"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Обновить/добавить вкладку" VerticalAlignment="Center" MinWidth="160"/>
-                            <Button x:Name="_path2" Content="Указать папку вкладки" Click="_path2_Click"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Обновить все вкладки" VerticalAlignment="Center" MinWidth="160"/>
-                            <Button x:Name="_path3" Content="Обновить" Click="_path3_Click"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
-                        </DockPanel>
-                        <Label Content="Видимость вкладок"/>
-                    </StackPanel>
-                </Expander>
+            <Expander Header="Настройки менеджера семейств" IsExpanded="True" Margin="10px">
+                <StackPanel x:Name="FamilyManager">
+                    <DockPanel>
+                        <Label Content="Создать файл менеджера" VerticalAlignment="Center" MinWidth="160"/>
+                        <Button x:Name="_path" Content="Указать папку семейств" Click="Button_Click_1"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="Обновить/добавить вкладку" VerticalAlignment="Center" MinWidth="160"/>
+                        <Button x:Name="_path2" Content="Указать папку вкладки" Click="_path2_Click"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="Обновить все вкладки" VerticalAlignment="Center" MinWidth="160"/>
+                        <Button x:Name="_path3" Content="Обновить" Click="_path3_Click"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
+                    </DockPanel>
+                    <Label Content="Видимость вкладок"/>
+                </StackPanel>
+            </Expander>
             </StackPanel>
         </ScrollViewer>
         <Button Content="Сохранить настройки" Grid.Row="1" HorizontalAlignment="Right" Margin="5,5,5,5" Click="Button_Click"/>

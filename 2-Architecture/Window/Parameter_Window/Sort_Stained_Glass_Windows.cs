@@ -77,6 +77,13 @@ namespace WPFApplication.Parameter_Window
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
+                                        if(Data_Parameter_Window.error_Suppressio ==true)
+                                        {
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
+                                        }
                                         if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
@@ -131,6 +138,13 @@ namespace WPFApplication.Parameter_Window
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
+                                        if (Data_Parameter_Window.error_Suppressio == true)
+                                        {
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
+                                        }
                                         if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
@@ -185,6 +199,13 @@ namespace WPFApplication.Parameter_Window
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
+                                        if (Data_Parameter_Window.error_Suppressio == true)
+                                        {
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
+                                        }
                                         if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
@@ -283,6 +304,23 @@ namespace WPFApplication.Parameter_Window
                 s_Mistake_String.ShowDialog();
                 return null;
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

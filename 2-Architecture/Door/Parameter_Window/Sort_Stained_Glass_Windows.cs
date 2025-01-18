@@ -21,6 +21,7 @@ using System.CodeDom.Compiler;
 using Autodesk.Revit.DB.Visual;
 using static Autodesk.Revit.DB.SpecTypeId;
 using System.Globalization;
+using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 
 
 namespace WPFApplication.Parameter_Door
@@ -34,9 +35,11 @@ namespace WPFApplication.Parameter_Door
                 using (TransactionGroup transactionGroup = new TransactionGroup(Revit_Document_Parameter_Window.Document, "Выгрузка данных формата "))
                 {
                     transactionGroup.Start();
-                    if (Data_Parameter_Window.filtered_Group.Count > 0)
+                  
+                    if (Data_Parameter_Door.filtered_Group.Count > 0)
                     {
-                        foreach (Element element_Familyinstace in Data_Parameter_Window.filtered_Group)
+
+                        foreach (Element element_Familyinstace in Data_Parameter_Door.filtered_Group)
                         {
                             if (Revit_Document_Parameter_Window.Document.GetElement(element_Familyinstace.GetTypeId()) != null)
                             {
@@ -85,21 +88,29 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
                                 }
@@ -142,21 +153,29 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
                                 }
@@ -208,21 +227,29 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
                                 }
@@ -265,21 +292,29 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
                                 }
@@ -323,21 +358,29 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
 
@@ -384,26 +427,34 @@ namespace WPFApplication.Parameter_Door
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (Data_Parameter_Door.error_Suppressio == true)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (!element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                             }
                                         }
+                                        Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
                                 }
                             }
-                            Data_Parameter_Window.number_Elements++;
+                            
                         }
                     }
                     transactionGroup.Assimilate();
@@ -438,10 +489,10 @@ namespace WPFApplication.Parameter_Door
                         }
                         else
                         {
-                            if (Data_Parameter_Window.iteration_Recaive_Value_In_Parameter == false)
+                            if (Data_Parameter_Door.iteration_Recaive_Value_In_Parameter == false)
                             {
-                                Data_Parameter_Window.iteration_Recaive_Value_In_Parameter = true;
-                                Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + "' не найден. Обратитесь в BIM координатору";
+                                Data_Parameter_Door.iteration_Recaive_Value_In_Parameter = true;
+                                Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + "' не найден. Обратитесь в BIM координатору";
                                 return "";
                             }
                         }
@@ -456,10 +507,10 @@ namespace WPFApplication.Parameter_Door
                     }
                     else
                     {
-                        if (Data_Parameter_Window.iteration_Recaive_Value_In_Parameter == false)
+                        if (Data_Parameter_Door.iteration_Recaive_Value_In_Parameter == false)
                         {
-                            Data_Parameter_Window.iteration_Recaive_Value_In_Parameter = true;
-                            Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + " не найден. Обратитесь в BIM координатору";
+                            Data_Parameter_Door.iteration_Recaive_Value_In_Parameter = true;
+                            Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. Параметр' " + name + " не найден. Обратитесь в BIM координатору";
                             return "";
                         }
                     }
@@ -470,8 +521,8 @@ namespace WPFApplication.Parameter_Door
                 }
                 if (str == null)
                 {
-                    Data_Parameter_Window.iteration_Recaive_Value_In_Parameter = true;
-                    Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. При инициализации значения параметра'" + name + "' неожиданно возвращено значение null. Обратитесь в BIM координатору";
+                    Data_Parameter_Door.iteration_Recaive_Value_In_Parameter = true;
+                    Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn = Data_Parameter_Door.iteration_Recaive_Value_In_Parameter_Watringn + "\n - Ошибка. При инициализации значения параметра'" + name + "' неожиданно возвращено значение null. Обратитесь в BIM координатору";
                     return "";
                 }
                 return str;
@@ -482,6 +533,23 @@ namespace WPFApplication.Parameter_Door
                 s_Mistake_String.ShowDialog();
                 return null;
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

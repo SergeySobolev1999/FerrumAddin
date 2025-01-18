@@ -1,0 +1,72 @@
+﻿<Window x:Class="WPFApplication.Licenses.WPF_Main_Licenses"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApplication.Licenses"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="270">
+    <Grid>
+        <TextBox 
+            Name ="TextBox_Name"
+            HorizontalAlignment="Left" 
+            Margin="80,30,0,0" 
+            TextWrapping="Wrap" 
+            Text="..." 
+            VerticalAlignment="Top" 
+            Width="180" />
+        <TextBlock 
+            HorizontalAlignment="Left" 
+            Margin="10,30,0,0" 
+            TextWrapping="Wrap" 
+            Text="Имя:" 
+            VerticalAlignment="Top"/>
+        <TextBox 
+            Name ="TextBox_Surname"
+             HorizontalAlignment="Left" 
+             Margin="80,60,0,0" 
+             TextWrapping="Wrap" 
+             Text="..." 
+             VerticalAlignment="Top" 
+             Width="180"/>
+        <TextBlock 
+             HorizontalAlignment="Left" 
+             Margin="10,60,0,0" 
+             TextWrapping="Wrap" 
+             Text="Фамилия:" 
+             VerticalAlignment="Top"/>
+        <TextBox 
+            Name ="TextBox_Password"
+             HorizontalAlignment="Left" 
+             Margin="80,90,0,0" 
+             TextWrapping="Wrap" 
+             Text="..." 
+             VerticalAlignment="Top" 
+             Width="180"/>
+        <TextBlock 
+             HorizontalAlignment="Left" 
+             Margin="10,90,0,0" 
+             TextWrapping="Wrap" 
+             Text="Пароль:" 
+             VerticalAlignment="Top"/>
+        <TextBlock 
+            Name ="status"
+            HorizontalAlignment="Left" 
+            Margin="10,180,0,0" 
+            TextWrapping="Wrap" 
+            Text="Статус подключения:" 
+            VerticalAlignment="Top"/>
+        <Button 
+            Content="Проверить связь с сервером лицензий" 
+            HorizontalAlignment="Left" 
+            Margin="10,120,0,0" 
+            Width="250"
+            VerticalAlignment="Top" Click="Button_Click"/>
+        <Button 
+            Content="Возобновить связь с сервером лицензий" 
+            HorizontalAlignment="Left" 
+            Margin="10,150,0,0" 
+            Width="250"
+            VerticalAlignment="Top" Click="Button_Click_1"/>
+    </Grid>
+</Window>

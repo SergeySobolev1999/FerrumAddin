@@ -21,6 +21,7 @@ namespace WPFApplication.Parameter_Window
         public static bool iteration_Recaive_Value_In_Parameter = false;
 
         public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
+        public static bool error_Suppressio = false;
     }
     public static class Revit_Document_Parameter_Window
     {

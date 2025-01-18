@@ -23,6 +23,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.Creation;
 using Document = Autodesk.Revit.DB.Document;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using WPFApplication.Licenses;
 
 namespace FerrumAddin
 {
@@ -555,6 +556,11 @@ namespace FerrumAddin
             Close();
         }
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+
+        private void User_Licenses(object sender, RoutedEventArgs e)
+        {
+            Main_Assembling_Window main_Assembling_Window = new Main_Assembling_Window();
+        }
     }
 
 }

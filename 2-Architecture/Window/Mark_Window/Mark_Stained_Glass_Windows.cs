@@ -15,7 +15,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 using System.Windows.Controls;
-using WPFApplication.Parameter_Window;
 using System.Globalization;
 
 namespace WPFApplication.Mark_Window
@@ -215,14 +214,30 @@ namespace WPFApplication.Mark_Window
                         using (Transaction transaction1 = new Transaction(Revit_Document_Mark_Window.Document, "Транзакция 1"))
                         {
                             transaction1.Start();
+                            if (Data_Mark_Window.error_Suppressio == true)
+                            {
+                                // Настройка для подавления предупреждений
+                                FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                transaction1.SetFailureHandlingOptions(failureOptions);
+                            }
                             Parameter parameter_ADSK_Mark = glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_Mark);
                             string mark_Prefix = "";
                             int mark_Position = 0;
-                            if(glass_Window.element_Window.LookupParameter("ЮТС_Фрамуга").AsInteger()==1)
+                            if (glass_Window.element_Window.LookupParameter("ЮТС_Фрамуга") != null)
                             {
-                                mark_Prefix = "Ф-";
-                                Data_Mark_Window.number_Elements_Transom++;
-                                mark_Position = Data_Mark_Window.number_Elements_Transom;
+                                if (glass_Window.element_Window.LookupParameter("ЮТС_Фрамуга").AsInteger() == 1)
+                                {
+                                    mark_Prefix = "Ф-";
+                                    Data_Mark_Window.number_Elements_Transom++;
+                                    mark_Position = Data_Mark_Window.number_Elements_Transom;
+                                }
+                                else
+                                {
+                                    mark_Prefix = "ОК-";
+                                    Data_Mark_Window.number_Elements++;
+                                    mark_Position = Data_Mark_Window.number_Elements;
+                                }
                             }
                             else
                             {

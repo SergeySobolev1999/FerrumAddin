@@ -63,6 +63,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                     using (Transaction trans = new Transaction(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, "Переименование сборок"))
                     {
                         trans.Start();
+
                         foreach (ElementId group_ElementId in Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection)
                         {
                             Group element_Group = (Group)Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(group_ElementId);
