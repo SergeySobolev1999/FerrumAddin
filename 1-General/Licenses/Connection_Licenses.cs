@@ -59,7 +59,7 @@ namespace WPFApplication.Licenses
                                 SSDK_Data.licenses_Connection = false;
                             }
                         }
-                        SSDK_Data.licenses_Connection = false;
+                        
                     }
                 }
                 catch (MySqlException ex)
