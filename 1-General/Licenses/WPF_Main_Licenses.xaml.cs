@@ -253,10 +253,14 @@ namespace WPFApplication.Licenses
             Mysql_Connection();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+       
+
+        private void Button_Click_Licenses(object sender, object e)
         {
             Mysql_TEST();
         }
+
+       
     }
     
     

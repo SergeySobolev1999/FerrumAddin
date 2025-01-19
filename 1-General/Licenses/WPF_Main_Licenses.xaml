@@ -67,6 +67,6 @@
             HorizontalAlignment="Left" 
             Margin="10,150,0,0" 
             Width="250"
-            VerticalAlignment="Top" Click="Button_Click_1"/>
+            VerticalAlignment="Top" Click="Button_Click_Licenses"/>
     </Grid>
 </Window>
