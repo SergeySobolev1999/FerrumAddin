@@ -2,11 +2,14 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
+using SSDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApplication.Licenses;
+using WPFApplication.The_Floor_Is_Numeric;
 
 namespace FerrumAddin
 {
@@ -18,10 +21,19 @@ namespace FerrumAddin
         {
             try
             {
-                // dockable window id
-                DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
-                DockablePane dockableWindow = commandData.Application.GetDockablePane(id);
-                dockableWindow.Show();
+                SSDK_Data.username = Environment.UserName;
+                if (SSDK_Data.licenses_Connection)
+                {
+                    // dockable window id
+                    DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
+                    DockablePane dockableWindow = commandData.Application.GetDockablePane(id);
+                    dockableWindow.Show();
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
             }
             catch (Exception ex)
             {

@@ -112,11 +112,11 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Margin="0,30,0,0">
             
             <StackPanel>
-                    <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px">
+                    <Expander Header="Сервер лицензий" IsExpanded="True" Margin="10px">
                         <StackPanel x:Name="User_licenses">
                             <DockPanel>
-                                <Label Content="Подключение к серверу лицензий" VerticalAlignment="Center" MinWidth="160"/>
-                                <Button x:Name="License_WPF" Content="Лицензия" Click="User_Licenses"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
+                                <Label Content="Доступ к серверу лицензий" VerticalAlignment="Center" MinWidth="160"/>
+                                <Button x:Name="License_WPF" Content="Подключение" Click="User_Licenses"  HorizontalAlignment="Right" Margin="0,5,0,5" Width="135"/>
                             </DockPanel>
                             <TextBlock
                                 Name="Licenses_Connection"
@@ -127,7 +127,7 @@
 
                         </StackPanel>
                     </Expander>
-                    <Expander Header="Настройки видимости" IsExpanded="True" Margin="10px"> 
+                    <Expander Header="Настройки видимости" IsExpanded="True" Margin="0px"> 
                 <StackPanel Margin="10,10,10,10">
                     <WrapPanel>
                         <ToggleButton Style="{StaticResource AnimatedSwitch}" Height="24" x:Name="frmManger" IsChecked="True"/>

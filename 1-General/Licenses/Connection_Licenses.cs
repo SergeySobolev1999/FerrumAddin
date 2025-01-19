@@ -39,14 +39,19 @@ namespace WPFApplication.Licenses
                     // Чтение данных
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        bool iteration = false;
                         while (reader.Read())
                         {
                             if (reader["name"].ToString() == user_License.name && reader["surname"].ToString() == user_License.surname && reader["password"].ToString() == user_License.password)
                             {
                                 Get_User_Name get_User_Name_Value = new Get_User_Name();
-                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id) == Data.username)
+                                string a = get_User_Name_Value.Get_User_Name_Value(user_License.id);
+                                string s = SSDK_Data.username;
+
+                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id).ToString() == SSDK_Data.username)
                                 {
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
+                                    iteration = true;
                                     SSDK_Data.licenses_Connection = true;
                                 }
                                 else
@@ -59,7 +64,11 @@ namespace WPFApplication.Licenses
                                 SSDK_Data.licenses_Connection = false;
                             }
                         }
-                        
+                        if (iteration) 
+                        {
+                            SSDK_Data.licenses_Connection = true;
+                        }
+
                     }
                 }
                 catch (MySqlException ex)
@@ -77,7 +86,7 @@ namespace WPFApplication.Licenses
         {
             // Строка подключения
             string connectionString = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
-            string use_name = Data.username;
+            string use_name = SSDK_Data.username;
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -115,10 +124,10 @@ namespace WPFApplication.Licenses
         public string Get_User_Name_Value(int i)
         {
             // Строка подключения
-            string connectionString = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
-            string use_name = Data.username;
+            string connectionStringa = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
+            string use_name = SSDK_Data.username;
             // Создание соединения
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionStringa))
             {
                 try
                 {
@@ -135,8 +144,8 @@ namespace WPFApplication.Licenses
                         {
                             if (Int32.Parse(reader["id_persons"].ToString()) == i)
                             {
+                                
                                 return reader["user_name"].ToString();
-                                iterarion = true;
                             }
                         }
                     }

@@ -29,6 +29,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
 using File = System.IO.File;
+using WPFApplication.Licenses;
+using SSDK;
 #endregion
 
 namespace FerrumAddin
@@ -55,8 +57,17 @@ namespace FerrumAddin
             }
             return null;
         }
+        //Связь с сервером лицензий
+        private void OnDocumentSaving(object sender, Autodesk.Revit.DB.Events.DocumentSavingEventArgs e)
+        {
+            Licenses_True_ licenses_True_ = new Licenses_True_();
+        }
 
-
+        private void OnDocumentSavingAs(object sender, Autodesk.Revit.DB.Events.DocumentSavingAsEventArgs e)
+        {
+            Licenses_True_ licenses_True_ = new Licenses_True_();
+        }
+        //Конец логики по связи с сервером лицензий
         public static BitmapImage Convert(System.Drawing.Image img)
         {
             using (var memory = new MemoryStream())
@@ -151,6 +162,9 @@ namespace FerrumAddin
         
         public Result OnStartup(UIControlledApplication a)
         {
+            a.ControlledApplication.DocumentSaving += OnDocumentSaving;
+            a.ControlledApplication.DocumentSavingAs += OnDocumentSavingAs;
+
             JsonDelete jsonDelete = new JsonDelete(a);
             application = a;
             Type type = a.GetType();
@@ -555,6 +569,9 @@ namespace FerrumAddin
 
         public Result OnShutdown(UIControlledApplication a)
         {
+            a.ControlledApplication.DocumentSaving -= OnDocumentSaving;
+            a.ControlledApplication.DocumentSavingAs -= OnDocumentSavingAs;
+
             Process process = Process.GetCurrentProcess();
             var updaterProcess = Process.Start(new ProcessStartInfo(downloadDir + "\\Updater.exe", process.Id.ToString()));
             return Result.Succeeded;

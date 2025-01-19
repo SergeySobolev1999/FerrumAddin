@@ -35,14 +35,12 @@
              TextWrapping="Wrap" 
              Text="Фамилия:" 
              VerticalAlignment="Top"/>
-        <TextBox 
-            Name ="TextBox_Password"
-             HorizontalAlignment="Left" 
-             Margin="80,90,0,0" 
-             TextWrapping="Wrap" 
-             Text="..." 
-             VerticalAlignment="Top" 
-             Width="180"/>
+        
+        <PasswordBox x:Name="TextBox_Password" 
+  HorizontalAlignment="Left" 
+  Margin="80,90,0,0" 
+  VerticalAlignment="Top" 
+  Width="180" />
         <TextBlock 
              HorizontalAlignment="Left" 
              Margin="10,90,0,0" 

@@ -18,7 +18,7 @@ namespace WPFApplication.Licenses
         public static string status { get; set; } = "";
         public static string post { get; set; } = "";
         public static string password { get; set; } = "";
-        public static string username = Environment.UserName;
+        
         public static User_license user_License { get; set; } = null;
         public static bool licenses_Value = false;
     }

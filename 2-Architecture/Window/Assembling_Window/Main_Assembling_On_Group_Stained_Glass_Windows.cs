@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFApplication.Licenses;
+using WPFApplication.The_Floor_Is_Numeric;
 
 
 namespace WPFApplication.Assembling_Window
@@ -21,8 +23,17 @@ namespace WPFApplication.Assembling_Window
             {
                 Data_Assembling_Window.filtered_Group.Clear();
                 Revit_Document_Assembling_Window.Initialize(commandData);
-                WPF_Main_Assembling_Window wPF_Main_Assembling_Window = new WPF_Main_Assembling_Window();
-                wPF_Main_Assembling_Window.ShowDialog();
+                SSDK_Data.username = Environment.UserName;
+                if (SSDK_Data.licenses_Connection)
+                {
+                    WPF_Main_Assembling_Window wPF_Main_Assembling_Window = new WPF_Main_Assembling_Window();
+                    wPF_Main_Assembling_Window.ShowDialog();
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
                 return Result.Succeeded;
             }
             catch (Exception ex)

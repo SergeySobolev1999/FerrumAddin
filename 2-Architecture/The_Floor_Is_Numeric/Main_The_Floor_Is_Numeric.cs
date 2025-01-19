@@ -19,7 +19,7 @@ namespace WPFApplication.The_Floor_Is_Numeric
         {
             try
             {
-                Licenses_True_ licenses_True_ = new Licenses_True_();
+                SSDK_Data.username = Environment.UserName;
                 if (SSDK_Data.licenses_Connection)
                 {
                     WPF_Main_The_Floor_Is_Numeric wpf_Main_The_Floor_Is_Numeric = new WPF_Main_The_Floor_Is_Numeric(commandData);

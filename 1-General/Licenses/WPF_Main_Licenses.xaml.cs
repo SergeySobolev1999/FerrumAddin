@@ -55,7 +55,7 @@ namespace WPFApplication.Licenses
                         bool iterarion = false;
                         while (reader.Read())
                         {
-                            if (reader["name"].ToString() == TextBox_Name.Text && reader["surname"].ToString() == TextBox_Surname.Text && reader["password"].ToString() == TextBox_Password.Text)
+                            if (reader["name"].ToString() == TextBox_Name.Text && reader["surname"].ToString() == TextBox_Surname.Text && reader["password"].ToString() == TextBox_Password.Password)
                             {
                                 Folder folder = new Folder();
                                 Save save = new Save();
@@ -142,14 +142,14 @@ namespace WPFApplication.Licenses
                             if (reader["name"].ToString() == user_License.name && reader["surname"].ToString() == user_License.surname && reader["password"].ToString() == user_License.password)
                             {
                                 Get_User_Name get_User_Name_Value = new Get_User_Name();
-                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id) == Data.username)
+                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id) == SSDK_Data.username)
                                 {
                                     iterarion = true;
                                     Data.licenses_Value = true;
                                     status.Text = "Статус подключения: подключено";
                                     TextBox_Name.Text = user_License.name;
                                     TextBox_Surname.Text = user_License.surname;
-                                    TextBox_Password.Text = user_License.password;
+                                    TextBox_Password.Password = user_License.password;
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
                                     SSDK_Data.licenses_Connection = true;
                                 }
@@ -260,7 +260,7 @@ namespace WPFApplication.Licenses
             Mysql_TEST();
         }
 
-       
+        
     }
     
     
