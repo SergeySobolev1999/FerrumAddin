@@ -23,7 +23,7 @@ namespace WPFApplication.Licenses
             Save save = new Save();
             save.presets_Save();
             // Строка подключения
-            string connectionString = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
+            string connectionString = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -85,7 +85,7 @@ namespace WPFApplication.Licenses
         public Set_User_Name(int i)
         {
             // Строка подключения
-            string connectionString = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
+            string connectionString = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
             string use_name = SSDK_Data.username;
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -124,7 +124,7 @@ namespace WPFApplication.Licenses
         public string Get_User_Name_Value(int i)
         {
             // Строка подключения
-            string connectionStringa = "Server=192.168.1.5;Port=8899;Database=bim_users;User ID=sergey_sobolev;Password=ercy352y32a;Connection Timeout=2;";
+            string connectionStringa = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
             string use_name = SSDK_Data.username;
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionStringa))
