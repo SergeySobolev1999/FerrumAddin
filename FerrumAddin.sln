@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrumAddin", "FerrumAddin.csproj", "{36C29E80-E243-47CB-85D0-3299F79019CE}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ZHELEZNO_PLUGIN_SETUP", "..\ZHELEZNO_PLUGIN_SETUP\ZHELEZNO_PLUGIN_SETUP.vdproj", "{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,14 @@ Global
 		{36C29E80-E243-47CB-85D0-3299F79019CE}.Release|x64.Build.0 = Release|x64
 		{36C29E80-E243-47CB-85D0-3299F79019CE}.Release|x86.ActiveCfg = Release|x86
 		{36C29E80-E243-47CB-85D0-3299F79019CE}.Release|x86.Build.0 = Release|x86
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Debug|Any CPU.ActiveCfg = Debug
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Debug|ARM64.ActiveCfg = Debug
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Debug|x64.ActiveCfg = Debug
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Debug|x86.ActiveCfg = Debug
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Release|Any CPU.ActiveCfg = Release
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Release|ARM64.ActiveCfg = Release
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Release|x64.ActiveCfg = Release
+		{09BC66A5-2136-47CB-B05E-B15B9BCE7E7A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
