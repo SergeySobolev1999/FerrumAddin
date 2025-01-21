@@ -21,17 +21,25 @@ namespace FerrumAddin
         {
             try
             {
-                SSDK_Data.username = Environment.UserName;
-                if (SSDK_Data.licenses_Connection)
+                if (1 == 2)
                 {
-                    // dockable window id
-                    DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
-                    DockablePane dockableWindow = commandData.Application.GetDockablePane(id);
-                    dockableWindow.Show();
+                    SSDK_Data.username = Environment.UserName;
+                    if (SSDK_Data.licenses_Connection)
+                    {
+                        // dockable window id
+                        DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
+                        DockablePane dockableWindow = commandData.Application.GetDockablePane(id);
+                        dockableWindow.Show();
+                    }
+                    else
+                    {
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
                 else
                 {
-                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
                     s_Mistake_String.ShowDialog();
                 }
             }

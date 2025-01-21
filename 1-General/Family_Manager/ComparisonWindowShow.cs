@@ -22,20 +22,27 @@ namespace FerrumAddin.FM
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            SSDK_Data.username = Environment.UserName;
-            if (SSDK_Data.licenses_Connection)
+            if (1==2)
             {
-                changeTypesEv = ExternalEvent.Create(new ChangeTypes());
-                ComparisonWindow cw = new ComparisonWindow(commandData);
-                cw.Show();
-                // return result
+                SSDK_Data.username = Environment.UserName;
+                if (SSDK_Data.licenses_Connection)
+                {
+                    changeTypesEv = ExternalEvent.Create(new ChangeTypes());
+                    ComparisonWindow cw = new ComparisonWindow(commandData);
+                    cw.Show();
+                    // return result
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
             }
             else
             {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
                 s_Mistake_String.ShowDialog();
             }
-            
             return Result.Succeeded;
         }
         public static ExternalEvent changeTypesEv;
