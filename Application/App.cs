@@ -480,15 +480,15 @@ namespace FerrumAddin
         public static bool AlwaysLoad = false;
         private void ControlledApplication_FamilyLoadingIntoDocument(object sender, Autodesk.Revit.DB.Events.FamilyLoadingIntoDocumentEventArgs e)
         {
-            if (AllowLoad == true || AlwaysLoad == true)
-            {
+            //if (AllowLoad == true || AlwaysLoad == true)
+            //{
               
-            }
-            else
-            {
-                e.Cancel();
-                TaskDialog.Show("Запрет загрузки", "Загрузите семейство из менеджера семейств");
-            }
+            //}
+            //else
+            //{
+            //    e.Cancel();
+            //    TaskDialog.Show("Запрет загрузки", "Загрузите семейство из менеджера семейств");
+            //}
         }
 
         public static FamilyManagerWindow dockableWindow = null;

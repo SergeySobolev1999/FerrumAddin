@@ -8,9 +8,9 @@ namespace SSDK
 {
     public class SSDK_Data
     {
-        public static string plugin_Version = " Версия: 1.1.23";
+        public static string plugin_Version = " Версия: 1.1.26";
         
-        public static bool licenses_Connection = false;
+        public static bool licenses_Connection = true;
         
         public static string username = "";
     }
