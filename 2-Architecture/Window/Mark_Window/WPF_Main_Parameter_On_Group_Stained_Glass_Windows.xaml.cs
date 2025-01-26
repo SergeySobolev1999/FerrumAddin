@@ -24,7 +24,7 @@ namespace WPFApplication.Mark_Window
     {
         public WPF_Main_Mark_Window()
         {
-            
+            Version.Text = SSDK_Data.plugin_Version;
             InitializeComponent();
         }
 

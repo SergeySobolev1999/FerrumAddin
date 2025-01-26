@@ -25,7 +25,7 @@ namespace WPFApplication.Parameter_Door
     {
         public WPF_Main_Parameter_Door()
         {
-            
+            Version.Text = SSDK_Data.plugin_Version;
             InitializeComponent();
         }
 

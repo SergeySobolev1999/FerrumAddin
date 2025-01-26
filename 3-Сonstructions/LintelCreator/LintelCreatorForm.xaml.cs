@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,357 +16,408 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FerrumAddin
+namespace WPFApplication.LintelCreator
 {
     /// <summary>
-    /// Логика взаимодействия для LintelCreatorWPF.xaml
+    /// Логика взаимодействия для LintelCreatorForm2.xaml
     /// </summary>
-    public partial class LintelCreatorForm : Window
+    public partial class LintelCreatorForm2 : Window
     {
-        Document Doc;
-        public ObservableCollection<SymboolParameters> SymbolParametersCollection;
-        public ObservableCollection<DimensionParameters> DimensionParametersCollection;
-        public List<FamilySymbol> SymbolsListForTypesComboBoxColumn;
-        List<FamilySymbol> FamilySymbolsForSymbolsList;
+        List<ParentElement> ElementList;
+        public static MainViewModel MainViewModel;
 
-        public FamilySymbol LintelTargetFamilySymbol;
-
-        List<Parameter> OpeningHeightParamList;
-        List<Parameter> OpeningWidthParamList;
-
-        public Parameter OpeningHeightParam;
-        public Parameter OpeningWidthParam;
-
-        LintelCreatorSettings Settings = null;
-
-        public LintelCreatorForm(Document doc, List<Family> lintelFamilysList, List<Parameter> openingParameters)
+        public LintelCreatorForm2(Document doc, List<ParentElement> list, List<Family> families)
         {
-            Doc = doc;
-            OpeningWidthParamList = openingParameters.ToList();
-            OpeningHeightParamList = openingParameters.ToList();
-
             InitializeComponent();
-            comboBox_LintelFamilies.ItemsSource = lintelFamilysList;
-            comboBox_LintelFamilies.DisplayMemberPath = "Name";
-            comboBox_LintelFamilies.SelectedItem = comboBox_LintelFamilies.Items.GetItemAt(0);
 
+            var familyWrappers = families.Select(family => new FamilyWrapper(family, doc)).ToList();
+            familyWrappers.OrderBy(x => x.FamilyName);
 
-            comboBox_OpeningHeight.ItemsSource = OpeningHeightParamList;
-            comboBox_OpeningHeight.DisplayMemberPath = "Definition.Name";
-            comboBox_OpeningHeight.SelectedItem = comboBox_OpeningHeight.Items.GetItemAt(0);
-
-            comboBox_OpeningWidth.ItemsSource = OpeningWidthParamList;
-            comboBox_OpeningWidth.DisplayMemberPath = "Definition.Name";
-            comboBox_OpeningWidth.SelectedItem = comboBox_OpeningWidth.Items.GetItemAt(0);
-
-            Settings = LintelCreatorSettings.GetSettings();
-            if (Settings != null)
+            // Устанавливаем DataContext для привязки данных
+            DataContext = new MainViewModel
             {
-                if (Settings.SelectedLintelFamilieName != null)
-                {
-                    Family family = lintelFamilysList.FirstOrDefault(f => f.Name == Settings.SelectedLintelFamilieName);
-                    if (family != null)
-                    {
-                        comboBox_LintelFamilies.SelectedItem = family;
-                    }
-                    else
-                    {
-                        comboBox_LintelFamilies.SelectedItem = comboBox_LintelFamilies.Items.GetItemAt(0);
-                    }
-                }
+                FilteredFamilies = new ObservableCollection<FamilyWrapper>(familyWrappers),
+                ElementList = new ObservableCollection<ParentElement>(list)
+            };
+            MainViewModel = DataContext as MainViewModel;
+        }
 
-                if (Settings.SelectedFamilySymbolName != null)
-                {
-                    FamilySymbol familySymbol = FamilySymbolsForSymbolsList.FirstOrDefault(fs => fs.Name == Settings.SelectedFamilySymbolName);
-                    if (familySymbol != null)
-                    {
-                        listBox_SymbolsList.SelectedItem = familySymbol;
-                    }
-                    else
-                    {
-                        listBox_SymbolsList.SelectedItem = listBox_SymbolsList.Items.GetItemAt(0);
-                    }
-                }
-                if (Settings.SelectedOpeningHeightParameterName != null)
-                {
-                    Parameter parameter = OpeningHeightParamList.FirstOrDefault(hp => hp.Definition.Name == Settings.SelectedOpeningHeightParameterName);
-                    if (parameter != null)
-                    {
-                        comboBox_OpeningHeight.SelectedItem = parameter;
-                    }
-                    else
-                    {
-                        comboBox_OpeningHeight.SelectedItem = comboBox_OpeningHeight.Items.GetItemAt(0);
-                    }
-                }
+        // Обработка прокрутки ListBox
+        //private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    if (sender is ListBox listBox)
+        //    {
+        //        // Передаем прокрутку родительскому контейнеру
+        //        var eventArgs = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+        //        {
+        //            RoutedEvent = UIElement.MouseWheelEvent,
+        //            Source = sender
+        //        };
+        //        listBox.RaiseEvent(eventArgs);
+        //        e.Handled = true;
+        //    }
+        //}
 
-                if (Settings.SelectedOpeningWidthParameterName != null)
+
+        // Обработка изменения выбранного элемента TreeView
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.NewValue is ParentElement selectedElement)
+            {
+                var viewModel = DataContext as MainViewModel;
+                if (viewModel != null)
                 {
-                    Parameter parameter = OpeningWidthParamList.FirstOrDefault(wp => wp.Definition.Name == Settings.SelectedOpeningWidthParameterName);
-                    if (parameter != null)
+                    viewModel.SelectedParentElement = selectedElement;
+                }
+            }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.FilterFamiliesAndTypes();
+            }
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton && radioButton.DataContext is KeyValuePair<WallType, List<Element>> childElement)
+            {
+                if (DataContext is MainViewModel viewModel)
+                {
+                    // Найти ParentElement, содержащий этот ChildElement
+                    var parentElement = viewModel.ElementList.FirstOrDefault(pe =>
+                        pe.Walls.Any(wall => wall.Key == childElement.Key && wall.Value.Contains(childElement.Value.FirstOrDefault())));
+
+                    if (parentElement != null)
                     {
-                        comboBox_OpeningWidth.SelectedItem = parameter;
-                    }
-                    else
-                    {
-                        comboBox_OpeningWidth.SelectedItem = comboBox_OpeningWidth.Items.GetItemAt(0);
+                        viewModel.SelectedParentElement = parentElement;
+                        viewModel.SelectedWallTypeName = (sender as RadioButton).Content.ToString();
+                        viewModel.FilterFamiliesAndTypes();
                     }
                 }
             }
         }
 
-        private void comboBox_LintelFamilies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<ElementId> familySymbolsIdList = ((sender as ComboBox).SelectedItem as Family).GetFamilySymbolIds().ToList();
-            FamilySymbolsForSymbolsList = new List<FamilySymbol>();
-            if (familySymbolsIdList.Count != 0)
-            {
-                foreach (ElementId symbolId in familySymbolsIdList)
-                {
-                    FamilySymbolsForSymbolsList.Add(Doc.GetElement(symbolId) as FamilySymbol);
-                }
-            }
-
-            listBox_SymbolsList.ItemsSource = FamilySymbolsForSymbolsList;
-            listBox_SymbolsList.DisplayMemberPath = "Name";
-
-            textBox_SymbolName.Text = "";
+            CommandLintelCreator2.lintelCreateEvent.Raise();
         }
 
-        private void listBox_SymbolsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            SymbolParametersCollection = new ObservableCollection<SymboolParameters>();
-            List<SymboolParameters> symbolParametersCollection = new List<SymboolParameters>();
-            LintelTargetFamilySymbol = (sender as ListBox).SelectedItem as FamilySymbol;
+            CommandLintelCreator2.lintelNumerateEvent.Raise();
+        }
 
-            if (LintelTargetFamilySymbol != null)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            CommandLintelCreator2.nestedElementsNumberingEvent.Raise();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            CommandLintelCreator2.createSectionsEvent.Raise();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            CommandLintelCreator2.tagLintelsEvent.Raise();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (check)
             {
-                //Параметры вложенных типов 
-                textBox_SymbolName.Text = LintelTargetFamilySymbol.Name;
-
-                ParameterSet symboolParameterSet = LintelTargetFamilySymbol.Parameters;
-                foreach (Parameter param in symboolParameterSet)
-                {
-                    if (((int)(((param.Definition) as InternalDefinition).BuiltInParameter)).Equals((int)BuiltInParameter.ALL_MODEL_TYPE_NAME))
-                    {
-                        symbolParametersCollection.Add(new SymboolParameters(param, Doc.GetElement(param.Element.Id) as FamilySymbol));
-                    }
-                }
-
-                SymbolsListForTypesComboBoxColumn = new List<FamilySymbol>();
-                foreach (SymboolParameters symboolParameters in symbolParametersCollection)
-                {
-                    List<ElementId> symbolsIdListForTypesComboBoxColumn = symboolParameters.FamilySymbolValue.Family.GetFamilySymbolIds().ToList();
-                    foreach (ElementId symbolId in symbolsIdListForTypesComboBoxColumn)
-                    {
-                        FamilySymbol familySymbolForTypesComboBoxColumn = Doc.GetElement(symbolId) as FamilySymbol;
-
-                        if (SymbolsListForTypesComboBoxColumn.FirstOrDefault(fs => fs.Name == familySymbolForTypesComboBoxColumn.Name) == null)
-                        {
-                            SymbolsListForTypesComboBoxColumn.Add(familySymbolForTypesComboBoxColumn);
-                        }
-                    }
-                }
-                SymbolsListForTypesComboBoxColumn = SymbolsListForTypesComboBoxColumn.OrderBy(fs => fs.Name, new AlphanumComparatorFastString()).ToList();
-
-                if (symbolParametersCollection.Count != 0)
-                {
-                    dataGrid_TypesParamList.IsEnabled = true;
-
-                    SymbolParametersCollection = new ObservableCollection<SymboolParameters>(
-                        symbolParametersCollection.OrderBy(kv => kv.ParameterValue.Definition.Name, new AlphanumComparatorFastString()));
-
-                    foreach (SymboolParameters sP in SymbolParametersCollection)
-                    {
-                        sP.FamilySymbolValue = SymbolsListForTypesComboBoxColumn.FirstOrDefault(fs => fs.Name == sP.FamilySymbolValue.Name);
-                    }
-                }
-                else
-                {
-                    dataGrid_TypesParamList.IsEnabled = false;
-                }
-
-                dataGrid_TypesParamList.ItemsSource = SymbolParametersCollection;
-                dataGrid_TypesComboBoxColumn.ItemsSource = SymbolsListForTypesComboBoxColumn;
-
-
-                //Параметры размеров
-                DimensionParametersCollection = new ObservableCollection<DimensionParameters>();
-                List<DimensionParameters> dimensionParametersCollection = new List<DimensionParameters>();
-                foreach (Parameter param in symboolParameterSet)
-                {
-                    if (((int)(param.Definition).ParameterGroup).Equals((int)BuiltInParameterGroup.PG_GEOMETRY) && param.IsReadOnly == false)
-                    {
-                        DimensionParameters dimensionParameter = new DimensionParameters(param.Definition.Name, param.AsValueString(), param.Id);
-                        dimensionParametersCollection.Add(dimensionParameter);
-                    }
-                }
-                if (dimensionParametersCollection.Count != 0)
-                {
-                    DimensionParametersCollection = new ObservableCollection<DimensionParameters>(
-                        dimensionParametersCollection.OrderBy(p => p.Name, new AlphanumComparatorFastString()));
-                }
-
-                dataGrid_DimensionsParamList.ItemsSource = DimensionParametersCollection;
+                check = false;
+            }
+            else
+            {
+                check = true;
             }
         }
 
+        public static bool check = false;
 
-        private void btn_SaveNewSymbol_Click(object sender, RoutedEventArgs e)
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
-            using (Transaction t = new Transaction(Doc))
+            if (recreate)
             {
-                FamilySymbol selectedFamilySymbol = listBox_SymbolsList.SelectedItem as FamilySymbol;
-                if (selectedFamilySymbol == null)
+                recreate = false;
+            }
+            else
+            {
+                recreate = true;
+            }
+        }
+        public static bool recreate = false;
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            CommandLintelCreator2.placeSectionsEvent.Raise();
+        }
+    }
+
+    public class MainViewModel : INotifyPropertyChanged
+    {
+        private ObservableCollection<FamilyWrapper> _filteredFamilies;
+        private FamilyWrapper _selectedFamily;
+        private FamilySymbol _selectedType;
+        private ParentElement _selectedParentElement;
+        private string _selectedWallTypeName;
+
+        // Список элементов из TreeView
+        public ObservableCollection<ParentElement> ElementList { get; set; }
+
+        // Список отфильтрованных семейств
+        public ObservableCollection<FamilyWrapper> FilteredFamilies
+        {
+            get => _filteredFamilies;
+            set
+            {
+                _filteredFamilies = value;
+                OnPropertyChanged(nameof(FilteredFamilies));
+            }
+        }
+
+        // Выбранное семейство
+        public FamilyWrapper SelectedFamily
+        {
+            get => _selectedFamily;
+            set
+            {
+                _selectedFamily = value;
+                OnPropertyChanged(nameof(SelectedFamily));
+                OnPropertyChanged(nameof(SelectedFamilyTypes)); // Обновление типов
+            }
+        }
+
+        // Типы, доступные для выбранного семейства
+        public ObservableCollection<FamilySymbol> SelectedFamilyTypes
+        {
+            get => _selectedFamily?.Types ?? new ObservableCollection<FamilySymbol>();
+        }
+
+        // Выбранный тип
+        public FamilySymbol SelectedType
+        {
+            get => _selectedType;
+            set
+            {
+                _selectedType = value;
+                OnPropertyChanged(nameof(SelectedType));
+            }
+        }
+
+        // Выбранный элемент из TreeView
+        public ParentElement SelectedParentElement
+        {
+            get => _selectedParentElement;
+            set
+            {
+                _selectedParentElement = value;
+                OnPropertyChanged(nameof(SelectedParentElement));
+                OnPropertyChanged(nameof(SelectedWallType));
+                OnPropertyChanged(nameof(SelectedOpeningWidth));
+                FilterFamiliesAndTypes(); // Перезапуск фильтрации при изменении выбранного ParentElement
+            }
+        }
+
+        // Тип стены
+        public WallType SelectedWallType
+        {
+            get
+            {
+                if (SelectedParentElement?.Walls != null && SelectedParentElement.Walls.Any())
                 {
-                    selectedFamilySymbol = listBox_SymbolsList.Items.GetItemAt(0) as FamilySymbol;
+                    return SelectedParentElement.Walls.Keys.FirstOrDefault(); // Берем первую стену
                 }
-                t.Start($"Сохранение типа {textBox_SymbolName.Text}");
-                if (selectedFamilySymbol != null)
+                return null;
+            }
+        }
+
+        public string SelectedWallTypeName
+        {
+            get => _selectedWallTypeName;
+
+            set
+            {
+                _selectedWallTypeName = value;
+            }
+        }
+
+        // Ширина проема
+        public double SelectedOpeningWidth
+        {
+            get
+            {
+                if (double.TryParse(SelectedParentElement?.Width, out double width))
                 {
-                    List<ElementId> symbolsIdList = selectedFamilySymbol.Family.GetFamilySymbolIds().ToList();
-                    List<FamilySymbol> symbolsList = new List<FamilySymbol>();
-                    foreach (ElementId id in symbolsIdList)
-                    {
-                        symbolsList.Add(Doc.GetElement(id) as FamilySymbol);
-                    }
-                    FamilySymbol symbolWithName = symbolsList.FirstOrDefault(sy => sy.Name == textBox_SymbolName.Text);
-                    if (symbolWithName != null)
-                    {
-                        if (SymbolParametersCollection.Count != 0)
-                        {
-                            foreach (SymboolParameters symboolParameters in SymbolParametersCollection)
+                    return width;
+                }
+                return 0;
+            }
+        }
+
+        // Прочие свойства и фильтры
+        public bool IsBrick65Checked { get; set; }
+        public bool IsBrick85Checked { get; set; }
+        public bool IsPartitionChecked { get; set; }
+
+        public bool IsNoSupportChecked { get; set; }
+        public bool IsOneSideSupportChecked { get; set; }
+        public bool IsTwoSidesSupportChecked { get; set; }
+
+        public bool HasSupportPads { get; set; }
+
+        public bool IsMetalChecked { get; set; }
+        public bool IsReinforcedConcreteChecked { get; set; }
+
+
+        public void FilterFamiliesAndTypes()
+        {
+            if (FilteredFamilies == null || FilteredFamilies.Count == 0)
+                return;
+
+            foreach (var family in FilteredFamilies)
+            {
+                family.RestoreOriginalTypes();
+
+                var filteredTypes = family.OriginalTypes
+                            .Where(type =>
                             {
-                                selectedFamilySymbol.LookupParameter(symboolParameters.ParameterValue.Definition.Name).Set(symboolParameters.FamilySymbolValue.Id);
-                            }
-                        }
-                        if (DimensionParametersCollection.Count != 0)
-                        {
-                            foreach (DimensionParameters dimensionParameters in DimensionParametersCollection)
-                            {
-                                selectedFamilySymbol.LookupParameter(dimensionParameters.Name).SetValueString(dimensionParameters.ValueString);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        selectedFamilySymbol = selectedFamilySymbol.Duplicate(textBox_SymbolName.Text) as FamilySymbol;
-                        if (SymbolParametersCollection.Count != 0)
-                        {
-                            foreach (SymboolParameters symboolParameters in SymbolParametersCollection)
-                            {
-                                selectedFamilySymbol.LookupParameter(symboolParameters.ParameterValue.Definition.Name).Set(symboolParameters.FamilySymbolValue.Id);
-                            }
-                        }
-                        if (DimensionParametersCollection.Count != 0)
-                        {
-                            foreach (DimensionParameters dimensionParameters in DimensionParametersCollection)
-                            {
-                                selectedFamilySymbol.LookupParameter(dimensionParameters.Name).SetValueString(dimensionParameters.ValueString);
-                            }
-                        }
-                    }
+                                var parts = type.Name.Split('_');
+                                if (parts.Length < 4) return false;
 
-                    List<ElementId> familySymbolsIdList = selectedFamilySymbol.Family.GetFamilySymbolIds().ToList();
-                    FamilySymbolsForSymbolsList = new List<FamilySymbol>();
-                    if (familySymbolsIdList.Count != 0)
-                    {
-                        foreach (ElementId symbolId in familySymbolsIdList)
-                        {
-                            FamilySymbolsForSymbolsList.Add(Doc.GetElement(symbolId) as FamilySymbol);
-                        }
-                    }
+                                // 1. Проверка высоты кирпича
+                                if (IsBrick65Checked && parts[0] != "65") return false;
+                                if (IsBrick85Checked && parts[0] != "88") return false;
 
-                    listBox_SymbolsList.ItemsSource = FamilySymbolsForSymbolsList;
-                    listBox_SymbolsList.DisplayMemberPath = "Name";
-                    listBox_SymbolsList.SelectedItem = selectedFamilySymbol;
-                    LintelTargetFamilySymbol = selectedFamilySymbol;
-                }
-                t.Commit();
+                                // 2. Проверка толщины стены
+                                var wallThickness = Math.Round((double)(SelectedWallType?.Width * 304.8));
+                                if (Convert.ToDouble(parts[1]) != wallThickness) return false;
+
+                                // 3. Размер пролёта
+                                if (double.TryParse(parts[2], out double spanWidth))
+                                {
+                                    if (spanWidth < SelectedOpeningWidth) return false;
+                                }
+
+                                // 4. Опирание
+                                bool hasOneSupport = false;
+                                bool hasTwoSupports = false;
+                                var support = parts[3];
+                                if (parts.Count() == 4)
+                                {
+                                    hasOneSupport = support.Any(char.IsUpper);
+                                }
+                                else
+                                {
+                                    hasOneSupport = (support.Count(char.IsUpper) > 0 && parts[parts.Count() - 1].Count(char.IsUpper) == 0) ||
+                                    (support.Count(char.IsUpper) == 0 && parts[parts.Count() - 1].Count(char.IsUpper) > 0);
+                                    hasTwoSupports = support.Any(char.IsUpper) && parts[parts.Count() - 1].Any(char.IsUpper);
+                                }
+
+                                if (IsNoSupportChecked && (hasOneSupport || hasTwoSupports)) return false;
+                                if (IsOneSideSupportChecked && !hasOneSupport) return false;
+                                if (IsTwoSidesSupportChecked && !hasTwoSupports) return false;
+
+                                // 5. Наличие опорных подушек
+                                if (HasSupportPads)
+                                {
+                                    if (type.LookupParameter("ОП-1-Л.Видимость")?.AsInteger() != 1 &&
+                                        type.LookupParameter("ОП-1-П.Видимость")?.AsInteger() != 1)
+                                    {
+                                        return false;
+                                    }
+                                }
+
+                                // 6. Материал перемычки
+                                if (IsMetalChecked && !(type.Name.Contains("У") || type.Name.Contains("А") || type.Name.Contains("Шв"))) return false;
+                                if (IsReinforcedConcreteChecked && (type.Name.Contains("У") || type.Name.Contains("А") || type.Name.Contains("Шв"))) return false;
+
+                                return true;
+                            })
+                    .ToList();
+
+                // Обновляем доступные типы
+                family.Types = new ObservableCollection<FamilySymbol>(filteredTypes);
+                OnPropertyChanged(nameof(family.Types));
+
             }
+
+            OnPropertyChanged(nameof(FilteredFamilies));
+            OnPropertyChanged(nameof(SelectedFamilyTypes));
+
         }
 
-        private void btn_DeleteSymbol_Click(object sender, RoutedEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
         {
-            using (Transaction t = new Transaction(Doc))
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class FamilyWrapper : INotifyPropertyChanged
+    {
+        public string FamilyName { get; set; }
+
+        private ObservableCollection<FamilySymbol> _types;
+        public ObservableCollection<FamilySymbol> Types
+        {
+            get => _types;
+            set
             {
-                FamilySymbol symbolForDelete = listBox_SymbolsList.SelectedItem as FamilySymbol;
-                if (symbolForDelete != null)
-                {
-                    Family family = symbolForDelete.Family;
-                    t.Start($"Удаление типа {(listBox_SymbolsList.SelectedItem as FamilySymbol).Name}");
-                    if (family.GetFamilySymbolIds().Count > 1)
-                    {
-                        Doc.Delete(symbolForDelete.Id);
-                    }
-                    t.Commit();
-
-                    List<ElementId> familySymbolsIdList = family.GetFamilySymbolIds().ToList();
-                    FamilySymbolsForSymbolsList = new List<FamilySymbol>();
-                    if (familySymbolsIdList.Count != 0)
-                    {
-                        foreach (ElementId symbolId in familySymbolsIdList)
-                        {
-                            FamilySymbolsForSymbolsList.Add(Doc.GetElement(symbolId) as FamilySymbol);
-                        }
-                    }
-
-                    listBox_SymbolsList.ItemsSource = FamilySymbolsForSymbolsList;
-                    listBox_SymbolsList.DisplayMemberPath = "Name";
-                }
+                _types = value;
+                OnPropertyChanged(nameof(Types));
             }
         }
 
+        public ObservableCollection<FamilySymbol> OriginalTypes { get; set; }
 
-        private void comboBox_OpeningHeight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public FamilyWrapper(Family family, Document doc)
         {
-            label_OpeningHeightValue.Content = ((sender as ComboBox).SelectedItem as Parameter).AsValueString();
+            FamilyName = family.Name;
+            var familySymbols = family.GetFamilySymbolIds()
+                                      .Select(id => doc.GetElement(id) as FamilySymbol)
+                                      .Where(symbol => symbol != null)
+                                      .OrderBy(symbol => symbol.Name);
+
+            Types = new ObservableCollection<FamilySymbol>(familySymbols);
+            OriginalTypes = new ObservableCollection<FamilySymbol>(familySymbols);
         }
 
-        private void comboBox_OpeningWidth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void RestoreOriginalTypes()
         {
-            label_OpeningWidthValue.Content = ((sender as ComboBox).SelectedItem as Parameter).AsValueString();
+            Types = new ObservableCollection<FamilySymbol>(OriginalTypes);
         }
 
-        private void btn_Ok_Click(object sender, RoutedEventArgs e)
-        {
-            OpeningHeightParam = comboBox_OpeningHeight.SelectedItem as Parameter;
-            OpeningWidthParam = comboBox_OpeningWidth.SelectedItem as Parameter;
-            SaveSettings();
-            DialogResult = true;
-            Close();
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        protected void OnPropertyChanged(string propertyName)
         {
-            DialogResult = false;
-            Close();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void LintelCreatorWPF_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Space)
-            {
-                OpeningHeightParam = comboBox_OpeningHeight.SelectedItem as Parameter;
-                OpeningWidthParam = comboBox_OpeningWidth.SelectedItem as Parameter;
-                SaveSettings();
-                DialogResult = true;
-                Close();
-            }
+    }
 
-            else if (e.Key == Key.Escape)
-            {
-                DialogResult = false;
-                Close();
-            }
-        }
 
-        private void SaveSettings()
+    public class ParentElement
+    {
+        public string Name { get; set; } // Имя семейства
+        public string TypeName { get; set; } // Имя типа
+        public string Width { get; set; } // Ширина проема
+        public ObservableCollection<ChildElement> ChildElements { get; set; } // Список дочерних элементов
+        public Dictionary<WallType, List<Element>> Walls { get; set; } // Словарь для определения в какой стене находятся отверстия
+
+        public ParentElement()
         {
-            Settings.SelectedLintelFamilieName = (comboBox_LintelFamilies.SelectedItem as Family).Name;
-            Settings.SelectedFamilySymbolName = LintelTargetFamilySymbol.Name;
-            Settings.SelectedOpeningHeightParameterName = OpeningHeightParam.Definition.Name;
-            Settings.SelectedOpeningWidthParameterName = OpeningWidthParam.Definition.Name;
-            Settings.Save();
+            ChildElements = new ObservableCollection<ChildElement>();
         }
+    }
+
+    public class ChildElement
+    {
+        public string WallType { get; set; } // Тип стены + толщина
     }
 }

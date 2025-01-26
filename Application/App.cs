@@ -111,12 +111,12 @@ namespace FerrumAddin
                 {
                     Update update = new Update();
                     update.ShowDialog();
-                    Console.WriteLine($"{fileName} был обновлен.");
+                    //Console.WriteLine($"{fileName} был обновлен.");
                 }
                 else
                 {
                     File.Delete(tempPath);
-                    Console.WriteLine($"{fileName} не изменился.");
+                    //Console.WriteLine($"{fileName} не изменился.");
                 }
             }
         }
@@ -156,6 +156,7 @@ namespace FerrumAddin
         public RibbonPanel panelAR_Door;
         public RibbonPanel panelAR_Stained_Glass_Window;
         //Панели КР
+        public RibbonPanel panelKR_Level;
         public RibbonPanel panelKR_Before;
         public RibbonPanel panelKR_BPC;
         public RibbonPanel panelKR_Accelerator_QJ;
@@ -296,7 +297,7 @@ namespace FerrumAddin
             //panelMEP.AddItem(MEPName);
 
             //Панель АР
-            panelAR_Level = a.CreateRibbonPanel(tabName, "Уровни");
+            panelAR_Level = a.CreateRibbonPanel(tabName, "Уровни АР");
             panelAR_Level.Visible = false;
 
             PushButtonData Main_The_Floor_Is_Numeric = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric.Main_The_Floor_Is_Numeric"); 
@@ -359,10 +360,19 @@ namespace FerrumAddin
             panelAR_Stained_Glass_Window.AddItem(Main_Assembling_On_Group_Stained_Glass_Windows);
 
             //Панель КР
+            panelKR_Level = a.CreateRibbonPanel(tabName, "Уровни КР");
+            panelKR_Level.Visible = false;
+
+            PushButtonData Main_The_Floor_Is_Numeric_Constructions = new PushButtonData("Main_The_Floor_Is_Numeric", "Запись\nэтажа", Assembly.GetExecutingAssembly().Location, "WPFApplication.The_Floor_Is_Numeric_Constructions.Main_The_Floor_Is_Numeric");
+            Main_The_Floor_Is_Numeric_Constructions.Image = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
+            Main_The_Floor_Is_Numeric_Constructions.LargeImage = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
+            panelKR_Level.AddItem(Main_The_Floor_Is_Numeric_Constructions);
+
+           
             panelKR_Before = a.CreateRibbonPanel(tabName, "Перемычки");
             panelKR_Before.Visible = false;
 
-            PushButtonData LintelCreator = new PushButtonData("LintelCreator", "Создание\nперемычек", Assembly.GetExecutingAssembly().Location, "FerrumAddin.CommandLintelCreator");
+            PushButtonData LintelCreator = new PushButtonData("CommandLintelCreator2", "Создание\nперемычек", Assembly.GetExecutingAssembly().Location, "WPFApplication.LintelCreator.CommandLintelCreator2");
             LintelCreator.Image = Convert(Properties.Resources.Сonstructions_Command_Lintel_Creator);
             LintelCreator.LargeImage = Convert(Properties.Resources.Сonstructions_Command_Lintel_Creator);
             panelKR_Before.AddItem(LintelCreator);
@@ -511,6 +521,7 @@ namespace FerrumAddin
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
+                    panelKR_Level.Visible = false;
                     break;
                 case "MEP":
                     panelGeneral.Visible = false;
@@ -522,6 +533,7 @@ namespace FerrumAddin
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
+                    panelKR_Level.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
@@ -533,6 +545,7 @@ namespace FerrumAddin
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
+                    panelKR_Level.Visible = false;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
@@ -544,6 +557,7 @@ namespace FerrumAddin
                     panelAR_Stained_Glass_Window.Visible = false;
                     panelAR_Window.Visible = false;
                     panelAR_Door.Visible = false;
+                    panelKR_Level.Visible = true;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -555,6 +569,7 @@ namespace FerrumAddin
                     panelKR_Before.Visible = false;
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
+                    panelKR_Level.Visible = false;
                     break;
             }
         }

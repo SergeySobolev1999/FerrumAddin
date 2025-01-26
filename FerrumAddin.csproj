@@ -358,6 +358,12 @@
     <Compile Include="3-Сonstructions\StructureFileFix\ParamValue.cs" />
     <Compile Include="3-Сonstructions\StructureFileFix\Rebar.cs" />
     <Compile Include="3-Сonstructions\StructureFileFix\StructureFileFix.cs" />
+    <Compile Include="3-Сonstructions\The_Floor_Is_Numeric\Data_The_Floor_Is_Numeric.cs" />
+    <Compile Include="3-Сonstructions\The_Floor_Is_Numeric\Main_The_Floor_Is_Numeric.cs" />
+    <Compile Include="3-Сonstructions\The_Floor_Is_Numeric\Record_The_Floor_Is_Numeric.cs" />
+    <Compile Include="3-Сonstructions\The_Floor_Is_Numeric\WPF_Main_The_Floor_Is_Numeric.xaml.cs">
+      <DependentUpon>WPF_Main_The_Floor_Is_Numeric.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Application\App.cs" />
     <Compile Include="4-МЕР\CommandMepName\CommandMepName.cs" />
     <Compile Include="1-General\Config\ConfiguratorShow.cs" />
@@ -371,13 +377,9 @@
     </Compile>
     <Compile Include="3-Сonstructions\LintelCreator\AlphanumComparatorFastString.cs" />
     <Compile Include="3-Сonstructions\LintelCreator\CommandLintelCreator.cs" />
-    <Compile Include="3-Сonstructions\LintelCreator\DimensionParameters.cs" />
     <Compile Include="3-Сonstructions\LintelCreator\LintelCreatorForm.xaml.cs">
       <DependentUpon>LintelCreatorForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="3-Сonstructions\LintelCreator\LintelCreatorSettings.cs" />
-    <Compile Include="3-Сonstructions\LintelCreator\SymboolParameters.cs" />
-    <Compile Include="3-Сonstructions\LintelCreator\WndowsAndDoorsSelectionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1-General\Config\Configurator.xaml.cs">
       <DependentUpon>Configurator.xaml</DependentUpon>
@@ -483,6 +485,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="3-Сonstructions\SteelSpecCollapse\sscwpf.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="3-Сonstructions\The_Floor_Is_Numeric\WPF_Main_The_Floor_Is_Numeric.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

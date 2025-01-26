@@ -5,66 +5,152 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApplication.Licenses"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="270">
+       Topmost="True"
+        ResizeMode="NoResize"
+        MinHeight="270" MinWidth="300"
+        MaxHeight="270" MaxWidth="300"
+        d:DesignHeight="270" 
+        d:DesignWidth="300"
+        WindowStyle="None" Foreground="#FFA3A0A0">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
     <Grid>
-        <TextBox 
-            Name ="TextBox_Name"
-            HorizontalAlignment="Left" 
-            Margin="80,30,0,0" 
-            TextWrapping="Wrap" 
-            Text="..." 
-            VerticalAlignment="Top" 
-            Width="180" />
+        <DockPanel Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" 
+                 WindowChrome.IsHitTestVisibleInChrome="True" 
+                 DockPanel.Dock="Right"  
+                 Height="30" 
+                 FlowDirection="RightToLeft" 
+                 VerticalAlignment="Top"
+                 Background="Gray" 
+                 HorizontalAlignment="Right"  >
+                            <Button Name="closeWPF1" 
+                 Height="30" 
+                 Width="100" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Top" 
+                 Content="Закрыть"   
+                 FontFamily="ISOCPEUR"
+                 Click="close_Click"   
+                 FontSize="15"
+                 RenderTransformOrigin="-7.767,0.712" 
+                 Background="Gray" 
+                 BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+                DockPanel.Dock="Top" 
+                Height="30" 
+                Width="32"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Margin="0,0,0,0" MouseDown="Label_MouseDown">
+                <Image 
+                Margin="0,0,0,0"  
+                HorizontalAlignment="Left"
+                Width="32"
+                Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png"  
+                Stretch="Fill"/>
+            </Border>
+            <Border Background="Gray" 
+                DockPanel.Dock="Top" 
+                Height="30" 
+                 Width="181"
+                 HorizontalAlignment="Left"
+                VerticalAlignment="Top" 
+                Margin="32,-30,0,0" MouseDown="Label_MouseDown">
+                <TextBlock 
+                TextWrapping="Wrap" 
+                Text="ЛИЦЕНЗИЯ"
+                FontSize="20"
+                FontFamily="Bahnschrift SemiBold SemiCondensed"
+                Height="20" Foreground="#FF323232" FontWeight="Bold"/>
+            </Border>
+            <Border Background="Gray" 
+                DockPanel.Dock="Top" 
+                Height="30" 
+                VerticalAlignment="Top" 
+                Margin="180,-30,0,0" 
+                MouseDown="Label_MouseDown">
+            </Border>
+        </DockPanel>
         <TextBlock 
-            HorizontalAlignment="Left" 
-            Margin="10,30,0,0" 
-            TextWrapping="Wrap" 
-            Text="Имя:" 
-            VerticalAlignment="Top"/>
-        <TextBox 
-            Name ="TextBox_Surname"
-             HorizontalAlignment="Left" 
-             Margin="80,60,0,0" 
-             TextWrapping="Wrap" 
-             Text="..." 
-             VerticalAlignment="Top" 
-             Width="180"/>
-        <TextBlock 
-             HorizontalAlignment="Left" 
-             Margin="10,60,0,0" 
-             TextWrapping="Wrap" 
-             Text="Фамилия:" 
-             VerticalAlignment="Top"/>
+                 HorizontalAlignment="Left" 
+                 Margin="20,50,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Имя:" 
+                 VerticalAlignment="Top"/>
+            <TextBox 
+                Name ="TextBox_Name"
+                Margin="80,50,20,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"  />
+           
+            <TextBox 
+                Name ="TextBox_Surname"
+                 Margin="80,80,20,0" 
+                 TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"/>
+            <TextBlock 
+                 HorizontalAlignment="Left" 
+                 Margin="20,80,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Фамилия:" 
+                 VerticalAlignment="Top"/>
         
-        <PasswordBox x:Name="TextBox_Password" 
-  HorizontalAlignment="Left" 
-  Margin="80,90,0,0" 
-  VerticalAlignment="Top" 
-  Width="180" />
-        <TextBlock 
-             HorizontalAlignment="Left" 
-             Margin="10,90,0,0" 
-             TextWrapping="Wrap" 
-             Text="Пароль:" 
-             VerticalAlignment="Top"/>
-        <TextBlock 
-            Name ="status"
-            HorizontalAlignment="Left" 
-            Margin="10,180,0,0" 
-            TextWrapping="Wrap" 
-            Text="Статус подключения:" 
-            VerticalAlignment="Top"/>
+            <PasswordBox x:Name="TextBox_Password" 
+                 
+                  Margin="80,110,20,0" 
+                  VerticalAlignment="Top" />
+            <TextBlock 
+                 HorizontalAlignment="Left" 
+                 Margin="20,110,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Пароль:" 
+                 VerticalAlignment="Top"/>
+            <TextBlock 
+                Name ="status"
+                HorizontalAlignment="Left" 
+                Margin="20,200,0,0" 
+                TextWrapping="Wrap" 
+                Text="Статус подключения:" 
+                VerticalAlignment="Top"/>
+            <Button 
+                Content="Проверить связь с сервером лицензий" 
+                Margin="20,140,20,0" 
+                VerticalAlignment="Top" Click="Button_Click"/>
+            <Button 
+                Content="Возобновить связь с сервером лицензий" 
+                Margin="20,170,20,0" 
+                VerticalAlignment="Top" Click="Button_Click_Licenses"/>
+        <Border Background="Gray" 
+DockPanel.Dock="Top" 
+Height="35"
+VerticalAlignment="Bottom" 
+Margin="0,0,0,0" 
+MouseDown="Label_MouseDown">
+            <TextBlock 
+TextWrapping="Wrap" 
+Text="..."
+Margin="0,10"
+Name ="Version"
+FontSize="15"
+FontFamily="ISOCPEUR"
+Height="25" Foreground="#FF323232"/>
+        </Border>
         <Button 
-            Content="Проверить связь с сервером лицензий" 
-            HorizontalAlignment="Left" 
-            Margin="10,120,0,0" 
-            Width="250"
-            VerticalAlignment="Top" Click="Button_Click"/>
-        <Button 
-            Content="Возобновить связь с сервером лицензий" 
-            HorizontalAlignment="Left" 
-            Margin="10,150,0,0" 
-            Width="250"
-            VerticalAlignment="Top" Click="Button_Click_Licenses"/>
+FontSize="15" 
+Content="Закрыть"
+Margin="0,0,14,5"
+Width="70"
+ToolTip="Загрузка сохраненных наборов"
+FontFamily="ISOCPEUR"
+HorizontalAlignment="Right"
+VerticalAlignment="Bottom"
+BorderBrush="{x:Null}"
+ Click="close_Click"/>
+
     </Grid>
 </Window>

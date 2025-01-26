@@ -24,7 +24,7 @@ namespace WPFApplication.Mark_Door
     {
         public WPF_Main_MarkWindow()
         {
-            
+            Version.Text = SSDK_Data.plugin_Version;
             InitializeComponent();
         }
 

@@ -751,7 +751,7 @@ namespace FerrumAddin
         {
             if (!File.Exists(filePath))
             {
-                TaskDialog.Show("Ошибка", "Не найден файл менеджера семейств");
+                //TaskDialog.Show("Ошибка", "Не найден файл менеджера семейств");
                 return; 
             }
             //string tabPath = App.TabPath + "\\ZHELEZNO_PLUGIN";

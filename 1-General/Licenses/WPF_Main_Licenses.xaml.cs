@@ -30,6 +30,7 @@ namespace WPFApplication.Licenses
         public WPF_Main_Licenses()
         {
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
             Folder folder = new Folder();
             Save save = new Save();
             save.presets_Save();
@@ -253,14 +254,17 @@ namespace WPFApplication.Licenses
             Mysql_Connection();
         }
 
-       
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
 
         private void Button_Click_Licenses(object sender, object e)
         {
             Mysql_TEST();
         }
 
-        
+        private void close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
     
     

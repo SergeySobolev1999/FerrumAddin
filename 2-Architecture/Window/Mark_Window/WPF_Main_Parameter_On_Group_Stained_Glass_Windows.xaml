@@ -94,7 +94,7 @@
         TextWrapping="Wrap" 
         Text="..."
         Margin="0,10"
-        Name ="Version3"
+        Name ="Version"
         FontSize="15"
         FontFamily="ISOCPEUR"
         Height="25" Foreground="#FF323232"/>
