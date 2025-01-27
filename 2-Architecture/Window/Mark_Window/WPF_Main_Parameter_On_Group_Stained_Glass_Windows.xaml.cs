@@ -24,8 +24,8 @@ namespace WPFApplication.Mark_Window
     {
         public WPF_Main_Mark_Window()
         {
-            Version.Text = SSDK_Data.plugin_Version;
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
         }
 
         private void Start_The_Floor_Is_Numeric(object sender, RoutedEventArgs e)

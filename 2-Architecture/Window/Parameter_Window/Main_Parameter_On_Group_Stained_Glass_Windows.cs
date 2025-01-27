@@ -27,7 +27,7 @@ namespace WPFApplication.Parameter_Window
             }
             else
             {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
                 s_Mistake_String.ShowDialog();
             }
             return Result.Succeeded;

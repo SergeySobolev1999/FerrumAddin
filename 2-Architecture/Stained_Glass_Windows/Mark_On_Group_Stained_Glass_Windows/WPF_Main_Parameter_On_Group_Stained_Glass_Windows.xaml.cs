@@ -24,8 +24,9 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
     {
         public WPF_Main_Parameter_On_Group_Stained_Glass_Windows()
         {
-            Version.Text = SSDK_Data.plugin_Version;
+           
             InitializeComponent();
+            Version.Text = SSDK_Data.plugin_Version;
         }
 
         private void Start_The_Floor_Is_Numeric(object sender, RoutedEventArgs e)
