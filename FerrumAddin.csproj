@@ -242,6 +242,8 @@
     <Compile Include="1-General\Licenses\WPF_Main_Licenses.xaml.cs">
       <DependentUpon>WPF_Main_Licenses.xaml</DependentUpon>
     </Compile>
+    <Compile Include="1-General\Site\Document_Site.cs" />
+    <Compile Include="1-General\Site\Enter_Site.cs" />
     <Compile Include="2-Architecture\Door\Assembling_Window\Data_Assembling_Project_On_Group_Stained_Glass_Windows.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -338,14 +340,11 @@
     <Compile Include="2-Architecture\Window\Parameter_Window\WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml.cs">
       <DependentUpon>WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="3-Сonstructions\common\iWindow.xaml.cs">
-      <DependentUpon>iWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="3-Сonstructions\common\Logger.cs" />
     <Compile Include="3-Сonstructions\common\RevitApi.cs" />
-    <Compile Include="3-Сonstructions\PinnerWorksets\PinnerWorksets.cs" />
-    <Compile Include="3-Сonstructions\PinnerWorksets\wsViewModel.cs" />
-    <Compile Include="3-Сonstructions\PinnerWorksets\wswpf.xaml.cs">
+    <Compile Include="1-General\PinnerWorksets\PinnerWorksets.cs" />
+    <Compile Include="1-General\PinnerWorksets\wsViewModel.cs" />
+    <Compile Include="1-General\PinnerWorksets\wswpf.xaml.cs">
       <DependentUpon>wswpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="3-Сonstructions\SteelSpecCollapse\sscViewModel.cs" />
@@ -476,11 +475,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="3-Сonstructions\common\iWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="3-Сonstructions\PinnerWorksets\wswpf.xaml">
+    <Page Include="1-General\PinnerWorksets\wswpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -629,6 +624,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\User_Licenses.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Enter_Site.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

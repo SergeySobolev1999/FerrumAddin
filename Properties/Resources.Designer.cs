@@ -143,6 +143,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Enter_Site {
+            get {
+                object obj = ResourceManager.GetObject("Enter_Site", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FamilyManager {
             get {
                 object obj = ResourceManager.GetObject("FamilyManager", resourceCulture);

@@ -195,8 +195,9 @@ namespace masshtab
                                 }
 
                             }
-
-                            new iWindow("Успешно!\nВсе ВРС в проекте подчищены").ShowDialog();
+                            S_Mistake_String s_Mistake_String = new S_Mistake_String("Успешно!\nВсе ВРС в проекте подчищены");
+                            s_Mistake_String.ShowDialog();
+                            //new iWindow("Успешно!\nВсе ВРС в проекте подчищены").ShowDialog();
                             t.Commit();
                             new Logger(dateTime, className, "Закрываем транзакцию;");
                         }

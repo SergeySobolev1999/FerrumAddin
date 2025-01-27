@@ -33,7 +33,9 @@ namespace masshtab
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            SSDK_Data.username = Environment.UserName;
+            if (1 == 2)
+            {
+                SSDK_Data.username = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 string className = "Закрепление и наборы"; DateTime dateTime = DateTime.Now;
@@ -343,14 +345,20 @@ namespace masshtab
                     }
 
                 }
-                new iWindow("Готово!").ShowDialog();
+                S_Mistake_String s_Mistake_String_True = new S_Mistake_String("Готово!");
+                s_Mistake_String_True.ShowDialog();
             }
             else
             {
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
                 s_Mistake_String.ShowDialog();
             }
-            
+            }
+            else
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
+                s_Mistake_String.ShowDialog();
+            }
             return Result.Succeeded;
         }
     }

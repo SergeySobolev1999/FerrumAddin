@@ -248,13 +248,14 @@ namespace FerrumAddin
             ri.Width = 70;
             ComboBox cb = (items[1] as ComboBox);
            
-            cb.AddItems(new List<ComboBoxMemberData>() { new ComboBoxMemberData("Common", "Общие"),
+            cb.AddItems(new List<ComboBoxMemberData>() {
                                                          new ComboBoxMemberData("Views", "Виды"),
                                                          new ComboBoxMemberData("General", "Общее"),
                                                          new ComboBoxMemberData("AR", "АР"),
                                                          new ComboBoxMemberData("KR", "КР"),
                                                          new ComboBoxMemberData("MEP", "MEP"),
                                                          new ComboBoxMemberData("Control", "Управление")});
+            //new ComboBoxMemberData("Common", "Общие"),
 
             cb.CurrentChanged += Cb_CurrentChanged;
             
@@ -275,12 +276,15 @@ namespace FerrumAddin
             panelGeneral = a.CreateRibbonPanel(tabName, "Общее");
             panelGeneral.Visible = false;
 
+            PushButtonData Enter_Site = new PushButtonData("Enter_Site", "Сайт", Assembly.GetExecutingAssembly().Location, "WPFApplication.Enter_Site.Enter_Site");
+            Enter_Site.Image = Convert(Properties.Resources.Enter_Site);
+            Enter_Site.LargeImage = Convert(Properties.Resources.Enter_Site);
+            panelGeneral.AddItem(Enter_Site);
+
             PushButtonData PinnerWorksets = new PushButtonData("PinnerWorksets", "Закрепле.\nи наборы", Assembly.GetExecutingAssembly().Location, "masshtab.PinnerWorksets");
             PinnerWorksets.Image = Convert(Properties.Resources.General_Pinner_Worksets);
             PinnerWorksets.LargeImage = Convert(Properties.Resources.General_Pinner_Worksets);
             panelGeneral.AddItem(PinnerWorksets);
-
-           
 
             //Панель МЕР
             panelMEP = a.CreateRibbonPanel(tabName, "ВИС");
