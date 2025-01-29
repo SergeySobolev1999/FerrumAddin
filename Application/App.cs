@@ -165,7 +165,7 @@ namespace FerrumAddin
         {
             a.ControlledApplication.DocumentSaving += OnDocumentSaving;
             a.ControlledApplication.DocumentSavingAs += OnDocumentSavingAs;
-
+            Licenses_True_ licenses_True_ = new Licenses_True_();
             JsonDelete jsonDelete = new JsonDelete(a);
             application = a;
             Type type = a.GetType();
