@@ -424,6 +424,7 @@ namespace FerrumAddin
             }
 
             ButtonConf(root);
+            SSDK_Data.username = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
             return Result.Succeeded;
         }
