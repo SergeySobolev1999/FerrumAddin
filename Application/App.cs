@@ -60,11 +60,13 @@ namespace FerrumAddin
         //Связь с сервером лицензий
         private void OnDocumentSaving(object sender, Autodesk.Revit.DB.Events.DocumentSavingEventArgs e)
         {
+            SSDK_Data.username = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
         }
 
         private void OnDocumentSavingAs(object sender, Autodesk.Revit.DB.Events.DocumentSavingAsEventArgs e)
         {
+            SSDK_Data.username = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
         }
         //Конец логики по связи с сервером лицензий
