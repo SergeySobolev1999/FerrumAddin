@@ -201,7 +201,7 @@ namespace FerrumAddin
         {
             CategoryFilters.Clear();
             var selectedTabItem = Tabs.SelectedItem as TabItemViewModel;
-       
+
             if (selectedTabItem != null)
             {
                 var uniqueCategories = selectedTabItem.OriginalMenuItems.Select(mi => mi.Category).Distinct();
@@ -517,7 +517,7 @@ namespace FerrumAddin
                         {
                             string projectVersion = doc.GetElement(element.GetTypeId()).LookupParameter("ZH_Версия_Семейства")?.AsString();
 
-                            
+
 
                             var matchingMenuItem = FamilyManagerWindow.mvm.TabItems
                                 .SelectMany(ti => ti.MenuItems)
@@ -549,7 +549,7 @@ namespace FerrumAddin
                                             IsSelected = false
                                         });
                                         continue;
-                                    }   
+                                    }
                                     if (!string.IsNullOrEmpty(loadedFamilyVersion))
                                     {
                                         CompareVersions(projectVersion, loadedFamilyVersion, matchingMenuItem, outdatedItems, newerItems);
@@ -752,7 +752,7 @@ namespace FerrumAddin
             if (!File.Exists(filePath))
             {
                 //TaskDialog.Show("Ошибка", "Не найден файл менеджера семейств");
-                return; 
+                return;
             }
             //string tabPath = App.TabPath + "\\ZHELEZNO_PLUGIN";
             string tabPath = App.TabPath;
@@ -794,7 +794,7 @@ namespace FerrumAddin
                             new XElement("ImagePath", imagePath));
                         tabElement.Add(menuItemElement);
                     }
-                    var menuItemsToRemove = tabElement.Descendants("MenuItem").Where(x=>x.Element("Path").Value.Contains(".rfa"))
+                    var menuItemsToRemove = tabElement.Descendants("MenuItem").Where(x => x.Element("Path").Value.Contains(".rfa"))
                 .Where(menu => !File.Exists(menu.Element("Path")?.Value))
                 .ToList();
 
@@ -935,4 +935,5 @@ namespace FerrumAddin
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
+
 }

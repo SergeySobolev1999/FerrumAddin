@@ -24,9 +24,7 @@ namespace WPFApplication.LintelCreator
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            if (SSDK_Data.licenses_Connection)
-            {
-                Document doc = commandData.Application.ActiveUIDocument.Document;
+            Document doc = commandData.Application.ActiveUIDocument.Document;
             Selection sel = commandData.Application.ActiveUIDocument.Selection;
 
             lintelCreateEvent = ExternalEvent.Create(new LintelCreate());
@@ -65,10 +63,10 @@ namespace WPFApplication.LintelCreator
                 .Where(f => f.FamilyCategory.Id.Value.Equals((int)BuiltInCategory.OST_StructuralFraming))
                 .Where(f => f.GetFamilySymbolIds() != null)
                 .Where(f => f.GetFamilySymbolIds().Count != 0)
-                .Where(f => (doc.GetElement(f.GetFamilySymbolIds().First()) as FamilySymbol).get_Parameter(BuiltInParameter.ALL_MODEL_MODEL).AsString() == "ПР-2")
+                .Where(f => (doc.GetElement(f.GetFamilySymbolIds().First()) as FamilySymbol).get_Parameter(BuiltInParameter.ALL_MODEL_MODEL).AsString() == "Перемычки составные")
                 .OrderBy(f => f.Name, new AlphanumComparatorFastString())
                 .ToList();
-            //"Перемычки составные"
+
             if (lintelFamilysList.Count == 0)
             {
                 message = "В проекте не найдены семейства перемычек! Загрузите семейства с наличием ''Перемычки составные'' в парметре типа ''Модель''.";
@@ -77,12 +75,7 @@ namespace WPFApplication.LintelCreator
 
             LintelCreatorForm2 form = new LintelCreatorForm2(doc, list, lintelFamilysList);
             form.Show();
-            }
-            else
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
-                s_Mistake_String.ShowDialog();
-            }
+
             return Result.Succeeded;
         }
         private List<ParentElement> GroupWindowsAndDoors(List<FamilyInstance> windowsAndDoorsList, Document doc)
@@ -94,6 +87,9 @@ namespace WPFApplication.LintelCreator
                     el.Symbol.Name,       // Имя типа
                     Width = el.LookupParameter("ADSK_Размер_Ширина")?.AsValueString()
                 })
+                .OrderBy(group => group.Key.FamilyName)  // Сортировка по имени семейства
+                .ThenBy(group => group.Key.Name)         // Сортировка по имени типа
+                .ThenBy(group => group.Key.Width)
                 .Select(group => new ParentElement
                 {
                     Name = group.Key.FamilyName,
@@ -927,7 +923,7 @@ namespace WPFApplication.LintelCreator
 
                             // Создаем экземпляр перемычки
                             newLintel = doc.Create.NewFamilyInstance(locationPoint, selectedType, level, Autodesk.Revit.DB.Structure.StructuralType.NonStructural) as FamilyInstance;
-                            XYZ translation = new XYZ(0, wallElements.Key.Width / 2, 0);
+                            XYZ translation = (element as FamilyInstance).FacingOrientation * wallElements.Key.Width / 2;
 
                             // Проверяем ориентацию и выполняем поворот, если необходимо
                             if (!(element as FamilyInstance).FacingOrientation.IsAlmostEqualTo(newLintel.FacingOrientation))
@@ -938,8 +934,6 @@ namespace WPFApplication.LintelCreator
                                 double rotateAngle = (u2 - u1);
 
                                 ElementTransformUtils.RotateElement(doc, newLintel.Id, rotateAxis, rotateAngle);
-
-                                translation = new XYZ(wallElements.Key.Width / 2, 0, 0);
                             }
                             ElementTransformUtils.MoveElement(doc, newLintel.Id, translation);
                             newLintel.LookupParameter("ADSK_Группирование").Set("ПР");
@@ -958,6 +952,8 @@ namespace WPFApplication.LintelCreator
                     trans.RollBack();
                 }
             }
+            if (output != null && output != "")
+                TaskDialog.Show("Отчет", output);
         }
 
 
