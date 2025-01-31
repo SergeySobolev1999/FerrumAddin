@@ -73,7 +73,7 @@ namespace WPFApplication.LintelCreator
                 return Result.Cancelled;
             }
 
-            LintelCreatorForm2 form = new LintelCreatorForm2(doc, list, lintelFamilysList);
+            LintelCreatorForm2 form = new LintelCreatorForm2(doc, sel, list, lintelFamilysList);
             form.Show();
 
             return Result.Succeeded;
