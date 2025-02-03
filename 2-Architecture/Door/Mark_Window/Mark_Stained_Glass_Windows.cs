@@ -371,7 +371,7 @@ namespace WPFApplication.Mark_Door
         {
             try
             {
-                using (TransactionGroup transactionGroup = new TransactionGroup(Revit_Document_Mark_Window.Document, "Маркировка окон "))
+                using (TransactionGroup transactionGroup = new TransactionGroup(Revit_Document_Mark_Window.Document, "Маркировка дверей "))
                 {
                     transactionGroup.Start();
                    
@@ -412,18 +412,30 @@ namespace WPFApplication.Mark_Door
                         {
                             transaction1.Start();
                             Parameter parameter_ADSK_Mark = glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_Mark);
+                            double parameter_ZH_COD = glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_COD).AsDouble()*304.8;
                             string mark_Prefix = "Д-";
+                            int number_Set = 0;
+                            if (208.949 < parameter_ZH_COD && parameter_ZH_COD < 209)
+                            {
+                                Data_Mark_Door.number_Elements_Balcony++;
+                                number_Set = Data_Mark_Door.number_Elements_Balcony;
+                                mark_Prefix = "Б-";
+                            }
+                            if (206.999 < parameter_ZH_COD && parameter_ZH_COD < 208.950)
+                            {
+                                Data_Mark_Door.number_Elements++;
+                                number_Set = Data_Mark_Door.number_Elements;
+                            }
+
                             if (parameter_ADSK_Mark != null)
                             {
-                                
-                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + Data_Mark_Door.number_Elements.ToString()).Trim())
+                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + number_Set.ToString()).Trim())
                                 {
-                                    Data_Mark_Door.number_Elements++;
-                                    parameter_ADSK_Mark.Set(mark_Prefix + Data_Mark_Door.number_Elements.ToString());
+                                    parameter_ADSK_Mark.Set(mark_Prefix + number_Set.ToString());
                                 }
-                                if (glass_Window.element_Doors.Name.Trim() != (mark_Prefix + Data_Mark_Door.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString()).Trim())
+                                if (glass_Window.element_Doors.Name.Trim() != (mark_Prefix + number_Set.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString()).Trim())
                                 {
-                                    glass_Window.element_Doors.Name = (mark_Prefix + Data_Mark_Door.number_Elements.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString());
+                                    glass_Window.element_Doors.Name = (mark_Prefix + number_Set.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString());
                                 }
                             }
                             if (parameter_ADSK_Mark == null&& Data_Mark_Door.iteration_Recaive_Value_In_Parameter == false)

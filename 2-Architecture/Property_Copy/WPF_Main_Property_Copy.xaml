@@ -1,0 +1,172 @@
+﻿<Window x:Class="WPFApplication.Property_Copy.WPF_Main_Property_Copy"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApplication.Property_Copy"
+             mc:Ignorable="d" 
+            Topmost="True"
+        PreviewKeyDown="TreeView_PreviewKeyDown"
+        PreviewKeyUp="TreeView_PreviewKeyUp"
+            ResizeMode="NoResize"
+            MinHeight="1000" MinWidth="1500"
+            MaxHeight="1000" MaxWidth="1500"
+            d:DesignHeight="1000" 
+            d:DesignWidth="1500"
+            WindowStyle="None" Foreground="#FFA3A0A0">
+    
+    <Grid>
+        <DockPanel Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" 
+             WindowChrome.IsHitTestVisibleInChrome="True" 
+             DockPanel.Dock="Right"  
+             Height="30" 
+             FlowDirection="RightToLeft" 
+             VerticalAlignment="Top"
+             Background="Gray" 
+             HorizontalAlignment="Right"  >
+                <Button Name="closeWPF" 
+             Height="30" 
+             Width="100" 
+             HorizontalAlignment="Right" 
+             VerticalAlignment="Top" 
+             Content="Закрыть"   
+             FontFamily="ISOCPEUR"
+             Click="close_Click"   
+             FontSize="15"
+             RenderTransformOrigin="-7.767,0.712" 
+             Background="Gray" 
+             BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+             DockPanel.Dock="Top" 
+             Height="30" 
+             VerticalAlignment="Top" 
+             Margin="0,0,0,0" 
+             MouseDown="Label_MouseDown">
+                <Image 
+             Source="/FerrumAddin;component/Resources/All_Ferrum_Logo.png"
+             Width="150"
+             HorizontalAlignment="Left"/>
+            </Border>
+            <Border Background="Gray" 
+             DockPanel.Dock="Top" 
+             Height="30" 
+             VerticalAlignment="Top" 
+             Margin="30,-30,0,0" 
+             MouseDown="Label_MouseDown">
+                <TextBlock 
+             TextWrapping="Wrap" 
+             Text="Копирование свойств"
+             FontSize="20"
+             FontFamily="Bahnschrift SemiBold SemiCondensed"
+             Height="20" 
+             Foreground="#FF323232" 
+             FontWeight="Bold"/>
+            </Border>
+        </DockPanel>
+        <Border Background="Gray" 
+         DockPanel.Dock="Top" 
+         Height="35"
+         VerticalAlignment="Bottom" 
+         Margin="0,0,0,0" 
+         MouseDown="Label_MouseDown">
+            <TextBlock 
+         TextWrapping="Wrap" 
+         Text="..."
+         Margin="0,10"
+         Name ="Version"
+         FontSize="15"
+         FontFamily="ISOCPEUR"
+         Height="25" 
+         Foreground="#FF323232"/>
+        </Border>
+        <Button 
+         FontSize="15" 
+         Content="Запуск"
+         Margin="0,0,14,5"
+         Width="70"
+         ToolTip="Запуск"
+         FontFamily="ISOCPEUR"
+         HorizontalAlignment="Right"
+         VerticalAlignment="Bottom"
+         BorderBrush="{x:Null}"
+         Click="Start_The_Floor_Is_Numeric"/>
+        <Button 
+         FontSize="15" 
+         Content="Выбрать донора"
+         Margin="20,50"
+         Width="1020"
+         ToolTip="Выбрать элемент донор в модели"
+         FontFamily="ISOCPEUR"
+         HorizontalAlignment="Left"
+         VerticalAlignment="Top"
+         BorderBrush="{x:Null}"
+         Click="Select_Element"/>
+        <Button 
+         FontSize="15" 
+         Content="Выбрать цель"
+         Margin="0,50,20,0"
+         Width="420"
+         ToolTip="Выбрать целевые элементы модели"
+         FontFamily="ISOCPEUR"
+         HorizontalAlignment="Right"
+         VerticalAlignment="Top"
+         BorderBrush="{x:Null}"
+         Click="Start_The_Floor_Is_Numeric"/>
+        <TextBlock FontSize="12" 
+         Text="..." 
+         Margin="20,80" 
+         VerticalAlignment="Top" 
+         HorizontalAlignment="Left" 
+         FontFamily="ISOCPEUR" 
+         Foreground="#FF757575"/>
+        <TreeView x:Name="Tree_Parameter_On_Select_Element"
+          Width="1020"
+          Height="850"
+          BorderBrush="Black"
+          Margin="20,90,0,0"
+          VerticalAlignment="Top"
+          HorizontalAlignment="Left"
+          SelectedItemChanged="Tree_Parameter_On_Select_Element_SelectedItemChanged">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Click="CheckBox_Click"/>
+                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <Border 
+         BorderThickness="1" 
+         BorderBrush="Black"
+         Margin="0,90,20,50"
+         HorizontalAlignment="Right"
+         VerticalAlignment="Top"
+         Height="850"
+         Width="420">
+            <ScrollViewer
+             x:Name="scroll_Viewer_Work_Set_Ignore"
+             VerticalScrollBarVisibility="Visible" 
+             HorizontalScrollBarVisibility="Visible"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Left"
+             CanContentScroll="True"
+             ToolTip="Список спецификаий из модели"
+             FontSize="15"
+             Width="420"
+             Height="850"
+             FontFamily="ISOCPEUR" 
+             Margin="0,0,0,0"/>
+        </Border>
+        <TextBlock FontSize="15" 
+         Text="..." 
+         Name="Select_Element_Donor"
+         Margin="20,70,310,0" 
+         VerticalAlignment="Top" 
+         FontFamily="ISOCPEUR" 
+         Foreground="#FF474747"/>
+    </Grid>
+</Window>

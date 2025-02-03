@@ -62,7 +62,7 @@
             Margin="32,-30,0,0" MouseDown="Label_MouseDown">
             <TextBlock 
             TextWrapping="Wrap" 
-            Text="ОКНА МАРКИ"
+            Text="ДВЕРИ МАРКИ"
             FontSize="20"
             FontFamily="Bahnschrift SemiBold SemiCondensed"
             Height="20" Foreground="#FF323232" FontWeight="Bold"/>

@@ -57,8 +57,16 @@ namespace WPFApplication.Parameter_Window
                                     string opening_Method = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Способ_Открывания", "БТС_Способ_Открывания_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-"); 
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Огнестойкость
                                     string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                     //АТС_Утепленность
@@ -120,8 +128,16 @@ namespace WPFApplication.Parameter_Window
                                     string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Утепленность
                                     string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                     //АТС_Функциональная_Особенность
@@ -179,8 +195,16 @@ namespace WPFApplication.Parameter_Window
                                     string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Огнестойкость
                                     string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                     //АТС_Утепленность

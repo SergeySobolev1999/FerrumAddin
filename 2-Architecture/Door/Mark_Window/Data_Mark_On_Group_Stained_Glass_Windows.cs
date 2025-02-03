@@ -21,6 +21,7 @@ namespace WPFApplication.Mark_Door
         public static List<Glass_Window> list_Group { get; set; } = new List<Glass_Window>();
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public static int number_Elements { get; set; } = 0;
+        public static int number_Elements_Balcony { get; set; } = 0;
         public static bool iteration_Recaive_Value_In_Parameter = false;
         public static bool error_Suppressio = false;
         public static int number_Elements_Transom { get; set; } = 0;

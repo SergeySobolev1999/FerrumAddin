@@ -26,8 +26,8 @@ namespace WPFApplication.The_Floor_Is_Numeric_Constructions
         Record_The_Floor_Is_Numeric record_The_Floor_Is_Numeric = new Record_The_Floor_Is_Numeric();
         public WPF_Main_The_Floor_Is_Numeric(ExternalCommandData commandData)
         {
-            Revit_Document_The_Floor_Is_Numeric.Initialize(commandData);
             InitializeComponent();
+            Revit_Document_The_Floor_Is_Numeric.Initialize(commandData);
             Version.Text = SSDK_Data.plugin_Version;
             record_The_Floor_Is_Numeric.Work_Set_Download_The_Floor_Is_Numeric();
             Scrol_Viewer1_The_Floor_Is_Numericw();

@@ -76,8 +76,16 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if(window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" +window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -141,8 +149,16 @@ namespace WPFApplication.Parameter_Door
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -215,8 +231,16 @@ namespace WPFApplication.Parameter_Door
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -281,8 +305,16 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -346,8 +378,16 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
                                     string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -415,8 +455,16 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Покрытие_Окна_Спереди
                                     string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = "Покрытие спереди - " + window_Covering_In_Front;
+                                    }
                                     //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); 
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = "Покрытие сзади - " + window_Covering_In_Back;
+                                    }
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение

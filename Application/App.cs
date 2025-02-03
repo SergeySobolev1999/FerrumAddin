@@ -157,6 +157,7 @@ namespace FerrumAddin
         public RibbonPanel panelAR_Window;
         public RibbonPanel panelAR_Door;
         public RibbonPanel panelAR_Stained_Glass_Window;
+        public RibbonPanel panelAR_Property_Copy;
         //Панели КР
         public RibbonPanel panelKR_Level;
         public RibbonPanel panelKR_Before;
@@ -310,6 +311,14 @@ namespace FerrumAddin
             Main_The_Floor_Is_Numeric.Image = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
             Main_The_Floor_Is_Numeric.LargeImage = Convert(Properties.Resources.Architecture_The_Floor_Is_Numeric);
             panelAR_Level.AddItem(Main_The_Floor_Is_Numeric);
+
+            panelAR_Property_Copy = a.CreateRibbonPanel(tabName, "Свойства");
+            panelAR_Property_Copy.Visible = false;
+
+            PushButtonData Main_Class_Property_Copy = new PushButtonData("Main_Class_Property_Copy", "Свойства\nкопир...", Assembly.GetExecutingAssembly().Location, "WPFApplication.Property_Copy.Main_Class_Property_Copy");
+            Main_Class_Property_Copy.Image = Convert(Properties.Resources.Pickher_Property_Copy);
+            Main_Class_Property_Copy.LargeImage = Convert(Properties.Resources.Pickher_Property_Copy);
+            panelAR_Property_Copy.AddItem(Main_Class_Property_Copy);
 
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
             panelAR_Window.Visible = false;
@@ -529,6 +538,8 @@ namespace FerrumAddin
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
+                    panelAR_Property_Copy.Visible = false;
+
                     break;
                 case "MEP":
                     panelGeneral.Visible = false;
@@ -541,6 +552,7 @@ namespace FerrumAddin
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
+                    panelAR_Property_Copy.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
@@ -553,6 +565,7 @@ namespace FerrumAddin
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
+                    panelAR_Property_Copy.Visible = true;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
@@ -565,6 +578,7 @@ namespace FerrumAddin
                     panelAR_Window.Visible = false;
                     panelAR_Door.Visible = false;
                     panelKR_Level.Visible = true;
+                    panelAR_Property_Copy.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -577,6 +591,7 @@ namespace FerrumAddin
                     panelKR_BPC.Visible = false;
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
+                    panelAR_Property_Copy.Visible = false;
                     break;
             }
         }

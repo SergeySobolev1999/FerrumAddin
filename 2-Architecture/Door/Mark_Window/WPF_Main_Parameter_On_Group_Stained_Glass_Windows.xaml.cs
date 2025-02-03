@@ -41,6 +41,7 @@ namespace WPFApplication.Mark_Door
                 Data_Mark_Door.filtered_Group.Clear();
                 Data_Mark_Door.list_Group.Clear();
                 Data_Mark_Door.number_Elements = 0;
+                Data_Mark_Door.number_Elements_Balcony = 0;
                 Data_Mark_Door.number_Elements_Transom = 0;
                 Filtered_Mark_Window filtered_Mark_Window = new Filtered_Mark_Window();
                 Collecting_Window collecting_Group_Stained_Glass_Windows = new Collecting_Window();
@@ -52,7 +53,7 @@ namespace WPFApplication.Mark_Door
                     
                     s_Mistake_String_Warning.ShowDialog();
                 }
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + (Data_Mark_Door.number_Elements + Data_Mark_Door.number_Elements_Transom).ToString());
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Запись завершена. Успешно обработаных элементов: " + (Data_Mark_Door.number_Elements + Data_Mark_Door.number_Elements_Balcony).ToString());
                 Close();
                 s_Mistake_String.ShowDialog();
             }
