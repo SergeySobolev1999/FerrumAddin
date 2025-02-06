@@ -321,7 +321,7 @@ namespace WPFApplication.Parameter_Window
                         }
                     }
                 }
-                if (str == " *" || str == " Нет")
+                if (str == " *" || str == " Нет" || str == "" || str == " ")
                 {
                     str = "";
                 }
