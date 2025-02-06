@@ -24,7 +24,10 @@ namespace WPFApplication.LintelCreator
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            Document doc = commandData.Application.ActiveUIDocument.Document;
+            SSDK_Data.username = Environment.UserName;
+            if (SSDK_Data.licenses_Connection)
+            {
+                Document doc = commandData.Application.ActiveUIDocument.Document;
             Selection sel = commandData.Application.ActiveUIDocument.Selection;
 
             lintelCreateEvent = ExternalEvent.Create(new LintelCreate());
@@ -75,7 +78,12 @@ namespace WPFApplication.LintelCreator
 
             LintelCreatorForm2 form = new LintelCreatorForm2(doc, sel, list, lintelFamilysList);
             form.Show();
-
+            }
+            else
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                s_Mistake_String.ShowDialog();
+            }
             return Result.Succeeded;
         }
         private List<ParentElement> GroupWindowsAndDoors(List<FamilyInstance> windowsAndDoorsList, Document doc)
