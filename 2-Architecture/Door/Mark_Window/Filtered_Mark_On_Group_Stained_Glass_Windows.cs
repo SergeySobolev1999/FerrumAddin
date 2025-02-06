@@ -33,6 +33,7 @@ namespace WPFApplication.Mark_Door
                         }
                     }
                 }
+                
                 Data_Mark_Door.filtered_Group = Data_Mark_Door.filtered_Group.GroupBy(p => p.GetTypeId()).Select(g => g.First()).ToList();
                 
             }
