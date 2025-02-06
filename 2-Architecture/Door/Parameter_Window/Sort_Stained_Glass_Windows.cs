@@ -111,10 +111,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
                                             element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -188,10 +188,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
                                             element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -274,10 +274,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
                                             element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -351,10 +351,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
                                             element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -429,10 +429,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
-                                            element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        //    element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -510,10 +510,10 @@ namespace WPFApplication.Parameter_Door
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
                                         }
-                                        if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        {
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
                                             element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        }
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)

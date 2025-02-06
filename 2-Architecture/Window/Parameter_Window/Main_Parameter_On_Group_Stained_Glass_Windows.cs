@@ -20,16 +20,16 @@ namespace WPFApplication.Parameter_Window
         {
             Revit_Document_Parameter_Window.Initialize(commandData);
             SSDK_Data.username = Environment.UserName;
-            if (SSDK_Data.licenses_Connection)
-            {
-                WPF_Main_Window wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Window();
+            //if (SSDK_Data.licenses_Connection)
+            //{
+            WPF_Main_Window wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Window();
                 wPF_Main_Parameter_On_Group_Stained_Glass_Windows.ShowDialog();
-            }
-            else
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
-                s_Mistake_String.ShowDialog();
-            }
+            //}
+            //else
+            //{
+            //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
+            //    s_Mistake_String.ShowDialog();
+            //}
             return Result.Succeeded;
         }
     }

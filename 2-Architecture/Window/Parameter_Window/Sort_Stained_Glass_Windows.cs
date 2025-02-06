@@ -111,6 +111,10 @@ namespace WPFApplication.Parameter_Window
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
                                         }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()) || element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString()=="")
+                                        //{
+                                            element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -180,6 +184,10 @@ namespace WPFApplication.Parameter_Window
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
                                         }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
@@ -249,6 +257,10 @@ namespace WPFApplication.Parameter_Window
                                         {
                                             element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
                                         }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
+                                        //}
                                         if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
                                         {
                                             if (result_Name != null)
