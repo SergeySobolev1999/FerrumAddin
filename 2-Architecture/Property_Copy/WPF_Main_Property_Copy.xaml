@@ -6,15 +6,36 @@
              xmlns:local="clr-namespace:WPFApplication.Property_Copy"
              mc:Ignorable="d" 
             Topmost="True"
-        PreviewKeyDown="TreeView_PreviewKeyDown"
-        PreviewKeyUp="TreeView_PreviewKeyUp"
+
             ResizeMode="NoResize"
-            MinHeight="1000" MinWidth="1500"
-            MaxHeight="1000" MaxWidth="1500"
-            d:DesignHeight="1000" 
-            d:DesignWidth="1500"
+            MinHeight="600" MinWidth="900"
+            MaxHeight="600" MaxWidth="900"
+            d:DesignHeight="600" 
+            d:DesignWidth="900"
             WindowStyle="None" Foreground="#FFA3A0A0">
-    
+    <Window.Resources>
+        <!-- Шаблон для категорий параметров (Тип, Экземпляр) -->
+        <HierarchicalDataTemplate DataType="{x:Type local:ParameterCategory}" ItemsSource="{Binding ParametersGroup}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <!-- Шаблон для категорий параметров (Тип, Экземпляр) -->
+        <HierarchicalDataTemplate DataType="{x:Type local:ParameterGroup}" ItemsSource="{Binding Parameters}">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding IsCheckedGroup}" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
+        <!-- Шаблон для параметров с чекбоксом -->
+        <DataTemplate DataType="{x:Type local:ParameterItem}">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding IsChecked}" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding DisplayText}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <DockPanel Margin="0,0,0,0">
             <StackPanel Orientation="Horizontal" 
@@ -91,12 +112,12 @@
          HorizontalAlignment="Right"
          VerticalAlignment="Bottom"
          BorderBrush="{x:Null}"
-         Click="Start_The_Floor_Is_Numeric"/>
+         Click="Start_Cod"/>
         <Button 
          FontSize="15" 
          Content="Выбрать донора"
          Margin="20,50"
-         Width="1020"
+         Width="420"
          ToolTip="Выбрать элемент донор в модели"
          FontFamily="ISOCPEUR"
          HorizontalAlignment="Left"
@@ -113,7 +134,7 @@
          HorizontalAlignment="Right"
          VerticalAlignment="Top"
          BorderBrush="{x:Null}"
-         Click="Start_The_Floor_Is_Numeric"/>
+         Click="Select_Target"/>
         <TextBlock FontSize="12" 
          Text="..." 
          Margin="20,80" 
@@ -122,30 +143,23 @@
          FontFamily="ISOCPEUR" 
          Foreground="#FF757575"/>
         <TreeView x:Name="Tree_Parameter_On_Select_Element"
-          Width="1020"
-          Height="850"
+          Width="420"
+          Height="450"
           BorderBrush="Black"
           Margin="20,90,0,0"
           VerticalAlignment="Top"
           HorizontalAlignment="Left"
-          SelectedItemChanged="Tree_Parameter_On_Select_Element_SelectedItemChanged">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Click="CheckBox_Click"/>
-                        <TextBlock Text="{Binding Name}" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+          SelectedItemChanged="Tree_Parameter_On_Select_Element_SelectedItemChanged" 
+                  ItemsSource="{Binding ParameterCategories}">
         </TreeView>
-
+         
         <Border 
          BorderThickness="1" 
          BorderBrush="Black"
          Margin="0,90,20,50"
          HorizontalAlignment="Right"
          VerticalAlignment="Top"
-         Height="850"
+         Height="450"
          Width="420">
             <ScrollViewer
              x:Name="scroll_Viewer_Work_Set_Ignore"
@@ -157,7 +171,7 @@
              ToolTip="Список спецификаий из модели"
              FontSize="15"
              Width="420"
-             Height="850"
+             Height="450"
              FontFamily="ISOCPEUR" 
              Margin="0,0,0,0"/>
         </Border>

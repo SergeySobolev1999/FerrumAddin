@@ -34,6 +34,20 @@ namespace WPFApplication.Property_Copy
             }
             return null;
         }
+        public void Pick_Element_Target()
+        {
+            Data_Class_Property_Copy.elements_Target.Items.Clear();
+            Selection choices = Document_Property_Copy.UIDobument.Selection;
+            ISelectionFilter filter = new MassSelectionFilter();
+            IList<Reference> has_Pick_More = choices.PickObjects(ObjectType.Element, filter);
+            if (has_Pick_More.Count> 0)
+            {
+                foreach (Reference r in has_Pick_More)
+                {
+                    Data_Class_Property_Copy.elements_Target.Items.Add(Document_Property_Copy.Document.GetElement(Document_Property_Copy.Document.GetElement(r).GetTypeId()).Name);
+                }
+            }
+        }
     }
     public class MassSelectionFilter : ISelectionFilter
     {

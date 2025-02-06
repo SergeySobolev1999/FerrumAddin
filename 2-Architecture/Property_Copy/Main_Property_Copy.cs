@@ -18,14 +18,14 @@ namespace WPFApplication.Property_Copy
         {
             try
             {
-                if (1 == 2)
+                if (1 ==2)
                 {
                     //SSDK_Data.username = Environment.UserName;
                     //if (SSDK_Data.licenses_Connection)
                     //{
                     int a = 0;
-                WPF_Main_Property_Copy wPF_Main_Property_Copy = new WPF_Main_Property_Copy(commandData);
-                wPF_Main_Property_Copy.Show();
+                    WPF_Main_Property_Copy wPF_Main_Property_Copy = new WPF_Main_Property_Copy(commandData);
+                    wPF_Main_Property_Copy.Show();
                     //}
                     //else
                     //{

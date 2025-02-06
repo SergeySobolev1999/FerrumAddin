@@ -506,15 +506,15 @@ namespace FerrumAddin
         public static bool AlwaysLoad = false;
         private void ControlledApplication_FamilyLoadingIntoDocument(object sender, Autodesk.Revit.DB.Events.FamilyLoadingIntoDocumentEventArgs e)
         {
-            //if (AllowLoad == true || AlwaysLoad == true)
-            //{
-              
-            //}
-            //else
-            //{
-            //    e.Cancel();
-            //    TaskDialog.Show("Запрет загрузки", "Загрузите семейство из менеджера семейств");
-            //}
+            if (AllowLoad == true || AlwaysLoad == true)
+            {
+
+            }
+            else
+            {
+                e.Cancel();
+                TaskDialog.Show("Запрет загрузки", "Загрузите семейство из менеджера семейств");
+            }
         }
 
         public static FamilyManagerWindow dockableWindow = null;
@@ -621,13 +621,14 @@ namespace FerrumAddin
         {
             var nameAndCat = new Dictionary<string, BuiltInCategory>
         {
-            { "Стены", BuiltInCategory.OST_Walls },
+           { "Стены", BuiltInCategory.OST_Walls },
             { "Перекрытия", BuiltInCategory.OST_Floors },
             { "Потолки", BuiltInCategory.OST_Ceilings },
             { "Витражи", BuiltInCategory.OST_Walls },
             { "Крыши" , BuiltInCategory.OST_Roofs},
             { "Ограждения" , BuiltInCategory.OST_StairsRailing},
-            { "Пандусы", BuiltInCategory.OST_Ramps }
+            { "Пандусы", BuiltInCategory.OST_Ramps },
+            {"Материалы", BuiltInCategory.OST_Materials }
         };
 
             Document docToCopy = FamilyManagerWindow.doc;
@@ -659,9 +660,9 @@ namespace FerrumAddin
                             {
                                 tx.Start("Загрузка семейств");
                                 FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                                failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                                failureOptions.SetClearAfterRollback(true); // Опционально
-                                tx.SetFailureHandlingOptions(failureOptions);
+                                //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                                //failureOptions.SetClearAfterRollback(true); // Опционально
+                                //tx.SetFailureHandlingOptions(failureOptions);
                                 MyFamilyLoadOptions loadOptions = new MyFamilyLoadOptions();
                                 docToCopy.LoadFamily(tab.Path, loadOptions, out Family load);
                                 tx.Commit();
@@ -673,9 +674,9 @@ namespace FerrumAddin
                             {
                                 tx.Start("Загрузка семейств");
                                 FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                                failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                                failureOptions.SetClearAfterRollback(true); // Опционально
-                                tx.SetFailureHandlingOptions(failureOptions);
+                                //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                                //failureOptions.SetClearAfterRollback(true); // Опционально
+                                //tx.SetFailureHandlingOptions(failureOptions);
                                 MyFamilyLoadOptions loadOptions = new MyFamilyLoadOptions();
                                 string famPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.GetFileNameWithoutExtension(tab.Path )+ "_1.rfa");
                                 File.Copy(tab.Path, famPath, true);
@@ -692,9 +693,9 @@ namespace FerrumAddin
                         {
                             tx.Start("Загрузка семейств");
                             FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                            failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                            failureOptions.SetClearAfterRollback(true); // Опционально
-                            tx.SetFailureHandlingOptions(failureOptions);
+                            //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                            //failureOptions.SetClearAfterRollback(true); // Опционально
+                            //tx.SetFailureHandlingOptions(failureOptions);
                             MyFamilyLoadOptions loadOptions = new MyFamilyLoadOptions();
                             docToCopy.LoadFamily(tab.Path, loadOptions, out Family load);
                             tx.Commit();
@@ -705,12 +706,24 @@ namespace FerrumAddin
                 {
                     Document document = app.Application.OpenDocumentFile(tab.Path);
                     documents.Add(document);
-                    List<ElementId> el = new FilteredElementCollector(document)
+                    List<ElementId> el = new List<ElementId>();
+                    if (tab.Category != "Материалы")
+                    {
+                        el = new FilteredElementCollector(document)
                         .OfCategory(nameAndCat[tab.Category])
                         .WhereElementIsElementType()
                         .Where(x => x.Name == tab.Name)
                         .Select(x => x.Id)
                         .ToList();
+                    }
+                    else
+                    {
+                        el = new FilteredElementCollector(document)
+                        .OfCategory(nameAndCat[tab.Category])
+                        .Where(x => x.Name == tab.Name)
+                        .Select(x => x.Id)
+                        .ToList();
+                    }
 
                     bool elementExists = ElementExists(docToCopy, nameAndCat[tab.Category], tab.Name);
 
@@ -721,9 +734,9 @@ namespace FerrumAddin
                         {
                             tx.Start("Загрузка семейств");
                             FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                            failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                            failureOptions.SetClearAfterRollback(true); // Опционально
-                            tx.SetFailureHandlingOptions(failureOptions);
+                            //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                            //failureOptions.SetClearAfterRollback(true); // Опционально
+                            //tx.SetFailureHandlingOptions(failureOptions);
                             ElementTransformUtils.CopyElements(document, el, docToCopy, null, null);
                             tx.Commit();
                         }

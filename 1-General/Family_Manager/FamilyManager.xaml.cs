@@ -457,9 +457,8 @@ namespace FerrumAddin
                     Family family = familyInstance.Symbol?.Family;
                     if (family == null) continue;
 
-                    var matchingMenuItem = FamilyManagerWindow.mvm.TabItems
-                        .SelectMany(ti => ti.MenuItems)
-                        .FirstOrDefault(mi => mi.Name == family.Name);
+                    var MenuItems = mvm.TabItems.Where(x => x.Header == (Tabs.SelectedItem as TabItemViewModel).Header).Select(x => x.OriginalMenuItems).First();
+                    var matchingMenuItem = MenuItems.Where(mi => mi.Name == family.Name).FirstOrDefault();
 
                     if (matchingMenuItem != null)
                     {
@@ -467,11 +466,11 @@ namespace FerrumAddin
                         Document loadedFamily = App.uiapp.Application.OpenDocumentFile(matchingMenuItem.Path);
                         if (loadedFamily == null) continue;
 
-                        try
-                        {
-                            projectVersion = GetFamilyVersionFromProject(family).Substring(1);
-                        }
-                        catch
+
+
+                        projectVersion = GetFamilyVersionFromProject(family);
+
+                        if (string.IsNullOrEmpty(projectVersion))
                         {
                             string ver2 = GetFamilyVersionFromLoadedFamily(loadedFamily);
                             if (string.IsNullOrEmpty(ver2))
@@ -492,7 +491,7 @@ namespace FerrumAddin
                             }
                         }
 
-                        string loadedFamilyVersion = GetFamilyVersionFromLoadedFamily(loadedFamily).Substring(1);
+                        string loadedFamilyVersion = GetFamilyVersionFromLoadedFamily(loadedFamily);
                         loadedFamily.Close(false);
                         CompareVersions(projectVersion, loadedFamilyVersion, matchingMenuItem, outdatedItems, newerItems);
                     }
@@ -513,15 +512,14 @@ namespace FerrumAddin
 
                     foreach (var pair in nameAndCat)
                     {
-                        if (element.Category.Id.IntegerValue == (int)pair.Value)
+                        if (element.Category.Id.Value == (int)pair.Value)
                         {
                             string projectVersion = doc.GetElement(element.GetTypeId()).LookupParameter("ZH_Версия_Семейства")?.AsString();
 
 
 
-                            var matchingMenuItem = FamilyManagerWindow.mvm.TabItems
-                                .SelectMany(ti => ti.MenuItems)
-                                .FirstOrDefault(mi => mi.Name == element.Name);
+                            var MenuItems = mvm.TabItems.Where(x => x.Header == (Tabs.SelectedItem as TabItemViewModel).Header).Select(x => x.OriginalMenuItems).First();
+                            var matchingMenuItem = MenuItems.Where(mi => mi.Name == element.Name).FirstOrDefault();
 
                             if (matchingMenuItem != null)
                             {
@@ -580,15 +578,21 @@ namespace FerrumAddin
         {
             try
             {
+                projectVersion = Regex.Replace(projectVersion, @"[^\d\.]", "");
+                loadedFamilyVersion = Regex.Replace(loadedFamilyVersion, @"[^\d\.]", "");
                 // Разделение версии на основные и дополнительные номера
                 var projectParts = projectVersion.Split('.');
                 var loadedParts = loadedFamilyVersion.Split('.');
 
-                // Преобразование в числа для сравнения
+
                 int projectMajor = int.Parse(projectParts[0]);
-                int projectMinor = projectParts.Length > 1 ? int.Parse(projectParts[1]) : 0;
+
+                int projectMinor = int.Parse(projectParts[1]);
+
                 int loadedMajor = int.Parse(loadedParts[0]);
-                int loadedMinor = loadedParts.Length > 1 ? int.Parse(loadedParts[1]) : 0;
+
+                int loadedMinor = int.Parse(loadedParts[1]);
+
 
                 // Сравнение версии
                 if (projectMajor > loadedMajor || (projectMajor == loadedMajor && projectMinor > loadedMinor))
@@ -641,6 +645,10 @@ namespace FerrumAddin
                 {
                     return versionParam.AsString();
                 }
+                else
+                {
+
+                }
             }
 
             return string.Empty;
@@ -671,6 +679,11 @@ namespace FerrumAddin
                     MenuItems = outdatedItems,
                     OriginalMenuItems = outdatedItems.ToList()
                 };
+                if (FamilyManagerWindow.mvm.TabItems.Any(x => x.Header == "Устаревшее"))
+                {
+                    TabItemViewModel viewModel = FamilyManagerWindow.mvm.TabItems.Where(x => x.Header == "Устаревшее").FirstOrDefault();
+                    FamilyManagerWindow.mvm.TabItems.Remove(viewModel);
+                }
                 FamilyManagerWindow.mvm.TabItems.Insert(0, outdatedTab);
 
             }
@@ -682,6 +695,11 @@ namespace FerrumAddin
                     MenuItems = newerItems,
                     OriginalMenuItems = newerItems.ToList()
                 };
+                if (FamilyManagerWindow.mvm.TabItems.Any(x => x.Header == "Новее"))
+                {
+                    TabItemViewModel viewModel = FamilyManagerWindow.mvm.TabItems.Where(x => x.Header == "Новее").FirstOrDefault();
+                    FamilyManagerWindow.mvm.TabItems.Remove(viewModel);
+                }
                 FamilyManagerWindow.mvm.TabItems.Insert(0, newerTab);
 
             }
@@ -743,7 +761,6 @@ namespace FerrumAddin
         public MainViewModel()
         {
             TabItems = new ObservableCollection<TabItemViewModel>();
-            //LoadTabItemsFromXml(App.TabPath + "\\ZHELEZNO_PLUGIN");
             LoadTabItemsFromXml(App.TabPath);
         }
 
@@ -751,10 +768,10 @@ namespace FerrumAddin
         {
             if (!File.Exists(filePath))
             {
-                //TaskDialog.Show("Ошибка", "Не найден файл менеджера семейств");
+                TaskDialog.Show("Ошибка", "Не найден файл менеджера семейств");
                 return;
             }
-            //string tabPath = App.TabPath + "\\ZHELEZNO_PLUGIN";
+
             string tabPath = App.TabPath;
             XElement root = XElement.Load(tabPath);
 
@@ -819,7 +836,7 @@ namespace FerrumAddin
                     root.Add(tabElement);
                 }
             }
-            //root.Save(tabPath + "\\ZHELEZNO_PLUGIN");
+
             root.Save(tabPath);
 
 

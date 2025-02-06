@@ -277,6 +277,7 @@
     <Compile Include="2-Architecture\Property_Copy\BoolToBrushConverter.cs" />
     <Compile Include="2-Architecture\Property_Copy\Data_Class_Property_Copy.cs" />
     <Compile Include="2-Architecture\Property_Copy\Main_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Property_Copy\True_Property_Copy.cs" />
     <Compile Include="2-Architecture\Property_Copy\WPF_Main_Cod_Property_Copy.cs" />
     <Compile Include="2-Architecture\Property_Copy\WPF_Main_Property_Copy.xaml.cs">
       <DependentUpon>WPF_Main_Property_Copy.xaml</DependentUpon>

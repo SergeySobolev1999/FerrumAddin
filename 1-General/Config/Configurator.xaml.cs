@@ -22,7 +22,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.Creation;
 using Document = Autodesk.Revit.DB.Document;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+
 using WPFApplication.Licenses;
 using SSDK;
 
@@ -81,7 +81,6 @@ namespace FerrumAddin
         {
             Document origDoc = commandData.Application.ActiveUIDocument.Document;
             string xmlFilePath = App.xmlFilePath;
-            //string xmlFilePath = App.xmlFilePath;
 
             XElement root;
             if (System.IO.File.Exists(xmlFilePath))
@@ -114,7 +113,8 @@ namespace FerrumAddin
     { "Витражи", BuiltInCategory.OST_Walls },
     { "Крыши" , BuiltInCategory.OST_Roofs},
     { "Ограждения" , BuiltInCategory.OST_StairsRailing},
-    { "Пандусы", BuiltInCategory.OST_Ramps }
+    { "Пандусы", BuiltInCategory.OST_Ramps },
+                {"Материалы", BuiltInCategory.OST_Materials }
 };
 
             List<Document> documents = new List<Document>();
@@ -169,6 +169,12 @@ namespace FerrumAddin
                                 .Distinct()
                                 .Where(x => x.Kind == WallKind.Basic).Select(x => x as Element).ToList();
                         }
+                        else if (categoryDir.Contains("Материалы"))
+                        {
+                            elements = new FilteredElementCollector(doc)
+                                .OfCategory(nameAndCat[directory])
+                                .ToList();
+                        }
                         else
                         {
                             elements = (List<Element>)new FilteredElementCollector(doc)
@@ -215,7 +221,7 @@ namespace FerrumAddin
                 return;
 
             var xdoc = XDocument.Load(filePath);
-            var children = FamilyManager.Children;
+            var children = FMVisibility.Children;
             List<string> values = new List<string>();
             foreach (var child in children)
             {
@@ -238,7 +244,7 @@ namespace FerrumAddin
             string filePath = App.TabPath;
             if (!System.IO.File.Exists(filePath))
                 return;
-
+            FMVisibility.Children.Clear();
             var xdoc = XDocument.Load(filePath);
             int i = 0;
             foreach (var tabItem in xdoc.Descendants("TabItem"))
@@ -252,7 +258,7 @@ namespace FerrumAddin
                     IsChecked = Convert.ToBoolean(tabItem.Element("Visibility")?.Value)
                 };
                 i++;
-                FamilyManager.Children.Add(checkBox);
+                FMVisibility.Children.Add(checkBox);
             }
         }
         public static string pathFam;
@@ -303,7 +309,8 @@ namespace FerrumAddin
             { "Витражи", BuiltInCategory.OST_Walls },
             { "Крыши", BuiltInCategory.OST_Roofs },
             { "Ограждения", BuiltInCategory.OST_StairsRailing },
-            { "Пандусы", BuiltInCategory.OST_Ramps }
+            { "Пандусы", BuiltInCategory.OST_Ramps },
+                {"Материалы", BuiltInCategory.OST_Materials }
         };
 
                 List<Document> documents = new List<Document>();
@@ -374,7 +381,14 @@ namespace FerrumAddin
                                 .Select(x => x as Element)
                                 .ToList();
                         }
+                        else if (categoryDir.Contains("Материалы"))
+                        {
+                            elements = new FilteredElementCollector(doc)
+                                .OfCategory(nameAndCat[directory])
+                                .ToList();
+                        }
                         else
+
                         {
                             elements = new FilteredElementCollector(doc)
                                 .OfCategory(nameAndCat[directory])
@@ -481,6 +495,12 @@ namespace FerrumAddin
                                 .Select(x => x.WallType)
                                 .Distinct()
                                 .Where(x => x.Kind == WallKind.Basic).Select(x => x as Element).ToList();
+                        }
+                        else if (categoryDir.Contains("Материалы"))
+                        {
+                            elements = new FilteredElementCollector(doc)
+                                .OfCategory(nameAndCat[directory])
+                                .ToList();
                         }
                         else
                         {
