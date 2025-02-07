@@ -50,6 +50,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                             Group element_Group = (Group)Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection[i]);
                             List<ElementId> memberIds = element_Group.GetMemberIds().ToList();
                             ICollection<ElementId> elementIds = new List<ElementId>();
+                            ICollection<ElementId> elementIdsPanel = new List<ElementId>();
                             string mark_Value = element_Group.get_Parameter(Data_Assembling_On_Group_Stained_Glass_Windows.guid_ADSK_Mark).AsValueString();
                             foreach (ElementId memberId in memberIds)
                             {
@@ -67,6 +68,10 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                                         || category == "Ограждение")
                                         {
                                             elementIds.Add(memberId);
+                                        }
+                                        if (category == "Панели витража")
+                                        {
+                                            elementIdsPanel.Add(memberId);
                                         }
                                     }
                                 }
@@ -86,7 +91,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                             string mark_Value1 = mark_Value;
                             if (elementIds != null && elementIds.Count != 0)
                             {
-                                collection_Assembly.Add(createAssemblyExample.CreateAssembly(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, elementIds, mark_Value));
+                                collection_Assembly.Add(createAssemblyExample.CreateAssembly(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, elementIds, mark_Value, elementIdsPanel));
                             }
                         }
                         trans.Commit();
@@ -121,11 +126,12 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
     }
     public class CreateAssemblyExample
     {
-        public Element CreateAssembly(Document doc, ICollection<ElementId> elementIds, string assemblyName)
+        public Element CreateAssembly(Document doc, ICollection<ElementId> elementIds, string assemblyName, ICollection<ElementId> elementIdsPanel)
         {
             ElementId category_ID = new ElementId(-2000171);
             ElementId assembly_Instance_Id = new ElementId(0);
             AssemblyInstance assembly = AssemblyInstance.Create(doc, elementIds, category_ID);
+            assembly.AddMemberIds(elementIdsPanel);
             assembly_Instance_Id = assembly.Id;
             return assembly;
         }
