@@ -82,7 +82,9 @@ namespace WPFApplication.Property_Copy
         private void Start_Cod(object sender, RoutedEventArgs e)
         {
             IList<Parameter_Identification> parameter_Identifications = new List<Parameter_Identification>();
-            //LoadParameters loadParameters = new LoadParameters(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element.s, parameter_Identifications);
+            LoadParameters loadParameters = new LoadParameters(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element, parameter_Identifications);
+            S_Mistake_String s_Mistake_String = new S_Mistake_String("Количество элементов "+ parameter_Identifications.Count);
+            s_Mistake_String.ShowDialog();
         }
 
         private void Start_The_Floor_Is_Numeric(object sender, RoutedEventArgs e)

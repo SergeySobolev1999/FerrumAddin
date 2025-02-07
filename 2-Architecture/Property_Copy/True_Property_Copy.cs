@@ -69,7 +69,7 @@ namespace WPFApplication.Property_Copy
     public class LoadParameters
     {
         public Element element_Donor { get; set; } = null;
-        public LoadParameters(Element element, TreeViewItem treeViewItem, IList<Parameter_Identification> parameter_Identifications)
+        public LoadParameters(Element element, TreeView treeViewItem, IList<Parameter_Identification> parameter_Identifications)
         {
             element_Donor = element;    
             foreach (ParameterCategory items_Category in treeViewItem.Items)

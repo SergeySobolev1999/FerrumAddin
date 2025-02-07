@@ -65,7 +65,7 @@ namespace WPFApplication.Property_Copy
             if (Document_Property_Copy.Document.GetElement(element.GetTypeId()) != null)
             {
                 Element element_Type = Document_Property_Copy.Document.GetElement(element.GetTypeId());
-                if (element_Type.get_Parameter(Data_Class_Property_Copy.zh_Cod).AsValueString() != null)
+                if (element_Type.get_Parameter(Data_Class_Property_Copy.zh_Cod) != null)
                 {
                     zh_Cod = element_Type.get_Parameter(Data_Class_Property_Copy.zh_Cod).AsDouble() * 304.8;
                 }
