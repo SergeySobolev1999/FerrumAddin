@@ -24,16 +24,16 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
               
                     Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Initialize(commandData);
                 SSDK_Data.username = Environment.UserName;
-                //if (SSDK_Data.licenses_Connection)
-                //{
+                if (SSDK_Data.licenses_Connection)
+                {
                     WPF_Main_Assembling_On_Group_Stained_Glass_Windows wPF_On_Group_Stained_Glass_Windows = new WPF_Main_Assembling_On_Group_Stained_Glass_Windows();
                     wPF_On_Group_Stained_Glass_Windows.ShowDialog();
-                //}
-                //else
-                //{
-                //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-                //    s_Mistake_String.ShowDialog();
-                //}
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
                 return Result.Succeeded;
              
             }

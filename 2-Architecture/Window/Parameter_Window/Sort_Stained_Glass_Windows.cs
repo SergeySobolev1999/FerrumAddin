@@ -18,6 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Globalization;
+using WPFApplication.Parameter_Door;
 
 
 namespace WPFApplication.Parameter_Window
@@ -115,12 +116,16 @@ namespace WPFApplication.Parameter_Window
                                         //{
                                             element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
-                                        if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
+                                        if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
                                         {
-                                            if (result_Name != null)
+                                            if (stoc_Designation != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
                                             }
+                                        }
+                                        if (result_Name != null)
+                                        {
+                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                         }
                                         transaction1.Commit();
                                     }
@@ -188,12 +193,16 @@ namespace WPFApplication.Parameter_Window
                                         //{
                                         element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
-                                        if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
+                                        if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
                                         {
-                                            if (result_Name != null)
+                                            if (stoc_Designation != null)
                                             {
-                                                element_Group.Name = result_Name +" ("+ Data_Parameter_Window.number_Elements.ToString()+ ")";
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
                                             }
+                                        }
+                                        if (result_Name != null)
+                                        {
+                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                         }
                                         transaction1.Commit();
                                     }
@@ -261,12 +270,16 @@ namespace WPFApplication.Parameter_Window
                                         //{
                                         element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
-                                        if (!stoc_Designation.Trim().Contains(element_Group.Name.Trim()))
+                                        if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
                                         {
-                                            if (result_Name != null)
+                                            if (stoc_Designation != null)
                                             {
-                                                element_Group.Name = result_Name + " (" + Data_Parameter_Window.number_Elements.ToString() + ")";
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
                                             }
+                                        }
+                                        if (result_Name != null)
+                                        {
+                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
                                         }
                                         transaction1.Commit();
                                     }

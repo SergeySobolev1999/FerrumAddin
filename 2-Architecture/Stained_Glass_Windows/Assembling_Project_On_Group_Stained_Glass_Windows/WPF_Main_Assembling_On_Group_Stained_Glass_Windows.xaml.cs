@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Autodesk.Revit.DB.SpecTypeId;
 
 namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
 {
@@ -50,9 +51,16 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                         bool? cellContent = row.Update;
                         string assembly = row.Assembling;
                         int? cellContent_Num = Int32.Parse(row.ID_Group);
+                        //if (cellContent ?? false && assembly == "Х")
+                        //{
+                        //    Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection.Add(new ElementId((int)cellContent_Num));
+                        //}
                         if (cellContent ?? false && assembly == "Х")
                         {
-                            Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection.Add(new ElementId((int)cellContent_Num));
+                            if (cellContent != false && assembly == "Х")
+                            {
+                                Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection.Add(new ElementId((int)cellContent_Num));
+                            }
                         }
                     }
 
@@ -170,15 +178,31 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                     trans.Start();
                     FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document);
                     List<Element> all_Elements_Assembly = (List<Element>)window.OfCategory(BuiltInCategory.OST_Assemblies).WhereElementIsNotElementType().ToElements();
-                    double position_Iteration = 1000;
+                    List<Element> all_Elements_Group = (List<Element>)window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();
                     foreach (AssemblyInstance element in all_Elements_Assembly)
                     {
                         Element element_Type = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId());
+                       
                         double parameter_Value = element_Type.get_Parameter(Data_Assembling_On_Group_Stained_Glass_Windows.guid_Group).AsDouble() * 304.8;
                         if (211 <= parameter_Value && parameter_Value < 212.999)
                         {
-                            element_Type.Name = position_Iteration.ToString();
-                            position_Iteration++;
+                            bool iteration = false;
+                            foreach (Group group in all_Elements_Group) 
+                            {
+                                Element element_Type_Group = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(group.GetTypeId());
+                                string parameter_mark = element_Type_Group.get_Parameter(Data_Assembling_On_Group_Stained_Glass_Windows.guid_ADSK_Mark).AsValueString();
+                                List<ElementId> collection_ElementId_All_Grop_In_Model = (List<ElementId>)group.GetMemberIds();
+                                
+                                for (int i = 0; i<collection_ElementId_All_Grop_In_Model.Count; i++) 
+                                {
+                                    if (Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(
+                                        Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(collection_ElementId_All_Grop_In_Model[i]).AssemblyInstanceId).Name == element.Name.ToString() && iteration==false) 
+                                    {
+                                        element_Type.Name = parameter_mark;
+                                        iteration = true;
+                                    }
+                                }
+                            }
                         }
                     }
                     trans.Commit();

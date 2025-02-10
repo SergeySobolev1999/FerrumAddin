@@ -129,17 +129,18 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
         public Element CreateAssembly(Document doc, ICollection<ElementId> elementIds, string assemblyName, ICollection<ElementId> elementIdsPanel)
         {
             ElementId category_ID = new ElementId(-2000171);
-            ElementId assembly_Instance_Id = new ElementId(0);
+
             AssemblyInstance assembly = AssemblyInstance.Create(doc, elementIds, category_ID);
             ICollection < ElementId > collection_True = new List < ElementId >();
             foreach (ElementId element in elementIdsPanel)
             {
                 Element element1 = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(element);
-               if (element1.get_Parameter(BuiltInParameter.GENERIC_HEIGHT).AsDouble() > 0 && element1.get_Parameter(BuiltInParameter.CURTAIN_WALL_PANELS_WIDTH).AsDouble() > 0)
-               collection_True.Add(element);
+                if (element1.get_Parameter(BuiltInParameter.GENERIC_HEIGHT).AsDouble() > 0 && element1.get_Parameter(BuiltInParameter.CURTAIN_WALL_PANELS_WIDTH).AsDouble() > 0)
+                {
+                    collection_True.Add(element);
+                }
             }
             assembly.AddMemberIds(collection_True);
-            assembly_Instance_Id = assembly.Id;
             return assembly;
         }
     }
