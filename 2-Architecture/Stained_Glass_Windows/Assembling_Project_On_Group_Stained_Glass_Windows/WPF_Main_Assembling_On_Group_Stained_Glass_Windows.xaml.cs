@@ -48,14 +48,15 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                     {
                         var row = myDataGrid.Items[i] as DataItem;
                         bool? cellContent = row.Update;
+                        string assembly = row.Assembling;
                         int? cellContent_Num = Int32.Parse(row.ID_Group);
-                        if (cellContent ?? false)
+                        if (cellContent ?? false && assembly == "Х")
                         {
                             Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection.Add(new ElementId((int)cellContent_Num));
                         }
                     }
 
-                    Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection = Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection;
+                    //Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection = Data_Assembling_On_Group_Stained_Glass_Windows.grup_Filtered_Collection;
                     Position_Create_Assembling_On_Group_Stained_Glass_Windows position_Create_Assembling_On_Group_Stained_Glass_Windows = new Position_Create_Assembling_On_Group_Stained_Glass_Windows();
                     position_Create_Assembling_On_Group_Stained_Glass_Windows.MemberIds_On_Group_Stained_Glass_Windows();
                     RenamedAssemblyExample renamedAssemblyExample = new RenamedAssemblyExample();

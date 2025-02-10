@@ -18,7 +18,7 @@ namespace WPFApplication.Property_Copy
         {
             try
             {
-                if (1 ==2)
+                if (1 ==1)
                 {
                     //SSDK_Data.username = Environment.UserName;
                     //if (SSDK_Data.licenses_Connection)

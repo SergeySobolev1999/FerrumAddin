@@ -40,7 +40,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                     try
                     {
                         trans.Start();
-                        // Настройка для подавления предупреждений
+                        //Настройка для подавления предупреждений
                         FailureHandlingOptions failureOptions = trans.GetFailureHandlingOptions();
                         failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                         trans.SetFailureHandlingOptions(failureOptions);
@@ -54,7 +54,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                             string mark_Value = element_Group.get_Parameter(Data_Assembling_On_Group_Stained_Glass_Windows.guid_ADSK_Mark).AsValueString();
                             foreach (ElementId memberId in memberIds)
                             {
-                                int a = Int32.Parse(memberId.ToString());
+                                //int a = Int32.Parse(memberId.ToString());
                                 Element element = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(memberId);
                                 string category = element.get_Parameter(BuiltInParameter.ELEM_CATEGORY_PARAM).AsValueString();
                                 if (category != null)
@@ -131,7 +131,14 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
             ElementId category_ID = new ElementId(-2000171);
             ElementId assembly_Instance_Id = new ElementId(0);
             AssemblyInstance assembly = AssemblyInstance.Create(doc, elementIds, category_ID);
-            assembly.AddMemberIds(elementIdsPanel);
+            ICollection < ElementId > collection_True = new List < ElementId >();
+            foreach (ElementId element in elementIdsPanel)
+            {
+                Element element1 = Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document.GetElement(element);
+               if (element1.get_Parameter(BuiltInParameter.GENERIC_HEIGHT).AsDouble() > 0 && element1.get_Parameter(BuiltInParameter.CURTAIN_WALL_PANELS_WIDTH).AsDouble() > 0)
+               collection_True.Add(element);
+            }
+            assembly.AddMemberIds(collection_True);
             assembly_Instance_Id = assembly.Id;
             return assembly;
         }

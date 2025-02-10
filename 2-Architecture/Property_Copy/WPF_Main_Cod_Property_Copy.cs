@@ -45,6 +45,7 @@ namespace WPFApplication.Property_Copy
                 foreach (Reference r in has_Pick_More)
                 {
                     Data_Class_Property_Copy.elements_Target.Items.Add(Document_Property_Copy.Document.GetElement(Document_Property_Copy.Document.GetElement(r).GetTypeId()).Name);
+                    Data_Class_Property_Copy.elements_Target_Elements.Add(Document_Property_Copy.Document.GetElement(Document_Property_Copy.Document.GetElement(r).GetTypeId()));
                 }
             }
         }

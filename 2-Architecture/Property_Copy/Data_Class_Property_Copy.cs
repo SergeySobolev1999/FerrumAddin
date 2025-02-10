@@ -16,6 +16,7 @@ namespace WPFApplication.Property_Copy
         public static Guid zh_Cod { get; set; } = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public static FamilyInstance element_Donor { get; set; } = null;
         public static ListView elements_Target { get; set; } = new ListView();
+        public static List<Element> elements_Target_Elements { get; set; } = new List<Element>();
         public static ObservableCollection<ParameterCategory> ParameterCategories { get; set; }
     }
     public static class Document_Property_Copy
@@ -108,28 +109,32 @@ namespace WPFApplication.Property_Copy
     }
     public class Parameter_Identification
     {
+        public string element_Type_On_Ex { get; set; } = "";
         public  string type_Parameter = null;
         public  Parameter parameter { get; set; } = null;
         public  double double_Value = 0;
         public  string material_Value = null;
         public  int bool_Value = 0;
-        public Parameter_Identification(string type,Parameter parameter, double value)
+        public Parameter_Identification(string type_Value,Parameter parameter_Value, double value_Value, string element_Type_On_Ex_Value)
         {
-            type_Parameter = type;
-            parameter = parameter;
-            value = value;
+            type_Parameter = type_Value;
+            parameter = parameter_Value;
+            double_Value = value_Value;
+            element_Type_On_Ex = element_Type_On_Ex_Value;
         }
-        public Parameter_Identification(string type, Parameter parameter, string value)
+        public Parameter_Identification(string type_Value, Parameter parameter_Value, string value_Value, string element_Type_On_Ex_Value)
         {
-            type_Parameter = type;
-            parameter = parameter;
-            material_Value = value;
+            type_Parameter = type_Value;
+            parameter = parameter_Value;
+            material_Value = value_Value;
+            element_Type_On_Ex = element_Type_On_Ex_Value;
         }
-        public Parameter_Identification(string type, Parameter parameter, int value)
+        public Parameter_Identification(string type_Value, Parameter parameter_Value, int value_Value, string element_Type_On_Ex_Value)
         {
-            type_Parameter = type;
-            parameter = parameter;
-            bool_Value = value;
+            type_Parameter = type_Value;
+            parameter = parameter_Value;
+            bool_Value = value_Value;
+            element_Type_On_Ex = element_Type_On_Ex_Value;
         }
     }
 
