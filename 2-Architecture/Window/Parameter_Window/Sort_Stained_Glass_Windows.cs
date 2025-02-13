@@ -104,17 +104,56 @@ namespace WPFApplication.Parameter_Window
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                            {
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                            }
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
+                                            {
+
+                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
+                                                {
+                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        //element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
+                                        //}
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
+                                            {
+                                                if (stoc_Designation != null)
+                                                {
+                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
+                                                    {
+                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
                                         }
                                         //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()) || element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString()=="")
                                         //{
-                                            element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
+                                        element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
                                         if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
                                         {
@@ -181,15 +220,54 @@ namespace WPFApplication.Parameter_Window
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                            {
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                            }
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
                                         }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
+                                            {
+
+                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
+                                                {
+                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        //element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
+                                        //}
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
+                                            {
+                                                if (stoc_Designation != null)
+                                                {
+                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
+                                                    {
+                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
+                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()) || element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString()=="")
                                         //{
                                         element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
@@ -258,15 +336,54 @@ namespace WPFApplication.Parameter_Window
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_Mark).Set("");
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
+                                            {
+                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
+                                            }
                                         }
-                                        if (!element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).AsValueString().Trim().Contains(result_Name.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
                                         {
-                                            element_Group.get_Parameter(Data_Parameter_Window.guid_ADSK_NAME).Set(result_Name);
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
                                         }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
+                                            {
+
+                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
+                                                {
+                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
+                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
+                                        //{
+                                        //element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
+                                        //}
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
+                                        {
+                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
+                                            {
+                                                if (stoc_Designation != null)
+                                                {
+                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
+                                                    {
+                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
+                                        {
+                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
+                                        }
+                                        //if (!element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString().Trim().Contains(fire_Resistance.Trim()) || element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsValueString()=="")
                                         //{
                                         element_Group.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).Set(fire_Resistance);
                                         //}
