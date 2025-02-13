@@ -87,12 +87,8 @@ namespace WPFApplication.Property_Copy
             //LoadParameters loadParameters = new LoadParameters(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element, parameter_Identifications);
             //IList<Parameter_Identification> parameter_Identifications = new List<Parameter_Identification>();
             LoadParameters loadParameters = new LoadParameters();
-            IList<Parameter_Identification> parameter_Identifications = loadParameters.LoadParameters_Position(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element);
-            Ser_Parameter_On_Target ser_Parameter_On_Target = new Ser_Parameter_On_Target();
-            ser_Parameter_On_Target.Ser_Parameter_Target(parameter_Identifications, Data_Class_Property_Copy.elements_Target_Elements);
-            //LoadParameters(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element, parameter_Identifications);
-            S_Mistake_String s_Mistake_String = new S_Mistake_String("Количество элементов "+ parameter_Identifications.Count);
-            s_Mistake_String.ShowDialog();
+            Data_Class_Property_Copy.parameters = loadParameters.LoadParameters_Position(Data_Class_Property_Copy.element_Donor, Tree_Parameter_On_Select_Element);
+            Close();
         }
 
         private void Start_The_Floor_Is_Numeric(object sender, RoutedEventArgs e)

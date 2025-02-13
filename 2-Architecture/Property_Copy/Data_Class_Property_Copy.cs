@@ -18,8 +18,10 @@ namespace WPFApplication.Property_Copy
         public static ListView elements_Target { get; set; } = new ListView();
         public static List<Element> elements_Target_Elements { get; set; } = new List<Element>();
         public static ObservableCollection<ParameterCategory> ParameterCategories { get; set; }
+        public static IList<Parameter_Identification> parameters = new List<Parameter_Identification>();
+        public static IList<Parameter_Identification> parameters_Ex = new List<Parameter_Identification>();
     }
-    public static class Document_Property_Copy
+        public static class Document_Property_Copy
     {
         public static UIApplication UIApplication { get; set; }
         public static UIDocument UIDobument { get => UIApplication.ActiveUIDocument; }

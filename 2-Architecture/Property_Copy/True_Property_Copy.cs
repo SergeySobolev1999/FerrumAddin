@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,8 @@ namespace WPFApplication.Property_Copy
         public LoadElementParameters(Element element)
         {
             Data_Class_Property_Copy.ParameterCategories.Clear();
-
             var typeCategory = new ParameterCategory("Тип");
             var instanceCategory = new ParameterCategory("Экземпляр");
-
             var size_Group = new ParameterGroup("Размеры");
             var material_Group = new ParameterGroup("Материалы");
             var material_Visibilite = new ParameterGroup("Видимость");
@@ -31,7 +30,6 @@ namespace WPFApplication.Property_Copy
                 AddParametersToCategory(typeElement, material_Group, typeCategory);
                 AddParametersToCategory(typeElement, material_Visibilite, typeCategory);
             }
-
             // Загружаем параметры экземпляра
             AddParametersToCategory(element, size_Group, instanceCategory);
             AddParametersToCategory(element, material_Group, instanceCategory);
@@ -39,8 +37,6 @@ namespace WPFApplication.Property_Copy
 
             Data_Class_Property_Copy.ParameterCategories.Add(typeCategory);
             Data_Class_Property_Copy.ParameterCategories.Add(instanceCategory);
-
-
         }
         private void AddParametersToCategory(Element element, ParameterGroup parameterGroup, ParameterCategory category)
         {
@@ -61,7 +57,6 @@ namespace WPFApplication.Property_Copy
                 {
                     parameterGroupEx.Parameters.Add(new ParameterItem($"{paramName}: {paramValue}", paramName));
                 }
-
             }
             category.ParametersGroup.Add(parameterGroupEx);
         }
@@ -72,19 +67,30 @@ namespace WPFApplication.Property_Copy
         public IList<Parameter_Identification> LoadParameters_Position(Element element, TreeView treeViewItem)
         {
             element_Donor = element;
-            IList < Parameter_Identification > parameters = new List<Parameter_Identification>();   
+            IList < Parameter_Identification > parameters = new List<Parameter_Identification>();
+            IList<Parameter_Identification> parameters_Ex = new List<Parameter_Identification>();
             foreach (ParameterCategory items_Category in treeViewItem.Items)
             {
                 if (items_Category.Name == "Тип")
                 {
                     foreach (ParameterGroup items_Group in items_Category.ParametersGroup)
                     {
-                        ProccessTreeViewItemType(items_Group, element_Donor,  parameters , "Тип");
+                        ProccessTreeViewItemType(items_Group, element_Donor, parameters, "Тип");
+                    }
+                }
+                if (items_Category.Name == "Экземпляр")
+                {
+                    foreach (ParameterGroup items_Group in items_Category.ParametersGroup)
+                    {
+                        ProccessTreeViewItemType(items_Group, element_Donor, parameters_Ex, "Экземпляр");
                     }
                 }
             }
+            foreach(Parameter_Identification parameter_Identification in parameters_Ex)
+            {
+                parameters.Add(parameter_Identification);
+            }
             return parameters;
-            
         }
         public void ProccessTreeViewItemType(ParameterGroup treeViewItem, Element element_Donor, IList<Parameter_Identification> parameter_Identifications, string element_Type_On_Ex)
         {
@@ -97,19 +103,43 @@ namespace WPFApplication.Property_Copy
                     {
                         if (parameter.Definition.Name == items.Name)
                         {
-                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec:spec.bool-1.0.0")
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec:spec.bool-1.0.0"&& element_Type_On_Ex == "Тип")
                             {
                                 int ischecked = parameter.AsInteger();
                                 Parameter_Identification parameter_Identification = new Parameter_Identification("bool", parameter, ischecked, element_Type_On_Ex);
                                 parameter_Identifications.Add(parameter_Identification);
                             }
-                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0")
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0" && element_Type_On_Ex == "Тип")
                             {
                                 string ischecked = parameter.AsValueString();
                                 Parameter_Identification parameter_Identification = new Parameter_Identification("material", parameter, ischecked, element_Type_On_Ex);
                                 parameter_Identifications.Add(parameter_Identification);
                             }
-                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:length-2.0.0")
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:length-2.0.0" && element_Type_On_Ex == "Тип")
+                            {
+                                double ischecked = parameter.AsDouble();
+                                Parameter_Identification parameter_Identification = new Parameter_Identification("size", parameter, ischecked, element_Type_On_Ex);
+                                parameter_Identifications.Add(parameter_Identification);
+                            }
+                        }
+                    }
+                    foreach (Parameter parameter in element_Donor.Parameters)
+                    {
+                        if (parameter.Definition.Name == items.Name)
+                        {
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec:spec.bool-1.0.0" && element_Type_On_Ex == "Экземпляр")
+                            {
+                                int ischecked = parameter.AsInteger();
+                                Parameter_Identification parameter_Identification = new Parameter_Identification("bool", parameter, ischecked, element_Type_On_Ex);
+                                parameter_Identifications.Add(parameter_Identification);
+                            }
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0" && element_Type_On_Ex == "Экземпляр")
+                            {
+                                string ischecked = parameter.AsValueString();
+                                Parameter_Identification parameter_Identification = new Parameter_Identification("material", parameter, ischecked, element_Type_On_Ex);
+                                parameter_Identifications.Add(parameter_Identification);
+                            }
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:length-2.0.0" && element_Type_On_Ex == "Экземпляр")
                             {
                                 double ischecked = parameter.AsDouble();
                                 Parameter_Identification parameter_Identification = new Parameter_Identification("size", parameter, ischecked, element_Type_On_Ex);
@@ -119,71 +149,7 @@ namespace WPFApplication.Property_Copy
                     }
                 }
             }
-        }
-       
-//         if (parameter.Definition.GetDataType().TypeId == "autodesk.spec:spec.bool-1.0.0")
-//                            {
-//                                int ischecked = parameter.AsInteger();
-//        Parameter_Identification parameter_Identification = new Parameter_Identification("bool", parameter, ischecked, element_Type_On_Ex);
-//        parameter_Identifications.Add(parameter_Identification);
-//                            }
-//                            if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0")
-//                            {
-//                                string ischecked = parameter.AsValueString();
-//    Parameter_Identification parameter_Identification = new Parameter_Identification("bool", parameter, ischecked, element_Type_On_Ex);
-//    parameter_Identifications.Add(parameter_Identification);
-//                            }
-//if (parameter.Definition.GetDataType().TypeId == "autodesk.spec.aec:length-2.0.0")
-//{
-//    double ischecked = parameter.AsDouble();
-//    Parameter_Identification parameter_Identification = new Parameter_Identification("bool", parameter, ischecked, element_Type_On_Ex);
-//    parameter_Identifications.Add(parameter_Identification);
-//}
-        // Метод для получения всех элементов с состоянием чекбокса
-        //public List<(string Name, bool IsChecked)> GetCheckedItems()
-        //{
-        //    List<(string Name, bool IsChecked)> result = new List<(string Name, bool IsChecked)> ();
-
-        //    foreach (var category in Categories)
-        //    {
-        //        foreach (var group in category.ParametersGroup)
-        //        {
-        //            foreach (var param in group.Parameters)
-        //            {
-        //                result.Add((param.DisplayText, param.IsChecked));
-        //            }
-        //        }
-        //    }
-
-        //    return result;
-        //}
+        } 
     }
-    public class Ser_Parameter_On_Target
-    {
-         public void Ser_Parameter_Target(IList<Parameter_Identification> parameter_Identifications, List<Element> elements)
-        {
-            foreach (Element element in elements)
-            {
-                foreach (Parameter_Identification parameter_Position in parameter_Identifications)
-                {
-                    //if (parameter_Position.element_Type_On_Ex == "Тип" && Document_Property_Copy.Document.GetElement(element.GetTypeId()) != null)
-                    //{
-                        Element element_type = Document_Property_Copy.Document.GetElement(element.GetTypeId());
-                        if (parameter_Position.type_Parameter == "bool")
-                        {
-                            element_type.LookupParameter(parameter_Position.parameter.Definition.Name).Set(parameter_Position.bool_Value);
-                        }
-                        if (parameter_Position.type_Parameter == "material")
-                        {
-                            //element_type.LookupParameter(parameter_Position.parameter.Definition.Name).Set(parameter_Position.bool_Value);
-                        }
-                        if (parameter_Position.type_Parameter == "size")
-                        {
-                            element_type.LookupParameter(parameter_Position.parameter.Definition.Name).Set(parameter_Position.double_Value);
-                        }
-                    //}
-                }
-            }
-        }
-    }
+   
 }
