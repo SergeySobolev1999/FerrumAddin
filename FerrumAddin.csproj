@@ -397,6 +397,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SSDK\SSDK_Data.cs" />
+    <Compile Include="SSDK\SSDK_Set.cs" />
     <Compile Include="SSDK\S_Mistake_String.xaml.cs">
       <DependentUpon>S_Mistake_String.xaml</DependentUpon>
     </Compile>

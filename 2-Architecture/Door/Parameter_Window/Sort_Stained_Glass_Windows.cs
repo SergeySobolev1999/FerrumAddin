@@ -103,58 +103,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                      
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        //{
-                                        element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -213,58 +166,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                       
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        //{
-                                        element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -332,57 +238,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        //{
-                                        element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -441,57 +301,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        //{
-                                        element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -551,57 +365,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                        //{
-                                        element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() != null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -664,57 +432,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).AsValueString().Trim() != "")
-                                            {
-                                                element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark).Set("");
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString() != null)
-                                            {
-
-                                                if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).AsValueString().Trim() != result_Name.Trim())
-                                                {
-                                                    element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME).Set(result_Name);
-                                        }
-                                        //if (!element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).AsValueString().Trim().Contains(fire_Resistance.Trim()))
-                                            //{
-                                            element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING).Set(fire_Resistance);
-                                        //}
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) != null)
-                                        {
-                                            if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString() !=null)
-                                            {
-                                                if (stoc_Designation != null)
-                                                {
-                                                    if (stoc_Designation.Trim() != element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).AsValueString().Trim())
-                                                    {
-                                                        element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination) == null)
-                                        {
-                                            element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination).Set(stoc_Designation);
-                                        }
-                                        if (result_Name != null)
-                                        {
-                                            element_Group.Name = result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")";
-                                        }
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }

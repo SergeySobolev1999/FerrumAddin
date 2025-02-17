@@ -13,6 +13,7 @@ using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using System.Windows.Controls;
 using SSDK;
+using WPFApplication.Parameter_Window;
 
 namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
 {
@@ -92,8 +93,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                             Parameter parameter_Value = element_Type_Cod.get_Parameter(guid_COD);
                             parameter_Value.Set(cod);
 
-                            Parameter parameter_Value_Designation = element_Type_Cod.get_Parameter(guid_designation);
-                            parameter_Value_Designation.Set(model_Designation);
+                            SSDK_Set.Set_Parameter(element_Type_Cod.get_Parameter(guid_designation), model_Designation);
                             FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document);
                             ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();
                             
@@ -101,12 +101,10 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                             {
                                 if (Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId()).Name.ToString() == element_Type_Cod.Name.ToString())
                                 {
-                                    Parameter parameter_ADSK_Mark = element.get_Parameter(Data_Parameter_On_Group_Stained_Glass_Windows.guid_ADSK_Mark);
-                                    parameter_ADSK_Mark.Set("");
+                                    SSDK_Set.Set_Parameter(element.get_Parameter(Data_Parameter_On_Group_Stained_Glass_Windows.guid_ADSK_Mark), "");
                                 }
                             }
-                            Parameter parameter_Value_Name = element_Type_Cod.get_Parameter(guid_ADSK_NAME);
-                            parameter_Value_Name.Set(full_Name);
+                            SSDK_Set.Set_Parameter(element_Type_Cod.get_Parameter(guid_ADSK_NAME), full_Name);
                             Glass_Window glass_Window = new Glass_Window(description_Value, model_Value, model_Designation, height_Value, wight_Value, element_Group, full_Name, full_Name_Type);
                             Data_Parameter_On_Group_Stained_Glass_Windows.list_Group.Add(glass_Window);
                         }
@@ -145,34 +143,36 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                         //Group group = Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(Revit_Document_Parameter_On_Group_Stained_Glass_Windows.UIDobument.Selection.PickObject(ObjectType.Element, "Выберите группу")) as Group;
                         Group element_Group = (Group)Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.Id);
                         GroupType groupType = element_Group.GroupType;
+                        Element element_Type = Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Document.GetElement(element_Group.GetTypeId()); 
                         bool iteration = false;
                         if (i < list.Count - 1)
                         {
+                            
                             if (list[i].full_Name_Type.ToString() == list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")");
                                 identical++;
                                 iteration = true;
                             }
                             if (identical > 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")");
                                 identical = 1;
                                 iteration = true;
                             }
                             if (i > 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && list[i].full_Name_Type.ToString() == list[i - 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")");
                                 iteration = true;
                             }
                             if (i == 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name_Type.ToString();
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name_Type.ToString());
                                 iteration = true;
                             }
                             if (i > 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && list[i].full_Name_Type.ToString() != list[i - 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name_Type.ToString();
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name_Type.ToString());
                                 iteration = true;
                             }
                         }
@@ -180,12 +180,12 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                         {
                             if (identical > 1 && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString() + " (" + identical.ToString() + ")";
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name.ToString() + " (" + identical.ToString() + ")");
                                 iteration = true;
                             }
                             if (identical == 1 && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString();
+                                SSDK_Set.Set_Type_Name(groupType, list[i].full_Name.ToString());
                                 iteration = true;
                             }
                         }

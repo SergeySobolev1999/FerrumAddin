@@ -12,7 +12,6 @@ using System.Linq;
 using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 using System.Windows.Controls;
 using System.Globalization;
@@ -247,14 +246,8 @@ namespace WPFApplication.Mark_Window
                             }
                             if (parameter_ADSK_Mark != null)
                             {
-                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + mark_Position.ToString()).Trim())
-                                {
-                                    parameter_ADSK_Mark.Set(mark_Prefix + mark_Position.ToString());
-                                }
-                                if (glass_Window.element_Window.Name.Trim() != (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()).Trim())
-                                {
-                                    glass_Window.element_Window.Name = (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString());
-                                }
+                                SSDK_Set.Set_Parameter(parameter_ADSK_Mark, mark_Prefix + mark_Position.ToString());
+                                SSDK_Set.Set_Type_Name(glass_Window.element_Window, (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()));
                             }
                             if (parameter_ADSK_Mark == null&& Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
                             {
@@ -340,6 +333,23 @@ namespace WPFApplication.Mark_Window
                 s_Mistake_String.ShowDialog();
                 return null;
             }
+        }
+    }
+    public class IgnoreWarningPreprocessor : IFailuresPreprocessor
+    {
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor failuresAccessor)
+        {
+            // Получаем все предупреждения
+            IList<FailureMessageAccessor> failureMessages = failuresAccessor.GetFailureMessages();
+
+            foreach (FailureMessageAccessor failure in failureMessages)
+            {
+                // Удаляем предупреждение
+                failuresAccessor.DeleteWarning(failure);
+            }
+
+            // Указываем продолжать выполнение
+            return FailureProcessingResult.Continue;
         }
     }
 }

@@ -13,6 +13,7 @@ using Autodesk.Revit.UI.Selection;
 using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using SSDK;
+using WPFApplication.Parameter_Window;
 
 namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
 {
@@ -86,15 +87,13 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                                 }
                             }
                             Element element_Type_Cod = Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element_Group.GetTypeId());
+                            //SSDK_Set.Set_Parameter(element_Type_Cod.get_Parameter(guid_designation), model_Designation);
+                            //SSDK_Set.Set_Parameter(element_Type_Cod.get_Parameter(guid_ADSK_NAME), full_Name);
+
+                            
 
                             Parameter parameter_Value = element_Type_Cod.get_Parameter(guid_COD);
                             parameter_Value.Set(cod);
-
-                            Parameter parameter_Value_Designation = element_Type_Cod.get_Parameter(guid_designation);
-                            parameter_Value_Designation.Set(model_Designation);
-
-                            Parameter parameter_Value_Name = element_Type_Cod.get_Parameter(guid_ADSK_NAME);
-                            parameter_Value_Name.Set(full_Name);
 
                             Glass_Window glass_Window = new Glass_Window(description_Value, model_Value, model_Designation, height_Value, wight_Value, element_Group, full_Name);
                             Data_Mark_On_Group_Stained_Glass_Windows.list_Group.Add(glass_Window);
@@ -151,17 +150,15 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                             postscript = "ОЛ-";
                         }
                         Group element_Group = (Group)Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.Id);
-
                         GroupType groupType = element_Group.GroupType;
-                        groupType.Name = postscript  + position_Mark.ToString() + " " + list[i].full_Name.ToString();
+                        SSDK_Set.Set_Type_Name(groupType, postscript + position_Mark.ToString() + " " + list[i].full_Name.ToString());
                         FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document);
                         ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();
                         foreach (Element element in all_Elements)
                         {
                             if (Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId()).Name.ToString() == groupType.Name.ToString())
                             {
-                                Parameter parameter_ADSK_Mark = element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark);
-                                parameter_ADSK_Mark.Set(postscript + position_Mark.ToString());
+                                SSDK_Set.Set_Parameter(element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark), postscript + position_Mark.ToString());
                             }
                         }
                         position_Mark++;

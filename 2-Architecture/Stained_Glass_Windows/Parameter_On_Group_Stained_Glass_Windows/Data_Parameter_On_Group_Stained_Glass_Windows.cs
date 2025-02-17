@@ -54,7 +54,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
             this.wight_Value = wight_Value;
             this.element = element;
             this.full_Name = full_Name;
-            this.full_Name = full_Name_Type;
+            this.full_Name_Type = full_Name_Type;
         }
     }
 }

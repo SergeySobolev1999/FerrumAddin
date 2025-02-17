@@ -16,8 +16,6 @@ using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 using System.Windows.Controls;
 using System.Globalization;
-using Autodesk.Revit.ApplicationServices;
-using System.Windows.Media.Media3D;
 
 namespace WPFApplication.Mark_Door
 {
@@ -431,17 +429,10 @@ namespace WPFApplication.Mark_Door
                                 Data_Mark_Door.number_Elements++;
                                 number_Set = Data_Mark_Door.number_Elements;
                             }
-
                             if (parameter_ADSK_Mark != null)
                             {
-                                if (parameter_ADSK_Mark.AsValueString().Trim() != (mark_Prefix + number_Set.ToString()).Trim())
-                                {
-                                    parameter_ADSK_Mark.Set(mark_Prefix + number_Set.ToString());
-                                }
-                                if (glass_Window.element_Doors.Name.Trim() != (mark_Prefix + number_Set.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString()).Trim())
-                                {
-                                    glass_Window.element_Doors.Name = (mark_Prefix + number_Set.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString());
-                                }
+                                SSDK_Set.Set_Parameter(parameter_ADSK_Mark, mark_Prefix + number_Set.ToString());
+                                SSDK_Set.Set_Type_Name (glass_Window.element_Doors, (mark_Prefix + number_Set.ToString() + " " + glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_ADSK_NAME).AsValueString()));
                             }
                             if (parameter_ADSK_Mark == null&& Data_Mark_Door.iteration_Recaive_Value_In_Parameter == false)
                             {
