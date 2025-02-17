@@ -25,27 +25,27 @@ namespace WPFApplication.Property_Copy
     {
         public Element Pick_Element_Donor()
         {
-            Selection choices = Document_Property_Copy.UIDobument.Selection;
-            ISelectionFilter filter = new MassSelectionFilter();
+            Selection choices = new UIDocument(Document_Property_Copy_Donor.Document).Selection;
+            ISelectionFilter filter = new MassSelectionFilter(Document_Property_Copy_Donor.Document);
             Reference has_Pick_One = choices.PickObject(ObjectType.Element, filter);
             if (has_Pick_One != null)
             {
-                return Document_Property_Copy.Document.GetElement(has_Pick_One) ;
+                return Document_Property_Copy_Donor.Document.GetElement(has_Pick_One) ;
             }
             return null;
         }
         public void Pick_Element_Target()
         {
             Data_Class_Property_Copy.elements_Target.Items.Clear();
-            Selection choices = Document_Property_Copy.UIDobument.Selection;
-            ISelectionFilter filter = new MassSelectionFilter();
+            Selection choices = new UIDocument(Document_Property_Copy_Target.Document).Selection;
+            ISelectionFilter filter = new MassSelectionFilter(Document_Property_Copy_Target.Document);
             IList<Reference> has_Pick_More = choices.PickObjects(ObjectType.Element, filter);
             if (has_Pick_More.Count> 0)
             {
                 foreach (Reference r in has_Pick_More)
                 {
-                    Data_Class_Property_Copy.elements_Target.Items.Add(Document_Property_Copy.Document.GetElement(Document_Property_Copy.Document.GetElement(r).GetTypeId()).Name);
-                    Data_Class_Property_Copy.elements_Target_Elements.Add(Document_Property_Copy.Document.GetElement(r));
+                    Data_Class_Property_Copy.elements_Target.Items.Add(Document_Property_Copy_Target.Document.GetElement(Document_Property_Copy_Target.Document.GetElement(r).GetTypeId()).Name);
+                    Data_Class_Property_Copy.elements_Target_Elements.Add(Document_Property_Copy_Target.Document.GetElement(r));
                 }
             }
         }
@@ -53,8 +53,10 @@ namespace WPFApplication.Property_Copy
     public class MassSelectionFilter : ISelectionFilter
     {
         private HashSet<int> categories_Filtered;
-        public MassSelectionFilter()
+        Document document_Position { get; set; }
+        public MassSelectionFilter(Document document)
         {
+            document_Position = document;
             List<BuiltInCategory> categories = new List<BuiltInCategory> {
                 BuiltInCategory.OST_Doors,
                 BuiltInCategory.OST_Windows};
@@ -63,9 +65,9 @@ namespace WPFApplication.Property_Copy
         public bool AllowElement(Element element)
         {
             double zh_Cod = 0;
-            if (Document_Property_Copy.Document.GetElement(element.GetTypeId()) != null)
+            if (document_Position.GetElement(element.GetTypeId()) != null)
             {
-                Element element_Type = Document_Property_Copy.Document.GetElement(element.GetTypeId());
+                Element element_Type = document_Position.GetElement(element.GetTypeId());
                 if (element_Type.get_Parameter(Data_Class_Property_Copy.zh_Cod) != null)
                 {
                     zh_Cod = element_Type.get_Parameter(Data_Class_Property_Copy.zh_Cod).AsDouble() * 304.8;

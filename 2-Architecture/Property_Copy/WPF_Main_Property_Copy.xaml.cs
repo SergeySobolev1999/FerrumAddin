@@ -13,6 +13,9 @@ using static WPFApplication.Property_Copy.WPF_Main_Property_Copy;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using System.ComponentModel;
 using System.Xml.Linq;
+using Autodesk.Revit.ApplicationServices;
+using Application = Autodesk.Revit.ApplicationServices.Application;
+using masshtab;
 
 
 
@@ -23,22 +26,27 @@ namespace WPFApplication.Property_Copy
     /// </summary>
     public partial class WPF_Main_Property_Copy : Window
     {
-        
         public WPF_Main_Property_Copy(ExternalCommandData commandData)
         {
+            
             InitializeComponent();
-            Document_Property_Copy.Initialize(commandData);
             Version.Text = SSDK_Data.plugin_Version;
             Data_Class_Property_Copy.ParameterCategories = new ObservableCollection<ParameterCategory>();
             DataContext = this;
+            UIApplication uiApp = commandData.Application;
+            Application application = uiApp.Application;
+            Data_Class_Property_Copy.all_Document = application.Documents.Cast<Document>().ToList();
+            foreach (Document document in Data_Class_Property_Copy.all_Document)
+            {
+                if (!document.IsFamilyDocument && !document.PathName.EndsWith(".rte", StringComparison.OrdinalIgnoreCase))
+                {
+                    doc_Donor.Items.Add(document.Title);
+                    doc_Target.Items.Add(document.Title);
+                    doc_Donor.SelectedItem = Document_Property_Copy_Donor.Document.Title;
+                    doc_Target.SelectedItem = Document_Property_Copy_Target.Document.Title;
+                }
+            }
         }
-       
-
-        
-        
-        
-
-
         private void close_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -46,8 +54,8 @@ namespace WPFApplication.Property_Copy
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
         private void Select_Target(object sender, RoutedEventArgs e)
         {
-           Pick_Element pick_Element = new Pick_Element();
-           pick_Element.Pick_Element_Target();
+            Pick_Element pick_Element = new Pick_Element();
+            pick_Element.Pick_Element_Target();
             scroll_Viewer_Work_Set_Ignore.Content = Data_Class_Property_Copy.elements_Target;
         }
 
@@ -56,7 +64,7 @@ namespace WPFApplication.Property_Copy
             Pick_Element pick_Element = new Pick_Element();
             Element element = pick_Element.Pick_Element_Donor() ;
             Data_Class_Property_Copy.element_Donor = element as FamilyInstance;
-            Select_Element_Donor.Text = Document_Property_Copy.Document.GetElement(element.GetTypeId()).Name.ToString();
+            Select_Element_Donor.Text = Document_Property_Copy_Donor.Document.GetElement(element.GetTypeId()).Name.ToString();
             LoadElementParameters loadElementParameters = new LoadElementParameters(element);
             Tree_Parameter_On_Select_Element.ItemsSource = Data_Class_Property_Copy.ParameterCategories;
         }
@@ -94,6 +102,24 @@ namespace WPFApplication.Property_Copy
         private void Start_The_Floor_Is_Numeric(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void doc_Donor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (Document document in Data_Class_Property_Copy.all_Document)
+            {
+                if (doc_Donor.SelectedItem.ToString() == document.Title)
+                    Document_Property_Copy_Donor.Document = document;   
+            }
+        }
+
+        private void doc_Target_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (Document document in Data_Class_Property_Copy.all_Document)
+            {
+                if (doc_Target.SelectedItem.ToString() == document.Title)
+                    Document_Property_Copy_Target.Document = document;
+            }
         }
     }
    

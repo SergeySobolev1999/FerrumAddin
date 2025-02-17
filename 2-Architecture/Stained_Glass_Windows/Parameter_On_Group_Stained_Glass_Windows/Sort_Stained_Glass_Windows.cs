@@ -42,6 +42,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                             string height_Value = "0";
                             string wight_Value = "0";
                             string full_Name = "";
+                            string full_Name_Type = "";
                             double cod = 0;
                             Guid guid_designation = new Guid("9c98831b-9450-412d-b072-7d69b39f4029");
                             Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
@@ -81,7 +82,8 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                                         }
                                         model_Designation = " " + element_Type.get_Parameter(guid_designation).AsValueString();
                                         cod = element_Type.get_Parameter(guid_COD).AsDouble();
-                                        full_Name = model_Value + model_Designation + height_Value + "х" + wight_Value + description_Value;
+                                        full_Name = model_Value +  height_Value + "х" + wight_Value + description_Value;
+                                        full_Name_Type = model_Value + model_Designation + height_Value + "х" + wight_Value + description_Value;
                                     }
                                 }
                             }
@@ -105,7 +107,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                             }
                             Parameter parameter_Value_Name = element_Type_Cod.get_Parameter(guid_ADSK_NAME);
                             parameter_Value_Name.Set(full_Name);
-                            Glass_Window glass_Window = new Glass_Window(description_Value, model_Value, model_Designation, height_Value, wight_Value, element_Group, full_Name);
+                            Glass_Window glass_Window = new Glass_Window(description_Value, model_Value, model_Designation, height_Value, wight_Value, element_Group, full_Name, full_Name_Type);
                             Data_Parameter_On_Group_Stained_Glass_Windows.list_Group.Add(glass_Window);
                         }
                     }
@@ -146,31 +148,31 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
                         bool iteration = false;
                         if (i < list.Count - 1)
                         {
-                            if (list[i].full_Name.ToString() == list[i + 1].full_Name.ToString() && iteration == false)
+                            if (list[i].full_Name_Type.ToString() == list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString() + " (" + identical.ToString() + ")";
+                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
                                 identical++;
                                 iteration = true;
                             }
-                            if (identical > 1 && list[i].full_Name.ToString() != list[i + 1].full_Name.ToString() && iteration == false)
+                            if (identical > 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString() + " (" + identical.ToString() + ")";
+                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
                                 identical = 1;
                                 iteration = true;
                             }
-                            if (i > 0 && identical == 1 && list[i].full_Name.ToString() != list[i + 1].full_Name.ToString() && list[i].full_Name.ToString() == list[i - 1].full_Name.ToString() && iteration == false)
+                            if (i > 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && list[i].full_Name_Type.ToString() == list[i - 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString() + " (" + identical.ToString() + ")";
+                                groupType.Name = list[i].full_Name_Type.ToString() + " (" + identical.ToString() + ")";
                                 iteration = true;
                             }
-                            if (i == 0 && identical == 1 && list[i].full_Name.ToString() != list[i + 1].full_Name.ToString() && iteration == false)
+                            if (i == 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString();
+                                groupType.Name = list[i].full_Name_Type.ToString();
                                 iteration = true;
                             }
-                            if (i > 0 && identical == 1 && list[i].full_Name.ToString() != list[i + 1].full_Name.ToString() && list[i].full_Name.ToString() != list[i - 1].full_Name.ToString() && iteration == false)
+                            if (i > 0 && identical == 1 && list[i].full_Name_Type.ToString() != list[i + 1].full_Name_Type.ToString() && list[i].full_Name_Type.ToString() != list[i - 1].full_Name_Type.ToString() && iteration == false)
                             {
-                                groupType.Name = list[i].full_Name.ToString();
+                                groupType.Name = list[i].full_Name_Type.ToString();
                                 iteration = true;
                             }
                         }

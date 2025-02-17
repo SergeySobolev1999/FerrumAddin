@@ -20,15 +20,17 @@ namespace WPFApplication.Property_Copy
             var size_Group = new ParameterGroup("Размеры");
             var material_Group = new ParameterGroup("Материалы");
             var material_Visibilite = new ParameterGroup("Видимость");
+            var material_Ghost = new ParameterGroup("ГОСТ");
 
             // Загружаем параметры типа
             ElementId typeId = element.GetTypeId();
             if (typeId != ElementId.InvalidElementId)
             {
-                Element typeElement = Document_Property_Copy.Document.GetElement(typeId);
+                Element typeElement = Document_Property_Copy_Donor.Document.GetElement(typeId);
                 AddParametersToCategory(typeElement, size_Group, typeCategory);
                 AddParametersToCategory(typeElement, material_Group, typeCategory);
                 AddParametersToCategory(typeElement, material_Visibilite, typeCategory);
+                AddParametersToCategory(typeElement, material_Ghost, typeCategory);
             }
             // Загружаем параметры экземпляра
             AddParametersToCategory(element, size_Group, instanceCategory);
@@ -54,6 +56,10 @@ namespace WPFApplication.Property_Copy
                     parameterGroupEx.Parameters.Add(new ParameterItem($"{paramName}: {paramValue}", paramName));
                 }
                 if (parameterGroup.Name == "Видимость" && param.Definition.ParameterGroup == BuiltInParameterGroup.PG_VISIBILITY && param.Definition.GetDataType().TypeId == "autodesk.spec:spec.bool-1.0.0")
+                {
+                    parameterGroupEx.Parameters.Add(new ParameterItem($"{paramName}: {paramValue}", paramName));
+                }
+                if (parameterGroup.Name == "ГОСТ" && param.Definition.ParameterGroup == BuiltInParameterGroup.PG_CONSTRUCTION && param.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0")
                 {
                     parameterGroupEx.Parameters.Add(new ParameterItem($"{paramName}: {paramValue}", paramName));
                 }
@@ -98,7 +104,7 @@ namespace WPFApplication.Property_Copy
             {
                 if (items.IsChecked == true)
                 {
-                    Element elementType = Document_Property_Copy.Document.GetElement(element_Donor.GetTypeId());
+                    Element elementType = Document_Property_Copy_Donor.Document.GetElement(element_Donor.GetTypeId());
                     foreach (Parameter parameter in elementType.Parameters)
                     {
                         if (parameter.Definition.Name == items.Name)
@@ -119,6 +125,12 @@ namespace WPFApplication.Property_Copy
                             {
                                 double ischecked = parameter.AsDouble();
                                 Parameter_Identification parameter_Identification = new Parameter_Identification("size", parameter, ischecked, element_Type_On_Ex);
+                                parameter_Identifications.Add(parameter_Identification);
+                            }
+                            if (parameter.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0" && element_Type_On_Ex == "Тип")
+                            {
+                                string ischecked = parameter.AsValueString();
+                                Parameter_Identification parameter_Identification = new Parameter_Identification("ghost", parameter, ischecked, element_Type_On_Ex);
                                 parameter_Identifications.Add(parameter_Identification);
                             }
                         }

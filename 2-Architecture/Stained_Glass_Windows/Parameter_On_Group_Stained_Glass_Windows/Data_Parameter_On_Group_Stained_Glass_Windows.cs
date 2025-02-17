@@ -43,8 +43,9 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
         public string wight_Value { get; set; } = "";
         public Element element { get; set; } = null;
         public string full_Name { get; set; } = "";
-        
-        public Glass_Window(string description_Value, string model_Value, string model_Designation, string height_Value, string wight_Value, Element element,string full_Name)
+        public string full_Name_Type { get; set; } = "";
+
+        public Glass_Window(string description_Value, string model_Value, string model_Designation, string height_Value, string wight_Value, Element element,string full_Name, string full_Name_Type)
         {
             this.description_Value = description_Value;
             this.model_Value = model_Value;
@@ -53,6 +54,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
             this.wight_Value = wight_Value;
             this.element = element;
             this.full_Name = full_Name;
+            this.full_Name = full_Name_Type;
         }
     }
 }
