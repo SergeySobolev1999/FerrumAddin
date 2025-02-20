@@ -231,6 +231,7 @@ namespace WPFApplication.Assembling_Door
                                 Autodesk.Revit.DB.View view = AssemblyViewUtils.CreateDetailSection(Revit_Document_Assembling_Window.Document, all_Elements[i].Id, assemblyDetailViewOrientation);
                                 Parameter param_Blanks = view.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION);
                                 param_Blanks.Set(str_ADSK_Mark);
+                                view.ViewTemplateId = new FilteredElementCollector(Revit_Document_Assembling_Window.Document).OfClass(typeof(View)).Cast<View>().FirstOrDefault(v => v.IsTemplate && v.Name.Equals("3-А_Фсд_Фасад_ЧБ")).Id;
                             }
                         }
                     }

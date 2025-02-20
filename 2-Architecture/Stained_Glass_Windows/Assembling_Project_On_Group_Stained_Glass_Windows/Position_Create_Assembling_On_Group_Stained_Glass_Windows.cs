@@ -255,6 +255,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
                                 Autodesk.Revit.DB.View view = AssemblyViewUtils.CreateDetailSection(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document, all_Elements[i].Id, assemblyDetailViewOrientation);
                                 Parameter param_Blanks = view.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION);
                                 param_Blanks.Set(str_ADSK_Mark);
+                                view.ViewTemplateId = new FilteredElementCollector(Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Document).OfClass(typeof(View)).Cast<View>().FirstOrDefault(v => v.IsTemplate && v.Name.Equals("3-А_Фсд_Фасад_ЧБ")).Id;
                             }
                         }
                     }
