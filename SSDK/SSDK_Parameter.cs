@@ -10,7 +10,7 @@ using WPFApplication.Parameter_Door;
 
 namespace SSDK
 {
-    public class SSDK_Set
+    public class SSDK_Parameter
     {
         public static bool Set_Parameter(Parameter parameter, string value)
         {
@@ -27,6 +27,22 @@ namespace SSDK
             else if (element.Name == value) { return false; }
             else { element.Name = value; }
             return true;
+        }
+        public static string Get_Parameter_Material_To_String(Parameter parameter)
+        {
+            if (parameter == null) { return ""; }
+            else if (parameter.AsValueString() == "< По категории >") { return ""; }
+            else {
+                string a = parameter.AsValueString();
+                return parameter.AsValueString(); }
+        }
+        public static string RenameWordsInString(string input, List<string> words, string replacement)
+        {
+            foreach (string word in words)
+            {
+                input = input.Replace(word, replacement);
+            }
+            return input;
         }
     }
 }

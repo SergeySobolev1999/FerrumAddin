@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows;
 using System.Xml.Linq;
-
+using System.IO;
 
 namespace WPFApplication.Property_Copy
 {
@@ -24,15 +24,15 @@ namespace WPFApplication.Property_Copy
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            //if (1==2)
-            //{
+            if (1 == 2)
+            {
                 UIApplication uiApp = commandData.Application;
             Application application = uiApp.Application;
             UIDocument uidoc = uiApp.ActiveUIDocument;
             Document_Property_Copy_Donor.Document = uidoc.Document;
             Document_Property_Copy_Target.Document = uidoc.Document;
             SSDK_Data.username = Environment.UserName;
-            if (1==2)
+            if (1==1)
             {
                 //UIApplication uiApp = commandData.Application;
                 //Application application = uiApp.Application;
@@ -62,12 +62,12 @@ namespace WPFApplication.Property_Copy
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
                 s_Mistake_String.ShowDialog();
             }
-            //}
-            //else
-            //{
-            //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
-            //    s_Mistake_String.ShowDialog();
-            //}
+            }
+            else
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин в разработке");
+                s_Mistake_String.ShowDialog();
+            }
             return Result.Succeeded;
         }
     }
@@ -101,80 +101,178 @@ namespace WPFApplication.Property_Copy
             //    }
             //}
             List<Element> collection_Type_Ghost_Target = new FilteredElementCollector(document_Target).OfCategory(BuiltInCategory.OST_GenericAnnotation).WhereElementIsElementType().ToList();
-           
+            Family loadedFamily;
             foreach (Element element in elements)
             {
                 foreach (Parameter_Identification parameter_Position in parameters)
                 {
                     Element elementType = document_Target.GetElement(element.GetTypeId());
+                    string stoc_Designation = "";
+                    string stoc_Type_Name = "";
                     Parameter param = elementType.LookupParameter(parameter_Position.parameter.Definition.Name);
-                    if (param.StorageType == StorageType.ElementId && param.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0")
+                    try
                     {
-                        FamilySymbol familySymbol = document_Target.GetElement(element.GetTypeId()) as FamilySymbol;
-                        Family family = familySymbol.Family;
-                        Document doc_Family = document_Target.EditFamily(family);
-                        string name = param.AsValueString();
-                        string[] stoc_Designation_Perview = name.Split(new[] { ":" }, StringSplitOptions.None);
-                        string stoc_Designation = stoc_Designation_Perview[0];
-                        //List<FamilySymbol> collection_Type = new FilteredElementCollector(document_Target).OfClass(typeof(FamilySymbol)).Cast(FamilySymbol).Where(fs => stoc_Designation.Contains(fs.Family.Name));
-                        Element elem = doc_Family.GetElement(element.GetTypeId());
-                        //string a = parameter_Position.parameter.AsValueString();
-                        //string name = document_Donor.GetElement(parameter_Position.parameter.AsElementId()).Name;
-                        //List<ElementId> window = new FilteredElementCollector(doc_Family).OfClass(typeof(FamilySymbol)).Cast<FamilySymbol>().Where(fs => fs.Family.Name == document_Donor.GetElement(parameter_Position.parameter.AsElementId()).Id).ToList();
+                        if (param.StorageType == StorageType.ElementId && param.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0")
+                        {
+                            FamilySymbol familySymbol = document_Target.GetElement(element.GetTypeId()) as FamilySymbol;
+                            Family family = familySymbol.Family;
+                            Document doc_Family = document_Target.EditFamily(family);
+                            string name = param.AsValueString();
+                            string[] stoc_Designation_Perview = name.Split(new[] { " : " }, StringSplitOptions.None);
+                            stoc_Designation = stoc_Designation_Perview[0];
+                            stoc_Type_Name = stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                            //List<FamilySymbol> collection_Type = new FilteredElementCollector(document_Target).OfClass(typeof(FamilySymbol)).Cast(FamilySymbol).Where(fs => stoc_Designation.Contains(fs.Family.Name));
+                            Element elem = doc_Family.GetElement(element.GetTypeId());
+                            //string a = parameter_Position.parameter.AsValueString();
+                            //string name = document_Donor.GetElement(parameter_Position.parameter.AsElementId()).Name;
+                            //List<ElementId> window = new FilteredElementCollector(doc_Family).OfClass(typeof(FamilySymbol)).Cast<FamilySymbol>().Where(fs => fs.Family.Name == document_Donor.GetElement(parameter_Position.parameter.AsElementId()).Id).ToList();
+                            string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), family.Name + ".rfa");
+                            Document doc = uiApp.ActiveUIDocument.Document;
+                            Family annotationFamily = new FilteredElementCollector(doc_Family)
+                                                        .OfClass(typeof(Family))
+                                                        .Cast<Family>()
+                                                        .Where(f => f.FamilyCategory != null &&
+                                                                    f.FamilyCategory.CategoryType == CategoryType.Annotation &&
+                                                                    f.Name == stoc_Designation)
+                                                        .FirstOrDefault();
+                            // Делаем его общим
+                            if (annotationFamily != null)
+                            {
+                                Parameter parameter = annotationFamily.get_Parameter(BuiltInParameter.FAMILY_SHARED);
+                                parameter.Set(1);
+                            }
+                            Document doc_Annotation = doc_Family.EditFamily(annotationFamily);
 
+                            string nestedFamilyPath = Path.Combine(Path.GetTempPath(), annotationFamily.Name + ".rfa");
+                            if (!File.Exists(nestedFamilyPath))
+                            {
+                                using (Transaction trans = new Transaction(document_Target, "Сохранение семейства"))
+                                {
+                                    trans.Start();
+                                    SaveAsOptions options = new SaveAsOptions();
+                                    options.OverwriteExistingFile = true;
+                                    doc_Annotation.SaveAs(nestedFamilyPath, options);
+                                    doc_Annotation.Close(false);
+                                    trans.Commit();
+                                }
+                            }
+                            doc_Family.Close(false);
+                            int a = 0;
+
+                            using (Transaction trans = new Transaction(document_Target, "Загрузка семейства"))
+                            {
+                                trans.Start();
+                                doc.LoadFamily(nestedFamilyPath, out loadedFamily);
+                                trans.Commit();
+                            }
+
+
+                            //using (Transaction t = new Transaction(doc_Annotation, "Сделать семейство общим"))
+                            //{
+                            //    t.Start();
+
+                            //    // Устанавливаем флаг "Общее семейство"
+                            //    Document familyDoc = uiApp.Application.OpenDocumentFile(nestedFamilyPath);
+
+                            //    if (familyDoc == null || !familyDoc.IsFamilyDocument)
+                            //    {
+                            //        TaskDialog.Show("Revit", "Ошибка: Невозможно открыть файл семейства.");
+                            //        return;
+                            //    }
+
+                                
+
+                            //        // Получаем текущее семейство
+                            //        Family familyas = familyDoc.OwnerFamily;
+
+                            //        // Делаем его общим
+                            //        if (familyas != null)
+                            //        {
+                            //            Parameter parameter = familyas.get_Parameter(BuiltInParameter.FAMILY_SHARED);
+                            //            parameter.Set(1); 
+                            //        }
+
+
+                            //    // Сохраняем семейство с заменой файла
+                            //    SaveAsOptions options = new SaveAsOptions();
+                            //    options.OverwriteExistingFile = true;
+                            //    familyDoc.SaveAs(nestedFamilyPath, options);
+
+                            //    // Закрываем семейство
+                            //    familyDoc.Close(false);
+
+                            //    t.Commit();
+                            //}
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                        s_Mistake_String.ShowDialog();
                     }
                     if (parameter_Position.element_Type_On_Ex == "Тип")
                     {
-                    using (Transaction trans = new Transaction(document_Target, "Обновление параметров"))
-                    {
-                        trans.Start();
-                       
-                        if (param != null && !param.IsReadOnly)
+                        using (Transaction trans = new Transaction(document_Target, "Обновление параметров"))
                         {
-                            if (param.StorageType == StorageType.Integer)
-                                param.Set(parameter_Position.bool_Value == 1 ? 1 : 0);
-                            else if (param.StorageType == StorageType.Double)
-                                param.Set(parameter_Position.double_Value);
-                            else if (param.StorageType == StorageType.ElementId &&  param.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0" )
-                            {
-                                Material material = new FilteredElementCollector(document_Target).OfClass(typeof(Material)).Cast<Material>().FirstOrDefault(m => m.Name == parameter_Position.material_Value);
-                                param.Set(material.Id);
-                            }
-                            //else if (param.StorageType == StorageType.ElementId && param.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0")
-                            //{
-                            //    string name = param.Definition.Name;
-                            //    ElementId elemId = document_Donor.GetElement(document_Donor.GetElement(Data_Class_Property_Copy.element_Donor.GetTypeId()).Id).LookupParameter(param.Definition.Name).AsElementId();
-                            //    param.Set(elemId);
-                            //}
-                            else
-                            {
-                                try
-                                {
-                                    //FilteredElementCollector collector = new FilteredElementCollector(document_Target).OfClass(typeof(Family));
-                                //    //FamilyInstance familyInstance = element as FamilyInstance;
-                                //    FamilySymbol familySymbol = document_Target.GetElement(element.GetTypeId()) as FamilySymbol;
-                                //Family family = familySymbol.Family;
-                                ////Document doc_Family = document_Target.EditFamily(family);
-                                ////string doc_name = doc_Family.Title;
-                                ////FilteredElementCollector collector = new FilteredElementCollector(document_Target);
-                                ////Family family = collector.Cast<Family>().FirstOrDefault(f => f.Name == element.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM).AsValueString());
-                                //Document doc_Family = document_Target.EditFamily(family);
-                                    //string doc_name = doc_Family.Title;
-                                }
+                            trans.Start();
 
-                                catch (Exception ex)
+                            if (param != null && !param.IsReadOnly)
+                            {
+                                if (param.StorageType == StorageType.Integer)
+                                    param.Set(parameter_Position.bool_Value == 1 ? 1 : 0);
+                                else if (param.StorageType == StorageType.Double)
+                                    param.Set(parameter_Position.double_Value);
+                                else if (param.StorageType == StorageType.ElementId && param.Definition.GetDataType().TypeId == "autodesk.spec.aec:material-1.0.0")
                                 {
-                                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
-                                    s_Mistake_String.ShowDialog();
+                                    Material material = new FilteredElementCollector(document_Target).OfClass(typeof(Material)).Cast<Material>().FirstOrDefault(m => m.Name == parameter_Position.material_Value);
+                                    param.Set(material.Id);
+                                }
+                                //else if (param.StorageType == StorageType.ElementId && param.Definition.GetDataType().TypeId == "autodesk.revit.category.family:genericAnnotation-1.0.0" && element.Id == parameter_Position.parameter.Id)
+                                //{
+                                //    string name = param.Definition.Name;
+                                //    ElementId elemId = document_Donor.GetElement(document_Donor.GetElement(Data_Class_Property_Copy.element_Donor.GetTypeId()).Id).LookupParameter(param.Definition.Name).AsElementId();
+                                //    param.Set(elemId);
+                                //}
+                                else
+                                {
+                                    try
+                                    {
+                                        Family annotationFamily = new FilteredElementCollector(document_Target)
+                                                        .OfClass(typeof(Family))
+                                                        .Cast<Family>()
+                                                        .Where(f => f.FamilyCategory != null &&
+                                                                    f.FamilyCategory.CategoryType == CategoryType.Annotation &&
+                                                                    f.Name == stoc_Designation)
+                                                        .FirstOrDefault();
+                                        FamilySymbol familySymbol = annotationFamily.GetFamilySymbolIds()
+                                        .Select(id => document_Target.GetElement(id) as FamilySymbol)
+                                        .FirstOrDefault(fs => fs != null && fs.Name == stoc_Type_Name);
+                                        string a = familySymbol.Name;
+                                        string nameParam = param.Definition.Name;
+                                        //param.Set(familySymbol.Id);
+                                        //                                   FamilyManager familyManager = document_Target.FamilyManager;
+                                        //                                   FamilyParameter familyTypeParam = familyManager.Parameters
+                                        //.Cast<FamilyParameter>()
+                                        //.FirstOrDefault(p => p.ParameterType == ParameterType.FamilyType && p.Definition.Name == paramName);
+                                        //FamilyParameter familyTypeParam = familyManager.Parameters
+                                        //.Cast<FamilyParameter>()
+                                        //.FirstOrDefault(p => p.Definition.ParameterType == ParameterType.FamilyType && p.Definition.Name == paramName);
+
+                                        param.Set(new ElementId(27796493));
+                                    }
+
+                                    catch (Exception ex)
+                                    {
+                                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                                        s_Mistake_String.ShowDialog();
+                                    }
                                 }
                             }
+                            document_Target.Regenerate();
+                            //document.RefreshActiveView();
+                            trans.Commit();
                         }
-                        document_Target.Regenerate();
-                        //document.RefreshActiveView();
-
-                        trans.Commit();
                     }
-                }
                     else
                     {
                         Parameter param_ex = element.LookupParameter(parameter_Position.parameter.Definition.Name);

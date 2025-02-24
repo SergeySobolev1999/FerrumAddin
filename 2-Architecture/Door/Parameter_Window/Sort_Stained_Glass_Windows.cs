@@ -103,11 +103,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -166,11 +166,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -238,11 +238,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -301,11 +301,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -365,11 +365,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }
@@ -432,11 +432,11 @@ namespace WPFApplication.Parameter_Door
                                             failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
                                             transaction1.SetFailureHandlingOptions(failureOptions);
                                         }
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
-                                        SSDK_Set.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
-                                        SSDK_Set.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
                                         Data_Parameter_Door.number_Elements++;
                                         transaction1.Commit();
                                     }

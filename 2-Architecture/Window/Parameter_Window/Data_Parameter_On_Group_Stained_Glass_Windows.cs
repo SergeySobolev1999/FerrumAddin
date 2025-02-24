@@ -15,6 +15,8 @@ namespace WPFApplication.Parameter_Window
         public static Guid guid_ADSK_Desination = new Guid("9c98831b-9450-412d-b072-7d69b39f4029");
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public static Guid guid_ADSK_NAME = new Guid("e6e0f5cd-3e26-485b-9342-23882b20eb43");
+        public static Guid guid_ADSK_POSITION = new Guid("ae8ff999-1f22-4ed7-ad33-61503d85f0f4");
+        public static Guid guid_Material_Boxes_Front = new Guid("5e66d3bb-cd44-463e-acd2-ceeb21bece13");
         public static Guid guid_ADSK_Mark = new Guid("2204049c-d557-4dfc-8d70-13f19715e46d");
         public static List<Glass_Window> list_Group { get; set; } = new List<Glass_Window>();
         public static int number_Elements { get; set; } = 0;

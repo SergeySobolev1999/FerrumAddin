@@ -25,6 +25,7 @@ namespace WPFApplication.Parameter_Window
         public WPF_Main_Window()
         {
             InitializeComponent();
+            exParameter exParameter = new exParameter();
             Version.Text = SSDK_Data.plugin_Version;
         }
 

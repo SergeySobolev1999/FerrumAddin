@@ -151,14 +151,14 @@ namespace WPFApplication.Mark_On_Group_Stained_Glass_Windows
                         }
                         Group element_Group = (Group)Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(list[i].element.Id);
                         GroupType groupType = element_Group.GroupType;
-                        SSDK_Set.Set_Type_Name(groupType, postscript + position_Mark.ToString() + " " + list[i].full_Name.ToString());
+                        SSDK_Parameter.Set_Type_Name(groupType, postscript + position_Mark.ToString() + " " + list[i].full_Name.ToString());
                         FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document);
                         ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements();
                         foreach (Element element in all_Elements)
                         {
                             if (Revit_Document_Mark_On_Group_Stained_Glass_Windows.Document.GetElement(element.GetTypeId()).Name.ToString() == groupType.Name.ToString())
                             {
-                                SSDK_Set.Set_Parameter(element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark), postscript + position_Mark.ToString());
+                                SSDK_Parameter.Set_Parameter(element.get_Parameter(Data_Mark_On_Group_Stained_Glass_Windows.guid_ADSK_Mark), postscript + position_Mark.ToString());
                             }
                         }
                         position_Mark++;

@@ -246,8 +246,8 @@ namespace WPFApplication.Mark_Window
                             }
                             if (parameter_ADSK_Mark != null)
                             {
-                                SSDK_Set.Set_Parameter(parameter_ADSK_Mark, mark_Prefix + mark_Position.ToString());
-                                SSDK_Set.Set_Type_Name(glass_Window.element_Window, (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()));
+                                SSDK_Parameter.Set_Parameter(parameter_ADSK_Mark, mark_Prefix + mark_Position.ToString());
+                                SSDK_Parameter.Set_Type_Name(glass_Window.element_Window, (mark_Prefix + mark_Position.ToString() + " " + glass_Window.element_Window.get_Parameter(Data_Mark_Window.guid_ADSK_NAME).AsValueString()));
                             }
                             if (parameter_ADSK_Mark == null&& Data_Mark_Window.iteration_Recaive_Value_In_Parameter == false)
                             {
