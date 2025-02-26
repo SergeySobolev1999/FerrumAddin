@@ -27,6 +27,7 @@ namespace WPFApplication.Parameter_Door
         {
            
             InitializeComponent();
+            exParameter exParameter = new exParameter();
             Version.Text = SSDK_Data.plugin_Version;
         }
 

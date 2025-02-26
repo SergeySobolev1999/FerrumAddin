@@ -26,6 +26,119 @@ using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 
 namespace WPFApplication.Parameter_Door
 {
+    public class exParameter
+    {
+        public exParameter()
+        {
+            try
+            {
+                FilteredElementCollector window = new FilteredElementCollector(Revit_Document_Parameter_Window.Document);
+                ICollection<Element> all_Elements = window.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElements();
+                List<Element> filtered_Window = new List<Element>();
+                foreach (Element element in all_Elements)
+                {
+                    Element element_Type = Revit_Document_Parameter_Window.Document.GetElement(element.GetTypeId());
+                    if (Revit_Document_Parameter_Window.Document.GetElement(element.GetTypeId()) != null && element_Type.get_Parameter(Data_Parameter_Door.guid_COD) != null)
+                    {
+
+                        double parameter_Value = element_Type.get_Parameter(Data_Parameter_Door.guid_COD).AsDouble() * 304.8;
+                        if (207 <= parameter_Value && parameter_Value <= 208.999 && element_Type.LookupParameter("ЮТС_Dynamo_ID") != null)
+                        {
+                            filtered_Window.Add(element);
+                        }
+                    }
+                }
+                if (filtered_Window.Count > 0)
+                {
+                    using (Transaction transaction_Attribute = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
+                    {
+                        transaction_Attribute.Start();
+                        foreach (Element element in filtered_Window)
+                        {
+                            IList<string> strings_All = new List<string>();
+                            string material_Boxes_Front = "";
+                            if (element.get_Parameter(Data_Parameter_Door.guid_ADSK_POSITION) != null)
+                            {
+                                string material_Value_Parameter = SSDK_Parameter.Get_Parameter_Material_To_String(element.get_Parameter(Data_Parameter_Door.guid_Material_Boxes_Front));
+                                if (material_Value_Parameter != "")
+                                {
+
+                                    if (material_Value_Parameter.Contains("&"))
+                                    {
+                                        string[] material_Massiv = material_Value_Parameter.Split(new[] { "&" }, StringSplitOptions.None);
+                                        material_Boxes_Front = material_Massiv[material_Massiv.Count() - 1];
+                                    }
+                                    List<string> wordsToRename = new List<string> { "Краска акриловая "
+                                        , "Краска "
+                                        , "Краска алкидная масляная "
+                                        , "Краска алкидная масляная"
+                                        , "Краска алкидная эмалевая "
+                                        , "Краска алкидная эмалевая"
+                                        , "Краска водно-дисперсионная "
+                                        , "Краска водно-дисперсионная"
+                                        , "Краска водоэмульсионная "
+                                        , "Краска водоэмульсионная"
+                                        , "Краска декстринированная "
+                                        , "Краска декстринированная"
+                                        , "Краска казеиновая "
+                                        , "Краска казеиновая"
+                                        , "Краска клеевая "
+                                        , "Краска клеевая"
+                                        , "Краска латексная "
+                                        , "Краска латексная"
+                                        , "Краска поливинилацетатная "
+                                        , "Краска поливинилацетатная"
+                                        , "Краска полиуретановая "
+                                        , "Краска полиуретановая"
+                                        , "Краска силикатная "
+                                        , "Краска силикатная"
+                                        , "Краска силиконовая "
+                                        , "Краска силиконовая"
+                                        , "Краска акриловая "
+                                        , "Краска акриловая"
+                                        , "Пленка ПВХ "
+                                        , "Пленка ПВХ"};
+                                    material_Boxes_Front = "Цвет коробки спереди: " + SSDK_Parameter.RenameWordsInString(material_Boxes_Front, wordsToRename, "");
+                                }
+                                if (material_Boxes_Front != "Цвет коробки спереди: ")
+                                {
+                                    strings_All.Add(material_Boxes_Front);
+                                }
+                                else
+                                {
+                                    strings_All.Add("");
+                                }
+                            }
+
+                            string finishing_String = "";
+                            int iterarion = 0;
+                            while (iterarion < strings_All.Count)
+                            {
+                                if (strings_All[iterarion].Length > 0 && iterarion != strings_All.Count - 2)
+                                {
+                                    finishing_String += strings_All[iterarion] + ", ";
+                                }
+                                else
+                                {
+                                    finishing_String += strings_All[iterarion];
+                                }
+                                iterarion++;
+                            }
+                            element.get_Parameter(Data_Parameter_Door.guid_ADSK_POSITION).Set(finishing_String);
+
+
+                        }
+                        transaction_Attribute.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
+        }
+    }
     public class Collecting_Windows
     {
         public Collecting_Windows()
