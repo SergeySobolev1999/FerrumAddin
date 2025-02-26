@@ -16,6 +16,7 @@ using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
 using SSDK;
 using System.Windows.Controls;
 using System.Globalization;
+using System.Windows.Media.Media3D;
 
 namespace WPFApplication.Mark_Door
 {
@@ -351,11 +352,55 @@ namespace WPFApplication.Mark_Door
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
-
+                                if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "Специализированные тип 1")
+                                {
+                                    //АТС_Конструктивное_Исполнение
+                                    string heat_Transfer_Resistance_Class = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Конструктивное_Исполнение", "БТС_Конструктивное_Исполнение_Переопределить");
+                                    //АТС_Порог
+                                    string doorstep = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Порог", "БТС_Порог_Переопределить");
+                                    //АТС_Открывание_Лево_Право
+                                    string opening_Left_Right = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Открывание_Лево_Право", "БТС_Открывание_Лево_Право_Переопределить");
+                                    //АТС_Открывание_Внутрь_Наружу
+                                    string opening_Inside_To_Outside = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Открывание_Внутрь_Наружу", "БТС_Открывание_Внутрь_Наружу_Переопределить");
+                                    //Высота
+                                    string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //Ширина
+                                    string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //АТС_Огнестойкость
+                                    string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                    //АТС_Утепленность
+                                    string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                    //АТС_Функциональная_Особенность
+                                    string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                    //АТС_Расположение_Внутреннее_Наружное
+                                    string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Расположение_Внутреннее_Наружное", "-");
+                                    //АТС_Покрытие_Окна_Спереди
+                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //АТС_Покрытие_Окна_Сзади
+                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
+                                    //АТС_Дополнительные_Сведенья
+                                    string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
+                                    Glass_Window glass_Window = new Glass_Window(
+                                        heat_Transfer_Resistance_Class,
+                                        doorstep,
+                                        opening_Left_Right,
+                                        opening_Inside_To_Outside,
+                                        height,
+                                        element_Doors,
+                                        wight,
+                                        fire_Resistance,
+                                        insulation,
+                                        functional_Feature,
+                                        location_Indoor_Outdoor,
+                                        window_Covering_In_Front,
+                                        window_Covering_In_Back,
+                                        additional_Information);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
                             }
-                        
-                        
+
+
+                        }
                     }
                     newT1.Commit();
                 }
@@ -399,7 +444,7 @@ namespace WPFApplication.Mark_Door
                         x => x.double_Glazed_Window_Formula).ThenBy(
                         x => x.opening_Method).ThenBy(
                         x => x.type_Of_Filling).ThenBy(
-                        x => x.щpening_Inside_To_Outside).ThenBy(
+                        x => x.opening_Inside_To_Outside).ThenBy(
                         x => x.fire_Resistance).ThenBy(
                         x => x.insulation).ThenBy(
                         x => x.functional_Feature).ThenBy(

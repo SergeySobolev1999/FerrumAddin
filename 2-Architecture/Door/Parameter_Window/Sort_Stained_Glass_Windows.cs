@@ -554,6 +554,67 @@ namespace WPFApplication.Parameter_Door
                                         transaction1.Commit();
                                     }
                                 }
+                                if (element_Group != null && element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "Специализированные тип 1")
+                                {
+                                    Parameter_Name parameter_Name = new Parameter_Name();
+                                    //АТС_Конструктивное_Исполнение
+                                    string heat_Transfer_Resistance_Class = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Конструктивное_Исполнение", "БТС_Конструктивное_Исполнение_Переопределить");
+                                    //АТС_Порог
+                                    string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Порог", "БТС_Порог_Переопределить");
+                                    //АТС_Открывание_Лево_Право
+                                    string opening_Left_Right = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Открывание_Лево_Право", "БТС_Открывание_Лево_Право_Переопределить");
+                                    //АТС_Открывание_Внутрь_Наружу
+                                    string щpening_Inside_To_Outside = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Открывание_Внутрь_Наружу", "БТС_Открывание_Внутрь_Наружу_Переопределить");
+                                    //Высота
+                                    string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //Ширина
+                                    string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //АТС_Огнестойкость
+                                    string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                    //АТС_Утепленность
+                                    string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                    //АТС_Функциональная_Особенность
+                                    string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                    //АТС_Расположение_Внутреннее_Наружное
+                                    string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
+                                    //АТС_Покрытие_Окна_Спереди
+                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    if (window_Covering_In_Front.Length > 0)
+                                    {
+                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    }
+                                    //АТС_Покрытие_Окна_Сзади
+                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    if (window_Covering_In_Back.Length > 0)
+                                    {
+                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    }
+                                    //АТС_Дополнительные_Сведенья
+                                    string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
+                                    //АТП_Обозначение
+                                    string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
+                                    string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    string result_Name =  heat_Transfer_Resistance_Class + the_Double_Glazed_Unit_Formula + opening_Left_Right + щpening_Inside_To_Outside + 
+                                           " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                    using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
+                                    {
+                                        transaction1.Start();
+                                        if (Data_Parameter_Door.error_Suppressio == true)
+                                        {
+                                            // Настройка для подавления предупреждений
+                                            FailureHandlingOptions failureOptions = transaction1.GetFailureHandlingOptions();
+                                            failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                                            transaction1.SetFailureHandlingOptions(failureOptions);
+                                        }
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Mark), "");
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_NAME), result_Name);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(BuiltInParameter.DOOR_FIRE_RATING), fire_Resistance);
+                                        SSDK_Parameter.Set_Parameter(element_Group.get_Parameter(Data_Parameter_Door.guid_ADSK_Desination), stoc_Designation);
+                                        SSDK_Parameter.Set_Type_Name(element_Group, result_Name + " (" + Data_Parameter_Door.number_Elements.ToString() + ")");
+                                        Data_Parameter_Door.number_Elements++;
+                                        transaction1.Commit();
+                                    }
+                                }
                             }
                             
                         }

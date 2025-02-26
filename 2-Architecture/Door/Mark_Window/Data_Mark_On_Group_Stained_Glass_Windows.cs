@@ -55,7 +55,7 @@ namespace WPFApplication.Mark_Door
         //АТС_Вид_Заполнения
         public string type_Of_Filling { get; set; } = "";
         //АТС_Открывание_Внутрь_Наружу
-        public string щpening_Inside_To_Outside { get; set; } = "";
+        public string opening_Inside_To_Outside { get; set; } = "";
         //Высота
         public string height { get; set; } = "";
         //Ширина
@@ -124,7 +124,7 @@ namespace WPFApplication.Mark_Door
             this.element_Doors = element_Doors;
             this.opening_Method = opening_Method;
             this.type_Of_Filling = type_Of_Filling;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = щpening_Inside_To_Outside;
             this.height = height;
             this.wight = wight;
             this.fire_Resistance = fire_Resistance;
@@ -155,7 +155,7 @@ namespace WPFApplication.Mark_Door
             this.element_Doors = element_Doors;
             this.heat_Transfer_Resistance_Class = heat_Transfer_Resistance_Class;
             this.opening_Left_Right = opening_Left_Right;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = щpening_Inside_To_Outside;
             this.height = height;
             this.wight = wight;
             this.fire_Resistance = fire_Resistance;
@@ -193,7 +193,7 @@ namespace WPFApplication.Mark_Door
             this.element_Doors = element_Doors;
             this.doorstep = doorstep;
             this.opening_Left_Right = opening_Left_Right;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = щpening_Inside_To_Outside;
             this.door_Execution = door_Execution;
             this.operational_Pperformance_Class = operational_Pperformance_Class;
             this.strength_Сlass = strength_Сlass;
@@ -232,7 +232,7 @@ namespace WPFApplication.Mark_Door
             this.element_Doors = element_Doors;
             this.the_Presence_Of_Glazing = the_Presence_Of_Glazing;
             this.doorstep = doorstep;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = щpening_Inside_To_Outside;
             this.height = height;
             this.wight = wight;
             this.fire_Resistance = fire_Resistance;
@@ -267,7 +267,7 @@ namespace WPFApplication.Mark_Door
             this.wight = wight;
             this.element_Doors = element_Doors;
             this.number_Of_Canvases = number_Of_Canvases;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = щpening_Inside_To_Outside;
             this.opening_Left_Right = opening_Left_Right;
             this.the_Double_Glazed_Unit_Formula = the_Double_Glazed_Unit_Formula;
             this.fire_Resistance = fire_Resistance;
@@ -281,12 +281,12 @@ namespace WPFApplication.Mark_Door
         public Glass_Window(
             string product_Type,
             string material_Of_Profile_Elements,
-            string type_Of_Construction,
+            string doorstep,
             string double_Glazed_Window_Formula,
             Element element_Doors,
             string opening_Method,
             string type_Of_Filling,
-            string щpening_Inside_To_Outside,
+            string opening_Inside_To_Outside,
             string height,
             string wight,
             string fire_Resistance,
@@ -304,16 +304,47 @@ namespace WPFApplication.Mark_Door
             this.element_Doors = element_Doors;
             this.opening_Method = opening_Method;
             this.type_Of_Filling = type_Of_Filling;
-            this.щpening_Inside_To_Outside = щpening_Inside_To_Outside;
+            this.opening_Inside_To_Outside = opening_Inside_To_Outside;
             this.height = height;
             this.wight = wight;
             this.fire_Resistance = fire_Resistance;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.window_Covering_In_Front = window_Covering_In_Front;
+            this.window_Covering_In_Back = window_Covering_In_Back;
+            this.additional_Information = additional_Information;
+        }
+        public Glass_Window(
+           string heat_Transfer_Resistance_Class,
+           string doorstep,
+           string opening_Left_Right,
+           string opening_Inside_To_Outside,
+           string height,
+           Element element_Doors,
+           string wight,
+           string fire_Resistance,
+           string insulation,
+           string functional_Feature,
+           string location_Indoor_Outdoor,
+           string window_Covering_In_Front,
+           string window_Covering_In_Back,
+           string additional_Information
+           )
+        {
+            this.heat_Transfer_Resistance_Class = heat_Transfer_Resistance_Class;
+            this.doorstep = doorstep;
+            this.opening_Left_Right = opening_Left_Right;
+            this.opening_Inside_To_Outside = opening_Inside_To_Outside;
+            this.height = height;
+            this.element_Doors = element_Doors;
+            this.wight = wight;
+            this.fire_Resistance = fire_Resistance;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
+            this.location_Indoor_Outdoor = location_Indoor_Outdoor;
+            this.window_Covering_In_Front = window_Covering_In_Front;
+            this.window_Covering_In_Back = window_Covering_In_Back;
+            this.additional_Information = additional_Information;
         }
-        
     }
 }
