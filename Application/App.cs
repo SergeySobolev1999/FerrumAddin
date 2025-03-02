@@ -316,8 +316,8 @@ namespace FerrumAddin
             panelAR_Property_Copy.Visible = false;
 
             PushButtonData Main_Class_Property_Copy = new PushButtonData("Main_Class_Property_Copy", "Свойства\nкопир...", Assembly.GetExecutingAssembly().Location, "WPFApplication.Property_Copy.Main_Class_Property_Copy");
-            Main_Class_Property_Copy.Image = Convert(Properties.Resources.Pickher_Property_Copy);
-            Main_Class_Property_Copy.LargeImage = Convert(Properties.Resources.Pickher_Property_Copy);
+            Main_Class_Property_Copy.Image = Convert(Properties.Resources.Property_Copy);
+            Main_Class_Property_Copy.LargeImage = Convert(Properties.Resources.Property_Copy);
             panelAR_Property_Copy.AddItem(Main_Class_Property_Copy);
 
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");

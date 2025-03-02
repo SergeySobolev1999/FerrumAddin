@@ -253,6 +253,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Property_Copy {
+            get {
+                object obj = ResourceManager.GetObject("Property_Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap User_Licenses {
             get {
                 object obj = ResourceManager.GetObject("User_Licenses", resourceCulture);
