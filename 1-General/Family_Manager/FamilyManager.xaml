@@ -160,7 +160,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Grid.Column="0" Width="50" Height="50" Source="{Binding ImagePath}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <Image Grid.Column="0" Width="200" Height="200" Source="{Binding ImagePath}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                                                 <StackPanel Margin="10,0,0,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                                                     <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
