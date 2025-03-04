@@ -32,8 +32,8 @@ namespace WPFApplication.Property_Copy
             Data_Class_Property_Copy.element_Donor = null;
             Data_Class_Property_Copy.elements_Target.Items.Clear();
             Data_Class_Property_Copy.elements_Target_Elements.Clear();
-            if (SSDK_Data.licenses_Connection)
-            {
+            //if (SSDK_Data.licenses_Connection)
+            //{
                 UIApplication uiApp = commandData.Application;
                 Application application = uiApp.Application;
                 UIDocument uidoc = uiApp.ActiveUIDocument;
@@ -63,12 +63,12 @@ namespace WPFApplication.Property_Copy
 
                 wPF_Main_Property_Copy.Show(); // Немодальное окно
 
-            }
-            else
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-                s_Mistake_String.ShowDialog();
-            }
+            //}
+            //else
+            //{
+            //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+            //    s_Mistake_String.ShowDialog();
+            //}
             return Result.Succeeded;
         }
     }

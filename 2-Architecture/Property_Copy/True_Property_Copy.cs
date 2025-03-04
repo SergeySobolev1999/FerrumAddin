@@ -1,4 +1,6 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Events;
+using Autodesk.Revit.UI;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -164,7 +166,42 @@ namespace WPFApplication.Property_Copy
                     }
                 }
             }
-        } 
+        }
+        public class DocumentSwitchBlocker : IDisposable
+        {
+            private readonly UIApplication _uiApp;
+            private readonly EventHandler<DocumentClosingEventArgs> _closingHandler;
+            private readonly EventHandler<DocumentChangedEventArgs> _changedHandler;
+
+            public DocumentSwitchBlocker(UIApplication uiApp)
+            {
+                _uiApp = uiApp;
+
+                _closingHandler = (s, e) =>
+                {
+                    TaskDialog.Show("Внимание", "Нельзя закрывать документ во время выбора!");
+                    e.Cancel();
+                };
+
+                _changedHandler = (s, e) =>
+                {
+                    if (e.GetDocument() != _uiApp.ActiveUIDocument.Document)
+                    {
+                        TaskDialog.Show("Внимание", "Нельзя менять документ во время выбора!");
+                        // Тут Revit не даёт отменить, но можно доп. меры придумать
+                    }
+                };
+
+                _uiApp.Application.DocumentClosing += _closingHandler;
+                _uiApp.Application.DocumentChanged += _changedHandler;
+            }
+
+            public void Dispose()
+            {
+                _uiApp.Application.DocumentClosing -= _closingHandler;
+                _uiApp.Application.DocumentChanged -= _changedHandler;
+            }
+        }
     }
    
 }

@@ -26,26 +26,28 @@ namespace WPFApplication.Property_Copy
     /// </summary>
     public partial class WPF_Main_Property_Copy : Window
     {
+        ExternalCommandData commandDat = null;
         public WPF_Main_Property_Copy(ExternalCommandData commandData)
         {
             
             InitializeComponent();
+            commandDat = commandData;
             Version.Text = SSDK_Data.plugin_Version;
             Data_Class_Property_Copy.ParameterCategories = new ObservableCollection<ParameterCategory>();
             DataContext = this;
-            UIApplication uiApp = commandData.Application;
-            Application application = uiApp.Application;
-            Data_Class_Property_Copy.all_Document = application.Documents.Cast<Document>().ToList();
-            foreach (Document document in Data_Class_Property_Copy.all_Document)
-            {
-                if (!document.IsFamilyDocument && !document.PathName.EndsWith(".rte", StringComparison.OrdinalIgnoreCase))
-                {
-                    doc_Donor.Items.Add(document.Title);
-                    doc_Target.Items.Add(document.Title);
-                    doc_Donor.SelectedItem = Document_Property_Copy_Donor.Document.Title;
-                    doc_Target.SelectedItem = Document_Property_Copy_Target.Document.Title;
-                }
-            }
+            //UIApplication uiApp = commandData.Application;
+            //Application application = uiApp.Application;
+            //Data_Class_Property_Copy.all_Document = application.Documents.Cast<Document>().ToList();
+            //foreach (Document document in Data_Class_Property_Copy.all_Document)
+            //{
+            //    if (!document.IsFamilyDocument && !document.PathName.EndsWith(".rte", StringComparison.OrdinalIgnoreCase))
+            //    {
+            //        doc_Donor.Items.Add(document.Title);
+            //        doc_Target.Items.Add(document.Title);
+            //        doc_Donor.SelectedItem = Document_Property_Copy_Donor.Document.Title;
+            //        doc_Target.SelectedItem = Document_Property_Copy_Target.Document.Title;
+            //    }
+            //}
         }
         private void close_Click(object sender, RoutedEventArgs e)
         {
@@ -55,14 +57,15 @@ namespace WPFApplication.Property_Copy
         private void Select_Target(object sender, RoutedEventArgs e)
         {
             Pick_Element pick_Element = new Pick_Element();
-            pick_Element.Pick_Element_Target();
+            pick_Element.Pick_Element_Target(commandDat);
             scroll_Viewer_Work_Set_Ignore.Content = Data_Class_Property_Copy.elements_Target;
         }
 
         private void Select_Element(object sender, RoutedEventArgs e)
         {
+
             Pick_Element pick_Element = new Pick_Element();
-            Element element = pick_Element.Pick_Element_Donor() ;
+            Element element = pick_Element.Pick_Element_Donor(commandDat) ;
             Data_Class_Property_Copy.element_Donor = element as FamilyInstance;
             Select_Element_Donor.Text = Document_Property_Copy_Donor.Document.GetElement(element.GetTypeId()).Name.ToString();
             LoadElementParameters loadElementParameters = new LoadElementParameters(element);
@@ -104,23 +107,23 @@ namespace WPFApplication.Property_Copy
 
         }
 
-        private void doc_Donor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (Document document in Data_Class_Property_Copy.all_Document)
-            {
-                if (doc_Donor.SelectedItem.ToString() == document.Title)
-                    Document_Property_Copy_Donor.Document = document;   
-            }
-        }
+        //private void doc_Donor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    foreach (Document document in Data_Class_Property_Copy.all_Document)
+        //    {
+        //        if (doc_Donor.SelectedItem.ToString() == document.Title)
+        //            Document_Property_Copy_Donor.Document = document;   
+        //    }
+        //}
 
-        private void doc_Target_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (Document document in Data_Class_Property_Copy.all_Document)
-            {
-                if (doc_Target.SelectedItem.ToString() == document.Title)
-                    Document_Property_Copy_Target.Document = document;
-            }
-        }
+        //private void doc_Target_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    foreach (Document document in Data_Class_Property_Copy.all_Document)
+        //    {
+        //        if (doc_Target.SelectedItem.ToString() == document.Title)
+        //            Document_Property_Copy_Target.Document = document;
+        //    }
+        //}
     }
    
 }

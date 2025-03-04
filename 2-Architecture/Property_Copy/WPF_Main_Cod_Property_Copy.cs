@@ -23,8 +23,11 @@ namespace WPFApplication.Property_Copy
     }
     public class Pick_Element
     {
-        public Element Pick_Element_Donor()
+        public Element Pick_Element_Donor(ExternalCommandData commandData)
         {
+            UIApplication uiApp = commandData.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
+            Document_Property_Copy_Donor.Document = uiDoc.Document;
             Selection choices = new UIDocument(Document_Property_Copy_Donor.Document).Selection;
             ISelectionFilter filter = new MassSelectionFilter(Document_Property_Copy_Donor.Document);
             Reference has_Pick_One = choices.PickObject(ObjectType.Element, filter);
@@ -34,8 +37,11 @@ namespace WPFApplication.Property_Copy
             }
             return null;
         }
-        public void Pick_Element_Target()
+        public void Pick_Element_Target(ExternalCommandData commandData)
         {
+            UIApplication uiApp = commandData.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
+            Document_Property_Copy_Donor.Document = uiDoc.Document;
             Data_Class_Property_Copy.elements_Target.Items.Clear();
             Selection choices = new UIDocument(Document_Property_Copy_Target.Document).Selection;
             ISelectionFilter filter = new MassSelectionFilter(Document_Property_Copy_Target.Document);

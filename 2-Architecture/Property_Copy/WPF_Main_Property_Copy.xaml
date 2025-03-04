@@ -87,7 +87,7 @@
             </Border>
            
         </DockPanel>
-        <ComboBox 
+        <!--<ComboBox 
              Name="doc_Donor"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
@@ -98,7 +98,7 @@
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
              Margin="460,40,0,0 "
-             Width="420" SelectionChanged="doc_Target_SelectionChanged"/>
+             Width="420" SelectionChanged="doc_Target_SelectionChanged"/>-->
         <Border Background="Gray" 
          DockPanel.Dock="Top" 
          Height="35"
@@ -129,7 +129,7 @@
         <Button 
          FontSize="15" 
          Content="Выбрать донора"
-         Margin="20,80"
+         Margin="20,50"
          Width="420"
          ToolTip="Выбрать элемент донор в модели"
          FontFamily="ISOCPEUR"
@@ -140,7 +140,7 @@
         <Button 
          FontSize="15" 
          Content="Выбрать цель"
-         Margin="0,80,20,0"
+         Margin="0,50,20,0"
          Width="420"
          ToolTip="Выбрать целевые элементы модели"
          FontFamily="ISOCPEUR"
@@ -151,9 +151,9 @@
        
         <TreeView x:Name="Tree_Parameter_On_Select_Element"
           Width="420"
-          Height="410"
+          Height="440"
           BorderBrush="Black"
-          Margin="20,130,0,0"
+          Margin="20,100,0,0"
           VerticalAlignment="Top"
           HorizontalAlignment="Left"
           SelectedItemChanged="Tree_Parameter_On_Select_Element_SelectedItemChanged" 
@@ -163,10 +163,10 @@
         <Border 
          BorderThickness="1" 
          BorderBrush="Black"
-         Margin="0,130,20,50"
+         Margin="0,100,20,50"
          HorizontalAlignment="Right"
          VerticalAlignment="Top"
-         Height="410"
+         Height="440"
          Width="420">
             <ScrollViewer
              x:Name="scroll_Viewer_Work_Set_Ignore"
@@ -178,14 +178,14 @@
              ToolTip="Список спецификаий из модели"
              FontSize="15"
              Width="420"
-             Height="410"
+             Height="440"
              FontFamily="ISOCPEUR" 
              Margin="0,0,0,0"/>
         </Border>
         <TextBlock FontSize="15" 
          Text="..." 
          Name="Select_Element_Donor"
-         Margin="20,110,460,0" 
+         Margin="20,80,460,0" 
          VerticalAlignment="Top" 
          FontFamily="ISOCPEUR" 
          Foreground="#FF474747"/>
