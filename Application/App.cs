@@ -320,6 +320,11 @@ namespace FerrumAddin
             Main_Class_Property_Copy.LargeImage = Convert(Properties.Resources.Property_Copy);
             panelAR_Property_Copy.AddItem(Main_Class_Property_Copy);
 
+            PushButtonData newWPFMainMaterialSelectElementApplication = new PushButtonData("newMainMaterialSelectElementApplication", "Материал\nприсваи...", Assembly.GetExecutingAssembly().Location, "WPFApplication.newMaterial_Select_Element_Application.newMainMaterialSelectElementApplication");
+            newWPFMainMaterialSelectElementApplication.Image = Convert(Properties.Resources.newWPFMainMaterialSelectElementApplication);
+            newWPFMainMaterialSelectElementApplication.LargeImage = Convert(Properties.Resources.newWPFMainMaterialSelectElementApplication);
+            panelAR_Property_Copy.AddItem(newWPFMainMaterialSelectElementApplication);
+
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
             panelAR_Window.Visible = false;
 

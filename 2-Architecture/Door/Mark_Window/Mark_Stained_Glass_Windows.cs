@@ -397,6 +397,43 @@ namespace WPFApplication.Mark_Door
                                         additional_Information);
                                     Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
+                                if (element_Doors != null && element_Doors.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "Ворота_Тип1")
+                                {
+                                    //АТС_Материал_Конструкции
+                                    string material_Constructions = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Материал_Конструкции", "БТС_Материал_Конструкции_Переопределить");
+                                    //АТС_Назначение_Изделия
+                                    string application_Production = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Назначение_Изделия", "БТС_Назначение_Изделия_Переопределить");
+                                    //АТС_Способ_Открывания
+                                    string performance_Openings = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Способ_Открывания", "БТС_Способ_Открывания_Переопределить");
+                                    //АТС_Открывание_Внутрь_Наружу
+                                    string opening_Inside_To_Outside = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Открывание_Внутрь_Наружу", "БТС_Открывание_Внутрь_Наружу_Переопределить");
+                                    //Высота
+                                    string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //Ширина
+                                    string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString();
+                                    //АТС_Огнестойкость
+                                    string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
+                                    //АТС_Утепленность
+                                    string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
+                                    //АТС_Функциональная_Особенность
+                                    string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
+                                    //АТС_Дополнительные_Сведенья
+                                    string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
+                                    Glass_Window glass_Window = new Glass_Window(
+                                        material_Constructions,
+                                        application_Production,
+                                        performance_Openings,
+                                        opening_Inside_To_Outside,
+                                        height,
+                                        wight,
+                                        element_Doors,
+                                        fire_Resistance,
+                                        insulation,
+                                        functional_Feature,
+                                        additional_Information);
+                                    Data_Mark_Door.list_Group.Add(glass_Window);
+                                }
+                                
                             }
 
 
@@ -426,6 +463,9 @@ namespace WPFApplication.Mark_Door
                         x => x.element_Doors.get_Parameter(Data_Mark_Door.guid_COD).AsDouble() * 304.8).ThenBy(
                         x => double.Parse(x.height, CultureInfo.InvariantCulture)).ThenBy(
                         x => double.Parse(x.wight, CultureInfo.InvariantCulture)).ThenBy(
+                        x => x.material_Constructions).ThenBy(
+                        x => x.application_Production).ThenBy(
+                        x => x.performance_Openings).ThenBy(
                         x => x.material_Of_Profile_Elements).ThenBy(
                         x => x.product_Type).ThenBy(
                         x => x.the_Material_Of_The_Frame_Elements).ThenBy(
@@ -452,7 +492,7 @@ namespace WPFApplication.Mark_Door
                         x => x.window_Covering_In_Back).ThenBy(
                         x => x.additional_Information).ThenBy(
                         x => x.element_Doors.Id.ToString()).ToList();
-
+     
         list.Reverse();
                     foreach (Glass_Window glass_Window in list)
                     {
@@ -463,13 +503,19 @@ namespace WPFApplication.Mark_Door
                             double parameter_ZH_COD = glass_Window.element_Doors.get_Parameter(Data_Mark_Door.guid_COD).AsDouble()*304.8;
                             string mark_Prefix = "Д-";
                             int number_Set = 0;
+                            if ((208.899 < parameter_ZH_COD && parameter_ZH_COD < 208.950)|| (207.899 < parameter_ZH_COD && parameter_ZH_COD < 207.950))
+                            {
+                                Data_Mark_Door.number_Elements_Gates++;
+                                number_Set = Data_Mark_Door.number_Elements_Gates;
+                                mark_Prefix = "В-";
+                            }
                             if (208.949 < parameter_ZH_COD && parameter_ZH_COD < 209)
                             {
                                 Data_Mark_Door.number_Elements_Balcony++;
                                 number_Set = Data_Mark_Door.number_Elements_Balcony;
                                 mark_Prefix = "Б-";
                             }
-                            if (206.999 < parameter_ZH_COD && parameter_ZH_COD < 208.950)
+                            if (206.999 < parameter_ZH_COD && parameter_ZH_COD < 208.900&& !(207.899 < parameter_ZH_COD && parameter_ZH_COD < 207.950))
                             {
                                 Data_Mark_Door.number_Elements++;
                                 number_Set = Data_Mark_Door.number_Elements;

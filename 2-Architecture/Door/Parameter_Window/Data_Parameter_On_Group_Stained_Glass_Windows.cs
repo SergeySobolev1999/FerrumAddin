@@ -22,6 +22,7 @@ namespace WPFApplication.Parameter_Door
         public static int number_Elements { get; set; } = 0;
         public static bool iteration_Recaive_Value_In_Parameter = false;
         public static bool error_Suppressio = false;
+        public static bool sketch_bool = false;
         public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
     }
     public static class Revit_Document_Parameter_Window

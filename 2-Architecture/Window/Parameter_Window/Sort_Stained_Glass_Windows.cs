@@ -205,7 +205,12 @@ namespace WPFApplication.Parameter_Window
                                 //АТП_Обозначение
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                string result_Name = product_Type + " " + height  + wight + material_Of_Profile_Elements + type_Of_Construction + "(" + double_Glazed_Window_Formula + ")" + opening_Method + window_Covering_In_Front +
+                                string name_Presset = "";
+                                if (Data_Parameter_Window.sketch_bool = true)
+                                {
+                                    name_Presset = "";
+                                }
+                                string result_Name = name_Presset+ product_Type + " " + height  + wight + material_Of_Profile_Elements + type_Of_Construction + "(" + double_Glazed_Window_Formula + ")" + opening_Method + window_Covering_In_Front +
                                     window_Covering_In_Back + fire_Resistance + insulation + functional_Feature + the_Location_Is_Internal + additional_Information;
                             using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                             {
@@ -231,7 +236,7 @@ namespace WPFApplication.Parameter_Window
                                 Parameter_Name parameter_Name = new Parameter_Name();
 
                                 //АТС_Тип_Изделия
-                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Вип_Изделия", "БТС_Вип_Изделия_Переопределить");
+                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Вид_Изделия", "БТС_Вип_Изделия_Переопределить");
                                 //Высота
                                 string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
                                 //Ширина
@@ -265,7 +270,12 @@ namespace WPFApplication.Parameter_Window
                                 //АТП_Обозначение
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                string result_Name = product_Type + " " + height + "х" + wight + heat_Transfer_Resistance_Class + " (" + the_Double_Glazed_Unit_Formula + ")" + fire_Resistance + window_Covering_In_Front +
+                                string name_Presset = "";
+                                if (Data_Parameter_Window.sketch_bool = true)
+                                {
+                                    name_Presset = "";
+                                }
+                                string result_Name = name_Presset+ product_Type + " " + height + "х" + wight + heat_Transfer_Resistance_Class + " (" + the_Double_Glazed_Unit_Formula + ")" + fire_Resistance + window_Covering_In_Front +
                                     window_Covering_In_Back + insulation + functional_Feature + location_Indoor_Outdoor + additional_Information;
                                 using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                 {
@@ -325,7 +335,12 @@ namespace WPFApplication.Parameter_Window
                                 //АТП_Обозначение
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
-                                string result_Name = the_Material_Of_The_Frame_Elements + " " + height + "х" + wight + heat_Transfer_Resistance_Class + " (" + the_Double_Glazed_Unit_Formula + ")"  + window_Covering_In_Front +
+                                string name_Presset = "";
+                                if (Data_Parameter_Window.sketch_bool = true)
+                                {
+                                    name_Presset = "";
+                                }
+                                string result_Name = name_Presset+ the_Material_Of_The_Frame_Elements + " " + height + "х" + wight + heat_Transfer_Resistance_Class + " (" + the_Double_Glazed_Unit_Formula + ")"  + window_Covering_In_Front +
                                     window_Covering_In_Back + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + additional_Information;
                                 using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                 {

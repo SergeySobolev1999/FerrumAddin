@@ -22,13 +22,14 @@ namespace WPFApplication.Mark_Door
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public static int number_Elements { get; set; } = 0;
         public static int number_Elements_Balcony { get; set; } = 0;
+        public static int number_Elements_Gates { get; set; } = 0;
         public static bool iteration_Recaive_Value_In_Parameter = false;
         public static bool error_Suppressio = false;
         public static int number_Elements_Transom { get; set; } = 0;
-        public static string  iteration_Recaive_Value_In_Parameter_Watringn = "";
+        public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
 
     }
-    public static class Revit_Document_Mark_Window 
+    public static class Revit_Document_Mark_Window
     {
         public static UIApplication UIApplication { get; set; }
         public static UIDocument UIDobument { get => UIApplication.ActiveUIDocument; }
@@ -44,6 +45,12 @@ namespace WPFApplication.Mark_Door
     {
         //АТС_Тип_Изделия
         public string product_Type { get; set; } = "";
+        //АТС_Материал_Конструкции
+        public string material_Constructions { get; set; } = "";
+        //АТС_Назначение_Изделия
+        public string application_Production { get; set; } = "";
+        //АТС_Способ_Открывания
+        public string performance_Openings { get; set; } = "";
         //АТС_Конструктивное_Исполнение
         public string material_Of_Profile_Elements { get; set; } = "";
         //АТС_Порог
@@ -344,6 +351,32 @@ namespace WPFApplication.Mark_Door
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
             this.window_Covering_In_Front = window_Covering_In_Front;
             this.window_Covering_In_Back = window_Covering_In_Back;
+            this.additional_Information = additional_Information;
+        }
+        public Glass_Window(
+           string material_Constructions,
+           string application_Production,
+           string performance_Openings,
+           string opening_Inside_To_Outside,
+           string height,
+           string wight,
+           Element element_Doors,
+           string fire_Resistance,
+           string insulation,
+           string functional_Feature,
+           string additional_Information
+           )
+        {
+            this.material_Constructions = material_Constructions;
+            this.application_Production = application_Production;
+            this.performance_Openings = performance_Openings;
+            this.opening_Inside_To_Outside = opening_Inside_To_Outside;
+            this.height = height;
+            this.wight = wight;
+            this.element_Doors = element_Doors;
+            this.fire_Resistance = fire_Resistance;
+            this.insulation = insulation;
+            this.functional_Feature = functional_Feature;
             this.additional_Information = additional_Information;
         }
     }

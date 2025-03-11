@@ -17,6 +17,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
         public static List<Glass_Window> list_Group { get; set; } = new List<Glass_Window>();
         public static int number_Elements { get; set; } = 0;
         public static bool error_Suppressio = false;
+
         public static bool iteration_Recaive_Value_In_Parameter = false;
         public static string iteration_Recaive_Value_In_Parameter_Watringn = "";
         

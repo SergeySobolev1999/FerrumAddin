@@ -274,7 +274,11 @@
     <Compile Include="2-Architecture\Door\Parameter_Window\WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml.cs">
       <DependentUpon>WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="2-Architecture\Property_Copy\BoolToBrushConverter.cs" />
+    <Compile Include="2-Architecture\Material_Select_Element_Application\newMainMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Material_Select_Element_Application\newViewModelMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml.cs">
+      <DependentUpon>newWPFMainMaterialSelectElementApplication.xaml</DependentUpon>
+    </Compile>
     <Compile Include="2-Architecture\Property_Copy\Data_Class_Property_Copy.cs" />
     <Compile Include="2-Architecture\Property_Copy\Main_Property_Copy.cs" />
     <Compile Include="2-Architecture\Property_Copy\True_Property_Copy.cs" />
@@ -449,6 +453,10 @@
     <Page Include="2-Architecture\Door\Parameter_Window\WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="2-Architecture\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="2-Architecture\Property_Copy\WPF_Main_Property_Copy.xaml">
       <SubType>Designer</SubType>
@@ -652,6 +660,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Property_Copy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\newWPFMainMaterialSelectElementApplication.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

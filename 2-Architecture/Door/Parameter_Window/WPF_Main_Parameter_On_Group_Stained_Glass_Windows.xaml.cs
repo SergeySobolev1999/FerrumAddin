@@ -36,9 +36,14 @@ namespace WPFApplication.Parameter_Door
             try
             {
                 Data_Parameter_Door.error_Suppressio = false;
+                Data_Parameter_Door.sketch_bool = false;
                 if ((bool)Error_Suppressio2.IsChecked)
                 {
                     Data_Parameter_Door.error_Suppressio = true;
+                }
+                if ((bool)sketch_Bool.IsChecked)
+                {
+                    Data_Parameter_Door.sketch_bool = true;
                 }
                 Data_Parameter_Door.number_Elements = 0;
                 Data_Parameter_Door.filtered_Group.Clear();

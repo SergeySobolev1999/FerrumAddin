@@ -84,6 +84,15 @@
         HorizontalAlignment="Left"
         VerticalAlignment="Top"
         Margin="20,50,0,0"/>
+        <CheckBox 
+         Content="Проверка на стандарт"
+         Name ="sketch_Bool"
+         Height="20"
+         FontFamily="ISOCPEUR"
+         FontSize="15"
+         HorizontalAlignment="Left"
+         VerticalAlignment="Top"
+         Margin="20,80,0,0"/>
         <Border Background="Gray" 
         DockPanel.Dock="Top" 
         Height="35"

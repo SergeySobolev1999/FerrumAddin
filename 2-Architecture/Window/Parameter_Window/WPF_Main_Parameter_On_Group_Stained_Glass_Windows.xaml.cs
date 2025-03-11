@@ -34,9 +34,14 @@ namespace WPFApplication.Parameter_Window
             try
             {
                 Data_Parameter_Window.error_Suppressio = false;
+                Data_Parameter_Window.sketch_bool = false;
                 if ((bool)Error_Suppressio.IsChecked)
                 {
                     Data_Parameter_Window.error_Suppressio = true;
+                }
+                if ((bool)sketch_Bool.IsChecked)
+                {
+                    Data_Parameter_Window.sketch_bool = true;
                 }
                 Data_Parameter_Window.number_Elements = 0;
                 Data_Parameter_Window.filtered_Group.Clear();
@@ -45,7 +50,6 @@ namespace WPFApplication.Parameter_Window
                 Collecting_Windows collecting_Windows = new Collecting_Windows();
                 if (Data_Parameter_Window.iteration_Recaive_Value_In_Parameter == true)
                 {
-
                     S_Mistake_String s_Mistake_String_Warning = new S_Mistake_String(Data_Parameter_Window.iteration_Recaive_Value_In_Parameter_Watringn);
                     s_Mistake_String_Warning.ShowDialog();
                 }
