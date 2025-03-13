@@ -274,16 +274,17 @@
     <Compile Include="2-Architecture\Door\Parameter_Window\WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml.cs">
       <DependentUpon>WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="2-Architecture\Material_Select_Element_Application\newMainMaterialSelectElementApplication.cs" />
-    <Compile Include="2-Architecture\Material_Select_Element_Application\newViewModelMaterialSelectElementApplication.cs" />
-    <Compile Include="2-Architecture\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml.cs">
+    <Compile Include="2-Architecture\Propertys\Material_Select_Element_Application\newMainMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Propertys\Material_Select_Element_Application\newViewModelMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Propertys\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml.cs">
       <DependentUpon>newWPFMainMaterialSelectElementApplication.xaml</DependentUpon>
     </Compile>
-    <Compile Include="2-Architecture\Property_Copy\Data_Class_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Property_Copy\Main_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Property_Copy\True_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Property_Copy\WPF_Main_Cod_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Property_Copy\WPF_Main_Property_Copy.xaml.cs">
+    <Compile Include="2-Architecture\Propertys\Renaming\newMainRenaming.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_Copy\Data_Class_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_Copy\Main_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_Copy\True_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Cod_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Property_Copy.xaml.cs">
       <DependentUpon>WPF_Main_Property_Copy.xaml</DependentUpon>
     </Compile>
     <Compile Include="2-Architecture\Stained_Glass_Windows\Assembling_Project_On_Group_Stained_Glass_Windows\Data_Assembling_Project_On_Group_Stained_Glass_Windows.cs">
@@ -454,11 +455,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="2-Architecture\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml">
+    <Page Include="2-Architecture\Propertys\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="2-Architecture\Property_Copy\WPF_Main_Property_Copy.xaml">
+    <Page Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Property_Copy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -665,6 +666,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\newWPFMainMaterialSelectElementApplication.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\newMainRenaming.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

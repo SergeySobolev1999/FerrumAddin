@@ -325,6 +325,11 @@ namespace FerrumAddin
             newWPFMainMaterialSelectElementApplication.LargeImage = Convert(Properties.Resources.newWPFMainMaterialSelectElementApplication);
             panelAR_Property_Copy.AddItem(newWPFMainMaterialSelectElementApplication);
 
+            PushButtonData newMainRenaming = new PushButtonData("newMainRenaming", "Структура\nпереимен..", Assembly.GetExecutingAssembly().Location, "WPFApplication.newMainRenaming.newMainRenaming");
+            newMainRenaming.Image = Convert(Properties.Resources.newMainRenaming);
+            newMainRenaming.LargeImage = Convert(Properties.Resources.newMainRenaming);
+            panelAR_Property_Copy.AddItem(newMainRenaming);
+
             panelAR_Window = a.CreateRibbonPanel(tabName, "Окна");
             panelAR_Window.Visible = false;
 

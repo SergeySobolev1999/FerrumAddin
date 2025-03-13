@@ -233,6 +233,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap newMainRenaming {
+            get {
+                object obj = ResourceManager.GetObject("newMainRenaming", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap newWPFMainMaterialSelectElementApplication {
             get {
                 object obj = ResourceManager.GetObject("newWPFMainMaterialSelectElementApplication", resourceCulture);
