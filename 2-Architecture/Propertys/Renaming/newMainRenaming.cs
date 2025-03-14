@@ -21,7 +21,9 @@ namespace WPFApplication.newMainRenaming
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            SSDK_Data.username = Environment.UserName;
+            try
+            {
+                SSDK_Data.username = Environment.UserName;
             //if (SSDK_Data.licenses_Connection)
             //{
 
@@ -54,72 +56,104 @@ namespace WPFApplication.newMainRenaming
                 using (TransactionGroup transactionGroup = new TransactionGroup(uidoc.Document, "Переименование многослойных конструкций"))
                 {
                     transactionGroup.Start();
-
+                    int warning_Parameter = 0;
+                    int warning_Material = 0;
                     foreach (Element element in collections)
-                {
-                    string nameResult = "";
-                    Element elementType = uidoc.Document.GetElement(element.GetTypeId());
-                    List<Autodesk.Revit.DB.Material> material_Collections = GetMaterials(element, uidoc.Document);
-                    var codificationAndPrefics = new Dictionary<(double, double), string>
                     {
-                        { (201,201.099),"ZH_НСЩ_КЛД_" },
-                        { (202,202.099),"ZH_НСЩ_КЛД_" },
-                        { (201.100,201.199),"ZH_НСЩ_СТН_ПНЛ_" },
-                        { (201.200,201.299),"ZH_НСЩ_МНЛ_" },
-                        { (203.000,203.099),"ZH_ПРГ_КЛД_" },
-                        { (203.100,203.199),"ZH_ПРГ_ССТ_МТЛ_КРКС_" },
-                        { (204,206.999),"ZH_ПОЛ_" },
-                        { (221,221.999),"ZH_ПТЛ_" },
-                        { (222,222.099),"ZH_НСЩ_ПЛТ_ПРК_" },
-                        { (222.100,222.199),"ZH_НСЩ_МНЛ_ПРК_" },
-                        { (223.000,223.099),"ZH_ОТД_ФСД_" },
-                        { (223.100,223.199),"ZH_ОТД_ФСД_СЛЖ_" },
-                        { (236,250.999),"ZH_ОТД_ВНТ_" },
-                        { (267.100,267.199),"ZH_ПРП_СТН_ПНЛ_" },
-                        { (267.200,267.299),"ZH_ПРП_МНЛ_" },
-                        { (268,268.099),"ZH_ЭКР_ЛДЖ_КЛД_" },
-                        { (268.100,268.199),"ZH_ЭКР_ЛДЖ_СТН_ПНЛ_" },
-                        { (268.200,268.299),"ZH_ЭКР_ЛДЖ_МНЛ_" },
-                        { (269.000,269.099),"ZH_ГДР_ФНД_" },
-                        { (269.100,269.199),"ZH_ГДР_ПРМ_КРШ_" },
-                        { (270.000,270.099),"ZH_ТПЛ_ФНД_" },
-                        { (270.100,270.199),"ZH_ТПЛ_ЦКЛ_" },
-                        { (219.000,219.099),"ZH_КРВ_ПЛС_" },
-                        { (219.100,219.199),"ZH_КРВ_СКТ_" },
-                        { (219.200,219.299),"ZH_ДПЛ_ПЛЩ_" },
-                        { (214.001,214.010),"ZH_ВНТЛ_СТН_ШДЛ_" },
-                        { (272.000,272.999),"ZH_УСЛ_" },
-                        { (274.001,274.001),"ZH_ГНП_ПЛЩ_" },
-                        { (274.002,274.002),"ZH_ГНП_ВХД_" },
-                        { (203.901,203.901),"ZH_ПРГ_СТН_ШДЛ_" },
-                        { (203.902,203.902),"ZH_ПРГ_СТН_ИК_КМР_" },
-                    };
-                    double parameter_Value = elementType.get_Parameter(guid_COD).AsDouble() * 304.8;
-                    nameResult = codificationAndPrefics.Where(a => parameter_Value >= a.Key.Item1 && parameter_Value <= a.Key.Item2).Select(a => a.Value).FirstOrDefault();
-                    double thickness = 0;
-                    Dictionary<int, string> materialCombination = new Dictionary<int, string>();
-                    foreach(Autodesk.Revit.DB.Material material in material_Collections)
-                    {
-                       foreach(var position in GetDescriptionsMaterial(material, ref thickness, element, uidoc.Document))
-                       {
-                          materialCombination.Add(position.Key, position.Value);
-                       }
+                        string nameResult = "";
+                        Element elementType = uidoc.Document.GetElement(element.GetTypeId());
+                        List<Autodesk.Revit.DB.Material> material_Collections = GetMaterials(element, uidoc.Document);
+                        int iterarion_WarinngMaterial = 0;
+                        foreach (Autodesk.Revit.DB.Material material in material_Collections)
+                        {
+                            if (material.Name == "Стена по умолчанию")
+                            {
+                                iterarion_WarinngMaterial++;
+                            }
+                        }
+                        if (elementType.get_Parameter(guid_COD)==null|| elementType.get_Parameter(guid_COD).AsDouble() == 0)
+                        {
+                            warning_Parameter++;
+                        }
+                        var codificationAndPrefics = new Dictionary<(double, double), string>
+                        {
+                            { (201,201.099),"ZH_НСЩ_КЛД_" },
+                            { (202,202.099),"ZH_НСЩ_КЛД_" },
+                            { (201.100,201.199),"ZH_НСЩ_СТН_ПНЛ_" },
+                            { (201.200,201.299),"ZH_НСЩ_МНЛ_" },
+                            { (203.000,203.099),"ZH_ПРГ_КЛД_" },
+                            { (203.100,203.199),"ZH_ПРГ_ССТ_МТЛ_КРКС_" },
+                            { (204,206.999),"ZH_ПОЛ_" },
+                            { (221,221.999),"ZH_ПТЛ_" },
+                            { (222,222.099),"ZH_НСЩ_ПЛТ_ПРК_" },
+                            { (222.100,222.199),"ZH_НСЩ_МНЛ_ПРК_" },
+                            { (223.000,223.099),"ZH_ОТД_ФСД_" },
+                            { (223.100,223.199),"ZH_ОТД_ФСД_СЛЖ_" },
+                            { (236,250.999),"ZH_ОТД_ВНТ_" },
+                            { (267.100,267.199),"ZH_ПРП_СТН_ПНЛ_" },
+                            { (267.200,267.299),"ZH_ПРП_МНЛ_" },
+                            { (268,268.099),"ZH_ЭКР_ЛДЖ_КЛД_" },
+                            { (268.100,268.199),"ZH_ЭКР_ЛДЖ_СТН_ПНЛ_" },
+                            { (268.200,268.299),"ZH_ЭКР_ЛДЖ_МНЛ_" },
+                            { (269.000,269.099),"ZH_ГДР_ФНД_" },
+                            { (269.100,269.199),"ZH_ГДР_ПРМ_КРШ_" },
+                            { (270.000,270.099),"ZH_ТПЛ_ФНД_" },
+                            { (270.100,270.199),"ZH_ТПЛ_ЦКЛ_" },
+                            { (219.000,219.099),"ZH_КРВ_ПЛС_" },
+                            { (219.100,219.199),"ZH_КРВ_СКТ_" },
+                            { (219.200,219.299),"ZH_ДПЛ_ПЛЩ_" },
+                            { (214.001,214.010),"ZH_ВНТЛ_СТН_ШДЛ_" },
+                            { (272.000,272.999),"ZH_УСЛ_" },
+                            { (274.001,274.001),"ZH_ГНП_ПЛЩ_" },
+                            { (274.002,274.002),"ZH_ГНП_ВХД_" },
+                            { (203.901,203.901),"ZH_ПРГ_СТН_ШДЛ_" },
+                            { (203.902,203.902),"ZH_ПРГ_СТН_ИК_КМР_" },
+                        };
+                        if (iterarion_WarinngMaterial == 0)
+                        {
+                            double parameter_Value = elementType.get_Parameter(guid_COD).AsDouble() * 304.8;
+                            nameResult = codificationAndPrefics.Where(a => parameter_Value >= a.Key.Item1 && parameter_Value <= a.Key.Item2).Select(a => a.Value).FirstOrDefault();
+                            double thickness = 0;
+                            Dictionary<int, string> materialCombination = new Dictionary<int, string>();
+                            foreach (Autodesk.Revit.DB.Material material in material_Collections)
+                            {
+                                foreach (var position in GetDescriptionsMaterial(material, ref thickness, element, uidoc.Document))
+                                {
+                                    materialCombination.Add(position.Key, position.Value);
+                                }
+                            }
+                            nameResult += thickness.ToString() + "_";
+                            materialCombination = materialCombination.OrderByDescending(a => a.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                            foreach (var pos in materialCombination)
+                            {
+                                nameResult += pos.Value;
+                            }
+                            using (Transaction transaction1 = new Transaction(uidoc.Document, "Переименование"))
+                            {
+                                transaction1.Start();
+                                SSDK_Parameter.Set_Type_Name(elementType, nameResult);
+                                transaction1.Commit();
+                            }
+                            iteration++;
+                        }
+                        warning_Material += iterarion_WarinngMaterial;
+                        
                     }
-                    nameResult += thickness.ToString()+"_";
-                    materialCombination = materialCombination.OrderByDescending(a => a.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-                    foreach (var pos in materialCombination)
-                    {
-                       nameResult += pos.Value;
-                    }
-                    using (Transaction transaction1 = new Transaction(uidoc.Document, "Переименование"))
-                    {
-                        transaction1.Start();
-                            SSDK_Parameter.Set_Type_Name(elementType, nameResult);
-                        transaction1.Commit();
-                    }
-                    iteration++;
-                }
                     transactionGroup.Assimilate();
+                    string warining_Rusult = "";
+                    if (warning_Parameter > 0)
+                    {
+                        warining_Rusult += $"Ошибка. Параметр 'ZH_Код_Тип' не найден в {warning_Parameter.ToString()} элементах\n";
+                    }
+                    if (warning_Material > 0)
+                    {
+                        warining_Rusult += $"Ошибка. Задан материал 'По категории' в {warning_Material.ToString()} позициях";
+                    }
+                    if (warning_Parameter > 0 || warning_Material > 0)
+                    {
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String(warining_Rusult);
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
             }
             if (iteration > 0)
@@ -127,8 +161,15 @@ namespace WPFApplication.newMainRenaming
                 S_Mistake_String s_Mistake_String = new S_Mistake_String($"Запись завершена. Успешно обработаных элементов: {iteration.ToString()}");
                 s_Mistake_String.ShowDialog();
             }
+            }
+            catch (Exception ex)
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
+            }
             return Result.Succeeded;
         }
+
         public List<Element> Filtered_Elements(List<Element> elements , Document document)
         {
             List<Element> collections = new List<Element>();

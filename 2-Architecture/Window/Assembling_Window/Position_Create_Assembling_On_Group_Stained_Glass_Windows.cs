@@ -16,7 +16,7 @@ namespace WPFApplication.Assembling_Window
             using (Transaction newT1 = new Transaction(Revit_Document_Assembling_Window.Document, "Создание видов сборок"))
             {
                 newT1.Start();
-                
+
                 foreach (ElementId group_ElementID in Data_Assembling_Window.grup_Filtered_Collection)
                 {
                     Element element_Group = Revit_Document_Assembling_Window.Document.GetElement(group_ElementID);
@@ -45,16 +45,16 @@ namespace WPFApplication.Assembling_Window
 
                             string mark_Value = element_Type.get_Parameter(Data_Assembling_Window.guid_ADSK_Mark).AsValueString();
                             List<ElementId> elementIds = new List<ElementId>();
-                           
+
                             if (element_Group.get_Parameter(BuiltInParameter.ASSEMBLY_NAME) == null)
                             {
                                 elementIds.Add(element_Group.Id);
                                 List<ElementId> IDS = (List<ElementId>)element_Group.GetDependentElements(null);
-                                foreach(ElementId elementId in  IDS)
+                                foreach (ElementId elementId in IDS)
                                 {
                                     Element element = Revit_Document_Assembling_Window.Document.GetElement(elementId);
                                     Element element_Type_Depended = Revit_Document_Assembling_Window.Document.GetElement(Revit_Document_Assembling_Window.Document.GetElement(elementId).GetTypeId());
-                                    if (element.Category.Name.ToString() == "Окна"&& element_Type_Depended.Name.Contains("Полотно"))
+                                    if (element.Category.Name.ToString() == "Окна" && element_Type_Depended.Name.Contains("Полотно"))
                                     {
                                         elementIds.Add(elementId);
                                     }
@@ -79,7 +79,7 @@ namespace WPFApplication.Assembling_Window
                     }
                     catch (Exception ex)
                     {
-                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. "+ ex.Message);
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                         s_Mistake_String.ShowDialog();
                     }
                 }
@@ -89,7 +89,7 @@ namespace WPFApplication.Assembling_Window
                 try
                 {
                     trans.Start();
-                   
+
                     foreach (Element element in collection_Assembly)
                     {
                         Element element_Type = Revit_Document_Assembling_Window.Document.GetElement(element.GetTypeId());
@@ -104,7 +104,7 @@ namespace WPFApplication.Assembling_Window
                 }
             }
         }
-       
+
     }
     public class CreateAssemblyExample
     {
