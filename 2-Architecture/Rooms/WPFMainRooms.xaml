@@ -75,6 +75,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             FontSize="12"
+            BorderBrush="{x:Null}"
+            Background="{x:Null}"
             Content="▼"
             Click="FilterButton_Click"/>
 

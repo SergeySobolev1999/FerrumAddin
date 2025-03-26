@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using SSDK;
+using Autodesk.Revit.DB.Architecture;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace WPFApplication.The_Floor_Is_Numeric
 {
@@ -87,10 +89,18 @@ namespace WPFApplication.The_Floor_Is_Numeric
                             element_true = true;
                         }
                     }
-                    if (!element_true)
+                    if (!element_true && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(element.LevelId) != null)
                     {
                         Element level_ID = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(element.LevelId);
                         element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).Set(level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble());
+                        Data_The_Floor_Is_Numeric.number_True_Element++;
+                    }
+                    else if (!element_true && element is Railing && (element as Railing).HostId != null && Revit_Document_The_Floor_Is_Numeric.Document.GetElement((element as Railing)?.HostId ?? ElementId.InvalidElementId)!=null)
+                    {
+                        ElementId hostId = (element as Railing)?.HostId ?? ElementId.InvalidElementId;
+                        Element host = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(hostId);
+                        Element level = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(host.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId());
+                        element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).Set(level.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble());
                         Data_The_Floor_Is_Numeric.number_True_Element++;
                     }
                 }

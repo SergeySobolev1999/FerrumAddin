@@ -404,8 +404,8 @@ namespace FerrumAddin
             panelAR_Room.Visible = false;
 
             PushButtonData Main_Rooms = new PushButtonData("MainRooms", "Помещения\nматрица", Assembly.GetExecutingAssembly().Location, "WPFApplication.Rooms.MainRooms");
-            Main_Rooms.Image = Convert(Properties.Resources.Architecture_Door);
-            Main_Rooms.LargeImage = Convert(Properties.Resources.Architecture_Door);
+            Main_Rooms.Image = Convert(Properties.Resources.ArchitectureRooms);
+            Main_Rooms.LargeImage = Convert(Properties.Resources.ArchitectureRooms);
             panelAR_Room.AddItem(Main_Rooms);
 
             //Панель КР
