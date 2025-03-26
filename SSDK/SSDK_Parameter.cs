@@ -36,12 +36,18 @@ namespace SSDK
                 string a = parameter.AsValueString();
                 return parameter.AsValueString(); }
         }
+        public static string Get_Parameter_Double_To_String(Parameter parameter)
+        {
+            if (parameter == null) { return ""; }
+            else if (parameter.AsValueString() == null) { return ""; }
+            else{
+                string a = (parameter.AsDouble()*304.8).ToString();
+                return a; }
+        }
         public static string RenameWordsInString(string input, List<string> words, string replacement)
         {
-            foreach (string word in words)
-            {
-                input = input.Replace(word, replacement);
-            }
+            foreach (string word in words){
+                input = input.Replace(word, replacement); }
             return input;
         }
     }

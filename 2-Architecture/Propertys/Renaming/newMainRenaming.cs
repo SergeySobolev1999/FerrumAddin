@@ -186,6 +186,7 @@ namespace WPFApplication.newMainRenaming
                 };
                 if (element.Category == null) { }
                 else if (element.GetTypeId() == null) { }
+                else if (element.Category.Name == "Крыши" && document.GetElement(element.GetTypeId()) is RoofType && (document.GetElement(element.GetTypeId()) as RoofType).FamilyName == "Наклонное остекление") { }
                 else if (element is FamilyInstance familyInstance && familyInstance.Symbol.Family != null) { }
                 else
                 {
@@ -216,6 +217,7 @@ namespace WPFApplication.newMainRenaming
             }
             return materials;
         }
+      
         public Dictionary<int,string> GetDescriptionsMaterial(Autodesk.Revit.DB.Material material, ref double thickness, Element element, Document document)
         {
             double wignth = 0;

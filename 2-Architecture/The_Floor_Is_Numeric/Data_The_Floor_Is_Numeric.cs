@@ -17,6 +17,7 @@ namespace WPFApplication.The_Floor_Is_Numeric
         public static bool model_Group_Checked { get; set; } = false;
         public static bool Room_Checked { get; set; } = false;
         public static bool Floor_Checked { get; set; } = false;
+        public static bool StairsRailing { get; set; } = false;
         public static ListView work_Set_Collection { get; set; } = new ListView();
         public static ListView work_Set_Igonre_Collection { get; set; } = new ListView();
         public static int number_True_Element { get; set; } = 0;

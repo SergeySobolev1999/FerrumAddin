@@ -42,6 +42,10 @@ namespace WPFApplication.The_Floor_Is_Numeric
                 {
                     Record_Door_Window_Wall_Model_Group_The_Floor_Is_Numeric(BuiltInCategory.OST_Floors);
                 }
+                if (Data_The_Floor_Is_Numeric.StairsRailing)
+                {
+                    Record_Door_Window_Wall_Model_Group_The_Floor_Is_Numeric(BuiltInCategory.OST_StairsRailing);
+                }
                 newT2.Commit();
             }
         }

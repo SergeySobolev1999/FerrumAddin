@@ -166,6 +166,14 @@
                 FontSize="15"
                 Margin="20,190,0,0" 
                 VerticalAlignment="Top"/>
+                    <CheckBox 
+                Name="StairsRailing_The_Floor_Is_Numeric"
+                Content="Ограждения" 
+                HorizontalAlignment="Left" 
+                FontFamily="ISOCPEUR"
+                FontSize="15"
+                Margin="20,220,0,0" 
+                VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem 

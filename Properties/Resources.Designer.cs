@@ -283,6 +283,26 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RoomPath {
+            get {
+                object obj = ResourceManager.GetObject("RoomPath", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RoomReload {
+            get {
+                object obj = ResourceManager.GetObject("RoomReload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap User_Licenses {
             get {
                 object obj = ResourceManager.GetObject("User_Licenses", resourceCulture);
@@ -293,9 +313,29 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Worksets {
+            get {
+                object obj = ResourceManager.GetObject("Worksets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Железно_верт_синий {
             get {
                 object obj = ResourceManager.GetObject("Железно_верт_синий", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Сhanges {
+            get {
+                object obj = ResourceManager.GetObject("Сhanges", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

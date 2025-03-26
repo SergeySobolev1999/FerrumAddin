@@ -95,9 +95,24 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>packages\BouncyCastle.Cryptography.2.3.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="ClosedXML, Version=0.104.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.0.104.2\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.Parser.1.2.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
+    </Reference>
     <Reference Include="CommunityToolkit.Mvvm, Version=8.2.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
       <HintPath>packages\CommunityToolkit.Mvvm.8.2.0\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.26.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>packages\Google.Protobuf.3.26.1\lib\net45\Google.Protobuf.dll</HintPath>
@@ -115,6 +130,9 @@
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>False</Private>
@@ -128,11 +146,17 @@
     <Reference Include="PresentationFramework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\RBush.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
     <Reference Include="RevitAPI">
       <HintPath>..\DLL\RevitAPI.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\DLL\RevitAPIUI.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -244,6 +268,20 @@
     </Compile>
     <Compile Include="1-General\Site\Document_Site.cs" />
     <Compile Include="1-General\Site\Enter_Site.cs" />
+    <Compile Include="1-General\Worksets\CommandWorksets.cs" />
+    <Compile Include="1-General\Worksets\InfosStorage.cs" />
+    <Compile Include="1-General\Worksets\Workset.xaml.cs">
+      <DependentUpon>Workset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="1-General\Worksets\WorksetBy.cs" />
+    <Compile Include="1-General\Worksets\WorksetByCategory.cs" />
+    <Compile Include="1-General\Worksets\WorksetByFamily.cs" />
+    <Compile Include="1-General\Worksets\WorksetByLink.cs" />
+    <Compile Include="1-General\Worksets\WorksetByParameter.cs" />
+    <Compile Include="1-General\Worksets\WorksetByRazd.cs" />
+    <Compile Include="1-General\Worksets\WorksetByType.cs" />
+    <Compile Include="1-General\Worksets\WorksetTool.cs" />
+    <Compile Include="1-General\Сhanges\Сhanges.cs" />
     <Compile Include="2-Architecture\Door\Assembling_Window\Data_Assembling_Project_On_Group_Stained_Glass_Windows.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -279,13 +317,24 @@
     <Compile Include="2-Architecture\Propertys\Material_Select_Element_Application\newWPFMainMaterialSelectElementApplication.xaml.cs">
       <DependentUpon>newWPFMainMaterialSelectElementApplication.xaml</DependentUpon>
     </Compile>
+    <Compile Include="2-Architecture\Propertys\newProperty_Copy\newMainMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Propertys\newProperty_Copy\newViewModelMaterialSelectElementApplication.cs" />
+    <Compile Include="2-Architecture\Propertys\newProperty_Copy\newWPF_Main_Property_Copy.xaml.cs">
+      <DependentUpon>newWPF_Main_Property_Copy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="2-Architecture\Propertys\Renaming\newMainRenaming.cs" />
-    <Compile Include="2-Architecture\Propertys\Property_Copy\Data_Class_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Propertys\Property_Copy\Main_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Propertys\Property_Copy\True_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Cod_Property_Copy.cs" />
-    <Compile Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Property_Copy.xaml.cs">
+    <Compile Include="2-Architecture\Propertys\Property_CopyDelete\Data_Class_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_CopyDelete\Main_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_CopyDelete\True_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_CopyDelete\WPF_Main_Cod_Property_Copy.cs" />
+    <Compile Include="2-Architecture\Propertys\Property_CopyDelete\WPF_Main_Property_Copy.xaml.cs">
       <DependentUpon>WPF_Main_Property_Copy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="2-Architecture\Rooms\MainRooms.cs" />
+    <Compile Include="2-Architecture\Rooms\Rooms.Converters.cs" />
+    <Compile Include="2-Architecture\Rooms\ViewModelRooms.cs" />
+    <Compile Include="2-Architecture\Rooms\WPFMainRooms.xaml.cs">
+      <DependentUpon>WPFMainRooms.xaml</DependentUpon>
     </Compile>
     <Compile Include="2-Architecture\Stained_Glass_Windows\Assembling_Project_On_Group_Stained_Glass_Windows\Data_Assembling_Project_On_Group_Stained_Glass_Windows.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -303,6 +352,7 @@
       <DependentUpon>WPF_Main_Assembling_On_Group_Stained_Glass_Windows.xaml</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="2-Architecture\Rooms\ConvertersRooms.cs" />
     <Compile Include="2-Architecture\Stained_Glass_Windows\Mark_On_Group_Stained_Glass_Windows\Data_Mark_On_Group_Stained_Glass_Windows.cs" />
     <Compile Include="2-Architecture\Stained_Glass_Windows\Mark_On_Group_Stained_Glass_Windows\Filtered_Mark_On_Group_Stained_Glass_Windows.cs" />
     <Compile Include="2-Architecture\Stained_Glass_Windows\Mark_On_Group_Stained_Glass_Windows\Main_Mark_On_Group_Stained_Glass_Windows.cs" />
@@ -442,6 +492,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="1-General\Worksets\Workset.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="2-Architecture\Door\Assembling_Window\WPF_Main_Assembling_On_Group_Stained_Glass_Windows.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -459,7 +513,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="2-Architecture\Propertys\Property_Copy\WPF_Main_Property_Copy.xaml">
+    <Page Include="2-Architecture\Propertys\newProperty_Copy\newWPF_Main_Property_Copy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="2-Architecture\Propertys\Property_CopyDelete\WPF_Main_Property_Copy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="2-Architecture\Rooms\WPFMainRooms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -671,6 +733,29 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\newMainRenaming.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Сhanges.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1-General\Worksets\Worksets_Sample.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Worksets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RoomReload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RoomPath.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -41,7 +41,8 @@ namespace WPFApplication.The_Floor_Is_Numeric
             Data_The_Floor_Is_Numeric.wall_Checked = (bool)Wall_The_Floor_Is_Numeric.IsChecked.Value;
             Data_The_Floor_Is_Numeric.model_Group_Checked = (bool)Model_Group_The_Floor_Is_Numeric.IsChecked.Value;
             Data_The_Floor_Is_Numeric.Room_Checked = (bool)Room_The_Floor_Is_Numeric.IsChecked.Value;
-            Data_The_Floor_Is_Numeric.Floor_Checked = (bool)Floors_The_Floor_Is_Numeric.IsChecked.Value; 
+            Data_The_Floor_Is_Numeric.Floor_Checked = (bool)Floors_The_Floor_Is_Numeric.IsChecked.Value;
+            Data_The_Floor_Is_Numeric.StairsRailing = (bool)StairsRailing_The_Floor_Is_Numeric.IsChecked.Value;
             if (Parameter_True())
             {
                 Record_The_Floor_Is_Numeric record_The_Floor_Is_Numeric1 = new Record_The_Floor_Is_Numeric();

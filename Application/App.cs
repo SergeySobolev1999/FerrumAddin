@@ -31,6 +31,8 @@ using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 using WPFApplication.Licenses;
 using SSDK;
+using WPFApplication.Rooms;
+using masshtab;
 #endregion
 
 namespace FerrumAddin
@@ -148,6 +150,7 @@ namespace FerrumAddin
         public static UIControlledApplication application;
         public static UIApplication uiapp;
         public static string name;
+        public static MyDockablePaneViewModel ViewModel { get; private set; }
         //Панели общие
         public RibbonPanel panelGeneral;
         //Панели МЕР
@@ -156,6 +159,7 @@ namespace FerrumAddin
         public RibbonPanel panelAR_Level;
         public RibbonPanel panelAR_Window;
         public RibbonPanel panelAR_Door;
+        public RibbonPanel panelAR_Room;
         public RibbonPanel panelAR_Stained_Glass_Window;
         public RibbonPanel panelAR_Property_Copy;
         //Панели КР
@@ -166,6 +170,8 @@ namespace FerrumAddin
         
         public Result OnStartup(UIControlledApplication a)
         {
+           
+
             a.ControlledApplication.DocumentSaving += OnDocumentSaving;
             a.ControlledApplication.DocumentSavingAs += OnDocumentSavingAs;
            
@@ -284,6 +290,16 @@ namespace FerrumAddin
             Enter_Site.LargeImage = Convert(Properties.Resources.Enter_Site);
             panelGeneral.AddItem(Enter_Site);
 
+            PushButtonData Сhanges = new PushButtonData("Сhanges", "Изменения", Assembly.GetExecutingAssembly().Location, "WPFApplication.Сhanges.Main_Сhanges");
+            Сhanges.Image = Convert(Properties.Resources.Сhanges);
+            Сhanges.LargeImage = Convert(Properties.Resources.Сhanges);
+            panelGeneral.AddItem(Сhanges);
+
+            PushButtonData Worksets = new PushButtonData("Worksets", "Рабочие\nнаборы", Assembly.GetExecutingAssembly().Location, "WPFApplication.Worksets.CommandWorksets");
+            Worksets.Image = Convert(Properties.Resources.Worksets);
+            Worksets.LargeImage = Convert(Properties.Resources.Worksets);
+            panelGeneral.AddItem(Worksets);
+
             PushButtonData PinnerWorksets = new PushButtonData("PinnerWorksets", "Закрепле.\nи наборы", Assembly.GetExecutingAssembly().Location, "masshtab.PinnerWorksets");
             PinnerWorksets.Image = Convert(Properties.Resources.General_Pinner_Worksets);
             PinnerWorksets.LargeImage = Convert(Properties.Resources.General_Pinner_Worksets);
@@ -315,10 +331,10 @@ namespace FerrumAddin
             panelAR_Property_Copy = a.CreateRibbonPanel(tabName, "Свойства");
             panelAR_Property_Copy.Visible = false;
 
-            PushButtonData Main_Class_Property_Copy = new PushButtonData("Main_Class_Property_Copy", "Свойства\nкопир...", Assembly.GetExecutingAssembly().Location, "WPFApplication.Property_Copy.Main_Class_Property_Copy");
-            Main_Class_Property_Copy.Image = Convert(Properties.Resources.Property_Copy);
-            Main_Class_Property_Copy.LargeImage = Convert(Properties.Resources.Property_Copy);
-            panelAR_Property_Copy.AddItem(Main_Class_Property_Copy);
+            PushButtonData NewMainMaterialProperty_Copy = new PushButtonData("newMainMaterialProperty_Copy", "Свойства\nкопир...", Assembly.GetExecutingAssembly().Location, "WPFApplication.newProperty_Copy.newMainMaterialProperty_Copy");
+            NewMainMaterialProperty_Copy.Image = Convert(Properties.Resources.Property_Copy);
+            NewMainMaterialProperty_Copy.LargeImage = Convert(Properties.Resources.Property_Copy);
+            panelAR_Property_Copy.AddItem(NewMainMaterialProperty_Copy);
 
             PushButtonData newWPFMainMaterialSelectElementApplication = new PushButtonData("newMainMaterialSelectElementApplication", "Материал\nприсваи...", Assembly.GetExecutingAssembly().Location, "WPFApplication.newMaterial_Select_Element_Application.newMainMaterialSelectElementApplication");
             newWPFMainMaterialSelectElementApplication.Image = Convert(Properties.Resources.newWPFMainMaterialSelectElementApplication);
@@ -384,6 +400,14 @@ namespace FerrumAddin
             Main_Assembling_On_Group_Stained_Glass_Windows.LargeImage = Convert(Properties.Resources.Architecture_Parameter_Mark_Assembling_On_Group_Stained_Glass_Windows);
             panelAR_Stained_Glass_Window.AddItem(Main_Assembling_On_Group_Stained_Glass_Windows);
 
+            panelAR_Room = a.CreateRibbonPanel(tabName, "Помещения");
+            panelAR_Room.Visible = false;
+
+            PushButtonData Main_Rooms = new PushButtonData("MainRooms", "Помещения\nматрица", Assembly.GetExecutingAssembly().Location, "WPFApplication.Rooms.MainRooms");
+            Main_Rooms.Image = Convert(Properties.Resources.Architecture_Door);
+            Main_Rooms.LargeImage = Convert(Properties.Resources.Architecture_Door);
+            panelAR_Room.AddItem(Main_Rooms);
+
             //Панель КР
             panelKR_Level = a.CreateRibbonPanel(tabName, "Уровни КР");
             panelKR_Level.Visible = false;
@@ -420,6 +444,40 @@ namespace FerrumAddin
 
             FamilyManagerWindow dock = new FamilyManagerWindow();
             dockableWindow = dock;
+            //Регистрация панели плагина по помещениям
+            try
+            {
+                var idPanelRooms = new DockablePaneId(new Guid("E2C3D2B1-6F24-4B3C-AF2A-CEFF88D39C00"));
+                ViewModel = new MyDockablePaneViewModel(); // пока без uiapp
+                ViewModel.Initialize(uiapp);                                           //var control = new WPFMainRooms { DataContext = _viewModel };
+                var control = new WPFMainRooms { DataContext = ViewModel };
+                application.RegisterDockablePane(idPanelRooms, "Помещения", new MyDockablePane(control));
+                try
+                {
+
+                    //var pane = a.GetDockablePane(idPanelRooms);
+                    //pane.Hide(); // 👈 вот и всё
+                }
+                catch
+                {
+                    // ну не получилось — и ладно
+                }
+                //if (DockablePane.PaneIsRegistered(idPanelRooms))
+                //{
+                //DockablePane pane = uiapp.GetDockablePane(idPanelRooms);
+                //pane.Show();
+
+                //}
+                //else
+                //{
+                //    TaskDialog.Show("Ошибка", "Панель не зарегистрирована. Проверь OnStartup.");
+                //}
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("Ошибка регистрации панели", ex.ToString());
+            }
+            
 
             DockablePaneId id = new DockablePaneId(new Guid("{68D44FAC-CF09-46B2-9544-D5A3F809373C}"));
             try
@@ -441,7 +499,7 @@ namespace FerrumAddin
             {
 
             }
-
+           
             ButtonConf(root);
             SSDK_Data.username = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
@@ -549,6 +607,7 @@ namespace FerrumAddin
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
+                    panelAR_Room.Visible = false;
 
                     break;
                 case "MEP":
@@ -563,6 +622,7 @@ namespace FerrumAddin
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
+                    panelAR_Room.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
@@ -576,6 +636,7 @@ namespace FerrumAddin
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = true;
+                    panelAR_Room.Visible = true;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
@@ -589,6 +650,7 @@ namespace FerrumAddin
                     panelAR_Door.Visible = false;
                     panelKR_Level.Visible = true;
                     panelAR_Property_Copy.Visible = false;
+                    panelAR_Room.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -602,6 +664,7 @@ namespace FerrumAddin
                     panelKR_Accelerator_QJ.Visible = false;
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
+                    panelAR_Room.Visible = false;
                     break;
             }
         }

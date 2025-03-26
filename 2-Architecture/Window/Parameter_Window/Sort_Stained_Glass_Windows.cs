@@ -157,10 +157,11 @@ namespace WPFApplication.Parameter_Window
 
                                 //АТС_Тип_Изделия
                                 string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Тип_Изделия", "БТС_Тип_Изделия_Переопределить");
-                                    
+
                                 //Высота
+                                string height_Absolute = "";
                                 string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
-                                    
+                                height_Absolute = height;
                                     //Ширина
                                 string wight = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Ширина", "-"), CultureInfo.InvariantCulture))).ToString();
                                 if (element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_23166_К_Новое")
@@ -202,13 +203,93 @@ namespace WPFApplication.Parameter_Window
                                 string the_Location_Is_Internal = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
                                 //АТС_Дополнительные_Сведенья
                                 string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
+                                //Створка 1 высота
+                                string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+                                string box1Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ДТР_Коробка_Ширина");
+                                string sash1Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка1_Высота_Расчет");
+                                string sash1Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка1_Ширина_Расчет");
+                                string sash2Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка2_Высота_Расчет");
+                                string sash2Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка2_Ширина_Расчет");
+                                string sash3Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка3_Высота_Расчет");
+                                string sash3Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка3_Ширина_Расчет");
+                                string sash4Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка4_Высота_Расчет");
+                                string sash4Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка4_Ширина_Расчет");
+                                string sash5Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка5_Высота_Расчет");
+                                string sash5Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка5_Ширина_Расчет");
+                                string sash6Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка6_Высота_Расчет");
+                                string sash6Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка6_Ширина_Расчет");
+                                string sash7Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка7_Высота_Расчет");
+                                string sash7Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка7_Ширина_Расчет");
+                                string sash8Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка8_Высота_Расчет");
+                                string sash8Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка8_Ширина_Расчет");
+                                string sash9Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка9_Высота_Расчет");
+                                string sash9Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка9_Ширина_Расчет");
+                                string sash10Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка10_Высота_Расчет");
+                                string sash10Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка10_Ширина_Расчет");
+                                string sash11Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка11_Высота_Расчет");
+                                string sash11Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка11_Ширина_Расчет");
+                                string sash12Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка12_Высота_Расчет");
+                                string sash12Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка12_Ширина_Расчет");
+                                string sash13Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка13_Высота_Расчет");
+                                string sash13Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка13_Ширина_Расчет");
+                                string sash14Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка14_Высота_Расчет");
+                                string sash14Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка14_Ширина_Расчет");
+                                string familyName = (element_Group as FamilySymbol).Family.Name;
                                 //АТП_Обозначение
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                var dictionaryParameters = new Dictionary<string, string>();
+                                dictionaryParameters.Add("Имя_Семейства", familyName);
+                                dictionaryParameters.Add("DynamoID", dynamoID);
+                                dictionaryParameters.Add("АТС_Тип_Изделия", product_Type);
+                                dictionaryParameters.Add("АТР_Примерная_Высота", height_Absolute);
+                                dictionaryParameters.Add("АТР_Примерная_Ширина", wight);
+                                dictionaryParameters.Add("АТС_Материал_Профильных_Элементов", material_Of_Profile_Elements);
+                                dictionaryParameters.Add("АТС_Тип_Конструкции", type_Of_Construction);
+                                dictionaryParameters.Add("АТС_Формула_Стеклопакета", double_Glazed_Window_Formula);
+                                dictionaryParameters.Add("АТС_Способ_Открывания", opening_Method);
+                                dictionaryParameters.Add("АТС_Покрытие_Окна_Спереди", window_Covering_In_Front);
+                                dictionaryParameters.Add("АТС_Покрытие_Окна_Сзади", window_Covering_In_Back);
+                                dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                dictionaryParameters.Add("АТС_Расположение_Внутреннее_Наружное", the_Location_Is_Internal);
+                                dictionaryParameters.Add("АТС_Дополнительные_Сведенья", additional_Information);
+                                dictionaryParameters.Add("АТП_Обозначение", stoc_Designation);
+                                dictionaryParameters.Add("ДТР_Коробка_Ширина", box1Weight);
+                                dictionaryParameters.Add("ЗТР_Створка1_Высота_Расчет", sash1Height);
+                                dictionaryParameters.Add("ЗТР_Створка1_Ширина_Расчет", sash1Weight);
+                                dictionaryParameters.Add("ЗТР_Створка2_Высота_Расчет", sash2Height);
+                                dictionaryParameters.Add("ЗТР_Створка2_Ширина_Расчет", sash2Weight);
+                                dictionaryParameters.Add("ЗТР_Створка3_Высота_Расчет", sash3Height);
+                                dictionaryParameters.Add("ЗТР_Створка3_Ширина_Расчет", sash3Weight);
+                                dictionaryParameters.Add("ЗТР_Створка4_Высота_Расчет", sash4Height);
+                                dictionaryParameters.Add("ЗТР_Створка4_Ширина_Расчет", sash4Weight);
+                                dictionaryParameters.Add("ЗТР_Створка5_Высота_Расчет", sash5Height);
+                                dictionaryParameters.Add("ЗТР_Створка5_Ширина_Расчет", sash5Weight);
+                                dictionaryParameters.Add("ЗТР_Створка6_Высота_Расчет", sash6Height);
+                                dictionaryParameters.Add("ЗТР_Створка6_Ширина_Расчет", sash6Weight);
+                                dictionaryParameters.Add("ЗТР_Створка7_Высота_Расчет", sash7Height);
+                                dictionaryParameters.Add("ЗТР_Створка7_Ширина_Расчет", sash7Weight);
+                                dictionaryParameters.Add("ЗТР_Створка8_Высота_Расчет", sash8Height);
+                                dictionaryParameters.Add("ЗТР_Створка8_Ширина_Расчет", sash8Weight);
+                                dictionaryParameters.Add("ЗТР_Створка9_Высота_Расчет", sash9Height);
+                                dictionaryParameters.Add("ЗТР_Створка9_Ширина_Расчет", sash9Weight);
+                                dictionaryParameters.Add("ЗТР_Створка10_Высота_Расчет", sash10Height);
+                                dictionaryParameters.Add("ЗТР_Створка10_Ширина_Расчет", sash10Weight);
+                                dictionaryParameters.Add("ЗТР_Створка11_Высота_Расчет", sash11Height);
+                                dictionaryParameters.Add("ЗТР_Створка11_Ширина_Расчет", sash11Weight);
+                                dictionaryParameters.Add("ЗТР_Створка12_Высота_Расчет", sash12Height);
+                                dictionaryParameters.Add("ЗТР_Створка12_Ширина_Расчет", sash12Weight);
+                                dictionaryParameters.Add("ЗТР_Створка13_Высота_Расчет", sash13Height);
+                                dictionaryParameters.Add("ЗТР_Створка13_Ширина_Расчет", sash13Weight);
+                                dictionaryParameters.Add("ЗТР_Створка14_Высота_Расчет", sash14Height);
+                                dictionaryParameters.Add("ЗТР_Створка14_Ширина_Расчет", sash14Weight);
+                                //Стандарт
                                 string name_Presset = "";
                                 if (Data_Parameter_Window.sketch_bool = true)
                                 {
-                                    name_Presset = "";
+                                    name_Presset = StandartRevision(dictionaryParameters);
                                 }
                                 string result_Name = name_Presset+ product_Type + " " + height  + wight + material_Of_Profile_Elements + type_Of_Construction + "(" + double_Glazed_Window_Formula + ")" + opening_Method + window_Covering_In_Front +
                                     window_Covering_In_Back + fire_Resistance + insulation + functional_Feature + the_Location_Is_Internal + additional_Information;
@@ -375,6 +456,59 @@ namespace WPFApplication.Parameter_Window
                 s_Mistake_String.ShowDialog();
             }
         }
+        public static string Get_Parameter_Double_ForName_To_String(Element elementType, string parameterName)
+        {
+            Parameter parameter = elementType.LookupParameter(parameterName);
+            if (parameter == null) { return ""; }
+            else if (parameter.AsDouble() == null) { return ""; }
+            else
+            {
+                string a = (parameter.AsDouble() * 304.8).ToString();
+                return a;
+            }
+        }
+        public string StandartRevision(Dictionary<string, string> dictionaryParameters)
+        {
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Одностворчатое_1_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470)))
+            {
+                return "Стандарт 1 Окна ПВХ";
+            }
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_2_l_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
+                && (double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                || double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5))
+            {
+                return "Стандарт 2 Окна ПВХ";
+            }
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_3_ll_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && ((double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5 
+                && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5 
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1870) && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570)
+                ||((double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"])
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570) && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) > 1870))))
+            {
+                return "Стандарт 3 Окна ПВХ";
+            }
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_1х2_-l-_")
+               && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
+                && (double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                || double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5))
+            {
+                return "Стандарт 4 Окна ПВХ";
+            }
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_1х1_-_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470)))
+            {
+                return "Стандарт 5 Окна ПВХ";
+            }
+            return "";
+        }
     }
     public class Parameter_Name
     {
@@ -389,7 +523,7 @@ namespace WPFApplication.Parameter_Window
                     {
                         str = " " + element.LookupParameter(name_Remove).AsValueString();
                     }
-                    else
+                    else 
                     {
                         if (element.LookupParameter(name) != null)
                         {
