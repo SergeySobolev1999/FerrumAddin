@@ -56,7 +56,11 @@ namespace WPFApplication.Parameter_Window
                             string material_Boxes_Front = "";
                             if (element.get_Parameter(Data_Parameter_Window.guid_ADSK_POSITION) != null)
                             {
-                                string material_Value_Parameter = SSDK_Parameter.Get_Parameter_Material_To_String(element.get_Parameter(Data_Parameter_Window.guid_Material_Boxes_Front));
+                                string material_Value_Parameter = "";
+                                if(element.get_Parameter(Data_Parameter_Window.guid_Material_Boxes_Front) !=null)
+                                material_Value_Parameter = SSDK_Parameter.Get_Parameter_Material_To_String(element.get_Parameter(Data_Parameter_Window.guid_Material_Boxes_Front));
+                                if (element.get_Parameter(Data_Parameter_Window.guid_Material_Boxes_Outdoor) != null)
+                                    material_Value_Parameter = SSDK_Parameter.Get_Parameter_Material_To_String(element.get_Parameter(Data_Parameter_Window.guid_Material_Boxes_Outdoor));
                                 if (material_Value_Parameter != "" ) 
                                 {
                                    
@@ -870,6 +874,12 @@ namespace WPFApplication.Parameter_Window
                  && dictionaryParameters["ГТС_Створка9_Типоразмер"].Contains("_Глухое"))
             {
                 return "Тип ПВХ-3.9";
+            }
+            //Тип ПВХ
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА")))
+            {
+                return "ПВХ";
             }
             return "";
         }
