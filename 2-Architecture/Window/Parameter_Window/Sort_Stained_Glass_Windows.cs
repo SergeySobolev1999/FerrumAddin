@@ -234,6 +234,20 @@ namespace WPFApplication.Parameter_Window
                                 string sash13Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка13_Ширина_Расчет");
                                 string sash14Height = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка14_Высота_Расчет");
                                 string sash14Weight = Get_Parameter_Double_ForName_To_String(element_Group, "ЗТР_Створка14_Ширина_Расчет");
+                                string sash1Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка1_Типоразмер");
+                                string sash2Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка2_Типоразмер");
+                                string sash3Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка3_Типоразмер");
+                                string sash4Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка4_Типоразмер");
+                                string sash5Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка5_Типоразмер");
+                                string sash6Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка6_Типоразмер");
+                                string sash7Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка7_Типоразмер");
+                                string sash8Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка8_Типоразмер");
+                                string sash9Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка9_Типоразмер");
+                                string sash10Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка10_Типоразмер");
+                                string sash11Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка11_Типоразмер");
+                                string sash12Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка12_Типоразмер");
+                                string sash13Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка13_Типоразмер");
+                                string sash14Type = Get_Parameter_ReferenceType_To_String(element_Group, "ГТС_Створка14_Типоразмер");
                                 string familyName = (element_Group as FamilySymbol).Family.Name;
                                 //АТП_Обозначение
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
@@ -285,6 +299,20 @@ namespace WPFApplication.Parameter_Window
                                 dictionaryParameters.Add("ЗТР_Створка13_Ширина_Расчет", sash13Weight);
                                 dictionaryParameters.Add("ЗТР_Створка14_Высота_Расчет", sash14Height);
                                 dictionaryParameters.Add("ЗТР_Створка14_Ширина_Расчет", sash14Weight);
+                                dictionaryParameters.Add("ГТС_Створка1_Типоразмер", sash1Type);
+                                dictionaryParameters.Add("ГТС_Створка2_Типоразмер", sash2Type);
+                                dictionaryParameters.Add("ГТС_Створка3_Типоразмер", sash3Type);
+                                dictionaryParameters.Add("ГТС_Створка4_Типоразмер", sash4Type);
+                                dictionaryParameters.Add("ГТС_Створка5_Типоразмер", sash5Type);
+                                dictionaryParameters.Add("ГТС_Створка6_Типоразмер", sash6Type);
+                                dictionaryParameters.Add("ГТС_Створка7_Типоразмер", sash7Type);
+                                dictionaryParameters.Add("ГТС_Створка8_Типоразмер", sash8Type);
+                                dictionaryParameters.Add("ГТС_Створка9_Типоразмер", sash9Type);
+                                dictionaryParameters.Add("ГТС_Створка10_Типоразмер", sash10Type);
+                                dictionaryParameters.Add("ГТС_Створка11_Типоразмер", sash11Type);
+                                dictionaryParameters.Add("ГТС_Створка12_Типоразмер", sash12Type);
+                                dictionaryParameters.Add("ГТС_Створка13_Типоразмер", sash13Type);
+                                dictionaryParameters.Add("ГТС_Створка14_Типоразмер", sash14Type);
                                 //Стандарт
                                 string name_Presset = "";
                                 if (Data_Parameter_Window.sketch_bool = true)
@@ -467,45 +495,381 @@ namespace WPFApplication.Parameter_Window
                 return a;
             }
         }
+        public static string Get_Parameter_ReferenceType_To_String(Element elementType, string parameterName)
+        {
+            Parameter parameter = elementType.LookupParameter(parameterName);
+            if (parameter == null) { return ""; }
+            else if (parameter.AsValueString() == null) { return ""; }
+            else
+            {
+                return parameter.AsValueString();
+            }
+        }
         public string StandartRevision(Dictionary<string, string> dictionaryParameters)
         {
-            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Одностворчатое_1_")
-                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470)))
-            {
-                return "Стандарт 1 Окна ПВХ";
-            }
-            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_2_l_")
+            //Тип ПВХ-1.1 Одностворчатое
+            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                && dictionaryParameters["Имя_Семейства"].Contains("_Одностворчатое_1_")
                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
-                && (double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
-                || double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1760
+                && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее")))
             {
-                return "Стандарт 2 Окна ПВХ";
+                return "Тип ПВХ-1.1";
             }
-            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_3_ll_")
+            //Тип ПВХ-2.1-П Двухстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое"
+                && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_2_l_")
                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
-                && ((double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5 
-                && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5 
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1870) && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570)
-                ||((double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"])
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570) && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) > 1870))))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1760
+                && double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее")))
             {
-                return "Стандарт 3 Окна ПВХ";
+                return "Тип ПВХ-2.1-П";
             }
-            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_1х2_-l-_")
-               && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
-                && (double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
-                || double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5))
+            //Тип ПВХ-2.1-Л Двухстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_2_l_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1760
+                && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое"))
             {
-                return "Стандарт 4 Окна ПВХ";
+                return "Тип ПВХ-2.1-Л";
             }
-            if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_1х1_-_")
-                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
-                && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470)))
+            //Тип ПВХ-3.1 Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_3_ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1760
+                 && ((double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1910 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570
+                 && ((dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое") 
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")))
+                 || ((double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"])
+                 && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) > 1910))))
             {
-                return "Стандарт 5 Окна ПВХ";
+                return "Тип ПВХ-3.1";
+            }
+            //Тип ПВХ-1.2 Двухстврчатое
+            else if(dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_1х1_-_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070 
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое"))
+
+            {
+                return "Тип ПВХ-1.2";
+            }
+            //Тип ПВХ-2.2-П Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_2х1_-l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1410 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                 && double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.2-П";
+            }
+            //Тип ПВХ-2.2-Л Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое"
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_2х1_-l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1410
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.2-Л";
+            }
+            //Тип ПВХ-3.2 Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_3х1_-l-l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1910 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.2";
+            }
+            //Тип ПВХ-3.3 Пятистворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Пятистворчатое_3х2_-ll-ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1970
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                 && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.3";
+            }
+            //Тип ПВХ-3.4 Шестистворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Шестистворчатое_3х3_-l-l-ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"])
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1970
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
+                 && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.4";
+            }
+            //Тип ПВХ-1.3 Двухстврчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое"
+                && dictionaryParameters["Имя_Семейства"].Contains("_Двухстворчатое_1х1_-_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое"))
+
+            {
+                return "Тип ПВХ-1.3";
+            }
+            //Тип ПВХ-2.3-П Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_1х2_--l_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.3-П";
+            }
+            //Тип ПВХ-2.3-Л Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_1х2_--l_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                 && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.3-Л";
+            }
+            //Тип ПВХ-3.5 Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_1х3_---ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1870 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["ЗТР_Створка4_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.5";
+            }
+            //Тип ПВХ-3.6 Пятистворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Пятистворчатое_3х2_-ll-ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1970
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) 
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && (dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Лево_Верхнее")))
+            {
+                return "Тип ПВХ-3.6";
+            }
+            //Тип ПВХ-2.4-П Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_2х2_-l-l_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2230
+                 && double.Parse(dictionaryParameters["ЗТР_Створка1_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Лево_Верхнее")))
+            {
+                return "Тип ПВХ-2.4-П";
+            }
+            //Тип ПВХ-2.4-Л Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_2х2_-l-l_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.4-Л";
+            }
+            //Тип ПВХ-3.7 Шестистворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Шестистворчатое_3х3_-l-l-ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && ((double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1910 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570
+                 && double.Parse(dictionaryParameters["ЗТР_Створка4_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["ЗТР_Створка6_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Глухое")) 
+                 || (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) > 1910
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) 
+                 && (dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Лево_Верхнее")))))
+            {
+                return "Тип ПВХ-3.7";
+            }
+            //Тип ПВХ-1.4 Трехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое"
+                && dictionaryParameters["Имя_Семейства"].Contains("_Трехстворчатое_1х1х1_--_")
+                && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1070
+                && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 470
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 1250
+                && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 2380
+                && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое"))
+
+            {
+
+                return "Тип ПВХ-1.4";
+            }
+            //Тип ПВХ-2.5-П Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_1х2х1_---l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.5-П";
+            }
+            //Тип ПВХ-2.5-Л Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" 
+                 && dictionaryParameters["Имя_Семейства"].Contains("_Четырехстворчатое_1х2х1_---l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && (double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1470 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1170)
+                 && double.Parse(dictionaryParameters["ЗТР_Створка3_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-2.5-Л";
+            }
+            //Тип ПВХ-3.8 Четырехстворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Пятистворчатое_1х3х1_----l-l-_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 1870 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1570
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && double.Parse(dictionaryParameters["ЗТР_Створка4_Ширина_Расчет"]) == 400 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"]) * 1.5
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.8";
+            }
+            //Тип ПВХ-3.9 Девятистворчатое
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_23166_О_Новое" && dictionaryParameters["Имя_Семейства"].Contains("_Девятистворчатое_3х3х3_-l-l--l-l-ll_")
+                 && (dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("П") || dictionaryParameters["АТС_Материал_Профильных_Элементов"].Contains("ПА"))
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) <= 2570 
+                 && double.Parse(dictionaryParameters["АТР_Примерная_Ширина"]) >= 1970
+                 && double.Parse(dictionaryParameters["ЗТР_Створка2_Ширина_Расчет"]) == 800 - double.Parse(dictionaryParameters["ДТР_Коробка_Ширина"])
+                 && dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка6_Типоразмер"].Contains("_Лево_Верхнее"))
+                 && dictionaryParameters["ГТС_Створка7_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка8_Типоразмер"].Contains("_Глухое")
+                 && dictionaryParameters["ГТС_Створка9_Типоразмер"].Contains("_Глухое"))
+            {
+                return "Тип ПВХ-3.9";
             }
             return "";
         }

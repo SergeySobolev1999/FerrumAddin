@@ -170,17 +170,23 @@ namespace WPFApplication.newMaterial_Select_Element_Application
         }
         private void ExecutePickElement(object obj)
         {
-            Pick_Element pick_Element = new Pick_Element();
+            try
+            {
+                Pick_Element pick_Element = new Pick_Element();
             Element element = pick_Element.Pick_Element_Donor(_commandData);
 
-            if (element is FamilyInstance familyInstance)
-            {
-                SelectedElement = familyInstance;
-                _elementDonor = familyInstance;
+                if (element is FamilyInstance familyInstance)
+                {
+                    SelectedElement = familyInstance;
+                    _elementDonor = familyInstance;
 
-                LoadElementParameters(element);
+                    LoadElementParameters(element);
+                }
+                else
+                {
+                }
             }
-            else
+            catch (Exception ex)
             {
             }
         }

@@ -36,6 +36,7 @@ namespace SSDK
                 string a = parameter.AsValueString();
                 return parameter.AsValueString(); }
         }
+       
         public static string Get_Parameter_Double_To_String(Parameter parameter)
         {
             if (parameter == null) { return ""; }

@@ -101,37 +101,49 @@ namespace WPFApplication.newProperty_Copy
 
         private void ExecutePickElement(object obj)
         {
-            Pick_Element pick_Element = new Pick_Element();
+            try
+            {
+                Pick_Element pick_Element = new Pick_Element();
             Element element = pick_Element.Pick_Element_Donor(_commandData);
 
-            if (element is FamilyInstance familyInstance)
-            {
-                SelectedElement = familyInstance;
-                _elementDonor = familyInstance;
-                _elementDonorType = _documentDonor.GetElement(familyInstance.GetTypeId());
-                LoadElementParameters(element);
+                if (element is FamilyInstance familyInstance)
+                {
+                    SelectedElement = familyInstance;
+                    _elementDonor = familyInstance;
+                    _elementDonorType = _documentDonor.GetElement(familyInstance.GetTypeId());
+                    LoadElementParameters(element);
 
-                // 🚀 Обновляем TreeView
-                OnPropertyChanged(nameof(ParameterCategories));
+                    // 🚀 Обновляем TreeView
+                    OnPropertyChanged(nameof(ParameterCategories));
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
         private void ExecutePickElementTarget(object obj)
         {
-            Pick_Element pick_Element = new Pick_Element();
+            try
+            {
+                Pick_Element pick_Element = new Pick_Element();
             List<Element> elements = pick_Element.Pick_Element_Target(_commandData);
 
-            if (elements != null && elements.Count > 0)
-            {
-                SelectedElementTarget.Clear();
-                foreach (var element in elements)
+                if (elements != null && elements.Count > 0)
                 {
-                    SelectedElementTarget.Add(element);
+                    SelectedElementTarget.Clear();
+                    foreach (var element in elements)
+                    {
+                        SelectedElementTarget.Add(element);
+                    }
+                    _documentTarget = elements.First().Document; // Назначаем правильный документ
                 }
-                _documentTarget = elements.First().Document; // Назначаем правильный документ
+                else
+                {
+                    TaskDialog.Show("Ошибка", "Не выбраны целевые элементы.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                TaskDialog.Show("Ошибка", "Не выбраны целевые элементы.");
             }
         }
         private void LoadElementParameters(Element element)
