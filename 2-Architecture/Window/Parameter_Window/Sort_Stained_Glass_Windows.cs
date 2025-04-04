@@ -349,7 +349,7 @@ namespace WPFApplication.Parameter_Window
                                 Parameter_Name parameter_Name = new Parameter_Name();
 
                                 //АТС_Тип_Изделия
-                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Вид_Изделия", "БТС_Вип_Изделия_Переопределить");
+                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Вид_Изделия", "БТС_Вид_Изделия_Переопределить");
                                 //Высота
                                 string height = ((double)Math.Round(double.Parse(parameter_Name.Parameter_Name_Of_Element(element_Group, "АТР_Примерная_Высота", "-"), CultureInfo.InvariantCulture))).ToString();
                                 //Ширина
@@ -660,7 +660,7 @@ namespace WPFApplication.Parameter_Window
                  && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) >= 450
                  && double.Parse(dictionaryParameters["АТР_Примерная_Высота"]) <= 1910
                  && (dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка1_Типоразмер"].Contains("_Лево_Верхнее"))
-                 && dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Глухое")
+                 && (dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка2_Типоразмер"].Contains("_Лево_Верхнее"))
                  && (dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Левое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Правое_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Право_Верхнее") || dictionaryParameters["ГТС_Створка3_Типоразмер"].Contains("_Лево_Верхнее"))
                  && dictionaryParameters["ГТС_Створка4_Типоразмер"].Contains("_Глухое")
                  && dictionaryParameters["ГТС_Створка5_Типоразмер"].Contains("_Глухое")

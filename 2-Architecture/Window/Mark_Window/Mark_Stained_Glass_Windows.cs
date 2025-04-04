@@ -84,7 +84,7 @@ namespace WPFApplication.Mark_Window
                             if (element_Window != null && element_Window.LookupParameter("ЮТС_Dynamo_ID").AsValueString() == "ГОСТ_30674_О_Новое")
                             {
                                 //АТС_Тип_Изделия
-                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Вип_Изделия", "БТС_Вип_Изделия_Переопределить");
+                                string product_Type = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Вид_Изделия", "БТС_Вид_Изделия_Переопределить");
                                 //Высота
                                 string height = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТР_Примерная_Высота", "-");
                                 //Ширина
