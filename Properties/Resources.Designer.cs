@@ -213,6 +213,16 @@ namespace FerrumAddin.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GrillageCreatorBackground {
+            get {
+                object obj = ResourceManager.GetObject("GrillageCreatorBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon16 {
             get {
                 object obj = ResourceManager.GetObject("icon16", resourceCulture);
@@ -286,6 +296,16 @@ namespace FerrumAddin.Properties {
         internal static System.Drawing.Bitmap Property_Copy {
             get {
                 object obj = ResourceManager.GetObject("Property_Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemovingOpenings {
+            get {
+                object obj = ResourceManager.GetObject("RemovingOpenings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

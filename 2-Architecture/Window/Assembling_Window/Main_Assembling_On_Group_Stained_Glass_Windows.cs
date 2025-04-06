@@ -23,7 +23,7 @@ namespace WPFApplication.Assembling_Window
             {
                 Data_Assembling_Window.filtered_Group.Clear();
                 Revit_Document_Assembling_Window.Initialize(commandData);
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
                 if (SSDK_Data.licenses_Connection)
                 {
                     WPF_Main_Assembling_Window wPF_Main_Assembling_Window = new WPF_Main_Assembling_Window();

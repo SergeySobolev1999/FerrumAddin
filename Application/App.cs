@@ -62,13 +62,13 @@ namespace FerrumAddin
         //Связь с сервером лицензий
         private void OnDocumentSaving(object sender, Autodesk.Revit.DB.Events.DocumentSavingEventArgs e)
         {
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
         }
 
         private void OnDocumentSavingAs(object sender, Autodesk.Revit.DB.Events.DocumentSavingAsEventArgs e)
         {
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
         }
         //Конец логики по связи с сервером лицензий
@@ -165,9 +165,11 @@ namespace FerrumAddin
         //Панели КР
         public RibbonPanel panelKR_Level;
         public RibbonPanel panelKR_Before;
+        public RibbonPanel panelKR_Grillage_Creator;
         public RibbonPanel panelKR_BPC;
         public RibbonPanel panelKR_Accelerator_QJ;
-        
+        public RibbonPanel panelKR_Calculations;
+
         public Result OnStartup(UIControlledApplication a)
         {
            
@@ -434,6 +436,14 @@ namespace FerrumAddin
             SteelSpecCollapse.LargeImage = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
             panelKR_BPC.AddItem(SteelSpecCollapse);
 
+            panelKR_Grillage_Creator = a.CreateRibbonPanel(tabName, "Ростверк");
+            panelKR_Grillage_Creator.Visible = false;
+
+            PushButtonData Grillage_Creator = new PushButtonData("CommandGrillageCreator", "Армирование\nростверка", Assembly.GetExecutingAssembly().Location, "WPFApplication.GrillageCreator.CommandGrillageCreator");
+            Grillage_Creator.Image = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
+            Grillage_Creator.LargeImage = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
+            panelKR_Grillage_Creator.AddItem(Grillage_Creator);
+
             panelKR_Accelerator_QJ = a.CreateRibbonPanel(tabName, "ЖБ");
             panelKR_Accelerator_QJ.Visible = false;
 
@@ -441,6 +451,14 @@ namespace FerrumAddin
             StructureFileFix.Image = Convert(Properties.Resources.Сonstructions_Structure_File_Fix);
             StructureFileFix.LargeImage = Convert(Properties.Resources.Сonstructions_Structure_File_Fix);
             panelKR_Accelerator_QJ.AddItem(StructureFileFix);
+
+            panelKR_Calculations = a.CreateRibbonPanel(tabName, "Расчеты");
+            panelKR_Calculations.Visible = false;
+
+            PushButtonData RemovingOpenings = new PushButtonData("MainRemovingOpenings", "Подготов.\nк расчетам", Assembly.GetExecutingAssembly().Location, "WPFApplication.MainRemovingOpenings.MainRemovingOpenings");
+            RemovingOpenings.Image = Convert(Properties.Resources.RemovingOpenings);
+            RemovingOpenings.LargeImage = Convert(Properties.Resources.RemovingOpenings);
+            panelKR_Calculations.AddItem(RemovingOpenings);
 
             FamilyManagerWindow dock = new FamilyManagerWindow();
             dockableWindow = dock;
@@ -501,7 +519,7 @@ namespace FerrumAddin
             }
            
             ButtonConf(root);
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.userName = Environment.UserName;
             Licenses_True_ licenses_True_ = new Licenses_True_();
             return Result.Succeeded;
         }
@@ -608,6 +626,8 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
+                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Calculations.Visible = false;
 
                     break;
                 case "MEP":
@@ -623,6 +643,8 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
+                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Calculations.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
@@ -637,6 +659,8 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = true;
                     panelAR_Room.Visible = true;
+                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Calculations.Visible = false;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
@@ -651,6 +675,8 @@ namespace FerrumAddin
                     panelKR_Level.Visible = true;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
+                    panelKR_Grillage_Creator.Visible = true;
+                    panelKR_Calculations.Visible = true;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -665,6 +691,8 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
+                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Calculations.Visible = false;
                     break;
             }
         }
@@ -690,8 +718,16 @@ namespace FerrumAddin
 
     public class LoadEvent : IExternalEventHandler
     {
+        public static void a_DialogBoxShowing(
+          object sender,
+          DialogBoxShowingEventArgs e)
+        {
+            if (e.DialogId == "Dialog_Revit_PasteSimilarSymbolsPaste")
+                e.OverrideResult((int)System.Windows.Forms.DialogResult.OK);
+        }
         public void Execute(UIApplication app)
         {
+            app.DialogBoxShowing += a_DialogBoxShowing;
             var nameAndCat = new Dictionary<string, BuiltInCategory>
         {
            { "Стены", BuiltInCategory.OST_Walls },
@@ -772,6 +808,15 @@ namespace FerrumAddin
                             MyFamilyLoadOptions loadOptions = new MyFamilyLoadOptions();
                             docToCopy.LoadFamily(tab.Path, loadOptions, out Family load);
                             tx.Commit();
+                            if (list.Count == 1 && FamilyManagerWindow.IsCreateInstanceChecked())
+                            {
+                                Family family = new FilteredElementCollector(docToCopy)
+                                .OfClass(typeof(Family))
+                                .Cast<Family>()
+                                .FirstOrDefault(fam => fam.Name == familyName);
+                                ElementType type = docToCopy.GetElement(family.GetFamilySymbolIds().FirstOrDefault()) as ElementType;
+                                app.ActiveUIDocument.PostRequestForElementTypePlacement(type);
+                            }
                         }
                     }
                 }
@@ -812,6 +857,13 @@ namespace FerrumAddin
                             //tx.SetFailureHandlingOptions(failureOptions);
                             ElementTransformUtils.CopyElements(document, el, docToCopy, null, null);
                             tx.Commit();
+                            if (list.Count == 1 && FamilyManagerWindow.IsCreateInstanceChecked())
+                            {
+                                ElementType type = new FilteredElementCollector(docToCopy)
+                                 .OfCategory(nameAndCat[tab.Category]).WhereElementIsElementType()
+                                 .FirstOrDefault(fam => fam.Name == tab.Name) as ElementType;
+                                app.ActiveUIDocument.PostRequestForElementTypePlacement(type);
+                            }
                         }
                     }
                     else
@@ -825,9 +877,9 @@ namespace FerrumAddin
                             {
                                 tx.Start("Загрузка семейств");
                                 FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                                failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                                failureOptions.SetClearAfterRollback(true); // Опционально
-                                tx.SetFailureHandlingOptions(failureOptions);
+                                //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                                //failureOptions.SetClearAfterRollback(true); // Опционально
+                                //tx.SetFailureHandlingOptions(failureOptions);
 
                                 // Получаем элементы из исходного документа
                                 List<Element> elementsToCopy = new List<Element>();
@@ -879,9 +931,9 @@ namespace FerrumAddin
                             {
                                 tx.Start("Загрузка семейств");
                                 FailureHandlingOptions failureOptions = tx.GetFailureHandlingOptions();
-                                failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
-                                failureOptions.SetClearAfterRollback(true); // Опционально
-                                tx.SetFailureHandlingOptions(failureOptions);
+                                //failureOptions.SetFailuresPreprocessor(new MyFailuresPreprocessor());
+                                //failureOptions.SetClearAfterRollback(true); // Опционально
+                                //tx.SetFailureHandlingOptions(failureOptions);
                                 ICollection<ElementId> copiedIds = ElementTransformUtils.CopyElements(document, el, docToCopy, Transform.Identity, options);
                                 ElementId copiedId = copiedIds.First();
                                 Element copiedElement = docToCopy.GetElement(copiedId);
@@ -890,6 +942,13 @@ namespace FerrumAddin
                                 copiedElement.Name = newName;
 
                                 tx.Commit();
+                                if (list.Count == 1 && FamilyManagerWindow.IsCreateInstanceChecked())
+                                {
+                                    ElementType type = new FilteredElementCollector(docToCopy)
+                                     .OfCategory(nameAndCat[tab.Category]).WhereElementIsElementType()
+                                     .FirstOrDefault(fam => fam.Name == tab.Name) as ElementType;
+                                    app.ActiveUIDocument.PostRequestForElementTypePlacement(type);
+                                }
                             }
                         }
                     }
@@ -988,7 +1047,7 @@ namespace FerrumAddin
        bool familyInUse,
        out bool overwriteParameterValues)
         {
-            overwriteParameterValues = true;
+            overwriteParameterValues = false;
             return true;
         }
 

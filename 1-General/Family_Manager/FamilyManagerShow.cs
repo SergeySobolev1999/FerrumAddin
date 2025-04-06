@@ -23,7 +23,7 @@ namespace FerrumAddin
             {
                 if (1 == 1)
                 {
-                    SSDK_Data.username = Environment.UserName;
+                    SSDK_Data.licenses_Name = Environment.UserName;
                     if (SSDK_Data.licenses_Connection)
                     {
                         // dockable window id

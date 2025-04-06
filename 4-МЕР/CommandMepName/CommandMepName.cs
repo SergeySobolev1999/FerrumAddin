@@ -27,7 +27,7 @@ namespace FerrumAddin
         {
             if (1 == 2)
             {
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 UIApplication uiapp = commandData.Application;

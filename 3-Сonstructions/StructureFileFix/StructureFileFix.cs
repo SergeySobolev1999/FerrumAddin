@@ -20,9 +20,9 @@ namespace masshtab
         {
             try
             {
-                SSDK_Data.username = Environment.UserName;
-                //if (SSDK_Data.licenses_Connection)
-                //{
+                SSDK_Data.licenses_Name = Environment.UserName;
+                if (SSDK_Data.licenses_Connection)
+                {
                     string className = "Ускорить файл КЖ"; DateTime dateTime = DateTime.Now;
                     if (RevitApi.UiApplication == null) { RevitApi.Initialize(commandData); }
                     UIDocument uidoc = RevitApi.UiDocument; Document doc = RevitApi.Document;
@@ -194,13 +194,13 @@ namespace masshtab
                     //Debug.WriteLine(msg);
 
                     new Logger(dateTime, className, "Завершение работы.");
-                //}
-                //else
-                //{
-                //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-                //    s_Mistake_String.ShowDialog();
-                //}
-               
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                    s_Mistake_String.ShowDialog();
+                }
+
             }
             catch (Exception ex)
             {

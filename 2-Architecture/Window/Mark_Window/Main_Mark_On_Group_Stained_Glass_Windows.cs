@@ -21,7 +21,7 @@ namespace WPFApplication.Mark_Window
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
         Revit_Document_Mark_Window.Initialize(commandData);
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             //if (SSDK_Data.licenses_Connection)
             //{
                 WPF_Main_Mark_Window wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Mark_Window();

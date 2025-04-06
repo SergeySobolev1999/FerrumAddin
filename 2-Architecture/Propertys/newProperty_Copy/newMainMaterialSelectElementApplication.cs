@@ -16,11 +16,9 @@ namespace WPFApplication.newProperty_Copy
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            SSDK_Data.username = Environment.UserName;
-            if (1==1)
+            SSDK_Data.licenses_Name = Environment.UserName;
+            if (SSDK_Data.licenses_Connection)
             {
-                //if (SSDK_Data.licenses_Connection)
-                //{
                 var viewModel = new newViewModelProperty_Copy(commandData);
                 var window = new newWPF_Main_Property_Copy(commandData)
                 {
@@ -32,16 +30,10 @@ namespace WPFApplication.newProperty_Copy
                     Owner = revitHandle
                 };
                 window.Show();
-                //}
-                //else
-                //{
-                //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-                //    s_Mistake_String.ShowDialog();
-            
             }
             else
             {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Плагин на доработке");
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
                 s_Mistake_String.ShowDialog();
             }
             return Result.Succeeded;

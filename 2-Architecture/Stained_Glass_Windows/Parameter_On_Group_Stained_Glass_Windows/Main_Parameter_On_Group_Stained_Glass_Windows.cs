@@ -20,7 +20,7 @@ namespace WPFApplication.Parameter_On_Group_Stained_Glass_Windows
         {
 
             Revit_Document_Parameter_On_Group_Stained_Glass_Windows.Initialize(commandData);
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 WPF_Main_Parameter_On_Group_Stained_Glass_Windows wPF_Main_Parameter_On_Group_Stained_Glass_Windows = new WPF_Main_Parameter_On_Group_Stained_Glass_Windows();

@@ -23,7 +23,7 @@ namespace WPFApplication.newMainRenaming
         {
             try
             {
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
             //if (SSDK_Data.licenses_Connection)
             //{
 

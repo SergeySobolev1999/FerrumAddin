@@ -23,7 +23,7 @@ namespace WPFApplication.Assembling_Project_On_Group_Stained_Glass_Windows
             {
               
                     Revit_Document_Assembling_On_Group_Stained_Glass_Windows.Initialize(commandData);
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
                 if (SSDK_Data.licenses_Connection)
                 {
                     WPF_Main_Assembling_On_Group_Stained_Glass_Windows wPF_On_Group_Stained_Glass_Windows = new WPF_Main_Assembling_On_Group_Stained_Glass_Windows();

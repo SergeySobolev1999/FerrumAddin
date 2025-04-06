@@ -17,9 +17,9 @@ namespace WPFApplication.Сhanges
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             
-            SSDK_Data.username = Environment.UserName;
-            //if (SSDK_Data.licenses_Connection)
-            //{
+            SSDK_Data.licenses_Name = Environment.UserName;
+            if (SSDK_Data.licenses_Connection)
+            {
                 UIDocument uidoc = commandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document;
                 UIApplication uiApp = uidoc.Application;
@@ -239,14 +239,13 @@ namespace WPFApplication.Сhanges
             S_Mistake_String s_Mistake_String = new S_Mistake_String($"Процесс прошел успешно!\nЛистов с изменениями: { sheets_withRevision.Count }\n" +
                     $"Листов без изменений: {sheets_withoutRevision.Count}");
             s_Mistake_String.ShowDialog();
-                return Result.Succeeded;
-            //}
-            //else
-            //{
-            //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-            //    s_Mistake_String.ShowDialog();
-            //}
-            //return Result.Succeeded;
+            }
+            else
+            {
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+                s_Mistake_String.ShowDialog();
+            }
+            return Result.Succeeded;
         }
         private IEnumerable<Element> getTypeByName(Document doc, string typeName)
         {

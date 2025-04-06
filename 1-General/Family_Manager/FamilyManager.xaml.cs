@@ -709,6 +709,23 @@ namespace FerrumAddin
             Tabs.ItemsSource = mvm.TabItems;
             Tabs.SelectedIndex = 0;
         }
+        private void allItems_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in CategoryFilters)
+            {
+                item.IsChecked = (bool)(sender as System.Windows.Controls.CheckBox).IsChecked;
+            }
+        }
+
+        private void createInstance_Checked(object sender, RoutedEventArgs e)
+        {
+            isCreateInstanceChecked = (bool)(sender as System.Windows.Controls.CheckBox).IsChecked;
+        }
+        private static bool isCreateInstanceChecked = false;
+        public static bool IsCreateInstanceChecked()
+        {
+            return isCreateInstanceChecked;
+        }
     }
 
     public class BooleanToVisibilityConverter : IValueConverter

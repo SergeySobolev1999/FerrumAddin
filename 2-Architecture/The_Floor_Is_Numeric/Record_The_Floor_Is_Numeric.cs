@@ -81,6 +81,9 @@ namespace WPFApplication.The_Floor_Is_Numeric
                 foreach (Element element in all_Elements)
                 {
                     bool element_true = false;
+                    bool set_true = false;
+                    int iterationWarning = 0;
+                    Element elementHost = element;
                     foreach (string str in Data_The_Floor_Is_Numeric.work_Set_Igonre_Collection.Items)
                     {
                         string parameter_Value = element.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM).AsValueString();
@@ -89,19 +92,41 @@ namespace WPFApplication.The_Floor_Is_Numeric
                             element_true = true;
                         }
                     }
-                    if (!element_true && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(element.LevelId) != null)
+                    if (!element_true && !element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).IsReadOnly)
                     {
-                        Element level_ID = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(element.LevelId);
-                        element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).Set(level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble());
-                        Data_The_Floor_Is_Numeric.number_True_Element++;
-                    }
-                    else if (!element_true && element is Railing && (element as Railing).HostId != null && Revit_Document_The_Floor_Is_Numeric.Document.GetElement((element as Railing)?.HostId ?? ElementId.InvalidElementId)!=null)
-                    {
-                        ElementId hostId = (element as Railing)?.HostId ?? ElementId.InvalidElementId;
-                        Element host = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(hostId);
-                        Element level = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(host.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId());
-                        element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).Set(level.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble());
-                        Data_The_Floor_Is_Numeric.number_True_Element++;
+                        while (!set_true && iterationWarning < 15 && elementHost!=null)
+                        {
+                            if (elementHost.LevelId != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.LevelId) != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.LevelId).get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid) != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.LevelId).get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble() != 0)
+                            {
+                                Element level_ID = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.LevelId);
+                                Parameter parameter = level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid);
+                                set_true = SSDK_Parameter.Set_Parameter(element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid), parameter.AsDouble());
+                                Data_The_Floor_Is_Numeric.number_True_Element = set_true == true ? ++Data_The_Floor_Is_Numeric.number_True_Element : Data_The_Floor_Is_Numeric.number_True_Element;
+                            }
+                            if (elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM) != null
+                                && elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId() != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId()) != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId()).get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid) != null
+                                && Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId()).get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid).AsDouble() != 0)
+                            {
+                                Element level_ID = Revit_Document_The_Floor_Is_Numeric.Document.GetElement(elementHost.get_Parameter(BuiltInParameter.STAIRS_BASE_LEVEL_PARAM).AsElementId());
+                                Parameter parameter = level_ID.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid);
+                                set_true = SSDK_Parameter.Set_Parameter(element.get_Parameter(Data_The_Floor_Is_Numeric.parameten_Guid), parameter.AsDouble());
+                                Data_The_Floor_Is_Numeric.number_True_Element = set_true == true ? ++Data_The_Floor_Is_Numeric.number_True_Element : Data_The_Floor_Is_Numeric.number_True_Element;
+                            }
+                            else if ((elementHost as FamilyInstance) != null && (elementHost as FamilyInstance).Host != null)
+                            {
+                                elementHost = (element as FamilyInstance).Host;
+                            }
+                            else if ((elementHost as Railing) != null && (elementHost as Railing).HostId != null)
+                            {
+                                elementHost = Revit_Document_The_Floor_Is_Numeric.Document.GetElement((elementHost as Railing).HostId);
+                            }
+                            iterationWarning++;
+                        }
                     }
                 }
             }

@@ -163,6 +163,9 @@
   <data name="General_Pinner_Worksets" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\General_Pinner_Worksets.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="GrillageCreatorBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GrillageCreatorBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -186,6 +189,9 @@
   </data>
   <data name="Property_Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Property_Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RemovingOpenings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RemovingOpenings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RoomPath" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RoomPath.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

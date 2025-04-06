@@ -20,7 +20,7 @@ namespace WPFApplication.Enter_Site
         {
             try
             {
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
                 if (SSDK_Data.licenses_Connection)
                 {
                     Document_Site.Initialize(commandData);

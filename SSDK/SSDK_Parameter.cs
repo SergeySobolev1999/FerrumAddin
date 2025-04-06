@@ -15,8 +15,16 @@ namespace SSDK
         public static bool Set_Parameter(Parameter parameter, string value)
         {
             if (parameter == null) { return false; }
-            //else if (parameter.AsValueString() == null) { return false; }
+            else if (parameter.IsReadOnly) { return false; }
             else if (parameter.AsValueString() == value) { return false; }
+            else { parameter.Set(value); }
+            return true;
+        }
+        public static bool Set_Parameter(Parameter parameter, double value)
+        {
+            if (parameter == null) { return false; }
+            else if (parameter.IsReadOnly) { return false; }
+            else if (parameter.AsDouble() == value) { return false; }
             else { parameter.Set(value); }
             return true;
         }

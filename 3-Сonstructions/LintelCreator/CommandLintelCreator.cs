@@ -24,7 +24,7 @@ namespace WPFApplication.LintelCreator
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 Document doc = commandData.Application.ActiveUIDocument.Document;

@@ -30,7 +30,7 @@ namespace masshtab
         {
             try
             {
-                SSDK_Data.username = Environment.UserName;
+                SSDK_Data.licenses_Name = Environment.UserName;
                 if (SSDK_Data.licenses_Connection)
                 {
                     string className = "Закрепление и наборы"; DateTime dateTime = DateTime.Now;

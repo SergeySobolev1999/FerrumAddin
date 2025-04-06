@@ -21,7 +21,7 @@ namespace WPFApplication.Parameter_Door
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Revit_Document_Parameter_Window.Initialize(commandData);
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 WPF_Main_Parameter_Door wPF_Main_Parameter_Door = new WPF_Main_Parameter_Door();

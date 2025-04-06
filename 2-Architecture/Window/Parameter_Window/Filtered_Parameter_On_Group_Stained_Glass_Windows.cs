@@ -8,7 +8,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFApplication.The_Floor_Is_Numeric;
 
 namespace WPFApplication.Parameter_Window
 {

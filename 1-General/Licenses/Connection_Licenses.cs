@@ -46,13 +46,13 @@ namespace WPFApplication.Licenses
                             {
                                 Get_User_Name get_User_Name_Value = new Get_User_Name();
                                 string a = get_User_Name_Value.Get_User_Name_Value(user_License.id);
-                                string s = SSDK_Data.username;
+                                string s = SSDK_Data.licenses_Name;
 
-                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id).ToString() == SSDK_Data.username)
+                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id).ToString() == SSDK_Data.userName)
                                 {
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
                                     iteration = true;
-                                    SSDK_Data.licenses_Connection = true;
+                                    
                                 }
                                 else
                                 {
@@ -67,6 +67,12 @@ namespace WPFApplication.Licenses
                         if (iteration) 
                         {
                             SSDK_Data.licenses_Connection = true;
+                            SSDK_Data.licenses_Id = user_License.id;
+                            SSDK_Data.licenses_Name = user_License.name;
+                            SSDK_Data.licenses_Surname = user_License.surname;
+                            SSDK_Data.licenses_Patronomic = user_License.patronymic;
+                            SSDK_Data.licenses_Post = user_License.post;
+                            SSDK_Data.licenses_Password = user_License.password;
                         }
 
                     }
@@ -86,7 +92,7 @@ namespace WPFApplication.Licenses
         {
             // Строка подключения
             string connectionString = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
-            string use_name = SSDK_Data.username;
+            string use_name = SSDK_Data.userName;
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -125,7 +131,6 @@ namespace WPFApplication.Licenses
         {
             // Строка подключения
             string connectionStringa = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
-            string use_name = SSDK_Data.username;
             // Создание соединения
             using (MySqlConnection connection = new MySqlConnection(connectionStringa))
             {
@@ -193,7 +198,7 @@ namespace WPFApplication.Licenses
             if (!File.Exists(filePath))
             {
                 using (File.Create(filePath)) ;
-                User_license user_License = new User_license(0, "0", "0", "0");
+                User_license user_License = new User_license(0, "0", "0", "0", "0", "0", "0");
                 Serialize serialize = new Serialize();
                 serialize.SerializeXML2(user_License);
             }
@@ -241,13 +246,19 @@ namespace WPFApplication.Licenses
         public int id { get; set; } = 0;
         public string name { get; set; } = "";
         public string surname { get; set; } = "";
+        public string patronymic { get; set; } = "";
+        public string status { get; set; } = "";
+        public string post { get; set; } = "";
         public string password { get; set; } = "";
-        public User_license(int id, string name, string surname, string password)
+        public User_license(int Id, string Name, string Surname, string Patronymic, string Status, string Post, string Password)
         {
-            this.id = id;
-            this.name = name;
-            this.surname = surname;
-            this.password = password;
+            this.id = Id;
+            this.name = Name;
+            this.surname = Surname;
+            this.patronymic = Patronymic;
+            this.status = Status;
+            this.post = Post;
+            this.password = Password;
         }
     }
 

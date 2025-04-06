@@ -8,10 +8,15 @@ namespace SSDK
 {
     public class SSDK_Data
     {
-        public static string plugin_Version = " Версия: 1.3.13";
-        
+        public static string plugin_Version = " Версия: 1.3.14";
+        public static string userName = "";
         public static bool licenses_Connection = false;
-        
-        public static string username = "";
+        public static int licenses_Id = 0;
+        public static string licenses_Name = "";
+        public static string licenses_Surname = "";
+        public static string licenses_Patronomic = "";
+        public static string licenses_Status = "";
+        public static string licenses_Post = "";
+        public static string licenses_Password = "";
     }
 }

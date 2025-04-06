@@ -36,7 +36,7 @@ namespace FerrumAddin
         public Configurator(ExternalCommandData commandData)
         {
             InitializeComponent();
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.userName = Environment.UserName;
             CreateCheckboxesFromXml();
             LoadToggleButtonState();
             this.commandData = commandData;
@@ -595,14 +595,22 @@ namespace FerrumAddin
 
         private void User_Licenses(object sender, RoutedEventArgs e)
         {
-            Main_Assembling_Window main_Assembling_Window = new Main_Assembling_Window();
-            if(SSDK_Data.licenses_Connection)
+            try
             {
-                Licenses_Connection.Text = "Лицензия подключена";
+                Main_Assembling_Window main_Assembling_Window = new Main_Assembling_Window();
+                if(SSDK_Data.licenses_Connection)
+                {
+                    Licenses_Connection.Text = "Лицензия подключена";
+                }
+                else
+                {
+                    Licenses_Connection.Text = "Ошибка. Ваша лицензия недоступна. Выполните переподключение";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Licenses_Connection.Text = "Ошибка. Ваша лицензия недоступна. Выполните переподключение";
+                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
+                s_Mistake_String.ShowDialog();
             }
         }
     }

@@ -410,6 +410,11 @@
     <Compile Include="1-General\PinnerWorksets\wswpf.xaml.cs">
       <DependentUpon>wswpf.xaml</DependentUpon>
     </Compile>
+    <Compile Include="3-Сonstructions\GrillageCreator\CommandGrillageCreator.cs" />
+    <Compile Include="3-Сonstructions\GrillageCreator\WindowGrillageCreator.xaml.cs">
+      <DependentUpon>WindowGrillageCreator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="3-Сonstructions\RemovingOpenings\MainRemovingOpenings.cs" />
     <Compile Include="3-Сonstructions\SteelSpecCollapse\sscViewModel.cs" />
     <Compile Include="3-Сonstructions\SteelSpecCollapse\sscwpf.xaml.cs">
       <DependentUpon>sscwpf.xaml</DependentUpon>
@@ -543,6 +548,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="2-Architecture\Window\Parameter_Window\WPF_Main_Parameter_On_Group_Stained_Glass_Windows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="3-Сonstructions\GrillageCreator\WindowGrillageCreator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -761,6 +770,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ArchitectureRooms.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\GrillageCreatorBackground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RemovingOpenings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

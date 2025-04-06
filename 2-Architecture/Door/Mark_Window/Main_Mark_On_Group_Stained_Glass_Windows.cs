@@ -22,7 +22,7 @@ namespace WPFApplication.Mark_Door
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Revit_Document_Mark_Window.Initialize(commandData);
-            SSDK_Data.username = Environment.UserName;
+            SSDK_Data.licenses_Name = Environment.UserName;
             if (SSDK_Data.licenses_Connection)
             {
                 WPF_Main_MarkWindow wPF_Main_MarkWindow = new WPF_Main_MarkWindow();

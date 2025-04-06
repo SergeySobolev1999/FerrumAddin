@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -72,13 +73,14 @@ namespace WPFApplication.Licenses
                                 Set_User_Name set_User_Name = new Set_User_Name(Data.id_persons);
                                 iterarion = true;
                                 SSDK_Data.licenses_Connection = true;
+                               
 
                             }
                             else
                             {
                                 status.Text = "Статус подключения: введены некорректные данные";
                                 Data.licenses_Value = false;
-                                User_license user_License = new User_license(0, "0", "0", "0");
+                                User_license user_License = new User_license(0, "0", "0", "0", "0", "0", "0");
                                 Serialize serialize = new Serialize();
                                 serialize.SerializeXML2(user_License);
                                 SSDK_Data.licenses_Connection = false;
@@ -89,10 +91,17 @@ namespace WPFApplication.Licenses
                             status.Text = "Статус подключения: подключено";
                             Data.licenses_Value = true;
                             Set_User_Name set_User_Name = new Set_User_Name(Int32.Parse(reader["id_persons"].ToString()));
-                            Data.user_License = new User_license(Data.id_persons, Data.name, Data.surname, Data.password);
+                            Data.user_License = new User_license(Data.id_persons, Data.name, Data.surname, Data.patronymic, Data.status, Data.post, Data.password);
                             Serialize serialize = new Serialize();
                             serialize.SerializeXML2(Data.user_License);
                             SSDK_Data.licenses_Connection = true;
+                            SSDK_Data.licenses_Id = Data.id_persons;
+                            SSDK_Data.licenses_Name = Data.name;
+                            SSDK_Data.licenses_Surname = Data.surname;
+                            SSDK_Data.licenses_Patronomic = Data.patronymic;
+                            SSDK_Data.licenses_Status = Data.status;
+                            SSDK_Data.licenses_Post = Data.post;
+                            SSDK_Data.licenses_Password = Data.password;
                         }
                     }
                 }
@@ -110,7 +119,7 @@ namespace WPFApplication.Licenses
                         Data.licenses_Value = false;
                         
                     }
-                    User_license user_License = new User_license(0, "0", "0", "0");
+                    User_license user_License = new User_license(0, "0", "0", "0", "0", "0", "0");
                     Serialize serialize = new Serialize();
                     serialize.SerializeXML2(user_License);
                     SSDK_Data.licenses_Connection = false;
@@ -143,16 +152,15 @@ namespace WPFApplication.Licenses
                             if (reader["name"].ToString() == user_License.name && reader["surname"].ToString() == user_License.surname && reader["password"].ToString() == user_License.password)
                             {
                                 Get_User_Name get_User_Name_Value = new Get_User_Name();
-                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id) == SSDK_Data.username)
+                                if (get_User_Name_Value.Get_User_Name_Value(user_License.id) == SSDK_Data.userName)
                                 {
                                     iterarion = true;
                                     Data.licenses_Value = true;
-                                    status.Text = "Статус подключения: подключено";
                                     TextBox_Name.Text = user_License.name;
                                     TextBox_Surname.Text = user_License.surname;
                                     TextBox_Password.Password = user_License.password;
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
-                                    SSDK_Data.licenses_Connection = true;
+                                    
                                 }
                                 else
                                 {
@@ -172,12 +180,19 @@ namespace WPFApplication.Licenses
                             SSDK_Data.licenses_Connection = true;
                             status.Text = "Статус подключения: подключено";
                             Data.licenses_Value = true;
+                            SSDK_Data.licenses_Id = user_License.id;
+                            SSDK_Data.licenses_Name = user_License.name;
+                            SSDK_Data.licenses_Surname = user_License.surname;
+                            SSDK_Data.licenses_Patronomic = user_License.patronymic;
+                            SSDK_Data.licenses_Status = user_License.status;
+                            SSDK_Data.licenses_Post = user_License.post;
+                            SSDK_Data.licenses_Password = user_License.password;
                         }
                         if (!iterarion)
                         {
                             SSDK_Data.licenses_Connection = false;
                             status.Text = "Статус подключения: переподключитесь к серверу лицензий";
-                            Data.licenses_Value = true;
+                            Data.licenses_Value = false;
                         }
                     }
                 }
