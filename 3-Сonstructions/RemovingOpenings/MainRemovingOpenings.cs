@@ -105,7 +105,7 @@ namespace WPFApplication.MainRemovingOpenings
                                 foreach(var position in dictionatySize)
                                 {
                                     Parameter parameter = element.LookupParameter(position.Key);
-                                    if (parameter != null)
+                                    if (parameter != null && !parameter.IsReadOnly)
                                     {
                                         parameter.Set(position.Value);
                                         numToZeroParamters++;
