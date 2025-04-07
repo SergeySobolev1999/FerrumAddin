@@ -185,18 +185,18 @@ namespace WPFApplication.Parameter_Window
                                 string double_Glazed_Window_Formula = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
                                 //АТС_Спобос_Открывания
                                 string opening_Method = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Способ_Открывания", "БТС_Способ_Открывания_Переопределить");
-                                //АТС_Покрытие_Окна_Спереди
-                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Спереди", "-");
-                                if (window_Covering_In_Front.Length > 0)
-                                {
-                                    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                }
-                                //АТС_Покрытие_Окна_Сзади
-                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-"); 
-                                if (window_Covering_In_Back.Length > 0)
-                                {
-                                    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                }
+                                ////АТС_Покрытие_Окна_Спереди
+                                //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Спереди", "-");
+                                //if (window_Covering_In_Front.Length > 0)
+                                //{
+                                //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                //}
+                                ////АТС_Покрытие_Окна_Сзади
+                                //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Окна_Сзади", "-"); 
+                                //if (window_Covering_In_Back.Length > 0)
+                                //{
+                                //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                //}
                                 //АТС_Огнестойкость
                                 string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                 //АТС_Утепленность
@@ -266,8 +266,8 @@ namespace WPFApplication.Parameter_Window
                                 dictionaryParameters.Add("АТС_Тип_Конструкции", type_Of_Construction);
                                 dictionaryParameters.Add("АТС_Формула_Стеклопакета", double_Glazed_Window_Formula);
                                 dictionaryParameters.Add("АТС_Способ_Открывания", opening_Method);
-                                dictionaryParameters.Add("АТС_Покрытие_Окна_Спереди", window_Covering_In_Front);
-                                dictionaryParameters.Add("АТС_Покрытие_Окна_Сзади", window_Covering_In_Back);
+                                //dictionaryParameters.Add("АТС_Покрытие_Окна_Спереди", window_Covering_In_Front);
+                                //dictionaryParameters.Add("АТС_Покрытие_Окна_Сзади", window_Covering_In_Back);
                                 dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
                                 dictionaryParameters.Add("АТС_Утепленность", insulation);
                                 dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
@@ -319,12 +319,11 @@ namespace WPFApplication.Parameter_Window
                                 dictionaryParameters.Add("ГТС_Створка14_Типоразмер", sash14Type);
                                 //Стандарт
                                 string name_Presset = "";
-                                if (Data_Parameter_Window.sketch_bool = true)
+                                if (Data_Parameter_Window.sketch_bool == true)
                                 {
                                     name_Presset = StandartRevision(dictionaryParameters);
                                 }
-                                string result_Name = name_Presset+ product_Type + " " + height  + wight + material_Of_Profile_Elements + type_Of_Construction + "(" + double_Glazed_Window_Formula + ")" + opening_Method + window_Covering_In_Front +
-                                    window_Covering_In_Back + fire_Resistance + insulation + functional_Feature + the_Location_Is_Internal + additional_Information;
+                                string result_Name = name_Presset+ product_Type + " " + height  + wight + material_Of_Profile_Elements + type_Of_Construction + "(" + double_Glazed_Window_Formula + ")" + opening_Method + fire_Resistance + insulation + functional_Feature + the_Location_Is_Internal + additional_Information;
                             using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                             {
                                 transaction1.Start();
