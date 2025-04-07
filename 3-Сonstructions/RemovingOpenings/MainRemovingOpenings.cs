@@ -26,12 +26,12 @@ namespace WPFApplication.MainRemovingOpenings
                 int numToZeroParamters = 0;
                 int numToZeroElements = 0;
                 SSDK_Data.licenses_Name = Environment.UserName;
-                //if (SSDK_Data.licenses_Connection)
-                //{
-                //if (SSDK_Data.licenses_Post == "Конструктор расчетчик")
-                //{
-               
-                FilteredElementCollector collectorsGroups = new FilteredElementCollector(document);
+                if (SSDK_Data.licenses_Connection)
+                {
+                    if (SSDK_Data.licenses_Post == "Конструктор расчетчик")
+                {
+
+                    FilteredElementCollector collectorsGroups = new FilteredElementCollector(document);
                     ICollection<Group> all_Elements_Group = collectorsGroups.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements().Select(a=>a as Group).ToList();
                     using (Transaction transactionGroup = new Transaction(document, "Разгруппировка групп модели"))
                     {
@@ -122,18 +122,18 @@ namespace WPFApplication.MainRemovingOpenings
                         $"Обработанных элементов - {numToZeroElements}\n" +
                         $"Обработанных параметров - {numToZeroParamters}");
                     s_Mistake_String.ShowDialog();
-                //}
-                //else
-                //{
-                //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Вы не являетесь расчетчиком. Плагин предназначен только лишь для обработки модели перед выполнением расчетов.");
-                //    s_Mistake_String.ShowDialog();
-                //}
-                //}
-                //else
-                //{
-                //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
-                //    s_Mistake_String.ShowDialog();
-                //}
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Вы не являетесь расчетчиком. Плагин предназначен только лишь для обработки модели перед выполнением расчетов.");
+                    s_Mistake_String.ShowDialog();
+                }
+                }
+                else
+                {
+                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение ");
+                    s_Mistake_String.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
