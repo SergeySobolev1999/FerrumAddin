@@ -22,16 +22,16 @@ namespace WPFApplication.Parameter_Door
         {
             Revit_Document_Parameter_Window.Initialize(commandData);
             SSDK_Data.licenses_Name = Environment.UserName;
-            if (SSDK_Data.licenses_Connection)
-            {
+            //if (SSDK_Data.licenses_Connection)
+            //{
                 WPF_Main_Parameter_Door wPF_Main_Parameter_Door = new WPF_Main_Parameter_Door();
                 wPF_Main_Parameter_Door.ShowDialog();
-            }
-            else
-            {
-                S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
-                s_Mistake_String.ShowDialog();
-            }
+            //}
+            //else
+            //{
+            //    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Ваша лицензия недоступна. Выполните переподключение");
+            //    s_Mistake_String.ShowDialog();
+            //}
             return Result.Succeeded;
         }
     }
