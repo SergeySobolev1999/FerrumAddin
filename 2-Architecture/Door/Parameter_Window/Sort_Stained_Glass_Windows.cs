@@ -22,6 +22,7 @@ using Autodesk.Revit.DB.Visual;
 using static Autodesk.Revit.DB.SpecTypeId;
 using System.Globalization;
 using WPFApplication.Parameter_On_Group_Stained_Glass_Windows;
+using Autodesk.Revit.ApplicationServices;
 
 
 namespace WPFApplication.Parameter_Door
@@ -188,30 +189,39 @@ namespace WPFApplication.Parameter_Door
                                     string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                     //АТС_Функциональная_Особенность
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if(window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" +window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if(window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" +window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+
+                                    var dictionaryParameters = new Dictionary<string, string>();
+                                    dictionaryParameters.Add("АТС_Назначение_Изделия", product_Type);
+                                    dictionaryParameters.Add("DynamoID", dynamoID);
+                                    dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                    dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                    dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                    //Стандарт
                                     string name_Presset = "";
-                                    if(Data_Parameter_Door.sketch_bool = true)
+                                    if (Data_Parameter_Door.sketch_bool == true)
                                     {
-                                        name_Presset = "";
+                                        name_Presset = StandartRevision(dictionaryParameters);
                                     }
                                     string result_Name = name_Presset+ product_Type + material_Of_Profile_Elements + type_Of_Construction + double_Glazed_Window_Formula + opening_Method + type_Of_Filling + щpening_Inside_To_Outside + " " + height + "х" +
-                                        wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front+ window_Covering_In_Back + additional_Information;
+                                        wight + fire_Resistance + insulation + functional_Feature  + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -256,18 +266,18 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Расположение_Внутреннее_Наружное
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -279,7 +289,7 @@ namespace WPFApplication.Parameter_Door
                                         name_Presset = "";
                                     }
                                     string result_Name = name_Presset+ purpose_Of_The_Product + heat_Transfer_Resistance_Class + opening_Left_Right + щpening_Inside_To_Outside + " " + height + "х" + wight +
-                                        fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                        fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor  + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -333,30 +343,40 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Расположение_Внутреннее_Наружное
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+
+                                    var dictionaryParameters = new Dictionary<string, string>();
+                                    dictionaryParameters.Add("АТС_Назначение_Изделия", the_Material_Of_The_Frame_Elements);
+                                    dictionaryParameters.Add("DynamoID", dynamoID);
+                                    dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                    dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                    dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                    dictionaryParameters.Add("АТС_Расположение_Внутреннее_Наружное", location_Indoor_Outdoor);
+                                    //Стандарт
                                     string name_Presset = "";
-                                    if (Data_Parameter_Door.sketch_bool = true)
+                                    if (Data_Parameter_Door.sketch_bool == true)
                                     {
-                                        name_Presset = "";
+                                        name_Presset = StandartRevision(dictionaryParameters);
                                     }
                                     string result_Name = name_Presset + the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + the_Double_Glazed_Unit_Formula + opening_Left_Right + щpening_Inside_To_Outside + door_Execution +
-                                        operational_Pperformance_Class + strength_Сlass + additional_Designation_Of_The_Execution + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                        operational_Pperformance_Class + strength_Сlass + additional_Designation_Of_The_Execution + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -402,29 +422,39 @@ namespace WPFApplication.Parameter_Door
                                     string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                     //АТС_Функциональная_Особенность
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    
+                                    string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+
+                                    var dictionaryParameters = new Dictionary<string, string>();
+                                    dictionaryParameters.Add("АТС_Назначение_Изделия", the_Material_Of_The_Frame_Elements);
+                                    dictionaryParameters.Add("DynamoID", dynamoID);
+                                    dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                    dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                    dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                    //Стандарт
                                     string name_Presset = "";
-                                    if (Data_Parameter_Door.sketch_bool = true)
+                                    if (Data_Parameter_Door.sketch_bool == true)
                                     {
-                                        name_Presset = "";
+                                        name_Presset = StandartRevision(dictionaryParameters);
                                     }
-                                    string result_Name = name_Presset+ the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + number_Of_Canvases + the_Presence_Of_Glazing + the_Double_Glazed_Unit_Formula + щpening_Inside_To_Outside + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                    string result_Name = name_Presset+ the_Material_Of_The_Frame_Elements + heat_Transfer_Resistance_Class + number_Of_Canvases + the_Presence_Of_Glazing + the_Double_Glazed_Unit_Formula + щpening_Inside_To_Outside + " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -470,30 +500,39 @@ namespace WPFApplication.Parameter_Door
                                     string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                     //АТС_Функциональная_Особенность
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+
+                                    var dictionaryParameters = new Dictionary<string, string>();
+                                    dictionaryParameters.Add("АТС_Вид_Изделия", product_Type);
+                                    dictionaryParameters.Add("DynamoID", dynamoID);
+                                    dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                    dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                    dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                    //Стандарт
                                     string name_Presset = "";
-                                    if (Data_Parameter_Door.sketch_bool = true)
+                                    if (Data_Parameter_Door.sketch_bool == true)
                                     {
-                                        name_Presset = "";
+                                        name_Presset = StandartRevision(dictionaryParameters);
                                     }
                                     string result_Name = name_Presset+ product_Type + heat_Transfer_Resistance_Class + " " + height + "х" + wight + number_Of_Canvases + щpening_Inside_To_Outside +
-                                        opening_Left_Right + the_Double_Glazed_Unit_Formula + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                        opening_Left_Right + the_Double_Glazed_Unit_Formula + fire_Resistance + insulation + functional_Feature ;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -542,30 +581,39 @@ namespace WPFApplication.Parameter_Door
                                     string insulation = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                     //АТС_Функциональная_Особенность
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = "Покрытие спереди - " + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); 
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = "Покрытие сзади - " + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = "Покрытие спереди - " + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-"); 
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = "Покрытие сзади - " + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
                                     string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                     string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
+                                    string dynamoID = element_Group.LookupParameter("ЮТС_Dynamo_ID").AsValueString();
+
+                                    var dictionaryParameters = new Dictionary<string, string>();
+                                    dictionaryParameters.Add("АТС_Назначение_Изделия", product_Type);
+                                    dictionaryParameters.Add("DynamoID", dynamoID);
+                                    dictionaryParameters.Add("АТС_Утепленность", insulation);
+                                    dictionaryParameters.Add("АТС_Огнестойкость", fire_Resistance);
+                                    dictionaryParameters.Add("АТС_Функциональная_Особенность", functional_Feature);
+                                    //Стандарт
                                     string name_Presset = "";
-                                    if (Data_Parameter_Door.sketch_bool = true)
+                                    if (Data_Parameter_Door.sketch_bool == true)
                                     {
-                                        name_Presset = "";
+                                        name_Presset = StandartRevision(dictionaryParameters);
                                     }
                                     string result_Name = name_Presset+ product_Type + material_Of_Profile_Elements + type_Of_Construction + double_Glazed_Window_Formula + opening_Method + type_Of_Filling + щpening_Inside_To_Outside + " " + height + "х" +
-                                        wight + fire_Resistance + insulation + functional_Feature + window_Covering_In_Front + additional_Information;
+                                        wight + fire_Resistance + insulation + functional_Feature + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -608,18 +656,18 @@ namespace WPFApplication.Parameter_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Расположение_Внутреннее_Наружное
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
-                                    if (window_Covering_In_Front.Length > 0)
-                                    {
-                                        window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
-                                    }
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
-                                    if (window_Covering_In_Back.Length > 0)
-                                    {
-                                        window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
-                                    }
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Спереди", "-");
+                                    //if (window_Covering_In_Front.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Front = " Покрытие спереди -" + window_Covering_In_Front;
+                                    //}
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Покрытие_Двери_Сзади", "-");
+                                    //if (window_Covering_In_Back.Length > 0)
+                                    //{
+                                    //    window_Covering_In_Back = " Покрытие сзади -" + window_Covering_In_Back;
+                                    //}
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТС_Дополнительные_Сведенья", "-");
                                     //АТП_Обозначение
@@ -631,7 +679,7 @@ namespace WPFApplication.Parameter_Door
                                         name_Presset = "";
                                     }
                                     string result_Name = name_Presset+ heat_Transfer_Resistance_Class + the_Double_Glazed_Unit_Formula + opening_Left_Right + щpening_Inside_To_Outside + 
-                                           " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + window_Covering_In_Front + window_Covering_In_Back + additional_Information;
+                                           " " + height + "х" + wight + fire_Resistance + insulation + functional_Feature + location_Indoor_Outdoor + additional_Information;
                                     using (Transaction transaction1 = new Transaction(Revit_Document_Parameter_Window.Document, "Транзакция 1"))
                                     {
                                         transaction1.Start();
@@ -715,6 +763,150 @@ namespace WPFApplication.Parameter_Door
                 S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. " + ex.Message);
                 s_Mistake_String.ShowDialog();
             }
+        }
+        public static string Get_Parameter_Double_ForName_To_String(Element elementType, string parameterName)
+        {
+            Parameter parameter = elementType.LookupParameter(parameterName);
+            if (parameter == null) { return ""; }
+            else if (parameter.AsDouble() == null) { return ""; }
+            else
+            {
+                string a = (parameter.AsDouble() * 304.8).ToString();
+                return a;
+            }
+        }
+        public static string Get_Parameter_ReferenceType_To_String(Element elementType, string parameterName)
+        {
+            Parameter parameter = elementType.LookupParameter(parameterName);
+            if (parameter == null) { return ""; }
+            else if (parameter.AsValueString() == null) { return ""; }
+            else
+            {
+                return parameter.AsValueString();
+            }
+        }
+        public string StandartRevision(Dictionary<string, string> dictionaryParameters)
+        {
+            //Алюминиевая внутренняя не утепленная при МОП
+            if ((dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Новое" 
+                || dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Витражная_Новое")
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДАВ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп."))
+            {
+                return "Алюминиевая внутренняя не утепленная при МОП";
+            }
+
+            //Алюминиевая наружная утепленная при МОП
+            else if ((dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Новое" 
+                || dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Витражная_Новое")
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДАН")
+                && dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп."))
+            {
+                return "Алюминиевая наружная утепленная при МОП";
+            }
+            //Алюминиевая наружная утепленная при технических помещениях
+            else if ((dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Новое" 
+                || dictionaryParameters["DynamoID"] == "ГОСТ_23747_Д_Витражная_Новое")
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДАН")
+                && dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("тп."))
+            {
+                return "Алюминиевая наружная утепленная при технических помещениях";
+            }
+
+            //Стальная внутренняя не утепленная квартирная входная
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСВ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("кв.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Вн"))
+            {
+                return "Стальная внутренняя не утепленная квартирная входная";
+            }
+            //Стальная внутренняя не утепленная при кладовых
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСВ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("кл.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Вн"))
+            {
+                return "Стальная внутренняя не утепленная при кладовых";
+            }
+            //Стальная внутренняя не утепленная при МОП
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСВ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Вн"))
+            {
+                return "Стальная внутренняя не утепленная при МОП";
+            }
+            //Стальная внутренняя не утепленная при технических помещениях
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСВ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("тп.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Вн"))
+            {
+                return "Стальная внутренняя не утепленная при технических помещениях";
+            }
+            //Стальная наружная утепленная при МОП
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСН")
+                && dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Нр"))
+            {
+                return "Стальная наружная утепленная при МОП";
+            }
+            //Стальная наружная утепленная при техническом помещении
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСН")
+                && dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("тп.")
+                && dictionaryParameters["АТС_Расположение_Внутреннее_Наружное"].Contains("Нр"))
+            {
+                return "Стальная наружная утепленная при техническом помещении";
+            }
+            //Деревянная внутренняя квартирная санузловая
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_475_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДС")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("кв."))
+            {
+                return "Деревянная внутренняя квартирная санузловая";
+            }
+            //Деревянная внутренняя квартирная межкомнатная
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_475_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДМ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("кв."))
+            {
+                return "Деревянная внутренняя квартирная межкомнатная";
+            }
+            //ПВХ наружная квартирная балконная
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_30674_ДБ_Новое" 
+                && dictionaryParameters["АТС_Вид_Изделия"].Contains("БП")
+                && dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("кв."))
+            {
+                return "ПВХ наружная квартирная балконная";
+            }
+            return "";
         }
     }
     public class Parameter_Name
