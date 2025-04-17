@@ -22,6 +22,7 @@ namespace WPFApplication.MainRemovingOpenings
             {
                 Document document = commandData.Application.ActiveUIDocument.Document;
                 int numUngroupMembers = 0;
+                int numRectOpening = 0;
                 int numUnAssemblingMembers = 0;
                 int numToZeroParamters = 0;
                 int numToZeroElements = 0;
@@ -29,9 +30,9 @@ namespace WPFApplication.MainRemovingOpenings
                 if (SSDK_Data.licenses_Connection)
                 {
                     if (SSDK_Data.licenses_Post == "Конструктор расчетчик")
-                {
+                    {
 
-                    FilteredElementCollector collectorsGroups = new FilteredElementCollector(document);
+                        FilteredElementCollector collectorsGroups = new FilteredElementCollector(document);
                     ICollection<Group> all_Elements_Group = collectorsGroups.OfCategory(BuiltInCategory.OST_IOSModelGroups).WhereElementIsNotElementType().ToElements().Select(a=>a as Group).ToList();
                     using (Transaction transactionGroup = new Transaction(document, "Разгруппировка групп модели"))
                     {
@@ -73,9 +74,29 @@ namespace WPFApplication.MainRemovingOpenings
                         }
                         transactionGroup.Commit();
                     }
-
-                //document.Regenerate();
-                FilteredElementCollector collectorDoors = new FilteredElementCollector(document);
+                    FilteredElementCollector collectorsRectOpening = new FilteredElementCollector(document);
+                    ICollection<Element> all_Elements_RectOpening = collectorsRectOpening.OfCategory(BuiltInCategory.OST_SWallRectOpening).WhereElementIsNotElementType().ToElements().ToList();
+                    using (Transaction transactionGroup = new Transaction(document, "Разгруппировка групп модели"))
+                    {
+                        if (transactionGroup.Start() == TransactionStatus.Started)
+                        {
+                            //FailureHandlingOptions failureOptions = transactionGroup.GetFailureHandlingOptions();
+                            //failureOptions.SetFailuresPreprocessor(new IgnoreWarningPreprocessor());
+                            //failureOptions.SetForcedModalHandling(false);  // Отключаем диалоговые окна
+                            //failureOptions.SetClearAfterRollback(true);    // Очищаем после отката
+                            //failureOptions.SetDelayedMiniWarnings(false);  // Отключаем мини-предупреждения
+                            //transactionGroup.SetFailureHandlingOptions(failureOptions);
+                            foreach (Element group in all_Elements_RectOpening)
+                            {
+                                document.Delete(group.Id);
+                                numRectOpening++;
+                            }
+                        }
+                    transactionGroup.Commit();
+  
+                    }
+                        //document.Regenerate();
+                        FilteredElementCollector collectorDoors = new FilteredElementCollector(document);
                     FilteredElementCollector collectorWindows = new FilteredElementCollector(document);
                     ICollection<Element> all_DoorsWindonws = collectorDoors.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElements();
                     all_DoorsWindonws = all_DoorsWindonws.Concat(collectorWindows.OfCategory(BuiltInCategory.OST_Windows).WhereElementIsNotElementType().ToElements()).ToList();
@@ -119,15 +140,16 @@ namespace WPFApplication.MainRemovingOpenings
                     S_Mistake_String s_Mistake_String = new S_Mistake_String($"Выполнено:\n" +
                         $"Разгруппированных групп моделей - {numUngroupMembers}\n" +
                         $"Разобранных сборок - {numUnAssemblingMembers}\n" +
+                        $"Удаленных системных проемов - {numRectOpening}\n" +
                         $"Обработанных элементов - {numToZeroElements}\n" +
                         $"Обработанных параметров - {numToZeroParamters}");
                     s_Mistake_String.ShowDialog();
-                }
-                else
-                {
-                    S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Вы не являетесь расчетчиком. Плагин предназначен только лишь для обработки модели перед выполнением расчетов.");
-                    s_Mistake_String.ShowDialog();
-                }
+                    }
+                    else
+                    {
+                        S_Mistake_String s_Mistake_String = new S_Mistake_String("Ошибка. Вы не являетесь расчетчиком. Плагин предназначен только лишь для обработки модели перед выполнением расчетов.");
+                        s_Mistake_String.ShowDialog();
+                    }
                 }
                 else
                 {

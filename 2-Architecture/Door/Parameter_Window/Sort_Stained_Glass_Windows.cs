@@ -839,6 +839,7 @@ namespace WPFApplication.Parameter_Door
             {
                 return "Стальная внутренняя не утепленная при кладовых";
             }
+
             //Стальная внутренняя не утепленная при МОП
             else if (dictionaryParameters["DynamoID"] == "ГОСТ_31173_Д_Новое"
                 && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДСВ")

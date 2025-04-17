@@ -87,7 +87,8 @@ namespace WPFApplication.newMainRenaming
                             { (221,221.999),"ZH_ПТЛ_" },
                             { (222,222.099),"ZH_НСЩ_ПЛТ_ПРК_" },
                             { (222.100,222.199),"ZH_НСЩ_МНЛ_ПРК_" },
-                            { (223.000,223.099),"ZH_ОТД_ФСД_" },
+                            { (223.000,223.009),"ZH_ОТД_ФСД_" },
+                            { (223.012,223.099),"ZH_ОТД_ФСД_" },
                             { (224.000,224.999),"ZH_ОТД_ФСД_" },
                             { (223.100,223.199),"ZH_ОТД_ФСД_СЛЖ_" },
                             { (236,250.999),"ZH_ОТД_ВНТ_" },
@@ -104,6 +105,7 @@ namespace WPFApplication.newMainRenaming
                             { (219.100,219.199),"ZH_КРВ_СКТ_" },
                             { (219.200,219.299),"ZH_ДПЛ_ПЛЩ_" },
                             { (214.001,214.010),"ZH_ВНТЛ_СТН_ШДЛ_" },
+                            { (223.011,223.011),"ZH_ОТД_ФСД_ТРФ_" },
                             { (272.000,272.999),"ZH_УСЛ_" },
                             { (274.001,274.001),"ZH_ГНП_ПЛЩ_" },
                             { (274.002,274.002),"ZH_ГНП_ВХД_" },
@@ -130,9 +132,10 @@ namespace WPFApplication.newMainRenaming
                                 nameResult += pos.Value;
                             }
                             using (Transaction transaction1 = new Transaction(uidoc.Document, "Переименование"))
-                            {
+                                {
                                 transaction1.Start();
-                                SSDK_Parameter.Set_Type_Name(elementType, nameResult);
+                                    if(nameResult.Count()>5)
+                                    SSDK_Parameter.Set_Type_Name(elementType, nameResult);
                                 transaction1.Commit();
                             }
                             iteration++;

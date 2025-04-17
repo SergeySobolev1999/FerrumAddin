@@ -52,7 +52,6 @@ namespace WPFApplication.Licenses
                                 {
                                     Set_User_Name set_User_Name = new Set_User_Name(user_License.id);
                                     iteration = true;
-                                    
                                 }
                                 else
                                 {
