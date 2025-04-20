@@ -131,16 +131,27 @@ namespace FerrumAddin
 
         private void OnSyncCompleted(object sender, DocumentSynchronizedWithCentralEventArgs e)
         {
+            //Выгрузка данных о подключении
             SSDK_Data.licenses_Name = Environment.UserName;
             string docTitle = e.Document.Title;
             _sw.Stop();
             var time = DateTime.Now - _lastIdleTime;
-            Dictionary<string, string> dict = new Dictionary<string, string>
+            Dictionary<string, string> dictConnect = new Dictionary<string, string>
             {
                 { "Имя файла",docTitle },
                 { "Время синхронизации",time.ToString() },
             };
-            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
+            Licenses_True_ licenses_True_ = new Licenses_True_(dictConnect);
+            //Выгрузка данных о модели
+            Document document = e.Document as Document;
+            int number = CollectionsElementsOfModel(document);
+            Dictionary<string, string> dictModel = new Dictionary<string, string>
+            {
+                { "Имя файла", docTitle },
+                { "Количество элементов модели",number.ToString() },
+            };
+            Licenses_True_ licenses_True_Model = new Licenses_True_(dictModel);
+
         }
         //Конец логики по связи с сервером лицензий
         public static BitmapImage Convert(System.Drawing.Image img)
