@@ -266,6 +266,12 @@
     <Compile Include="1-General\Licenses\WPF_Main_Licenses.xaml.cs">
       <DependentUpon>WPF_Main_Licenses.xaml</DependentUpon>
     </Compile>
+    <Compile Include="1-General\ModelStatistics\MainModelStatistics.cs" />
+    <Compile Include="1-General\ModelStatistics\ModelModelStatistics.cs" />
+    <Compile Include="1-General\ModelStatistics\StatisticsViewModel.cs" />
+    <Compile Include="1-General\ModelStatistics\WpfMainVeiw.xaml.cs">
+      <DependentUpon>WpfMainVeiw.xaml</DependentUpon>
+    </Compile>
     <Compile Include="1-General\Site\Document_Site.cs" />
     <Compile Include="1-General\Site\Enter_Site.cs" />
     <Compile Include="1-General\Worksets\CommandWorksets.cs" />
@@ -494,6 +500,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="1-General\Licenses\WPF_Main_Licenses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="1-General\ModelStatistics\WpfMainVeiw.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

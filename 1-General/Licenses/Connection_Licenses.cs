@@ -10,6 +10,9 @@ using System.Windows;
 using System.Xml.Serialization;
 using MySql.Data.MySqlClient;
 using SSDK;
+using System.Security.RightsManagement;
+using Org.BouncyCastle.Asn1.Ocsp;
+using DocumentFormat.OpenXml.Office2016.Excel;
 
 namespace WPFApplication.Licenses
 {
@@ -17,7 +20,7 @@ namespace WPFApplication.Licenses
     {
         
         Serialize deserialize = new Serialize();
-        public  Licenses_True_()
+        public  Licenses_True_(Dictionary<string,string> request)
         {
             Folder folder = new Folder();
             Save save = new Save();
@@ -56,6 +59,19 @@ namespace WPFApplication.Licenses
                                 else
                                 {
                                     SSDK_Data.licenses_Connection = false;
+                                }
+
+                                if(request.ContainsKey("Время открытия") || request.ContainsKey("Дата открытия") || request.ContainsKey("Время синхронизации"))
+                                {
+                                    string user = $"{reader["name"].ToString()} {reader["surname"].ToString()} {reader["patronymic"].ToString()}";
+                                    string post = reader["post"].ToString();
+                                    Set_User_Connections_Open set_User_Connections_Open = new Set_User_Connections_Open(user_License.id , user , request , post);
+                                }
+                                if (request.ContainsKey("Количество элементов модели") )
+                                {
+                                    string user = $"{reader["name"].ToString()} {reader["surname"].ToString()} {reader["patronymic"].ToString()}";
+                                    string post = reader["post"].ToString();
+                                    Set_User_Model_Detalisation set_User_Connections_Open = new Set_User_Model_Detalisation(user_License.id, user, request, post);
                                 }
                             }
                             else
@@ -120,6 +136,121 @@ namespace WPFApplication.Licenses
                 catch (MySqlException ex)
                 {
                     Console.WriteLine($"Ошибка: {ex.Message}");
+                }
+            }
+        }
+    }
+    public class Set_User_Connections_Open
+    {
+        public Set_User_Connections_Open(int i , string user ,Dictionary<string,string> dic , string post)
+        {
+            if (SSDK_Data.licenses_Post != "BIM координатор" && SSDK_Data.licenses_Post != "BIM менеджер")
+            {
+                // Строка подключения
+                string connectionString = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
+                // Создание соединения
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        // Открытие подключения
+                        connection.Open();
+
+                        // SQL-запрос для обновления user_name
+                        string query = "INSERT INTO data_base_connection (id_persons, user, date_open, file_name, time_open, time_synchr , post) VALUES (@id_persons, @user, @date_open, @file_name, @time_open , @time_synchr,  @post)";
+                        // Создание команды
+                        using (MySqlCommand command = new MySqlCommand(query, connection))
+                        {
+                            string file_name = "0";
+                            if (dic.ContainsKey("Имя файла"))
+                            {
+                                file_name = dic["Имя файла"].ToString();
+                            }
+                            string timeLimit = "0";
+                            if (dic.ContainsKey("Время открытия"))
+                            {
+                                timeLimit = dic["Время открытия"].ToString();
+                            }
+                            string timeSync = "0";
+                            if (dic.ContainsKey("Время синхронизации"))
+                            {
+                                timeSync = dic["Время синхронизации"].ToString();
+                            }
+                            // Добавление параметров
+                            command.Parameters.AddWithValue("@user", user); // Передаем новое имя пользователя
+                            command.Parameters.AddWithValue("@id_persons", i);
+                            command.Parameters.AddWithValue("@file_name", file_name);
+                            command.Parameters.AddWithValue("@time_open", timeLimit);
+                            command.Parameters.AddWithValue("@time_synchr", timeSync);
+                            command.Parameters.AddWithValue("@post", post);
+                            command.Parameters.AddWithValue("@date_open", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));// Указываем идентификатор строки
+
+                            // Выполнение команды
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            // Вывод результата
+                            Console.WriteLine($"Обновлено строк: {rowsAffected}");
+                        }
+
+                    }
+                    catch (MySqlException ex)
+                    {
+                        Console.WriteLine($"Ошибка: {ex.Message}");
+                    }
+                }
+            }
+        }
+    }
+    public class Set_User_Model_Detalisation
+    {
+        public Set_User_Model_Detalisation(int i, string user, Dictionary<string, string> dic, string post)
+        {
+            if (SSDK_Data.licenses_Post != "BIM координатор" && SSDK_Data.licenses_Post != "BIM менеджер")
+            {
+                // Строка подключения
+                string connectionString = "Server=192.168.5.161;Port=3306;Database=bim_revit_zhelezno_plugin_licenses;User ID=bimadmin;Password=ercy352y32c;Connection Timeout=2;";
+                // Создание соединения
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        // Открытие подключения
+                        connection.Open();
+
+                        // SQL-запрос для обновления user_name
+                        string query = "INSERT INTO data_base_elements (id_persons, user, date, file_name, post, number_elements) VALUES (@id_persons, @user, @date, @file_name,  @post,  @number_elements)";
+                        // Создание команды
+                        using (MySqlCommand command = new MySqlCommand(query, connection))
+                        {
+                            string all_Elements = "0";
+                            if (dic.ContainsKey("Имя файла"))
+                            {
+                                all_Elements = dic["Имя файла"].ToString();
+                            }
+                            int collectionsElements = 0;
+                            if (dic.ContainsKey("Количество элементов модели"))
+                            {
+                                collectionsElements = Int32.Parse(dic["Количество элементов модели"]);
+                            }
+                            // Добавление параметров
+                            command.Parameters.AddWithValue("@user", user); // Передаем новое имя пользователя
+                            command.Parameters.AddWithValue("@id_persons", i);
+                            command.Parameters.AddWithValue("@file_name", all_Elements);
+                            command.Parameters.AddWithValue("@post", post);
+                            command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));// Указываем идентификатор строки
+                            command.Parameters.AddWithValue("@number_elements", collectionsElements);
+                            // Выполнение команды
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            // Вывод результата
+                            Console.WriteLine($"Обновлено строк: {rowsAffected}");
+                        }
+
+                    }
+                    catch (MySqlException ex)
+                    {
+                        Console.WriteLine($"Ошибка: {ex.Message}");
+                    }
                 }
             }
         }

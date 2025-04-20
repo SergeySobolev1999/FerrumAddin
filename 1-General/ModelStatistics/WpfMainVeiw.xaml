@@ -1,0 +1,189 @@
+﻿<Window x:Class="FerrumAddin.ModelStatistics.WpfMainVeiw"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FerrumAddin.ModelStatistics"
+        mc:Ignorable="d"
+        Topmost="True" 
+        WindowStartupLocation="CenterScreen"
+         WindowStyle="None"
+ 
+        ResizeMode="CanResize"
+        Height="600" Width="1200">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <StackPanel Orientation="Horizontal" 
+                     WindowChrome.IsHitTestVisibleInChrome="True" 
+                     DockPanel.Dock="Right"  
+                     FlowDirection="RightToLeft" 
+                     VerticalAlignment="Top"
+                     Background="Gray" 
+                     HorizontalAlignment="Right"  >
+                <Button Name="closeWPF" 
+                 Height="30" 
+                 Width="100" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Top" 
+                 Content="Закрыть"   
+                  FontFamily="ISOCPEUR"
+                 Click="close_Click"   
+                 FontSize="15"
+                 RenderTransformOrigin="-7.767,0.712" 
+                 Background="Gray" 
+                 BorderThickness ="0"/>
+            </StackPanel>
+            <Border Background="Gray" 
+                     DockPanel.Dock="Top" 
+                     Height="30" 
+                     VerticalAlignment="Top" 
+                    MouseDown="Label_MouseDown">
+                <Image 
+                     Source="/FerrumAddin;component/Resources/ALL_Ferrum_Zhelezno.png"
+                     Width="150"
+                     HorizontalAlignment="Left"/>
+            </Border>
+
+        </DockPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <Button Width="150" Content="Получить данные" Command="{Binding DownloadStatistics}"/>
+        </StackPanel>
+
+        <TabControl Grid.Row="2" >
+            <TabItem Header="Подключения" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <!-- Имя файла -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Должность -->
+                            <ColumnDefinition Width="3*"/>
+                            <!-- ФИО -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Дата открытия -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Время открытия -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Время синхронизации -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Номер операции -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Номер лицензии -->
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Margin="2" 
+                    Text="{Binding FilterFileNameConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="1" Margin="2" 
+                    Text="{Binding FilterPostConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="2" Margin="2" 
+                    Text="{Binding FilterUserConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="3" Margin="2" 
+                    Text="{Binding FilterDateOpenConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="4" Margin="2" 
+                    Text="{Binding FilterTimeOpenConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="5" Margin="2" 
+                    Text="{Binding FilterTimeSynchrConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="6" Margin="2" 
+                    Text="{Binding FilterSecuenceNumberConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="7" Margin="2" 
+                    Text="{Binding FilterIdPersonsConnections, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!-- Остальные TextBox... -->
+                    </Grid>
+                    <DataGrid x:Name="statisticsGrid" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding FilteredConnectionsData}" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя файла" Binding="{Binding File_Name}" Width="3*"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Post}" Width="2*"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding User}" Width="3*"/>
+                            <DataGridTextColumn Header="Дата открытия" Binding="{Binding Date_Open}" Width="2*"/>
+                            <DataGridTextColumn Header="Время открытия" Binding="{Binding Time_Open}" Width="2*"/>
+                            <DataGridTextColumn Header="Время&#x0a;синхронизации" Binding="{Binding Time_Synchr}" Width="2*"/>
+                            <DataGridTextColumn Header="Номер&#x0a;операции" Binding="{Binding Secuence_Number}" Width="*"/>
+                            <DataGridTextColumn Header="Номер&#x0a;лицензии" Binding="{Binding Id_Persons}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Модели" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <!-- Имя файла -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Должность -->
+                            <ColumnDefinition Width="3*"/>
+                            <!-- ФИО -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Дата выгрузки -->
+                            <ColumnDefinition Width="2*"/>
+                            <!-- Количество элементов -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Номер операции -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Номер лицензии -->
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Margin="2" 
+                            Text="{Binding FilterFileNameModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="1" Margin="2" 
+                            Text="{Binding FilterPostModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="2" Margin="2" 
+                            Text="{Binding FilterUserModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="3" Margin="2" 
+                            Text="{Binding FilterDateModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="4" Margin="2" 
+                            Text="{Binding FilterNumberElementsModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="5" Margin="2" 
+                            Text="{Binding FilterSecuenceNumberModels, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Column="6" Margin="2" 
+                            Text="{Binding FilterIdPersonsModels, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <DataGrid x:Name="transactionsGrid" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding FilteredModelsData}" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя файла" Binding="{Binding File_Name}" Width="3*"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Post}" Width="2*"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding User}" Width="3*"/>
+                            <DataGridTextColumn Header="Дата выгрузки" Binding="{Binding Date}" Width="2*"/>
+                            <DataGridTextColumn Header="Количество элементов" Binding="{Binding Number_Elements}" Width="2*"/>
+                            <DataGridTextColumn Header="Номер операции" Binding="{Binding Secuence_Number}" Width="*"/>
+                            <DataGridTextColumn Header="Номер лицензии" Binding="{Binding Id_Persons}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                        
+                </Grid>
+            </TabItem>
+        </TabControl >
+        <Border Background="Gray" 
+                Grid.Row="3"
+                 DockPanel.Dock="Top" 
+                 Height="35"
+                 VerticalAlignment="Bottom" 
+                 Margin="0,0,0,0" MouseDown="Label_MouseDown">
+            <TextBlock 
+                TextWrapping="Wrap" 
+                Text="..."
+                Name ="Version"
+                Margin="0,0,0,5"
+                VerticalAlignment="Bottom"
+                FontSize="15"
+                FontFamily="ISOCPEUR"
+                Height="15" Foreground="#FF323232"/>
+        </Border>
+    </Grid>
+</Window>

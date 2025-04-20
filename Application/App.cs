@@ -33,6 +33,10 @@ using WPFApplication.Licenses;
 using SSDK;
 using WPFApplication.Rooms;
 using masshtab;
+using Google.Protobuf.WellKnownTypes;
+using Autodesk.Revit.DB.Events;
+using Application = Autodesk.Revit.ApplicationServices.Application;
+using CommunityToolkit.Mvvm.DependencyInjection;
 #endregion
 
 namespace FerrumAddin
@@ -63,13 +67,80 @@ namespace FerrumAddin
         private void OnDocumentSaving(object sender, Autodesk.Revit.DB.Events.DocumentSavingEventArgs e)
         {
             SSDK_Data.licenses_Name = Environment.UserName;
-            Licenses_True_ licenses_True_ = new Licenses_True_();
+            Document document = e.Document as Document;
+            int number = CollectionsElementsOfModel(document);
+            string docTitle = e.Document.Title;
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Имя файла", docTitle },
+                { "Количество элементов модели",number.ToString() },
+            };
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
         }
-
+        public int CollectionsElementsOfModel(Document doc)
+        {
+            return new FilteredElementCollector(doc)
+           .WhereElementIsNotElementType()
+           .GetElementCount();
+        }
+        private void OnIdling(object sender, IdlingEventArgs e)
+        {
+            _lastIdleTime = DateTime.Now;
+        }
         private void OnDocumentSavingAs(object sender, Autodesk.Revit.DB.Events.DocumentSavingAsEventArgs e)
         {
             SSDK_Data.licenses_Name = Environment.UserName;
-            Licenses_True_ licenses_True_ = new Licenses_True_();
+            Document document = e.Document as Document;
+            int number = CollectionsElementsOfModel(document);
+            string docTitle = e.Document.Title;
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Имя файла", docTitle },
+                { "Количество элементов модели",number.ToString() },
+            };
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
+        }
+        private void OnAppInitialized(object sender, ApplicationInitializedEventArgs e)
+        {
+            var app = sender as Application;
+            var uiApp = new UIApplication(app);
+            uiApp.Idling += OnIdling;
+        }
+        private void OnDocumentOpened(object sender, DocumentOpenedEventArgs e)
+        {
+            SSDK_Data.licenses_Name = Environment.UserName;
+            string docTitle = e.Document.Title;
+            _sw.Stop();
+            var time = DateTime.Now - _lastIdleTime;
+            Dictionary<string,string> dict = new Dictionary<string, string>
+            {
+                { "Имя файла",docTitle },
+                { "Время открытия",time.ToString() },
+            };
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
+        }
+        private void OnDocumentOpening(object sender, DocumentOpeningEventArgs e)
+        {
+            _openStart = DateTime.Now;
+            _sw = Stopwatch.StartNew();
+        }
+        private void OnSyncStarted(object sender, DocumentSynchronizingWithCentralEventArgs e)
+        {
+            _lastIdleTime = DateTime.Now;   
+        }
+
+        private void OnSyncCompleted(object sender, DocumentSynchronizedWithCentralEventArgs e)
+        {
+            SSDK_Data.licenses_Name = Environment.UserName;
+            string docTitle = e.Document.Title;
+            _sw.Stop();
+            var time = DateTime.Now - _lastIdleTime;
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Имя файла",docTitle },
+                { "Время синхронизации",time.ToString() },
+            };
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
         }
         //Конец логики по связи с сервером лицензий
         public static BitmapImage Convert(System.Drawing.Image img)
@@ -153,6 +224,8 @@ namespace FerrumAddin
         public static MyDockablePaneViewModel ViewModel { get; private set; }
         //Панели общие
         public RibbonPanel panelGeneral;
+        //Панели общие
+        public RibbonPanel panelStatistics;
         //Панели МЕР
         public RibbonPanel panelMEP;
         //Панели АР
@@ -170,16 +243,23 @@ namespace FerrumAddin
         public RibbonPanel panelKR_Accelerator_QJ;
         public RibbonPanel panelKR_Calculations;
 
+        private DateTime _openStart;
+        private Stopwatch _sw;
+        private DateTime _lastIdleTime;
         public Result OnStartup(UIControlledApplication a)
         {
-           
+            a.ControlledApplication.ApplicationInitialized += OnAppInitialized;
 
             a.ControlledApplication.DocumentSaving += OnDocumentSaving;
             a.ControlledApplication.DocumentSavingAs += OnDocumentSavingAs;
-           
+            a.ControlledApplication.DocumentOpening += OnDocumentOpening;
+            a.ControlledApplication.DocumentOpened += OnDocumentOpened;
+            a.ControlledApplication.DocumentSynchronizingWithCentral += OnSyncStarted;
+            a.ControlledApplication.DocumentSynchronizedWithCentral += OnSyncCompleted;
+
             JsonDelete jsonDelete = new JsonDelete(a);
             application = a;
-            Type type = a.GetType();
+            System.Type type = a.GetType();
 
             string propertyName = "m_uiapplication";
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic
@@ -264,6 +344,7 @@ namespace FerrumAddin
                                                          new ComboBoxMemberData("General", "Общее"),
                                                          new ComboBoxMemberData("AR", "АР"),
                                                          new ComboBoxMemberData("KR", "КР"),
+                                                          new ComboBoxMemberData("Coordinations", "Координация"),
                                                          new ComboBoxMemberData("MEP", "MEP"),
                                                          new ComboBoxMemberData("Control", "Управление")});
             //new ComboBoxMemberData("Common", "Общие"),
@@ -306,6 +387,16 @@ namespace FerrumAddin
             PinnerWorksets.Image = Convert(Properties.Resources.General_Pinner_Worksets);
             PinnerWorksets.LargeImage = Convert(Properties.Resources.General_Pinner_Worksets);
             panelGeneral.AddItem(PinnerWorksets);
+
+            //Панель Координация
+
+            panelStatistics = a.CreateRibbonPanel(tabName, "Координация");
+            panelStatistics.Visible = false;
+
+            PushButtonData Statistics = new PushButtonData("MainModelStatistics", "Статистика\nобъектов", Assembly.GetExecutingAssembly().Location, "FerrumAddin.ModelStatistics.MainModelStatistics");
+            Statistics.Image = Convert(Properties.Resources.All_Vopros);
+            Statistics.LargeImage = Convert(Properties.Resources.All_Vopros);
+            panelStatistics.AddItem(Statistics);
 
             //Панель МЕР
             panelMEP = a.CreateRibbonPanel(tabName, "ВИС");
@@ -520,9 +611,16 @@ namespace FerrumAddin
            
             ButtonConf(root);
             SSDK_Data.userName = Environment.UserName;
-            Licenses_True_ licenses_True_ = new Licenses_True_();
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Абоба","Абоба" },
+            };
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
             return Result.Succeeded;
         }
+
+        
+
         public static string xmlFilePath;
         public static string TabPath;
         public static string FamilyFolder;
@@ -580,6 +678,7 @@ namespace FerrumAddin
 
         private void ControlledApplication_DocumentOpened(object sender, Autodesk.Revit.DB.Events.DocumentOpenedEventArgs e)
         {
+            
             if (AllowLoad == false)
             {
                 Document d = e.Document;
@@ -628,7 +727,25 @@ namespace FerrumAddin
                     panelAR_Room.Visible = false;
                     panelKR_Grillage_Creator.Visible = false;
                     panelKR_Calculations.Visible = false;
+                    panelStatistics.Visible = false;
 
+                    break;
+                case "Координация":
+                    panelGeneral.Visible = false;
+                    panelMEP.Visible = false;
+                    panelAR_Level.Visible = false;
+                    panelAR_Stained_Glass_Window.Visible = false;
+                    panelAR_Window.Visible = false;
+                    panelAR_Door.Visible = false;
+                    panelKR_Before.Visible = false;
+                    panelKR_BPC.Visible = false;
+                    panelKR_Accelerator_QJ.Visible = false;
+                    panelKR_Level.Visible = false;
+                    panelAR_Property_Copy.Visible = false;
+                    panelAR_Room.Visible = false;
+                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Calculations.Visible = false;
+                    panelStatistics.Visible = true;
                     break;
                 case "MEP":
                     panelGeneral.Visible = false;
@@ -645,6 +762,7 @@ namespace FerrumAddin
                     panelAR_Room.Visible = false;
                     panelKR_Grillage_Creator.Visible = false;
                     panelKR_Calculations.Visible = false;
+                    panelStatistics.Visible = false;
                     break;
                 case "АР":
                     panelGeneral.Visible = false;
@@ -661,6 +779,7 @@ namespace FerrumAddin
                     panelAR_Room.Visible = true;
                     panelKR_Grillage_Creator.Visible = false;
                     panelKR_Calculations.Visible = false;
+                    panelStatistics.Visible = false;
                     break;
                 case "КР":
                     panelGeneral.Visible = false;
@@ -677,6 +796,7 @@ namespace FerrumAddin
                     panelAR_Room.Visible = false;
                     panelKR_Grillage_Creator.Visible = true;
                     panelKR_Calculations.Visible = true;
+                    panelStatistics.Visible = false;
                     break;
                 default:
                     panelGeneral.Visible = false;
@@ -693,6 +813,7 @@ namespace FerrumAddin
                     panelAR_Room.Visible = false;
                     panelKR_Grillage_Creator.Visible = false;
                     panelKR_Calculations.Visible = false;
+                    panelStatistics.Visible = false;
                     break;
             }
         }
@@ -968,7 +1089,7 @@ namespace FerrumAddin
         }
 
         // Метод для поиска типа по имени и классу в целевом документе
-        private ElementType FindTypeByNameAndClass(Document doc, string typeName, Type typeClass)
+        private ElementType FindTypeByNameAndClass(Document doc, string typeName, System.Type typeClass)
         {
             return new FilteredElementCollector(doc)
                 .OfClass(typeClass)

@@ -582,7 +582,8 @@ namespace FerrumAddin
      
         private void User_Licenses_Connection()
         {
-            Licenses_True_ licenses_True_ = new Licenses_True_();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
             if (SSDK_Data.licenses_Connection)
             {
                 Licenses_Connection.Text = "Лицензия подключена";
