@@ -73,10 +73,10 @@ namespace WPFApplication.Mark_Door
         public string insulation { get; set; } = "";
         //АТС_Функциональная_Особенность
         public string functional_Feature { get; set; } = "";
-        //АТС_Покрытие_Окна_Спереди
-        public string window_Covering_In_Front { get; set; } = "";
-        //АТС_Покрытие_Окна_Сзади
-        public string window_Covering_In_Back { get; set; } = "";
+        ////АТС_Покрытие_Окна_Спереди
+        //public string window_Covering_In_Front { get; set; } = "";
+        ////АТС_Покрытие_Окна_Сзади
+        //public string window_Covering_In_Back { get; set; } = "";
         //АТС_Дополнительные_Сведенья
         public string additional_Information { get; set; } = "";
         //Элемент
@@ -119,8 +119,6 @@ namespace WPFApplication.Mark_Door
             string fire_Resistance,
             string insulation,
             string functional_Feature,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string additional_Information
             )
         {
@@ -137,7 +135,6 @@ namespace WPFApplication.Mark_Door
             this.fire_Resistance = fire_Resistance;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
-            this.window_Covering_In_Front = window_Covering_In_Front;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
         }
@@ -153,8 +150,6 @@ namespace WPFApplication.Mark_Door
             string insulation,
             string functional_Feature,
             string location_Indoor_Outdoor,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string additional_Information
             )
         {
@@ -169,8 +164,6 @@ namespace WPFApplication.Mark_Door
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.additional_Information = additional_Information;
         }
         public Glass_Window(
@@ -190,8 +183,6 @@ namespace WPFApplication.Mark_Door
             string insulation,
             string functional_Feature,
             string location_Indoor_Outdoor,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string additional_Information
             )
         {
@@ -211,8 +202,6 @@ namespace WPFApplication.Mark_Door
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.additional_Information = additional_Information;
         }
         public Glass_Window(
@@ -228,8 +217,6 @@ namespace WPFApplication.Mark_Door
            string fire_Resistance,
            string insulation,
            string functional_Feature,
-           string window_Covering_In_Front,
-           string window_Covering_In_Back,
            string additional_Information
            )
         {
@@ -246,8 +233,6 @@ namespace WPFApplication.Mark_Door
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.additional_Information = additional_Information;
         }
         public Glass_Window(
@@ -263,8 +248,6 @@ namespace WPFApplication.Mark_Door
           string fire_Resistance,
           string insulation,
           string functional_Feature,
-          string window_Covering_In_Front,
-          string window_Covering_In_Back,
           string additional_Information
           )
         {
@@ -281,8 +264,7 @@ namespace WPFApplication.Mark_Door
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
+
             this.additional_Information = additional_Information;
         }
         public Glass_Window(
@@ -299,8 +281,6 @@ namespace WPFApplication.Mark_Door
             string fire_Resistance,
             string insulation,
             string functional_Feature,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string additional_Information
             )
         {
@@ -317,8 +297,6 @@ namespace WPFApplication.Mark_Door
             this.fire_Resistance = fire_Resistance;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.additional_Information = additional_Information;
         }
         public Glass_Window(
@@ -333,8 +311,6 @@ namespace WPFApplication.Mark_Door
            string insulation,
            string functional_Feature,
            string location_Indoor_Outdoor,
-           string window_Covering_In_Front,
-           string window_Covering_In_Back,
            string additional_Information
            )
         {
@@ -349,8 +325,6 @@ namespace WPFApplication.Mark_Door
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.additional_Information = additional_Information;
         }
         public Glass_Window(

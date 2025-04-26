@@ -54,10 +54,10 @@ namespace WPFApplication.Mark_Window
         public string double_Glazed_Window_Formula { get; set; } = "";
         //АТС_Спобос_Открывания
         public string opening_Method { get; set; } = "";
-        //АТС_Покрытие_Окна_Спереди
-        public string window_Covering_In_Front { get; set; } = "";
-        //АТС_Покрытие_Окна_Сзади
-        public string window_Covering_In_Back { get; set; } = "";
+        ////АТС_Покрытие_Окна_Спереди
+        //public string window_Covering_In_Front { get; set; } = "";
+        ////АТС_Покрытие_Окна_Сзади
+        //public string window_Covering_In_Back { get; set; } = "";
         //АТС_Огнестойкость
         public string fire_Resistance { get; set; } = "";
         //АТС_Утепленность
@@ -88,8 +88,6 @@ namespace WPFApplication.Mark_Window
             string type_Of_Construction,
             string double_Glazed_Window_Formula,
             string opening_Method,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string fire_Resistance,
             string insulation,
             string functional_Feature,
@@ -119,8 +117,6 @@ namespace WPFApplication.Mark_Window
             string heat_Transfer_Resistance_Class,
             string the_Double_Glazed_Unit_Formula,
             string fire_Resistance,
-            string window_Covering_In_Front,
-            string window_Covering_In_Back,
             string insulation,
             string functional_Feature,
             string location_Indoor_Outdoor,
@@ -132,8 +128,6 @@ namespace WPFApplication.Mark_Window
             this.heat_Transfer_Resistance_Class = heat_Transfer_Resistance_Class;
             this.the_Double_Glazed_Unit_Formula = the_Double_Glazed_Unit_Formula;
             this.fire_Resistance = fire_Resistance;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;
@@ -147,8 +141,6 @@ namespace WPFApplication.Mark_Window
          string the_Material_Of_The_Frame_Elements,
          string the_Double_Glazed_Unit_Formula,
          string fire_Resistance,
-         string window_Covering_In_Front,
-         string window_Covering_In_Back,
          string insulation,
          string functional_Feature,
          string location_Indoor_Outdoor,
@@ -160,8 +152,6 @@ namespace WPFApplication.Mark_Window
             this.the_Material_Of_The_Frame_Elements = the_Material_Of_The_Frame_Elements;
             this.the_Double_Glazed_Unit_Formula = the_Double_Glazed_Unit_Formula;
             this.fire_Resistance = fire_Resistance;
-            this.window_Covering_In_Front = window_Covering_In_Front;
-            this.window_Covering_In_Back = window_Covering_In_Back;
             this.insulation = insulation;
             this.functional_Feature = functional_Feature;
             this.location_Indoor_Outdoor = location_Indoor_Outdoor;

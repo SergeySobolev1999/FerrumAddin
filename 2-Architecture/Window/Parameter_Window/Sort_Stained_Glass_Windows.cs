@@ -383,7 +383,7 @@ namespace WPFApplication.Parameter_Window
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
                                 string name_Presset = "";
-                                if (Data_Parameter_Window.sketch_bool = true)
+                                if (Data_Parameter_Window.sketch_bool == true)
                                 {
                                     name_Presset = "";
                                 }
@@ -448,7 +448,7 @@ namespace WPFApplication.Parameter_Window
                                 string[] stoc_Designation_Perview = parameter_Name.Parameter_Name_Of_Element(element_Group, "АТП_Обозначение", "ВТС_Обозначение_Переопределить").Split(new[] { ":" }, StringSplitOptions.None);
                                 string stoc_Designation = " " + stoc_Designation_Perview[stoc_Designation_Perview.Count() - 1];
                                 string name_Presset = "";
-                                if (Data_Parameter_Window.sketch_bool = true)
+                                if (Data_Parameter_Window.sketch_bool == true)
                                 {
                                     name_Presset = "";
                                 }
@@ -475,7 +475,6 @@ namespace WPFApplication.Parameter_Window
                                 }
                             }
                             //}
-                            Data_Parameter_Window.number_Elements++;
                         }
                     }
                     transactionGroup.Assimilate();

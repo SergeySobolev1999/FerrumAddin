@@ -48,10 +48,10 @@ namespace WPFApplication.Mark_Window
                                 string double_Glazed_Window_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
                                 //АТС_Спобос_Открывания
                                 string opening_Method = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Способ_Открывания", "БТС_Способ_Открывания_Переопределить");
-                                //АТС_Покрытие_Окна_Спереди
-                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
-                                //АТС_Покрытие_Окна_Сзади
-                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                ////АТС_Покрытие_Окна_Спереди
+                                //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                ////АТС_Покрытие_Окна_Сзади
+                                //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
                                 //АТС_Огнестойкость
                                 string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                 //АТС_Утепленность
@@ -72,8 +72,6 @@ namespace WPFApplication.Mark_Window
                                     type_Of_Construction,
                                     double_Glazed_Window_Formula,
                                     opening_Method,
-                                    window_Covering_In_Front,
-                                    window_Covering_In_Back,
                                     fire_Resistance,
                                     insulation,
                                     functional_Feature,
@@ -95,10 +93,10 @@ namespace WPFApplication.Mark_Window
                                 string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
                                 //АТС_Огнестойкость
                                 string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
-                                //АТС_Покрытие_Окна_Спереди
-                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
-                                //АТС_Покрытие_Окна_Сзади
-                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                ////АТС_Покрытие_Окна_Спереди
+                                //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                ////АТС_Покрытие_Окна_Сзади
+                                //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
                                 //АТС_Утепленность
                                 string insulation = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                 //АТС_Функциональная_Особенность
@@ -115,8 +113,6 @@ namespace WPFApplication.Mark_Window
                                     heat_Transfer_Resistance_Class,
                                     the_Double_Glazed_Unit_Formula,
                                     fire_Resistance,
-                                    window_Covering_In_Front,
-                                    window_Covering_In_Back,
                                     insulation,
                                     functional_Feature,
                                     location_Indoor_Outdoor,
@@ -134,10 +130,10 @@ namespace WPFApplication.Mark_Window
                                 string the_Material_Of_The_Frame_Elements = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Материал_Рамочных_Элементов", "БТС_Материал_Рамочных_Элементов_Переопределить");
                                 //АТС_Формула_Стеклопакета
                                 string the_Double_Glazed_Unit_Formula = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Формула_Стеклопакета", "БТС_Формула_Стеклопакета_Переопределить");
-                                //АТС_Покрытие_Окна_Спереди
-                                string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
-                                //АТС_Покрытие_Окна_Сзади
-                                string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
+                                ////АТС_Покрытие_Окна_Спереди
+                                //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Спереди", "-");
+                                ////АТС_Покрытие_Окна_Сзади
+                                //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Покрытие_Окна_Сзади", "-"); ;
                                 //АТС_Огнестойкость
                                 string fire_Resistance = parameter_Name.Parameter_Name_Of_Element(element_Window, "АТС_Огнестойкость", "БТС_Огнестойкость_Переопределить");
                                 //АТС_Утепленность
@@ -155,8 +151,6 @@ namespace WPFApplication.Mark_Window
                                     element_Window,
                                     the_Material_Of_The_Frame_Elements,
                                     the_Double_Glazed_Unit_Formula,
-                                    window_Covering_In_Front,
-                                    window_Covering_In_Back,
                                     fire_Resistance,
                                     insulation,
                                     functional_Feature,
@@ -195,8 +189,6 @@ namespace WPFApplication.Mark_Window
                         x => x.type_Of_Construction).ThenBy(
                         x => x.double_Glazed_Window_Formula).ThenBy(
                         x => x.opening_Method).ThenBy(
-                        x => x.window_Covering_In_Front).ThenBy(
-                        x => x.window_Covering_In_Back).ThenBy(
                         x => x.fire_Resistance).ThenBy(
                         x => x.insulation).ThenBy(
                         x => x.functional_Feature).ThenBy(

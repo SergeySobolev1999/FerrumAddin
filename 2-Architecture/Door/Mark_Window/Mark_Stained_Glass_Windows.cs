@@ -74,10 +74,10 @@ namespace WPFApplication.Mark_Door
                                         string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                         //АТС_Функциональная_Особенность
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         Glass_Window glass_Window = new Glass_Window(
@@ -94,8 +94,6 @@ namespace WPFApplication.Mark_Door
                                             fire_Resistance,
                                             insulation,
                                             functional_Feature,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -121,10 +119,10 @@ namespace WPFApplication.Mark_Door
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                         //АТС_Расположение_Внутреннее_Наружное
                                         string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         Glass_Window glass_Window = new Glass_Window(
@@ -139,8 +137,6 @@ namespace WPFApplication.Mark_Door
                                             insulation,
                                             functional_Feature,
                                             location_Indoor_Outdoor,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -176,10 +172,10 @@ namespace WPFApplication.Mark_Door
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                         //АТС_Расположение_Внутреннее_Наружное
                                         string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         Glass_Window glass_Window = new Glass_Window(
@@ -199,8 +195,6 @@ namespace WPFApplication.Mark_Door
                                             insulation,
                                             functional_Feature,
                                             location_Indoor_Outdoor,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -228,10 +222,10 @@ namespace WPFApplication.Mark_Door
                                         string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                         //АТС_Функциональная_Особенность
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         Glass_Window glass_Window = new Glass_Window(
@@ -247,8 +241,6 @@ namespace WPFApplication.Mark_Door
                                             fire_Resistance,
                                             insulation,
                                             functional_Feature,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -276,10 +268,10 @@ namespace WPFApplication.Mark_Door
                                         string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                         //АТС_Функциональная_Особенность
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         Glass_Window glass_Window = new Glass_Window(
@@ -295,8 +287,6 @@ namespace WPFApplication.Mark_Door
                                             fire_Resistance,
                                             insulation,
                                             functional_Feature,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -326,10 +316,10 @@ namespace WPFApplication.Mark_Door
                                         string insulation = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Утепленность", "БТС_Утепленность_Переопределить");
                                         //АТС_Функциональная_Особенность
                                         string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
-                                        //АТС_Покрытие_Окна_Спереди
-                                        string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                        //АТС_Покрытие_Окна_Сзади
-                                        string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
+                                        ////АТС_Покрытие_Окна_Спереди
+                                        //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                        ////АТС_Покрытие_Окна_Сзади
+                                        //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-"); ;
                                         //АТС_Дополнительные_Сведенья
                                         string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                         //АТП_Обозначение
@@ -347,8 +337,6 @@ namespace WPFApplication.Mark_Door
                                             fire_Resistance,
                                             insulation,
                                             functional_Feature,
-                                            window_Covering_In_Front,
-                                            window_Covering_In_Back,
                                             additional_Information);
                                         Data_Mark_Door.list_Group.Add(glass_Window);
                                     }
@@ -374,10 +362,10 @@ namespace WPFApplication.Mark_Door
                                     string functional_Feature = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Функциональная_Особенность", "БТС_Функциональная_Особенность_Переопределить");
                                     //АТС_Расположение_Внутреннее_Наружное
                                     string location_Indoor_Outdoor = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Расположение_Внутреннее_Наружное", "-");
-                                    //АТС_Покрытие_Окна_Спереди
-                                    string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
-                                    //АТС_Покрытие_Окна_Сзади
-                                    string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
+                                    ////АТС_Покрытие_Окна_Спереди
+                                    //string window_Covering_In_Front = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Спереди", "-");
+                                    ////АТС_Покрытие_Окна_Сзади
+                                    //string window_Covering_In_Back = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Покрытие_Двери_Сзади", "-");
                                     //АТС_Дополнительные_Сведенья
                                     string additional_Information = parameter_Name.Parameter_Name_Of_Element(element_Doors, "АТС_Дополнительные_Сведенья", "-");
                                     Glass_Window glass_Window = new Glass_Window(
@@ -392,8 +380,6 @@ namespace WPFApplication.Mark_Door
                                         insulation,
                                         functional_Feature,
                                         location_Indoor_Outdoor,
-                                        window_Covering_In_Front,
-                                        window_Covering_In_Back,
                                         additional_Information);
                                     Data_Mark_Door.list_Group.Add(glass_Window);
                                 }
@@ -488,8 +474,6 @@ namespace WPFApplication.Mark_Door
                         x => x.fire_Resistance).ThenBy(
                         x => x.insulation).ThenBy(
                         x => x.functional_Feature).ThenBy(
-                        x => x.window_Covering_In_Front).ThenBy(
-                        x => x.window_Covering_In_Back).ThenBy(
                         x => x.additional_Information).ThenBy(
                         x => x.element_Doors.Id.ToString()).ToList();
      
