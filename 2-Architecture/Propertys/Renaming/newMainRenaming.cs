@@ -24,9 +24,8 @@ namespace WPFApplication.newMainRenaming
             try
             {
                 SSDK_Data.licenses_Name = Environment.UserName;
-            //if (SSDK_Data.licenses_Connection)
-            //{
-
+                //if (SSDK_Data.licenses_Connection)
+                //{
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
             List<Element> selectedElements = selectedIds.Select(id => uidoc.Document.GetElement(id)).Where(e => e != null).ToList();
@@ -90,7 +89,8 @@ namespace WPFApplication.newMainRenaming
                             { (223.000,223.009),"ZH_ОТД_ФСД_" },
                             { (223.012,223.099),"ZH_ОТД_ФСД_" },
                             { (224.000,224.999),"ZH_ОТД_ФСД_" },
-                            { (223.100,223.199),"ZH_ОТД_ФСД_СЛЖ_" },
+                            { (223.100,223.109),"ZH_ОТД_ФСД_СЛЖ_РСТ_" },
+                            { (223.110,223.119),"ZH_ОТД_ФСД_СЛЖ_ВСТ_" },
                             { (236,250.999),"ZH_ОТД_ВНТ_" },
                             { (267.000,267.099),"ZH_ПРП_КЛД_" },
                             { (267.100,267.199),"ZH_ПРП_СТН_ПНЛ_" },
@@ -112,6 +112,7 @@ namespace WPFApplication.newMainRenaming
                             { (274.002,274.002),"ZH_ГНП_ВХД_" },
                             { (203.901,203.901),"ZH_ПРГ_СТН_ШДЛ_" },
                             { (203.902,203.902),"ZH_ПРГ_СТН_ИК_КМР_" },
+                            { (227.000,227.999),"ZH_ОТД_ФСД_ВСТ_ОКН_" },
                         };
                         if (iterarion_WarinngMaterial == 0)
                         {

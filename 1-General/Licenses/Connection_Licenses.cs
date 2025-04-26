@@ -157,7 +157,8 @@ namespace WPFApplication.Licenses
                         connection.Open();
 
                         // SQL-запрос для обновления user_name
-                        string query = "INSERT INTO data_base_connection (id_persons, user, date_open, file_name, time_open, time_synchr , post) VALUES (@id_persons, @user, @date_open, @file_name, @time_open , @time_synchr,  @post)";
+                        string query = "INSERT INTO data_base_connection (id_persons, user, date_open, file_name, time_open, time_synchr , post, code_erp, stage, file_path, file_Information) " +
+                            "VALUES (@id_persons, @user, @date_open, @file_name, @time_open , @time_synchr,  @post, @code_erp, @stage, @file_path, @file_Information)";
                         // Создание команды
                         using (MySqlCommand command = new MySqlCommand(query, connection))
                         {
@@ -176,6 +177,26 @@ namespace WPFApplication.Licenses
                             {
                                 timeSync = dic["Время синхронизации"].ToString();
                             }
+                            string codeErp = "Failed";
+                            if (dic.ContainsKey("ZH_1С"))
+                            {
+                                codeErp = dic["ZH_1С"];
+                            }
+                            string filePath = "Failed";
+                            if (dic.ContainsKey("Путь к файлу"))
+                            {
+                                filePath = dic["Путь к файлу"];
+                            }
+                            string statusProgect = "Failed";
+                            if (dic.ContainsKey("Статус проекта"))
+                            {
+                                statusProgect = dic["Статус проекта"];
+                            }
+                            string fileInformation = "Failed";
+                            if (dic.ContainsKey("Информация о документе"))
+                            {
+                                fileInformation = dic["Информация о документе"];
+                            }
                             // Добавление параметров
                             command.Parameters.AddWithValue("@user", user); // Передаем новое имя пользователя
                             command.Parameters.AddWithValue("@id_persons", i);
@@ -184,7 +205,10 @@ namespace WPFApplication.Licenses
                             command.Parameters.AddWithValue("@time_synchr", timeSync);
                             command.Parameters.AddWithValue("@post", post);
                             command.Parameters.AddWithValue("@date_open", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));// Указываем идентификатор строки
-
+                            command.Parameters.AddWithValue("@code_erp", codeErp);
+                            command.Parameters.AddWithValue("@stage", statusProgect);
+                            command.Parameters.AddWithValue("@file_path", filePath);
+                            command.Parameters.AddWithValue("@file_Information", fileInformation);
                             // Выполнение команды
                             int rowsAffected = command.ExecuteNonQuery();
 
@@ -218,27 +242,52 @@ namespace WPFApplication.Licenses
                         connection.Open();
 
                         // SQL-запрос для обновления user_name
-                        string query = "INSERT INTO data_base_elements (id_persons, user, date, file_name, post, number_elements) VALUES (@id_persons, @user, @date, @file_name,  @post,  @number_elements)";
+                        string query = "INSERT INTO data_base_elements (id_persons, user, date, file_name, post, number_elements, code_erp, stage, file_path, file_Information) " +
+                            "VALUES (@id_persons, @user, @date, @file_name,  @post,  @number_elements, @code_erp, @stage, @file_path, @file_Information)";
                         // Создание команды
                         using (MySqlCommand command = new MySqlCommand(query, connection))
                         {
-                            string all_Elements = "0";
+                            string fileName = "0";
                             if (dic.ContainsKey("Имя файла"))
                             {
-                                all_Elements = dic["Имя файла"].ToString();
+                                fileName = dic["Имя файла"].ToString();
                             }
                             int collectionsElements = 0;
                             if (dic.ContainsKey("Количество элементов модели"))
                             {
                                 collectionsElements = Int32.Parse(dic["Количество элементов модели"]);
                             }
+                            string codeErp = "Failed";
+                            if (dic.ContainsKey("ZH_1С"))
+                            {
+                                codeErp = dic["ZH_1С"];
+                            }
+                            string filePath = "Failed";
+                            if (dic.ContainsKey("Путь к файлу"))
+                            {
+                                filePath = dic["Путь к файлу"];
+                            }
+                            string statusProgect = "Failed";
+                            if (dic.ContainsKey("Статус проекта"))
+                            {
+                                statusProgect = dic["Статус проекта"];
+                            }
+                            string fileInformation = "Failed";
+                            if (dic.ContainsKey("Информация о документе"))
+                            {
+                                fileInformation = dic["Информация о документе"];
+                            }
                             // Добавление параметров
                             command.Parameters.AddWithValue("@user", user); // Передаем новое имя пользователя
                             command.Parameters.AddWithValue("@id_persons", i);
-                            command.Parameters.AddWithValue("@file_name", all_Elements);
+                            command.Parameters.AddWithValue("@file_name", fileName);
                             command.Parameters.AddWithValue("@post", post);
                             command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));// Указываем идентификатор строки
                             command.Parameters.AddWithValue("@number_elements", collectionsElements);
+                            command.Parameters.AddWithValue("@code_erp", codeErp);
+                            command.Parameters.AddWithValue("@stage", statusProgect);
+                            command.Parameters.AddWithValue("@file_path", filePath);
+                            command.Parameters.AddWithValue("@file_Information", fileInformation);
                             // Выполнение команды
                             int rowsAffected = command.ExecuteNonQuery();
 

@@ -266,6 +266,7 @@
     <Compile Include="1-General\Licenses\WPF_Main_Licenses.xaml.cs">
       <DependentUpon>WPF_Main_Licenses.xaml</DependentUpon>
     </Compile>
+    <Compile Include="1-General\ModelStatistics\DocumentInfo.cs" />
     <Compile Include="1-General\ModelStatistics\MainModelStatistics.cs" />
     <Compile Include="1-General\ModelStatistics\ModelModelStatistics.cs" />
     <Compile Include="1-General\ModelStatistics\StatisticsViewModel.cs" />
@@ -416,6 +417,11 @@
     <Compile Include="1-General\PinnerWorksets\wswpf.xaml.cs">
       <DependentUpon>wswpf.xaml</DependentUpon>
     </Compile>
+    <Compile Include="3-Сonstructions\FoundatonBlocks\BlockPlacer.cs" />
+    <Compile Include="3-Сonstructions\FoundatonBlocks\EventHandler.cs" />
+    <Compile Include="3-Сonstructions\FoundatonBlocks\FBSLayoutCommand.cs" />
+    <Compile Include="3-Сonstructions\FoundatonBlocks\LayoutGenerator.cs" />
+    <Compile Include="3-Сonstructions\FoundatonBlocks\Models.cs" />
     <Compile Include="3-Сonstructions\GrillageCreator\CommandGrillageCreator.cs" />
     <Compile Include="3-Сonstructions\GrillageCreator\WindowGrillageCreator.xaml.cs">
       <DependentUpon>WindowGrillageCreator.xaml</DependentUpon>
@@ -790,6 +796,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\RemovingOpenings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FoundatonBlocks.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

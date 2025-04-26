@@ -37,6 +37,7 @@ using Google.Protobuf.WellKnownTypes;
 using Autodesk.Revit.DB.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using FerrumAddin.ModelStatistics;
 #endregion
 
 namespace FerrumAddin
@@ -63,18 +64,52 @@ namespace FerrumAddin
             }
             return null;
         }
+        DocumentInfo documentInfo = new DocumentInfo();
         //Связь с сервером лицензий
         private void OnDocumentSaving(object sender, Autodesk.Revit.DB.Events.DocumentSavingEventArgs e)
         {
+            if (e.Document is Document)
+                DocumentInformation(e.Document, "Сохранение");
+        }
+        private void DocumentInformation(Document document, string typeOperation)
+        {
             SSDK_Data.licenses_Name = Environment.UserName;
-            Document document = e.Document as Document;
             int number = CollectionsElementsOfModel(document);
-            string docTitle = e.Document.Title;
+            string info = documentInfo.DocumentInfoPosition(document);
             Dictionary<string, string> dict = new Dictionary<string, string>
             {
-                { "Имя файла", docTitle },
-                { "Количество элементов модели",number.ToString() },
+                { "Имя файла", document.Title },
+                { "Путь к файлу",document.PathName },
+                { "Информация о документе",documentInfo.DocumentInfoPosition(document) },
             };
+            if (typeOperation =="Открытие")
+            {
+                dict.Add("Время открытия", (DateTime.Now - _lastIdleTime).ToString());
+                if (info.Contains("ПРОЕКТ_"))
+                {
+                    dict.Add("ZH_1С", document.ProjectInformation.LookupParameter("ZH_1С") != null ? document.ProjectInformation.LookupParameter("ZH_1С").AsString() : "Failed");
+                    dict.Add("Статус проекта", document.ProjectInformation.LookupParameter("Статус проекта") != null ? document.ProjectInformation.LookupParameter("Статус проекта").AsString() : "Failed");
+                }
+            }
+            else if(typeOperation == "Сохранение")
+            {
+                dict.Add("Количество элементов модели", CollectionsElementsOfModel(document).ToString());
+                if (info.Contains("ПРОЕКТ_"))
+                {
+                    dict.Add("ZH_1С", document.ProjectInformation.LookupParameter("ZH_1С") != null ? document.ProjectInformation.LookupParameter("ZH_1С").AsString() : "Failed");
+                    dict.Add("Статус проекта", document.ProjectInformation.LookupParameter("Статус проекта") != null ? document.ProjectInformation.LookupParameter("Статус проекта").AsString() : "Failed");
+                }
+            }
+            else if (typeOperation == "Синхронизация")
+            {
+                dict.Add("Количество элементов модели", CollectionsElementsOfModel(document).ToString());
+                dict.Add("Время синхронизации", (DateTime.Now - _lastIdleTime).ToString());
+                if (info.Contains("ПРОЕКТ_"))
+                {
+                    dict.Add("ZH_1С", document.ProjectInformation.LookupParameter("ZH_1С") != null ? document.ProjectInformation.LookupParameter("ZH_1С").AsString() : "Failed");
+                    dict.Add("Статус проекта", document.ProjectInformation.LookupParameter("Статус проекта") != null ? document.ProjectInformation.LookupParameter("Статус проекта").AsString() : "Failed");
+                }
+            }
             Licenses_True_ licenses_True_ = new Licenses_True_(dict);
         }
         public int CollectionsElementsOfModel(Document doc)
@@ -89,16 +124,8 @@ namespace FerrumAddin
         }
         private void OnDocumentSavingAs(object sender, Autodesk.Revit.DB.Events.DocumentSavingAsEventArgs e)
         {
-            SSDK_Data.licenses_Name = Environment.UserName;
-            Document document = e.Document as Document;
-            int number = CollectionsElementsOfModel(document);
-            string docTitle = e.Document.Title;
-            Dictionary<string, string> dict = new Dictionary<string, string>
-            {
-                { "Имя файла", docTitle },
-                { "Количество элементов модели",number.ToString() },
-            };
-            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
+            if (e.Document is Document)
+                DocumentInformation(e.Document, "Сохранение");
         }
         private void OnAppInitialized(object sender, ApplicationInitializedEventArgs e)
         {
@@ -108,50 +135,19 @@ namespace FerrumAddin
         }
         private void OnDocumentOpened(object sender, DocumentOpenedEventArgs e)
         {
-            SSDK_Data.licenses_Name = Environment.UserName;
-            string docTitle = e.Document.Title;
-            _sw.Stop();
-            var time = DateTime.Now - _lastIdleTime;
-            Dictionary<string,string> dict = new Dictionary<string, string>
-            {
-                { "Имя файла",docTitle },
-                { "Время открытия",time.ToString() },
-            };
-            Licenses_True_ licenses_True_ = new Licenses_True_(dict);
-        }
-        private void OnDocumentOpening(object sender, DocumentOpeningEventArgs e)
-        {
-            _openStart = DateTime.Now;
-            _sw = Stopwatch.StartNew();
+            if (e.Document is Document)
+                DocumentInformation(e.Document, "Открытие");
         }
         private void OnSyncStarted(object sender, DocumentSynchronizingWithCentralEventArgs e)
         {
             _lastIdleTime = DateTime.Now;   
         }
-
         private void OnSyncCompleted(object sender, DocumentSynchronizedWithCentralEventArgs e)
         {
-            //Выгрузка данных о подключении
-            SSDK_Data.licenses_Name = Environment.UserName;
-            string docTitle = e.Document.Title;
-            _sw.Stop();
-            var time = DateTime.Now - _lastIdleTime;
-            Dictionary<string, string> dictConnect = new Dictionary<string, string>
+            if (e.Document is Document)
             {
-                { "Имя файла",docTitle },
-                { "Время синхронизации",time.ToString() },
-            };
-            Licenses_True_ licenses_True_ = new Licenses_True_(dictConnect);
-            //Выгрузка данных о модели
-            Document document = e.Document as Document;
-            int number = CollectionsElementsOfModel(document);
-            Dictionary<string, string> dictModel = new Dictionary<string, string>
-            {
-                { "Имя файла", docTitle },
-                { "Количество элементов модели",number.ToString() },
-            };
-            Licenses_True_ licenses_True_Model = new Licenses_True_(dictModel);
-
+                DocumentInformation(e.Document, "Синхронизация");
+            }
         }
         //Конец логики по связи с сервером лицензий
         public static BitmapImage Convert(System.Drawing.Image img)
@@ -249,7 +245,7 @@ namespace FerrumAddin
         //Панели КР
         public RibbonPanel panelKR_Level;
         public RibbonPanel panelKR_Before;
-        public RibbonPanel panelKR_Grillage_Creator;
+        public RibbonPanel panelKR_Foundationd;
         public RibbonPanel panelKR_BPC;
         public RibbonPanel panelKR_Accelerator_QJ;
         public RibbonPanel panelKR_Calculations;
@@ -263,7 +259,6 @@ namespace FerrumAddin
 
             a.ControlledApplication.DocumentSaving += OnDocumentSaving;
             a.ControlledApplication.DocumentSavingAs += OnDocumentSavingAs;
-            a.ControlledApplication.DocumentOpening += OnDocumentOpening;
             a.ControlledApplication.DocumentOpened += OnDocumentOpened;
             a.ControlledApplication.DocumentSynchronizingWithCentral += OnSyncStarted;
             a.ControlledApplication.DocumentSynchronizedWithCentral += OnSyncCompleted;
@@ -538,13 +533,18 @@ namespace FerrumAddin
             SteelSpecCollapse.LargeImage = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
             panelKR_BPC.AddItem(SteelSpecCollapse);
 
-            panelKR_Grillage_Creator = a.CreateRibbonPanel(tabName, "Ростверк");
-            panelKR_Grillage_Creator.Visible = false;
+            panelKR_Foundationd = a.CreateRibbonPanel(tabName, "Фундаменты");
+            panelKR_Foundationd.Visible = false;
 
             PushButtonData Grillage_Creator = new PushButtonData("CommandGrillageCreator", "Армирование\nростверка", Assembly.GetExecutingAssembly().Location, "WPFApplication.GrillageCreator.CommandGrillageCreator");
             Grillage_Creator.Image = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
             Grillage_Creator.LargeImage = Convert(Properties.Resources.Сonstructions_Steel_Spec_Collapse);
-            panelKR_Grillage_Creator.AddItem(Grillage_Creator);
+            panelKR_Foundationd.AddItem(Grillage_Creator);
+
+            PushButtonData FoundationBlocks = new PushButtonData("FBSLayoutCommand", "Фундамент\nблоки", Assembly.GetExecutingAssembly().Location, "FerrumAddin.FBS.FBSLayoutCommand");
+            FoundationBlocks.Image = Convert(Properties.Resources.FoundatonBlocks);
+            FoundationBlocks.LargeImage = Convert(Properties.Resources.FoundatonBlocks);
+            panelKR_Foundationd.AddItem(FoundationBlocks);
 
             panelKR_Accelerator_QJ = a.CreateRibbonPanel(tabName, "ЖБ");
             panelKR_Accelerator_QJ.Visible = false;
@@ -736,7 +736,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
-                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Foundationd.Visible = false;
                     panelKR_Calculations.Visible = false;
                     panelStatistics.Visible = false;
 
@@ -754,7 +754,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
-                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Foundationd.Visible = false;
                     panelKR_Calculations.Visible = false;
                     panelStatistics.Visible = true;
                     break;
@@ -771,7 +771,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
-                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Foundationd.Visible = false;
                     panelKR_Calculations.Visible = false;
                     panelStatistics.Visible = false;
                     break;
@@ -788,7 +788,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = true;
                     panelAR_Room.Visible = true;
-                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Foundationd.Visible = false;
                     panelKR_Calculations.Visible = false;
                     panelStatistics.Visible = false;
                     break;
@@ -805,7 +805,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = true;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
-                    panelKR_Grillage_Creator.Visible = true;
+                    panelKR_Foundationd.Visible = true;
                     panelKR_Calculations.Visible = true;
                     panelStatistics.Visible = false;
                     break;
@@ -822,7 +822,7 @@ namespace FerrumAddin
                     panelKR_Level.Visible = false;
                     panelAR_Property_Copy.Visible = false;
                     panelAR_Room.Visible = false;
-                    panelKR_Grillage_Creator.Visible = false;
+                    panelKR_Foundationd.Visible = false;
                     panelKR_Calculations.Visible = false;
                     panelStatistics.Visible = false;
                     break;

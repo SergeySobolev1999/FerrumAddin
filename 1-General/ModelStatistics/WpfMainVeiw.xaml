@@ -65,7 +65,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                    <Grid Grid.Row="0" Margin="0,0,18,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
                             <!-- Имя файла -->
@@ -102,7 +102,9 @@
                     Text="{Binding FilterIdPersonsConnections, UpdateSourceTrigger=PropertyChanged}"/>
                         <!-- Остальные TextBox... -->
                     </Grid>
-                    <DataGrid x:Name="statisticsGrid" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding FilteredConnectionsData}" CanUserAddRows="False">
+                    <DataGrid x:Name="statisticsGrid" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding FilteredConnectionsData}" CanUserAddRows="False"
+                              VerticalScrollBarVisibility="Visible"
+                            HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Имя файла" Binding="{Binding File_Name}" Width="3*"/>
                             <DataGridTextColumn Header="Должность" Binding="{Binding Post}" Width="2*"/>
