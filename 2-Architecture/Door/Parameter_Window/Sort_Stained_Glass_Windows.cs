@@ -898,6 +898,24 @@ namespace WPFApplication.Parameter_Door
             {
                 return "Деревянная внутренняя квартирная межкомнатная";
             }
+            //Деревянная внутренняя МОП санузловая
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_475_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДС")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп."))
+            {
+                return "Деревянная внутренняя МОП санузловая";
+            }
+            //Деревянная внутренняя МОП межкомнатная
+            else if (dictionaryParameters["DynamoID"] == "ГОСТ_475_Д_Новое"
+                && dictionaryParameters["АТС_Назначение_Изделия"].Contains("ДМ")
+                && !dictionaryParameters["АТС_Утепленность"].Contains("ут.")
+                && !dictionaryParameters["АТС_Огнестойкость"].Contains("E")
+                && dictionaryParameters["АТС_Функциональная_Особенность"].Contains("мп."))
+            {
+                return "Деревянная внутренняя МОП межкомнатная";
+            }
             //ПВХ наружная квартирная балконная
             else if (dictionaryParameters["DynamoID"] == "ГОСТ_30674_ДБ_Новое" 
                 && dictionaryParameters["АТС_Вид_Изделия"].Contains("БП")

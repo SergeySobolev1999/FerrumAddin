@@ -9,7 +9,7 @@ namespace SSDK
     public class SSDK_Data
     {
         public static string folder_Preset = "";
-        public static string plugin_Version = " Версия: 1.4.3";
+        public static string plugin_Version = " Версия: 1.4.4";
         public static string userName = "";
         public static bool licenses_Connection = false;
         public static int licenses_Id = 0;
