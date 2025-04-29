@@ -19,6 +19,7 @@ namespace WPFApplication.newMainRenaming
     public class newMainRenaming : IExternalCommand
     {
         public static Guid guid_COD = new Guid("631cd69e-065f-4ec2-8894-4359325312c3");
+        public static Guid guidADSKShortName = new Guid("f194bf60-b880-4217-b793-1e0c30dda5e9");
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
@@ -119,6 +120,10 @@ namespace WPFApplication.newMainRenaming
                             double parameter_Value = elementType.get_Parameter(guid_COD).AsDouble() * 304.8;
                             nameResult = codificationAndPrefics.Where(a => parameter_Value >= a.Key.Item1 && parameter_Value <= a.Key.Item2).Select(a => a.Value).FirstOrDefault();
                             double thickness = 0;
+                            if (elementType.get_Parameter(guidADSKShortName) != null && elementType.get_Parameter(guidADSKShortName).AsValueString() != "" && element.Category.Name == "Перекрытия")
+                            {
+                                    nameResult += elementType.get_Parameter(guidADSKShortName).AsValueString()+"_";
+                            }
                             Dictionary<int, string> materialCombination = new Dictionary<int, string>();
                             foreach (Autodesk.Revit.DB.Material material in material_Collections)
                             {
