@@ -115,8 +115,9 @@ namespace WPFApplication.newMainRenaming
                             { (203.902,203.902),"ZH_ПРГ_СТН_ИК_КМР_" },
                             { (227.000,227.999),"ZH_ОТД_ФСД_ВСТ_ОКН_" },
                         };
-                        if (iterarion_WarinngMaterial == 0)
+                        if (iterarion_WarinngMaterial == 0 && elementType.get_Parameter(guid_COD) != null)
                         {
+
                             double parameter_Value = elementType.get_Parameter(guid_COD).AsDouble() * 304.8;
                             nameResult = codificationAndPrefics.Where(a => parameter_Value >= a.Key.Item1 && parameter_Value <= a.Key.Item2).Select(a => a.Value).FirstOrDefault();
                             double thickness = 0;
@@ -125,11 +126,13 @@ namespace WPFApplication.newMainRenaming
                                     nameResult += elementType.get_Parameter(guidADSKShortName).AsValueString()+"_";
                             }
                             Dictionary<int, string> materialCombination = new Dictionary<int, string>();
+                            int numLayer = 0;
                             foreach (Autodesk.Revit.DB.Material material in material_Collections)
                             {
                                 foreach (var position in GetDescriptionsMaterial(material, ref thickness, element, uidoc.Document))
                                 {
-                                    materialCombination.Add(position.Key, position.Value);
+                                    numLayer++;
+                                    materialCombination.Add(numLayer, position.Value);
                                 }
                             }
                             nameResult += thickness.ToString() + "_";
@@ -213,22 +216,44 @@ namespace WPFApplication.newMainRenaming
         public List<Autodesk.Revit.DB.Material> GetMaterials(Element element, Document document)
         {
             List<Autodesk.Revit.DB.Material> materials = new List<Autodesk.Revit.DB.Material>();
-            if (element is HostObject hostObject) // Приведение к HostObject (родитель Wall и Floor)
-            {
-                ICollection<ElementId> materialIds = hostObject.GetMaterialIds(false); // Теперь метод доступен
 
-                foreach (ElementId matId in materialIds)
+            if (element is HostObject hostObject)
+            {
+                CompoundStructure structure = GetStructure(document ,element);
+                if (structure != null)
                 {
-                    Autodesk.Revit.DB.Material material = document.GetElement(matId) as Autodesk.Revit.DB.Material;
-                    if (material != null)
+                    foreach (CompoundStructureLayer layer in structure.GetLayers())
                     {
-                        materials.Add(material);
+                        Autodesk.Revit.DB.Material material = document.GetElement(layer.MaterialId) as Autodesk.Revit.DB.Material;
+                        if (material != null)
+                        {
+                            materials.Add(material);
+                        }
                     }
                 }
             }
+
             return materials;
         }
-      
+        private CompoundStructure GetStructure(Document document ,Element element)
+        {
+            if (element is Wall wall)
+                return wall.WallType?.GetCompoundStructure();
+
+            if (element is Floor floor)
+                return floor.FloorType?.GetCompoundStructure();
+
+            if (element is RoofBase roof)
+                return roof.RoofType?.GetCompoundStructure();
+
+            if (element is Ceiling ceiling)
+            {
+                var type = document.GetElement(ceiling.GetTypeId()) as CeilingType;
+                return type?.GetCompoundStructure();
+            }
+
+            return null;
+        }
         public Dictionary<int,string> GetDescriptionsMaterial(Autodesk.Revit.DB.Material material, ref double thickness, Element element, Document document)
         {
             double wignth = 0;
@@ -263,7 +288,7 @@ namespace WPFApplication.newMainRenaming
                 { "я","" },
                 { " ","_" },
             };
-            renamingStr = string.Concat(str.Select(c => charvowels.ContainsKey(c.ToString()) ? charvowels[c.ToString()] : c.ToString())) + "_" + wignth.ToString();
+            renamingStr = string.Concat(str.Select(c => charvowels.ContainsKey(c.ToString()) ? charvowels[c.ToString()] : c.ToString())) + "_" + wignth.ToString() + "_";
 
             Dictionary<int, string> codificationAndPrefics = new Dictionary<int, string>()
             {
