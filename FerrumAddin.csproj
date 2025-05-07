@@ -804,12 +804,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\XML\Descriptions.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if exist "$(AppData)\Autodesk\REVIT\Addins\2024" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2024"
 if exist "$(AppData)\Autodesk\REVIT\Addins\2024" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2024\ZHELEZNO_PLUGIN"
 copy "$(ProjectDir)\FerrumAddin.addin" "$(ProjectDir)\DLL"
-copy "$(ProjectDir)$(OutputPath)\FerrumAddin.dll" "$(ProjectDir)\DLL"</PostBuildEvent>
+copy "$(ProjectDir)$(OutputPath)\FerrumAddin.dll" "$(ProjectDir)\DLL"
+if not exist "%25AppData%25\Autodesk\Revit\Addins\2024\ZHELEZNO_PLUGIN\Presets\" mkdir "%25AppData%25\Autodesk\Revit\Addins\2024\ZHELEZNO_PLUGIN\Presets\"  
+xcopy /Y "$(ProjectDir)Resources\XML\Descriptions.xml" "%25AppData%25\Autodesk\Revit\Addins\2024\ZHELEZNO_PLUGIN\Presets\"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

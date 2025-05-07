@@ -42,6 +42,7 @@ using FerrumAddin.ModelStatistics;
 
 namespace FerrumAddin
 {
+    //sdg
     public class App : IExternalApplication
     {
         public AW.RibbonItem GetButton(string tabName, string panelName, string itemName)
@@ -169,62 +170,62 @@ namespace FerrumAddin
         private static readonly string[] fileUrls =
         {
             
-        "https://raw.githubusercontent.com/SergeySobolev1999/FerrumAddin/master/DLL/FerrumAddin.dll"
+        //"https://raw.githubusercontent.com/SergeySobolev1999/FerrumAddin/master/DLL/FerrumAddin.dll"
         };
-        private static async Task CheckForUpdates()
-        {
+        //private static async Task CheckForUpdates()
+        //{
 
-            foreach (var url in fileUrls)
-            {
-                var fileName = Path.GetFileName(url);
-                var localPath = Path.Combine(downloadDir, fileName);
+        //    foreach (var url in fileUrls)
+        //    {
+        //        var fileName = Path.GetFileName(url);
+        //        var localPath = Path.Combine(downloadDir, fileName);
 
-                string oldHash = null;
-                if (File.Exists(localPath))
-                {
-                    oldHash = GetFileHash(localPath);
-                }
+        //        string oldHash = null;
+        //        if (File.Exists(localPath))
+        //        {
+        //            oldHash = GetFileHash(localPath);
+        //        }
 
-                var tempPath = Path.Combine(downloadDir, "new" + fileName);
-                await DownloadFile(url, tempPath);
-                var newHash = GetFileHash(tempPath);
+        //        var tempPath = Path.Combine(downloadDir, "new" + fileName);
+        //        await DownloadFile(url, tempPath);
+        //        var newHash = GetFileHash(tempPath);
 
-                if (oldHash != newHash)
-                {
-                    Update update = new Update();
-                    update.ShowDialog();
-                    //Console.WriteLine($"{fileName} был обновлен.");
-                }
-                else
-                {
-                    File.Delete(tempPath);
-                    //Console.WriteLine($"{fileName} не изменился.");
-                }
-            }
-        }
+        //        if (oldHash != newHash)
+        //        {
+        //            Update update = new Update();
+        //            update.ShowDialog();
+        //            //Console.WriteLine($"{fileName} был обновлен.");
+        //        }
+        //        else
+        //        {
+        //            File.Delete(tempPath);
+        //            //Console.WriteLine($"{fileName} не изменился.");
+        //        }
+        //    }
+        //}
 
-        private static async Task DownloadFile(string url, string localPath)
-        {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsByteArrayAsync();
-                File.WriteAllBytes(localPath, content);
-            }
-        }
+        //private static async Task DownloadFile(string url, string localPath)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        var response = await client.GetAsync(url);
+        //        response.EnsureSuccessStatusCode();
+        //        var content = await response.Content.ReadAsByteArrayAsync();
+        //        File.WriteAllBytes(localPath, content);
+        //    }
+        //}
 
-        private static string GetFileHash(string filePath)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                using (var stream = File.OpenRead(filePath))
-                {
-                    var hash = sha256.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
-            }
-        }
+        //private static string GetFileHash(string filePath)
+        //{
+        //    using (var sha256 = SHA256.Create())
+        //    {
+        //        using (var stream = File.OpenRead(filePath))
+        //        {
+        //            var hash = sha256.ComputeHash(stream);
+        //            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        //        }
+        //    }
+        //}
         public static UIControlledApplication application;
         public static UIApplication uiapp;
         public static string name;
@@ -299,8 +300,8 @@ namespace FerrumAddin
             }
             AllowLoad = false;
             downloadDir = a.ControlledApplication.CurrentUserAddinsLocation+"\\ZHELEZNO_PLUGIN";
-            CheckForUpdates();
-            //xmlFilePath = a.ControlledApplication.CurrentUserAddinsLocation + "\\Settings.xml";
+            //CheckForUpdates();
+            xmlFilePath = a.ControlledApplication.CurrentUserAddinsLocation + "\\Settings.xml";
             xmlFilePath = a.ControlledApplication.CurrentUserAddinsLocation + "\\ZHELEZNO_PLUGIN\\Settings";
             XElement root;
             if (System.IO.File.Exists(xmlFilePath))
@@ -842,8 +843,8 @@ namespace FerrumAddin
             a.ControlledApplication.DocumentSaving -= OnDocumentSaving;
             a.ControlledApplication.DocumentSavingAs -= OnDocumentSavingAs;
 
-            Process process = Process.GetCurrentProcess();
-            var updaterProcess = Process.Start(new ProcessStartInfo(downloadDir + "\\Updater.exe", process.Id.ToString()));
+            //Process process = Process.GetCurrentProcess();
+            //var updaterProcess = Process.Start(new ProcessStartInfo(downloadDir + "\\Updater.exe", process.Id.ToString()));
             return Result.Succeeded;
         }
     }

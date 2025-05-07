@@ -61,13 +61,13 @@ namespace WPFApplication.Licenses
                                     SSDK_Data.licenses_Connection = false;
                                 }
 
-                                if(request.ContainsKey("Время открытия") || request.ContainsKey("Дата открытия") || request.ContainsKey("Время синхронизации"))
+                                if(request.Count() != 0 && request.ContainsKey("Время открытия") || request.ContainsKey("Дата открытия") || request.ContainsKey("Время синхронизации"))
                                 {
                                     string user = $"{reader["name"].ToString()} {reader["surname"].ToString()} {reader["patronymic"].ToString()}";
                                     string post = reader["post"].ToString();
                                     Set_User_Connections_Open set_User_Connections_Open = new Set_User_Connections_Open(user_License.id , user , request , post);
                                 }
-                                if (request.ContainsKey("Количество элементов модели") )
+                                if (request.Count() != 0 && request.ContainsKey("Количество элементов модели") )
                                 {
                                     string user = $"{reader["name"].ToString()} {reader["surname"].ToString()} {reader["patronymic"].ToString()}";
                                     string post = reader["post"].ToString();

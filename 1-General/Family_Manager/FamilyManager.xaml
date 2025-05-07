@@ -92,15 +92,18 @@
                 BorderThickness="1"
                 Background="White"
                 Width="{Binding ActualWidth, ElementName=CategoryFilterButton}">
-                    <ItemsControl ItemsSource="{Binding CategoryFilters}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Content="{Binding CategoryName}"
-                                  IsChecked="{Binding IsChecked}" 
-                                  Margin="5,5,5,5" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <StackPanel>
+                        <CheckBox x:Name="allItems" Content="Все" Checked="allItems_Checked" Unchecked="allItems_Checked" Margin="5,5,5,0"/>
+                        <ItemsControl ItemsSource="{Binding CategoryFilters}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox Content="{Binding CategoryName}"
+               IsChecked="{Binding IsChecked}"
+               Margin="5,5,5,5" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </Border>
             </Popup>
         </StackPanel>

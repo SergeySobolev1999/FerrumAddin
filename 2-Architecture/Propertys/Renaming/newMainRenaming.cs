@@ -110,6 +110,7 @@ namespace WPFApplication.newMainRenaming
                             { (223.011,223.011),"ZH_ОТД_ФСД_ТРФ_" },
                             { (272.000,272.999),"ZH_УСЛ_" },
                             { (274.001,274.001),"ZH_ГНП_ПЛЩ_" },
+                            { (219.301,219.349),"ZH_КРВ_ПРМ_" },
                             { (274.002,274.002),"ZH_ГНП_ВХД_" },
                             { (203.901,203.901),"ZH_ПРГ_СТН_ШДЛ_" },
                             { (203.902,203.902),"ZH_ПРГ_СТН_ИК_КМР_" },
@@ -129,10 +130,11 @@ namespace WPFApplication.newMainRenaming
                             int numLayer = 0;
                             foreach (Autodesk.Revit.DB.Material material in material_Collections)
                             {
-                                foreach (var position in GetDescriptionsMaterial(material, ref thickness, element, uidoc.Document))
+                                foreach (var position in GetDescriptionsMaterial(numLayer, material, ref thickness, element, uidoc.Document))
                                 {
-                                    numLayer++;
+                                    
                                     materialCombination.Add(numLayer, position.Value);
+                                        numLayer++;
                                 }
                             }
                             nameResult += thickness.ToString() + "_";
@@ -254,7 +256,7 @@ namespace WPFApplication.newMainRenaming
 
             return null;
         }
-        public Dictionary<int,string> GetDescriptionsMaterial(Autodesk.Revit.DB.Material material, ref double thickness, Element element, Document document)
+        public Dictionary<int,string> GetDescriptionsMaterial(int numLayer,Autodesk.Revit.DB.Material material, ref double thickness, Element element, Document document)
         {
             double wignth = 0;
             int layersId = 0;
@@ -263,12 +265,24 @@ namespace WPFApplication.newMainRenaming
             if (IsFloor(element)) { structure = (element as Floor).FloorType.GetCompoundStructure(); }
             if (IsRoofBase(element)) { structure = (element as RoofBase).RoofType.GetCompoundStructure(); }
             if (IsCeiling(element)) { structure = ((CeilingType)document.GetElement(element.GetTypeId())).GetCompoundStructure(); }
-            foreach (CompoundStructureLayer layer in structure.GetLayers())
+            //foreach (CompoundStructureLayer layer in structure.GetLayers())
+            //{
+            //    if (layer.MaterialId != ElementId.InvalidElementId && numLayer == layer.LayerId)
+            //    {
+            //        wignth = layer.Width * 304.8;
+            //        layersId= layer.LayerId;
+            //    }
+            //}
+            IList<CompoundStructureLayer> layers = structure.GetLayers();
+
+            for (int i = 0; i < layers.Count; i++)
             {
-                if (layer.MaterialId != ElementId.InvalidElementId && material.Id == layer.MaterialId)
+                CompoundStructureLayer layer = layers[i];
+
+                if (layer.MaterialId != ElementId.InvalidElementId && i == numLayer) // сравнение по индексу!
                 {
                     wignth = layer.Width * 304.8;
-                    layersId= layer.LayerId;
+                    layersId = i;
                 }
             }
             thickness += wignth;
